@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { getImagePath } from "@/lib/imageUtils";
+import heroImage from "@assets/CreatorKit-AI (7).jpg";
 
 const Hero = () => {
   return (
@@ -24,7 +24,7 @@ const Hero = () => {
           </div>
           <div className="order-1 md:order-2 flex justify-center">
             <img 
-              src={getImagePath("/attached_assets/CreatorKit-AI (7).jpg")} 
+              src={heroImage} 
               alt="Handcrafted South African leather bag" 
               className="rounded-lg shadow-lg max-h-[600px] object-cover" 
             />

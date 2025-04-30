@@ -1,5 +1,7 @@
 import { Link } from "wouter";
-import { getImagePath } from "@/lib/imageUtils";
+import image1 from "@assets/CreatorKit-AI (1).jpg";
+import image6 from "@assets/CreatorKit-AI (6).jpg";
+import image7 from "@assets/CreatorKit-AI (7).jpg";
 
 const Story = () => {
   return (
@@ -25,21 +27,21 @@ const Story = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="rounded-lg overflow-hidden shadow-lg">
               <img 
-                src={getImagePath("/attached_assets/CreatorKit-AI (1).jpg")} 
+                src={image1} 
                 alt="Leather craftsmanship" 
                 className="w-full h-64 object-cover" 
               />
             </div>
             <div className="rounded-lg overflow-hidden shadow-lg">
               <img 
-                src={getImagePath("/attached_assets/CreatorKit-AI (6).jpg")} 
+                src={image6} 
                 alt="Workshop" 
                 className="w-full h-64 object-cover" 
               />
             </div>
             <div className="rounded-lg overflow-hidden shadow-lg col-span-2">
               <img 
-                src={getImagePath("/attached_assets/CreatorKit-AI (7).jpg")} 
+                src={image7}
                 alt="Handcrafted Products" 
                 className="w-full h-48 object-cover" 
               />
