@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Base colors */
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  
+  /* Living Green Movement colors */
+  --primary: 133 14% 26%; /* #3A4D39 */
+  --primary-light: 126 17% 36%; /* #506B4E */
+  --primary-dark: 135 17% 20%; /* #2C3C2B */
+  --primary-foreground: 210 40% 98%;
+  
+  --secondary: 41 40% 93%; /* #F4F0E6 */
+  --secondary-light: 36 43% 97%; /* #FAF8F4 */
+  --secondary-dark: 39 23% 86%; /* #E5DFD3 */
+  --secondary-foreground: 24 9.8% 10%;
+  
+  --accent: 9 50% 42%; /* #A04B36 */
+  --accent-light: 11 46% 55%; /* #C06B56 */
+  --accent-dark: 9 48% 35%; /* #843E2E */
+  --accent-foreground: 0 0% 98%;
+  
+  --neutral: 0 0% 29%; /* #4A4A4A */
+  --neutral-light: 0 0% 43%; /* #6E6E6E */
+  --neutral-dark: 0 0% 20%; /* #333333 */
+  
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  
+  --primary: 133 14% 26%;
+  --primary-foreground: 210 40% 98%;
+  
+  --secondary: 41 40% 93%;
+  --secondary-foreground: 24 9.8% 10%;
+  
+  --accent: 9 50% 42%;
+  --accent-foreground: 0 0% 98%;
+  
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-secondary-light text-neutral font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-primary;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-semibold;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl font-semibold;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl font-semibold;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .divider {
+    @apply w-20 h-1 bg-accent my-4;
+  }
+
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-dark text-white font-accent font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent hover:bg-secondary-dark border border-primary text-primary hover:text-primary-dark font-accent font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200;
+  }
+
+  .btn-accent {
+    @apply bg-accent hover:bg-accent-dark text-white font-accent font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200;
+  }
+
+  .input-field {
+    @apply flex-grow px-4 py-3 rounded-md text-neutral focus:outline-none border border-gray-200 focus:border-primary;
+  }
+
+  .section-spacing {
+    @apply py-16;
+  }
+}
+
+/* Font classes */
+.font-sans {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-heading {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-accent {
+  font-family: 'Montserrat', sans-serif;
+}

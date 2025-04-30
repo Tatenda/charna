@@ -1,0 +1,45 @@
+import { useState } from "react";
+
+interface ProductGalleryProps {
+  images: string[];
+  name: string;
+}
+
+const ProductGallery = ({ images, name }: ProductGalleryProps) => {
+  const [mainImage, setMainImage] = useState(images[0]);
+  const maxThumbnails = 3;
+  const hasMoreImages = images.length > maxThumbnails;
+
+  return (
+    <div className="relative">
+      <div className="rounded-lg overflow-hidden shadow-lg">
+        <img 
+          src={mainImage}
+          alt={name}
+          className="w-full object-cover"
+        />
+      </div>
+      <div className="grid grid-cols-3 gap-3 mt-3">
+        {images.slice(0, maxThumbnails).map((image, index) => (
+          <img 
+            key={index}
+            src={image}
+            alt={`${name} - Angle ${index + 1}`}
+            className={`rounded-md cursor-pointer shadow hover:shadow-md ${mainImage === image ? 'ring-2 ring-primary' : ''}`}
+            onClick={() => setMainImage(image)}
+          />
+        ))}
+        {hasMoreImages && (
+          <div 
+            className="rounded-md cursor-pointer shadow hover:shadow-md bg-secondary flex items-center justify-center"
+            onClick={() => setMainImage(images[maxThumbnails])}
+          >
+            <span className="text-primary-dark">+{images.length - maxThumbnails}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ProductGallery;
