@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { getImagePath } from "@/lib/imageUtils";
 
 const Story = () => {
   return (
@@ -24,22 +25,22 @@ const Story = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="rounded-lg overflow-hidden shadow-lg">
               <img 
-                src="https://images.unsplash.com/photo-1531914082256-1b9047242426?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                src={getImagePath("/attached_assets/CreatorKit-AI (1).jpg")} 
                 alt="Leather craftsmanship" 
                 className="w-full h-64 object-cover" 
               />
             </div>
             <div className="rounded-lg overflow-hidden shadow-lg">
               <img 
-                src="https://images.unsplash.com/photo-1608731267464-c0c889c2ff92?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                src={getImagePath("/attached_assets/CreatorKit-AI (6).jpg")} 
                 alt="Workshop" 
                 className="w-full h-64 object-cover" 
               />
             </div>
             <div className="rounded-lg overflow-hidden shadow-lg col-span-2">
               <img 
-                src="https://images.unsplash.com/photo-1604943087673-1c06c2060de4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                alt="South African landscape" 
+                src={getImagePath("/attached_assets/CreatorKit-AI (7).jpg")} 
+                alt="Handcrafted Products" 
                 className="w-full h-48 object-cover" 
               />
             </div>

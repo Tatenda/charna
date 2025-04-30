@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import WhatsAppBanner from "@/components/home/WhatsAppBanner";
+import { getImagePath } from "@/lib/imageUtils";
 
 const Story = () => {
   // Set page title
@@ -45,7 +46,7 @@ const Story = () => {
             </div>
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1531914082256-1b9047242426?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                src={getImagePath("/attached_assets/CreatorKit-AI (1).jpg")} 
                 alt="Leather craftsman at work" 
                 className="rounded-lg shadow-lg w-full"
               />
@@ -114,7 +115,7 @@ const Story = () => {
               <div className="md:flex">
                 <div className="md:w-1/3">
                   <img 
-                    src="https://images.unsplash.com/photo-1608754482010-b8eab7d6f8b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                    src={getImagePath("/attached_assets/CreatorKit-AI (3).jpg")} 
                     alt="Master craftsman" 
                     className="h-full w-full object-cover"
                   />
@@ -137,7 +138,7 @@ const Story = () => {
               <div className="md:flex">
                 <div className="md:w-1/3">
                   <img 
-                    src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                    src={getImagePath("/attached_assets/CreatorKit-AI (4).jpg")} 
                     alt="Apprentice craftsperson" 
                     className="h-full w-full object-cover"
                   />
@@ -167,17 +168,17 @@ const Story = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <img 
-              src="https://images.unsplash.com/photo-1531914082256-1b9047242426?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+              src={getImagePath("/attached_assets/CreatorKit-AI (1).jpg")} 
               alt="Workshop activity" 
               className="rounded-lg shadow-md"
             />
             <img 
-              src="https://images.unsplash.com/photo-1621950350402-8cbb8d19af20?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-              alt="Leather cutting" 
+              src={getImagePath("/attached_assets/CreatorKit-AI (6).jpg")} 
+              alt="Leather crafting" 
               className="rounded-lg shadow-md"
             />
             <img 
-              src="https://images.unsplash.com/photo-1608731267464-c0c889c2ff92?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+              src={getImagePath("/attached_assets/CreatorKit-AI (7).jpg")} 
               alt="Leather workshop" 
               className="rounded-lg shadow-md"
             />
@@ -191,7 +192,7 @@ const Story = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1590242454056-dac866395fe2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                src={getImagePath("/attached_assets/CreatorKit-AI (3).jpg")} 
                 alt="Sustainable leather production" 
                 className="rounded-lg shadow-lg"
               />
