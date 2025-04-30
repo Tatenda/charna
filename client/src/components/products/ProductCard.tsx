@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Product } from "@shared/schema";
+import { getImagePath } from "@/lib/imageUtils";
 
 interface ProductCardProps {
   product: Product;
@@ -16,7 +17,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <Link href={`/products/${product.id}`}>
         <div className="relative">
           <img 
-            src={product.images[0]} 
+            src={getImagePath(product.images[0])} 
             alt={product.name} 
             className="w-full h-64 object-cover"
           />

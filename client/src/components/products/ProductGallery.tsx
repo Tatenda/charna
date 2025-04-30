@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getImagePath } from "@/lib/imageUtils";
 
 interface ProductGalleryProps {
   images: string[];
@@ -14,7 +15,7 @@ const ProductGallery = ({ images, name }: ProductGalleryProps) => {
     <div className="relative">
       <div className="rounded-lg overflow-hidden shadow-lg">
         <img 
-          src={mainImage}
+          src={getImagePath(mainImage)}
           alt={name}
           className="w-full object-cover"
         />
@@ -23,7 +24,7 @@ const ProductGallery = ({ images, name }: ProductGalleryProps) => {
         {images.slice(0, maxThumbnails).map((image, index) => (
           <img 
             key={index}
-            src={image}
+            src={getImagePath(image)}
             alt={`${name} - Angle ${index + 1}`}
             className={`rounded-md cursor-pointer shadow hover:shadow-md ${mainImage === image ? 'ring-2 ring-primary' : ''}`}
             onClick={() => setMainImage(image)}
