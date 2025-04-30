@@ -1,27 +1,28 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getImagePath } from "@/lib/imageUtils";
 
 const instagramPosts = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: "/attached_assets/CreatorKit-AI (1).jpg",
     likes: 124,
     url: "https://instagram.com"
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: "/attached_assets/CreatorKit-AI (3).jpg",
     likes: 87,
     url: "https://instagram.com"
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: "/attached_assets/CreatorKit-AI (4).jpg",
     likes: 156,
     url: "https://instagram.com"
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: "/attached_assets/CreatorKit-AI (6).jpg",
     likes: 98,
     url: "https://instagram.com"
   }
@@ -50,7 +51,7 @@ const InstagramFeed = () => {
               className="block relative rounded-lg overflow-hidden group"
             >
               <img 
-                src={post.image} 
+                src={getImagePath(post.image)} 
                 alt="Instagram post" 
                 className="w-full aspect-square object-cover"
               />
