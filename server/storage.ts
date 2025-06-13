@@ -63,8 +63,9 @@ export class MemStorage implements IStorage {
         "Durable metal hardware"
       ],
       images: [
-        "/attached_assets/CreatorKit-AI (1).jpg",
-        "/attached_assets/CreatorKit-AI (3).jpg"
+        "/images/tennis-bag-lifestyle.jpg",
+        "/images/tennis-bag-action.jpg",
+        "/images/tennis-bag-court.jpg"
       ],
       materials: "Made from 100% genuine leather sourced from responsible South African suppliers. Metal hardware with antique finish. Interior lined with durable canvas.",
       dimensions: "L 50cm x W 20cm x H 35cm. Handle drop: 25cm.",
@@ -96,9 +97,8 @@ export class MemStorage implements IStorage {
         "Top carrying handle"
       ],
       images: [
-        "/attached_assets/CreatorKit-AI (4).jpg",
-        "/attached_assets/CreatorKit-AI (6).jpg",
-        "/attached_assets/CreatorKit-AI (7).jpg"
+        "/images/work-backpack-studio.jpg",
+        "/images/work-backpack-urban.jpg"
       ],
       materials: "Crafted from 100% genuine South African leather. Metal zippers and hardware with matte black finish. Interior lined with water-resistant nylon.",
       dimensions: "L 30cm x W 15cm x H 40cm. Laptop compartment: 15\" max. Shoulder strap drop: adjustable up to 40cm.",
@@ -124,10 +124,11 @@ export class MemStorage implements IStorage {
   // Order Methods
   async createOrder(order: InsertOrder): Promise<Order> {
     const id = this.nextOrderId++;
-    const newOrder = {
+    const newOrder: Order = {
       ...order,
       id,
-      createdAt: new Date()
+      createdAt: new Date(),
+      status: order.status || "pending"
     };
     this.orders.set(id, newOrder);
     return newOrder;

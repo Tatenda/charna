@@ -46,7 +46,7 @@ const Story = () => {
             </div>
             <div>
               <img 
-                src={getImagePath("/attached_assets/CreatorKit-AI (1).jpg")} 
+                src="/images/tennis-bag-lifestyle.jpg" 
                 alt="Leather craftsman at work" 
                 className="rounded-lg shadow-lg w-full"
               />
@@ -115,7 +115,7 @@ const Story = () => {
               <div className="md:flex">
                 <div className="md:w-1/3">
                   <img 
-                    src={getImagePath("/attached_assets/CreatorKit-AI (3).jpg")} 
+                    src="/images/work-backpack-studio.jpg" 
                     alt="Master craftsman" 
                     className="h-full w-full object-cover"
                   />
@@ -138,7 +138,7 @@ const Story = () => {
               <div className="md:flex">
                 <div className="md:w-1/3">
                   <img 
-                    src={getImagePath("/attached_assets/CreatorKit-AI (4).jpg")} 
+                    src="/images/tennis-bag-action.jpg" 
                     alt="Apprentice craftsperson" 
                     className="h-full w-full object-cover"
                   />
@@ -168,17 +168,17 @@ const Story = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <img 
-              src={getImagePath("/attached_assets/CreatorKit-AI (1).jpg")} 
+              src="/images/work-backpack-urban.jpg" 
               alt="Workshop activity" 
               className="rounded-lg shadow-md"
             />
             <img 
-              src={getImagePath("/attached_assets/CreatorKit-AI (6).jpg")} 
+              src="/images/tennis-bag-court.jpg" 
               alt="Leather crafting" 
               className="rounded-lg shadow-md"
             />
             <img 
-              src={getImagePath("/attached_assets/CreatorKit-AI (7).jpg")} 
+              src="/images/tennis-bag-lifestyle.jpg" 
               alt="Leather workshop" 
               className="rounded-lg shadow-md"
             />
@@ -192,7 +192,7 @@ const Story = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <img 
-                src={getImagePath("/attached_assets/CreatorKit-AI (3).jpg")} 
+                src="/images/work-backpack-studio.jpg" 
                 alt="Sustainable leather production" 
                 className="rounded-lg shadow-lg"
               />
