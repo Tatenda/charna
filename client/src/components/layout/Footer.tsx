@@ -7,8 +7,8 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div>
-            <h4 className="font-heading text-xl font-semibold mb-4">LIVING GREEN</h4>
-            <p className="text-white/70 mb-4">Handcrafted leather bags made in South Africa with purpose and passion.</p>
+            <h4 className="font-heading text-xl font-semibold mb-4">CONCETTO</h4>
+            <p className="text-white/70 mb-4">Exquisite Italian leather craftsmanship. Luxury redefined through timeless design.</p>
             <div className="flex space-x-4">
               <a 
                 href="https://facebook.com" 
@@ -122,7 +122,7 @@ const Footer = () => {
         <div className="border-t border-white/20 pt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="text-white/50 text-sm">
-              © {new Date().getFullYear()} Living Green Movement. All rights reserved.
+              © {new Date().getFullYear()} Concetto. All rights reserved.
             </div>
             <div className="text-white/50 text-sm md:text-right">
               <Link href="/terms" className="hover:text-white transition duration-200">Terms & Conditions</Link> | 
