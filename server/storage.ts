@@ -67,7 +67,7 @@ export class MemStorage implements IStorage {
         "/images/tennis-bag-action.jpg",
         "/images/tennis-bag-court.jpg"
       ],
-      materials: "Handcrafted from premium Italian full-grain leather in cognac. Signature brass hardware with antique finish. Interior lined with luxurious suede.",
+      materials: "Handcrafted from premium Italian full-grain leather, made in South Africa. Signature brass hardware with antique finish. Interior lined with luxurious suede.",
       dimensions: "L 52cm x W 22cm x H 36cm. Handle drop: 26cm.",
       careInstructions: "Clean with premium leather care products only. Store in provided dust bag. Professional conditioning recommended every 6 months.",
       featured: true,
@@ -135,7 +135,7 @@ export class MemStorage implements IStorage {
         "/images/ivory-backpack-studio.jpg",
         "/images/concetto-brand-logo.jpg"
       ],
-      materials: "Handcrafted from finest Italian full-grain leather in ivory. Premium brass hardware with polished finish. Interior lined with luxurious cotton canvas.",
+      materials: "Handcrafted from finest Italian full-grain leather, made in South Africa. Premium brass hardware with polished finish. Interior lined with luxurious cotton canvas.",
       dimensions: "L 28cm x W 14cm x H 38cm. Adjustable straps: 65-80cm.",
       careInstructions: "Handle with care due to light color. Use specialized ivory leather cleaner. Store in provided dust bag. Professional conditioning recommended every 6 months.",
       featured: true,
