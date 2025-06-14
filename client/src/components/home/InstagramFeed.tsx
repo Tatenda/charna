@@ -27,10 +27,10 @@ const instagramPosts = [
   },
   {
     id: 4,
-    image: "/images/work-backpack-studio.jpg",
-    likes: 321,
-    caption: "Executive Tote in Ivory - Understated elegance for the modern professional",
-    hashtags: "#ExecutiveTote #IvoryLeather #BusinessLuxury",
+    image: "/images/ivory-backpack-studio.jpg",
+    likes: 521,
+    caption: "Compact Backpack in Ivory - Refined elegance in perfect proportions",
+    hashtags: "#CompactBackpack #IvoryLeather #MinimalistLuxury",
     url: "https://instagram.com"
   },
   {

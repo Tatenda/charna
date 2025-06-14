@@ -141,6 +141,40 @@ export class MemStorage implements IStorage {
       featured: true,
       createdAt: new Date("2024-02-10T00:00:00Z")
     });
+
+    // Compact Executive Backpack - Ivory
+    this.products.set(4, {
+      id: 4,
+      name: "Concetto Compact Backpack - Ivory",
+      description: "An exquisite compact backpack in pristine ivory leather. Perfect for the sophisticated professional who values both elegance and functionality in a refined silhouette.",
+      longDescription: "The Concetto Compact Backpack in Ivory represents the pinnacle of understated luxury. This beautifully proportioned piece is crafted from the finest Italian leather in a timeless ivory finish that exudes sophistication and grace.\n\nDesigned for the discerning individual who appreciates refined aesthetics, this compact backpack offers the perfect balance of form and function. The clean lines and minimalist design speak to contemporary sensibilities while the premium craftsmanship honors traditional Italian leather artistry.\n\nEvery detail has been meticulously considered, from the precision stitching to the carefully selected hardware. This is more than a backpack – it's a statement of refined taste and appreciation for the finer things in life.",
+      price: 3299,
+      originalPrice: 3799,
+      rating: 49, // 4.9
+      reviewCount: 24,
+      inStock: true,
+      badge: "Signature",
+      category: "business",
+      colors: ["ivory"],
+      features: [
+        "Premium Italian ivory leather",
+        "Compact sophisticated design",
+        "Laptop compartment (13\")",
+        "Refined minimalist aesthetic",
+        "Premium leather straps",
+        "Interior organization pockets",
+        "Signature brass hardware"
+      ],
+      images: [
+        "/images/ivory-backpack-studio.jpg",
+        "/images/concetto-brand-logo.jpg"
+      ],
+      materials: "Handcrafted from finest Italian full-grain leather in ivory. Premium brass hardware with polished finish. Interior lined with luxurious cotton canvas.",
+      dimensions: "L 28cm x W 14cm x H 38cm. Adjustable straps: 65-80cm.",
+      careInstructions: "Handle with care due to light color. Use specialized ivory leather cleaner. Store in provided dust bag. Professional conditioning recommended every 6 months.",
+      featured: true,
+      createdAt: new Date("2024-02-15T00:00:00Z")
+    });
   }
 
   // Product Methods
