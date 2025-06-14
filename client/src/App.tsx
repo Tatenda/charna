@@ -31,6 +31,11 @@ function Router() {
       <Route path="/checkout" component={Checkout} />
       <Route path="/story" component={Story} />
       <Route path="/contact" component={Contact} />
+      <Route path="/shipping-returns" component={ShippingReturns} />
+      <Route path="/faq" component={FAQ} />
+      <Route path="/care" component={Care} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
     </Switch>
   );

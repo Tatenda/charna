@@ -7,7 +7,7 @@ import { getImagePath } from "@/lib/imageUtils";
 const Story = () => {
   // Set page title
   useEffect(() => {
-    document.title = "Our Story | LIVING GREEN MOVEMENT";
+    document.title = "Our Story | Concetto";
   }, []);
 
   return (
@@ -19,7 +19,7 @@ const Story = () => {
             Our Story
           </h1>
           <p className="text-white/80 text-center max-w-3xl mx-auto text-lg">
-            Handcrafted with purpose, rooted in South African craftsmanship and community.
+            Italian luxury craftsmanship meets timeless design. Discover the heritage behind every Concetto piece.
           </p>
         </div>
       </div>
@@ -29,19 +29,19 @@ const Story = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Our Beginning</h2>
+              <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Italian Heritage</h2>
               <div className="divider mb-6"></div>
               <p className="text-neutral mb-4 leading-relaxed">
-                Living Green Movement was founded in 2018 in a small workshop in Cape Town by a third-generation leather artisan with a vision 
-                to create beautiful, functional bags that celebrate South African craftsmanship while providing sustainable livelihoods for local artisans.
+                Concetto was born from a profound appreciation for Italian leather craftsmanship, where tradition meets contemporary elegance. 
+                Our founder, inspired by the artisan workshops of Florence and Milan, envisioned creating luxury pieces that embody the essence of Italian design philosophy.
               </p>
               <p className="text-neutral mb-4 leading-relaxed">
-                What began as a small passion project quickly grew into a thriving business as people resonated with our commitment to quality, 
-                authenticity, and social responsibility.
+                Every Concetto piece reflects our commitment to "bellezza funzionale" – functional beauty that transcends trends and time. 
+                We source the finest Italian full-grain leather, working with artisans who have perfected their craft through generations.
               </p>
               <p className="text-neutral leading-relaxed">
-                Today, we continue to handcraft each bag with the same dedication to quality and community, combining timeless techniques with
-                modern designs that complement the lives of our customers around the world.
+                Today, Concetto continues this legacy of excellence, creating luxury leather goods that serve as companions to life's most important moments, 
+                from boardroom presentations to weekend escapes.
               </p>
             </div>
             <div>
@@ -97,9 +97,9 @@ const Story = () => {
           
           <div className="mt-16 text-center">
             <blockquote className="text-2xl font-heading text-primary italic max-w-3xl mx-auto">
-              "Our mission is to preserve traditional craftsmanship while creating products that stand the test of time — in quality, design, and purpose."
+              "Concetto represents the perfect synthesis of Italian tradition and contemporary luxury — each piece tells a story of heritage, craftsmanship, and timeless elegance."
             </blockquote>
-            <p className="mt-4 font-accent font-semibold">— Founder, Living Green Movement</p>
+            <p className="mt-4 font-accent font-semibold">— Founder, Concetto</p>
           </div>
         </div>
       </section>
@@ -107,7 +107,7 @@ const Story = () => {
       {/* Craftspeople */}
       <section id="craftspeople" className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Meet Our Craftspeople</h2>
+          <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Italian Artisan Heritage</h2>
           <div className="divider mb-8"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
@@ -115,20 +115,20 @@ const Story = () => {
               <div className="md:flex">
                 <div className="md:w-1/3">
                   <img 
-                    src="/images/work-backpack-studio.jpg" 
-                    alt="Master craftsman" 
+                    src="/images/concetto-brand-logo.jpg" 
+                    alt="Master leather artisan" 
                     className="h-full w-full object-cover"
                   />
                 </div>
                 <div className="p-6 md:w-2/3">
-                  <h3 className="font-heading text-xl font-semibold mb-2">David Ndlovu</h3>
-                  <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Master Craftsman</p>
+                  <h3 className="font-heading text-xl font-semibold mb-2">Marco Bianchi</h3>
+                  <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Master Leather Artisan</p>
                   <p className="text-neutral mb-4">
-                    With over 25 years of experience in leatherwork, David leads our production team and oversees quality control. 
-                    His expertise in traditional techniques ensures the exceptional quality of each Living Green bag.
+                    Third-generation leather craftsman from Florence, Marco brings decades of traditional Italian techniques to every Concetto piece. 
+                    His mastery of leather selection and hand-finishing creates the distinctive quality our clients cherish.
                   </p>
                   <p className="text-neutral">
-                    "I love seeing our designs come to life and knowing that each piece will become part of someone's daily journey."
+                    "Every hide tells a story, and every stitch honors the legacy of Italian craftsmanship."
                   </p>
                 </div>
               </div>
@@ -139,19 +139,19 @@ const Story = () => {
                 <div className="md:w-1/3">
                   <img 
                     src="/images/tennis-bag-action.jpg" 
-                    alt="Apprentice craftsperson" 
+                    alt="Design specialist" 
                     className="h-full w-full object-cover"
                   />
                 </div>
                 <div className="p-6 md:w-2/3">
-                  <h3 className="font-heading text-xl font-semibold mb-2">Thandi Dlamini</h3>
-                  <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Design Lead</p>
+                  <h3 className="font-heading text-xl font-semibold mb-2">Sofia Rossi</h3>
+                  <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Design Director</p>
                   <p className="text-neutral mb-4">
-                    Thandi brings a contemporary perspective to our traditional techniques. A graduate of the Cape Town Design Academy, 
-                    she blends modern aesthetics with functional designs.
+                    Trained at the Istituto Europeo di Design in Milan, Sofia brings contemporary vision to our timeless techniques. 
+                    Her designs balance functional elegance with the sophisticated Italian aesthetic that defines Concetto.
                   </p>
                   <p className="text-neutral">
-                    "I draw inspiration from South Africa's diverse landscapes and cultures to create bags that tell a story."
+                    "True luxury lies in the perfect harmony between form, function, and the soul of Italian craftsmanship."
                   </p>
                 </div>
               </div>
@@ -159,10 +159,10 @@ const Story = () => {
           </div>
           
           <div className="text-center mb-12">
-            <h3 className="font-heading text-2xl font-semibold mb-4">Our Team</h3>
+            <h3 className="font-heading text-2xl font-semibold mb-4">Excellence Through Expertise</h3>
             <p className="text-neutral max-w-3xl mx-auto">
-              Our workshop employs 12 skilled artisans from local communities, many of whom have trained through our apprenticeship program. 
-              Each team member brings their unique perspective and skill to create products we're all proud of.
+              Our atelier works with select Italian artisan partners who share our commitment to excellence. 
+              Each craftsperson brings generations of expertise to create luxury pieces that honor traditional methods while embracing contemporary elegance.
             </p>
           </div>
           
