@@ -19,7 +19,7 @@ const Story = () => {
             Our Story
           </h1>
           <p className="text-white/80 text-center max-w-3xl mx-auto text-lg">
-            Italian luxury craftsmanship meets timeless design. Discover the heritage behind every Concetto piece.
+            From Italian family dreams to South African reality. Discover how we honor heritage while celebrating local craftsmanship.
           </p>
         </div>
       </div>
@@ -29,19 +29,19 @@ const Story = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Italian Heritage</h2>
+              <h2 className="font-heading text-3xl font-semibold text-primary mb-6">From Italian Dreams to South African Reality</h2>
               <div className="divider mb-6"></div>
               <p className="text-neutral mb-4 leading-relaxed">
-                Concetto was born from a profound appreciation for Italian leather craftsmanship, where tradition meets contemporary elegance. 
-                Our founder, inspired by the artisan workshops of Florence and Milan, envisioned creating luxury pieces that embody the essence of Italian design philosophy.
+                Concetto was born from a family dream spanning generations. My father's Italian parents had always envisioned creating a luxury bag business, 
+                carrying with them the rich traditions of Italian leather craftsmanship and the pursuit of "bellezza funzionale" – functional beauty.
               </p>
               <p className="text-neutral mb-4 leading-relaxed">
-                Every Concetto piece reflects our commitment to "bellezza funzionale" – functional beauty that transcends trends and time. 
-                We source the finest Italian full-grain leather, working with artisans who have perfected their craft through generations.
+                Though their dream remained unrealized, the vision lived on. Today, we've brought that Italian heritage to life in South Africa, 
+                where we handcraft each Concetto piece using traditional Italian techniques combined with local artisanal excellence.
               </p>
               <p className="text-neutral leading-relaxed">
-                Today, Concetto continues this legacy of excellence, creating luxury leather goods that serve as companions to life's most important moments, 
-                from boardroom presentations to weekend escapes.
+                Made in South Africa with Italian soul, our luxury leather goods honor both the family legacy and the exceptional craftsmanship 
+                of local artisans who bring these timeless designs to life with pride and precision.
               </p>
             </div>
             <div>
@@ -97,7 +97,7 @@ const Story = () => {
           
           <div className="mt-16 text-center">
             <blockquote className="text-2xl font-heading text-primary italic max-w-3xl mx-auto">
-              "Concetto represents the perfect synthesis of Italian tradition and contemporary luxury — each piece tells a story of heritage, craftsmanship, and timeless elegance."
+              "We honor my grandparents' Italian dream while celebrating the incredible craftsmanship of South African artisans — every Concetto piece bridges heritage with local excellence."
             </blockquote>
             <p className="mt-4 font-accent font-semibold">— Founder, Concetto</p>
           </div>
@@ -107,7 +107,7 @@ const Story = () => {
       {/* Craftspeople */}
       <section id="craftspeople" className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Italian Artisan Heritage</h2>
+          <h2 className="font-heading text-3xl font-semibold text-primary mb-6">South African Artisans, Italian Heritage</h2>
           <div className="divider mb-8"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
@@ -116,19 +116,19 @@ const Story = () => {
                 <div className="md:w-1/3">
                   <img 
                     src="/images/concetto-brand-logo.jpg" 
-                    alt="Master leather artisan" 
+                    alt="Master leather craftsman" 
                     className="h-full w-full object-cover"
                   />
                 </div>
                 <div className="p-6 md:w-2/3">
-                  <h3 className="font-heading text-xl font-semibold mb-2">Marco Bianchi</h3>
-                  <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Master Leather Artisan</p>
+                  <h3 className="font-heading text-xl font-semibold mb-2">David Ndlovu</h3>
+                  <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Master Craftsman</p>
                   <p className="text-neutral mb-4">
-                    Third-generation leather craftsman from Florence, Marco brings decades of traditional Italian techniques to every Concetto piece. 
-                    His mastery of leather selection and hand-finishing creates the distinctive quality our clients cherish.
+                    With over 25 years of leatherwork experience in Cape Town, David leads our production team and has mastered the Italian techniques 
+                    passed down through our family heritage. His expertise brings the founder's grandparents' vision to life.
                   </p>
                   <p className="text-neutral">
-                    "Every hide tells a story, and every stitch honors the legacy of Italian craftsmanship."
+                    "Every bag carries the Italian dream forward while celebrating the skill and pride of South African craftsmanship."
                   </p>
                 </div>
               </div>
@@ -139,19 +139,19 @@ const Story = () => {
                 <div className="md:w-1/3">
                   <img 
                     src="/images/tennis-bag-action.jpg" 
-                    alt="Design specialist" 
+                    alt="Local craftsperson" 
                     className="h-full w-full object-cover"
                   />
                 </div>
                 <div className="p-6 md:w-2/3">
-                  <h3 className="font-heading text-xl font-semibold mb-2">Sofia Rossi</h3>
-                  <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Design Director</p>
+                  <h3 className="font-heading text-xl font-semibold mb-2">Thandi Dlamini</h3>
+                  <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Design Lead</p>
                   <p className="text-neutral mb-4">
-                    Trained at the Istituto Europeo di Design in Milan, Sofia brings contemporary vision to our timeless techniques. 
-                    Her designs balance functional elegance with the sophisticated Italian aesthetic that defines Concetto.
+                    A Cape Town Design Academy graduate, Thandi bridges Italian design heritage with contemporary South African aesthetics. 
+                    Her work honors traditional methods while creating pieces for modern life.
                   </p>
                   <p className="text-neutral">
-                    "True luxury lies in the perfect harmony between form, function, and the soul of Italian craftsmanship."
+                    "We're bringing Italian family dreams to life through the incredible skill of local artisans."
                   </p>
                 </div>
               </div>
@@ -159,10 +159,10 @@ const Story = () => {
           </div>
           
           <div className="text-center mb-12">
-            <h3 className="font-heading text-2xl font-semibold mb-4">Excellence Through Expertise</h3>
+            <h3 className="font-heading text-2xl font-semibold mb-4">Made in South Africa with Italian Soul</h3>
             <p className="text-neutral max-w-3xl mx-auto">
-              Our atelier works with select Italian artisan partners who share our commitment to excellence. 
-              Each craftsperson brings generations of expertise to create luxury pieces that honor traditional methods while embracing contemporary elegance.
+              Our Cape Town workshop employs skilled local artisans who have embraced the Italian techniques and design philosophy 
+              inherited from the founder's grandparents. Each craftsperson brings pride and precision to create luxury pieces that honor both heritage and local excellence.
             </p>
           </div>
           
@@ -219,9 +219,9 @@ const Story = () => {
                     <FontAwesomeIcon icon="water" className="text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-accent text-lg font-semibold mb-1">Ethical Italian Sourcing</h3>
+                    <h3 className="font-accent text-lg font-semibold mb-1">Responsible Sourcing</h3>
                     <p className="text-neutral">
-                      We partner exclusively with certified Italian tanneries that follow strict environmental protocols and traditional vegetable-tanning methods, ensuring the highest quality while respecting nature.
+                      We source premium Italian leather from certified tanneries that follow strict environmental protocols, then craft each piece in our South African workshop using traditional techniques passed down through our family heritage.
                     </p>
                   </div>
                 </div>
@@ -243,9 +243,9 @@ const Story = () => {
                     <FontAwesomeIcon icon="seedling" className="text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-accent text-lg font-semibold mb-1">Heritage Preservation</h3>
+                    <h3 className="font-accent text-lg font-semibold mb-1">Local Community Support</h3>
                     <p className="text-neutral">
-                      By supporting traditional Italian craftsmanship, we preserve artisan heritage while creating pieces designed to last generations, reducing the need for replacement.
+                      Made in South Africa, we support local craftspeople and communities while preserving Italian family heritage. Each piece creates meaningful employment and celebrates both traditions.
                     </p>
                   </div>
                 </div>

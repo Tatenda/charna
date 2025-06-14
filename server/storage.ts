@@ -101,7 +101,7 @@ export class MemStorage implements IStorage {
         "/images/concetto-brand-logo.jpg",
         "/images/green-backpack-lifestyle.jpg"
       ],
-      materials: "Crafted from finest Italian full-grain leather in ivory. Signature brass hardware with gold finish. Lined with premium cotton canvas.",
+      materials: "Crafted from finest Italian full-grain leather, handmade in South Africa. Signature brass hardware with gold finish. Lined with premium cotton canvas.",
       dimensions: "L 38cm x W 12cm x H 28cm. Handle drop: 22cm.",
       careInstructions: "Handle with care due to light color. Use specialized ivory leather cleaner. Store in provided dust bag. Professional cleaning recommended.",
       featured: true,
