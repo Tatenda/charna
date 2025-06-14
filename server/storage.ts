@@ -40,71 +40,106 @@ export class MemStorage implements IStorage {
 
   // Initialize sample products
   private initializeProducts() {
-    // Tennis Bag (White)
+    // Tennis Bag Tote
     this.products.set(1, {
       id: 1,
-      name: "Leather Tennis Bag Tote",
-      description: "Our elegant white leather tennis bag combines style and functionality. Featuring premium South African leather with striking red accents, this spacious tote comfortably holds your racket, gear, and personal items.",
-      longDescription: "Designed for the stylish athlete who values quality craftsmanship, our Leather Tennis Bag Tote is the perfect companion for your sporting lifestyle. Made from premium South African leather, each bag is meticulously crafted by our skilled artisans to ensure exceptional quality and durability. The distinctive red accent straps not only add a pop of color but also provide sturdy support for carrying your gear.\n\nThe spacious interior easily accommodates a standard tennis racket, tennis balls, shoes, and other essentials, while the inner pocket keeps your valuables safe and organized. Whether you're heading to the court or meeting friends after a match, this versatile tote transitions effortlessly from sport to social settings.",
-      price: 1850,
-      originalPrice: 2200,
-      rating: 49, // 4.9
-      reviewCount: 28,
+      name: "Concetto Tennis Tote",
+      description: "An exquisite cognac leather tennis bag that embodies sophistication and functionality. Crafted with meticulous attention to detail for the discerning athlete.",
+      longDescription: "The Concetto Tennis Tote represents the pinnacle of luxury sporting accessories. Each bag is meticulously handcrafted from the finest Italian full-grain leather, showcasing our commitment to uncompromising quality and timeless design. The rich cognac finish develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the sophisticated athlete who appreciates craftsmanship, this tote seamlessly transitions from court to club. The thoughtfully designed interior accommodates all your tennis essentials while maintaining an elegant silhouette that speaks to your refined taste.",
+      price: 3299,
+      originalPrice: 3899,
+      rating: 50, // 5.0
+      reviewCount: 42,
       inStock: true,
-      badge: "Bestseller",
+      badge: "Signature",
       category: "tennis",
-      colors: ["white"],
+      colors: ["cognac"],
       features: [
-        "Premium South African leather",
-        "Handcrafted by local artisans",
-        "Spacious interior compartment",
-        "Distinctive red accent straps",
-        "Fits standard tennis rackets",
-        "Durable metal hardware"
+        "Premium Italian full-grain leather",
+        "Hand-stitched construction",
+        "Signature brass hardware",
+        "Multiple interior compartments",
+        "Racket-specific organization",
+        "Luxurious suede lining"
       ],
       images: [
         "/images/tennis-bag-lifestyle.jpg",
         "/images/tennis-bag-action.jpg",
         "/images/tennis-bag-court.jpg"
       ],
-      materials: "Made from 100% genuine leather sourced from responsible South African suppliers. Metal hardware with antique finish. Interior lined with durable canvas.",
-      dimensions: "L 50cm x W 20cm x H 35cm. Handle drop: 25cm.",
-      careInstructions: "Spot clean with a damp cloth. Avoid prolonged exposure to direct sunlight. Apply leather conditioner every 3-6 months to maintain suppleness.",
+      materials: "Handcrafted from premium Italian full-grain leather in cognac. Signature brass hardware with antique finish. Interior lined with luxurious suede.",
+      dimensions: "L 52cm x W 22cm x H 36cm. Handle drop: 26cm.",
+      careInstructions: "Clean with premium leather care products only. Store in provided dust bag. Professional conditioning recommended every 6 months.",
       featured: true,
-      createdAt: new Date("2023-01-15T00:00:00Z")
+      createdAt: new Date("2024-01-15T00:00:00Z")
     });
 
-    // Work Backpack (Black)
+    // Executive Business Tote - Ivory
     this.products.set(2, {
       id: 2,
-      name: "Leather Work Backpack",
-      description: "Our premium black leather work backpack is the perfect blend of professionalism and practicality. Handcrafted from luxurious South African leather, this sleek backpack features a minimalist design with thoughtful organization.",
-      longDescription: "Elevate your professional style with our sophisticated Leather Work Backpack. Meticulously handcrafted from premium South African leather, this backpack combines timeless elegance with modern functionality. The sleek, minimalist design makes it suitable for any professional setting while providing ample space for your work essentials.\n\nThoughtfully designed with the modern professional in mind, the backpack features a padded laptop compartment that safely holds devices up to 15 inches, multiple interior pockets for organization, and a convenient front zip pocket for quick access to your most-used items. The water-resistant lining adds an extra layer of protection for your valuable electronics and documents.\n\nThe adjustable shoulder straps are padded for comfort during your daily commute, while the top carrying handle offers an alternative carrying option. This versatile backpack effortlessly transitions from the office to business travel, maintaining its sophisticated look throughout your professional journey.",
-      price: 2450,
-      originalPrice: null,
-      rating: 47, // 4.7
-      reviewCount: 19,
+      name: "Concetto Executive Tote - Ivory",
+      description: "An elegant compact leather tote in pristine ivory, designed for the sophisticated professional. Perfect for daily essentials with refined Italian craftsmanship.",
+      longDescription: "The Concetto Executive Tote in Ivory represents understated luxury at its finest. Crafted from the most exquisite Italian full-grain leather, this compact yet functional tote is designed for the discerning professional who values both style and substance.\n\nThe pristine ivory finish exudes sophistication while the structured silhouette maintains its elegant form throughout daily use. Each piece is meticulously handcrafted with attention to every detail, from the precise stitching to the signature brass hardware that bears the Concetto mark of excellence.\n\nThis versatile tote seamlessly transitions from boardroom to social events, making it an essential accessory for the modern executive who appreciates timeless design and uncompromising quality.",
+      price: 2799,
+      originalPrice: 3299,
+      rating: 48, // 4.8
+      reviewCount: 31,
       inStock: true,
-      badge: "New Arrival",
-      category: "work",
-      colors: ["black"],
+      badge: "Limited Edition",
+      category: "business",
+      colors: ["ivory"],
       features: [
-        "Premium black leather",
-        "Laptop compartment (up to 15\")",
-        "Front zippered pocket",
-        "Adjustable shoulder straps",
-        "Water-resistant lining",
-        "Top carrying handle"
+        "Premium Italian ivory leather",
+        "Compact professional design",
+        "Interior laptop sleeve (13\")",
+        "Structured top handles",
+        "Magnetic closure",
+        "Multiple organization pockets",
+        "Signature Concetto hardware"
       ],
       images: [
-        "/images/work-backpack-studio.jpg",
-        "/images/work-backpack-urban.jpg"
+        "/images/concetto-brand-logo.jpg",
+        "/images/work-backpack-studio.jpg"
       ],
-      materials: "Crafted from 100% genuine South African leather. Metal zippers and hardware with matte black finish. Interior lined with water-resistant nylon.",
-      dimensions: "L 30cm x W 15cm x H 40cm. Laptop compartment: 15\" max. Shoulder strap drop: adjustable up to 40cm.",
-      careInstructions: "Wipe clean with a soft, dry cloth. For stains, use a leather cleaner specifically designed for black leather. Condition every 3-6 months to maintain leather quality.",
+      materials: "Crafted from finest Italian full-grain leather in ivory. Signature brass hardware with gold finish. Lined with premium cotton canvas.",
+      dimensions: "L 38cm x W 12cm x H 28cm. Handle drop: 22cm.",
+      careInstructions: "Handle with care due to light color. Use specialized ivory leather cleaner. Store in provided dust bag. Professional cleaning recommended.",
       featured: true,
-      createdAt: new Date("2023-03-10T00:00:00Z")
+      createdAt: new Date("2024-02-01T00:00:00Z")
+    });
+
+    // Executive Business Backpack - Forest
+    this.products.set(3, {
+      id: 3,
+      name: "Concetto Executive Backpack - Forest",
+      description: "A statement piece in luxurious forest green leather. This sophisticated backpack merges contemporary design with timeless elegance for the modern professional.",
+      longDescription: "The Concetto Executive Backpack in Forest Green is a bold statement of contemporary luxury. This exceptional piece showcases our mastery of leather craftsmanship through its rich, deep forest green hue that develops character with each use.\n\nDesigned for the modern professional who dares to stand out, this backpack combines cutting-edge functionality with classic Italian leather craftsmanship. The sophisticated forest green leather is complemented by premium brass hardware, creating a striking contrast that speaks to refined taste.\n\nEvery aspect of this backpack has been thoughtfully considered, from the ergonomic strap design to the organized interior compartments. It's not just a bag – it's a testament to your commitment to excellence and appreciation for the finer things in life.",
+      price: 3899,
+      originalPrice: 4499,
+      rating: 50, // 5.0
+      reviewCount: 18,
+      inStock: true,
+      badge: "Exclusive",
+      category: "business",
+      colors: ["forest green"],
+      features: [
+        "Luxurious forest green Italian leather",
+        "Contemporary backpack design",
+        "Laptop compartment (15\")",
+        "Premium padded leather straps",
+        "Front zippered compartment",
+        "Interior organizational system",
+        "Signature Concetto branding"
+      ],
+      images: [
+        "/images/green-backpack-lifestyle.jpg",
+        "/images/concetto-brand-logo.jpg"
+      ],
+      materials: "Handcrafted from exclusive forest green Italian leather. Premium brass hardware with brushed finish. Interior lined with signature Concetto fabric.",
+      dimensions: "L 32cm x W 16cm x H 42cm. Adjustable straps: 70-85cm.",
+      careInstructions: "Maintain with premium leather conditioner. Avoid prolonged sun exposure. Store upright in dust bag when not in use.",
+      featured: true,
+      createdAt: new Date("2024-02-10T00:00:00Z")
     });
   }
 

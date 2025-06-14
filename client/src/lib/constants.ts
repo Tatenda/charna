@@ -1,21 +1,21 @@
 // Product Categories
 export const PRODUCT_CATEGORIES = {
   TENNIS: "tennis",
-  WORK: "work",
+  BUSINESS: "business",
 };
 
 // Product Colors
 export const PRODUCT_COLORS = {
-  WHITE: "white",
-  BLACK: "black",
-  BROWN: "brown",
+  COGNAC: "cognac",
+  IVORY: "ivory",
+  FOREST_GREEN: "forest green",
 };
 
 // Product Badges
 export const PRODUCT_BADGES = {
-  BESTSELLER: "Bestseller",
-  NEW_ARRIVAL: "New Arrival",
-  SALE: "Sale",
+  SIGNATURE: "Signature",
+  LIMITED_EDITION: "Limited Edition",
+  EXCLUSIVE: "Exclusive",
 };
 
 // South African Provinces
@@ -36,14 +36,14 @@ export const WHATSAPP_NUMBER = "27123456789";
 
 // Company Info
 export const COMPANY_INFO = {
-  name: "LIVING GREEN MOVEMENT",
-  founded: 2018,
+  name: "CONCETTO",
+  founded: 2019,
   location: "Cape Town, South Africa",
-  tagline: "Made in South Africa, Made with Purpose",
+  tagline: "Italian Craftsmanship, Timeless Elegance",
   values: [
-    "Artisan Craftsmanship",
-    "Environmental Responsibility",
-    "Community Empowerment",
+    "Uncompromising Quality",
+    "Italian Heritage",
+    "Sophisticated Design",
   ],
 };
 
