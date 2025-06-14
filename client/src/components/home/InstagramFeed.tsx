@@ -3,44 +3,50 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const instagramPosts = [
   {
     id: 1,
-    image: "/images/tennis-bag-action.jpg",
-    likes: 287,
-    caption: "Court ready with premium leather craftsmanship",
+    image: "/images/green-backpack-lifestyle.jpg",
+    likes: 542,
+    caption: "Forest Green Executive Backpack - Where luxury meets functionality",
+    hashtags: "#Concetto #ItalianLeather #LuxuryBackpack",
     url: "https://instagram.com"
   },
   {
     id: 2,
-    image: "/images/work-backpack-urban.jpg",
-    likes: 156,
-    caption: "Urban elegance meets professional functionality",
+    image: "/images/concetto-brand-logo.jpg",
+    likes: 398,
+    caption: "Exquisite craftsmanship in every detail - Concetto signature quality",
+    hashtags: "#LuxuryCraftsmanship #ItalianMade #Concetto",
     url: "https://instagram.com"
   },
   {
     id: 3,
     image: "/images/tennis-bag-lifestyle.jpg",
-    likes: 203,
-    caption: "Handcrafted leather bags for authentic living",
+    likes: 467,
+    caption: "Tennis Tote in cognac leather - Sophistication meets sport",
+    hashtags: "#TennisLuxury #CogacLeather #ConceptoTote",
     url: "https://instagram.com"
   },
   {
     id: 4,
     image: "/images/work-backpack-studio.jpg",
-    likes: 134,
-    caption: "Made in South Africa, crafted with purpose",
+    likes: 321,
+    caption: "Executive Tote in Ivory - Understated elegance for the modern professional",
+    hashtags: "#ExecutiveTote #IvoryLeather #BusinessLuxury",
     url: "https://instagram.com"
   },
   {
     id: 5,
     image: "/images/tennis-bag-court.jpg",
-    likes: 219,
-    caption: "Luxury meets performance in every stitch",
+    likes: 289,
+    caption: "Court to club - Italian craftsmanship that transcends occasions",
+    hashtags: "#ItalianCraftsmanship #Concetto #LuxuryLifestyle",
     url: "https://instagram.com"
   },
   {
     id: 6,
-    image: "/images/work-backpack-urban.jpg",
-    likes: 176,
-    caption: "Professional style, artisan quality",
+    image: "/images/green-backpack-lifestyle.jpg",
+    likes: 456,
+    caption: "Making a statement with forest green Italian leather",
+    hashtags: "#ForestGreen #StatementPiece #ConceptoLuxury",
     url: "https://instagram.com"
   }
 ];
@@ -51,15 +57,15 @@ const InstagramFeed = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <div className="inline-block mb-4">
-            <span className="px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full border border-primary/20">
-              Social Gallery
+            <span className="px-6 py-3 bg-gradient-to-r from-amber-100 to-amber-50 text-amber-900 text-sm font-medium rounded-full border border-amber-200/50 shadow-sm">
+              Luxury Lifestyle
             </span>
           </div>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
-            Crafted for Real Life
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Italian Excellence
           </h2>
-          <p className="text-xl text-neutral-light max-w-3xl mx-auto leading-relaxed">
-            See our handcrafted bags in action with real customers living authentic lives
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Discover the sophistication of Concetto through the eyes of discerning individuals who appreciate timeless luxury
           </p>
         </div>
         
@@ -112,16 +118,16 @@ const InstagramFeed = () => {
             href="https://instagram.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group btn-primary inline-flex items-center gap-3 transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            className="group bg-gradient-to-r from-slate-900 to-slate-800 text-white px-8 py-4 rounded-lg inline-flex items-center gap-3 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl font-medium"
           >
             <FontAwesomeIcon icon={["fab", "instagram"]} className="text-lg" />
-            <span>Follow Our Journey</span>
+            <span>Follow Concetto</span>
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </a>
-          <p className="mt-4 text-neutral-light text-sm">
-            @livinggreenmovement • Handcrafted in South Africa
+          <p className="mt-4 text-slate-600 text-sm">
+            @concetto_luxury • Italian Craftsmanship, Timeless Elegance
           </p>
         </div>
       </div>

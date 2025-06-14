@@ -49,9 +49,9 @@ export const COMPANY_INFO = {
 
 // Social Media Links
 export const SOCIAL_MEDIA = {
-  instagram: "https://instagram.com/livinggreenmovement",
-  facebook: "https://facebook.com/livinggreenmovement",
-  pinterest: "https://pinterest.com/livinggreenmovement",
+  instagram: "https://instagram.com/concetto_luxury",
+  facebook: "https://facebook.com/concetto.luxury",
+  pinterest: "https://pinterest.com/concetto_luxury",
 };
 
 // Shipping Information
