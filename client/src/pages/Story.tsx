@@ -198,7 +198,7 @@ const Story = () => {
               />
             </div>
             <div>
-              <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Our Commitment to Sustainability</h2>
+              <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Sustainable Luxury</h2>
               <div className="divider mb-6"></div>
               
               <div className="space-y-4">
@@ -207,9 +207,9 @@ const Story = () => {
                     <FontAwesomeIcon icon="recycle" className="text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-accent text-lg font-semibold mb-1">Minimizing Waste</h3>
+                    <h3 className="font-accent text-lg font-semibold mb-1">Zero-Waste Philosophy</h3>
                     <p className="text-neutral">
-                      We carefully plan our cutting patterns to minimize leather waste. Any scraps are repurposed into smaller products or donated to local craft initiatives.
+                      Our Italian artisans employ traditional cutting techniques that maximize leather utilization. Every piece is carefully planned to minimize waste while preserving the integrity of each hide.
                     </p>
                   </div>
                 </div>
@@ -219,9 +219,9 @@ const Story = () => {
                     <FontAwesomeIcon icon="water" className="text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-accent text-lg font-semibold mb-1">Responsible Sourcing</h3>
+                    <h3 className="font-accent text-lg font-semibold mb-1">Ethical Italian Sourcing</h3>
                     <p className="text-neutral">
-                      We source our leather from suppliers who adhere to strict environmental standards and responsible water management practices.
+                      We partner exclusively with certified Italian tanneries that follow strict environmental protocols and traditional vegetable-tanning methods, ensuring the highest quality while respecting nature.
                     </p>
                   </div>
                 </div>
@@ -231,9 +231,9 @@ const Story = () => {
                     <FontAwesomeIcon icon="box" className="text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-accent text-lg font-semibold mb-1">Eco-Friendly Packaging</h3>
+                    <h3 className="font-accent text-lg font-semibold mb-1">Luxury Packaging</h3>
                     <p className="text-neutral">
-                      All our products are packaged in recyclable or biodegradable materials, avoiding single-use plastics.
+                      Each Concetto piece arrives in sustainably sourced packaging that reflects our commitment to both luxury presentation and environmental responsibility.
                     </p>
                   </div>
                 </div>
@@ -243,9 +243,9 @@ const Story = () => {
                     <FontAwesomeIcon icon="seedling" className="text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-accent text-lg font-semibold mb-1">Community Initiatives</h3>
+                    <h3 className="font-accent text-lg font-semibold mb-1">Heritage Preservation</h3>
                     <p className="text-neutral">
-                      We participate in local tree-planting initiatives and support conservation efforts in the Western Cape region.
+                      By supporting traditional Italian craftsmanship, we preserve artisan heritage while creating pieces designed to last generations, reducing the need for replacement.
                     </p>
                   </div>
                 </div>
