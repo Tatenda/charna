@@ -74,7 +74,7 @@ export class MemStorage implements IStorage {
       createdAt: new Date("2024-01-15T00:00:00Z")
     });
 
-    // Executive Business Tote - Ivory
+    // Executive Business Tote - Ivory (with lifestyle shots)
     this.products.set(2, {
       id: 2,
       name: "Concetto Executive Tote - Ivory",
@@ -99,7 +99,7 @@ export class MemStorage implements IStorage {
       ],
       images: [
         "/images/concetto-brand-logo.jpg",
-        "/images/work-backpack-studio.jpg"
+        "/images/green-backpack-lifestyle.jpg"
       ],
       materials: "Crafted from finest Italian full-grain leather in ivory. Signature brass hardware with gold finish. Lined with premium cotton canvas.",
       dimensions: "L 38cm x W 12cm x H 28cm. Handle drop: 22cm.",
@@ -108,43 +108,9 @@ export class MemStorage implements IStorage {
       createdAt: new Date("2024-02-01T00:00:00Z")
     });
 
-    // Executive Business Backpack - Forest
+    // Compact Executive Backpack - Ivory
     this.products.set(3, {
       id: 3,
-      name: "Concetto Executive Backpack - Forest",
-      description: "A statement piece in luxurious forest green leather. This sophisticated backpack merges contemporary design with timeless elegance for the modern professional.",
-      longDescription: "The Concetto Executive Backpack in Forest Green is a bold statement of contemporary luxury. This exceptional piece showcases our mastery of leather craftsmanship through its rich, deep forest green hue that develops character with each use.\n\nDesigned for the modern professional who dares to stand out, this backpack combines cutting-edge functionality with classic Italian leather craftsmanship. The sophisticated forest green leather is complemented by premium brass hardware, creating a striking contrast that speaks to refined taste.\n\nEvery aspect of this backpack has been thoughtfully considered, from the ergonomic strap design to the organized interior compartments. It's not just a bag – it's a testament to your commitment to excellence and appreciation for the finer things in life.",
-      price: 3899,
-      originalPrice: 4499,
-      rating: 50, // 5.0
-      reviewCount: 18,
-      inStock: true,
-      badge: "Exclusive",
-      category: "business",
-      colors: ["forest green"],
-      features: [
-        "Luxurious forest green Italian leather",
-        "Contemporary backpack design",
-        "Laptop compartment (15\")",
-        "Premium padded leather straps",
-        "Front zippered compartment",
-        "Interior organizational system",
-        "Signature Concetto branding"
-      ],
-      images: [
-        "/images/green-backpack-lifestyle.jpg",
-        "/images/concetto-brand-logo.jpg"
-      ],
-      materials: "Handcrafted from exclusive forest green Italian leather. Premium brass hardware with brushed finish. Interior lined with signature Concetto fabric.",
-      dimensions: "L 32cm x W 16cm x H 42cm. Adjustable straps: 70-85cm.",
-      careInstructions: "Maintain with premium leather conditioner. Avoid prolonged sun exposure. Store upright in dust bag when not in use.",
-      featured: true,
-      createdAt: new Date("2024-02-10T00:00:00Z")
-    });
-
-    // Compact Executive Backpack - Ivory
-    this.products.set(4, {
-      id: 4,
       name: "Concetto Compact Backpack - Ivory",
       description: "An exquisite compact backpack in pristine ivory leather. Perfect for the sophisticated professional who values both elegance and functionality in a refined silhouette.",
       longDescription: "The Concetto Compact Backpack in Ivory represents the pinnacle of understated luxury. This beautifully proportioned piece is crafted from the finest Italian leather in a timeless ivory finish that exudes sophistication and grace.\n\nDesigned for the discerning individual who appreciates refined aesthetics, this compact backpack offers the perfect balance of form and function. The clean lines and minimalist design speak to contemporary sensibilities while the premium craftsmanship honors traditional Italian leather artistry.\n\nEvery detail has been meticulously considered, from the precision stitching to the carefully selected hardware. This is more than a backpack – it's a statement of refined taste and appreciation for the finer things in life.",

@@ -3,17 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const instagramPosts = [
   {
     id: 1,
-    image: "/images/green-backpack-lifestyle.jpg",
-    likes: 542,
-    caption: "Forest Green Executive Backpack - Where luxury meets functionality",
-    hashtags: "#Concetto #ItalianLeather #LuxuryBackpack",
+    image: "/images/concetto-brand-logo.jpg",
+    likes: 642,
+    caption: "Executive Tote in Ivory - Where timeless elegance meets modern functionality",
+    hashtags: "#Concetto #ItalianLeather #ExecutiveTote",
     url: "https://instagram.com"
   },
   {
     id: 2,
-    image: "/images/concetto-brand-logo.jpg",
-    likes: 398,
-    caption: "Exquisite craftsmanship in every detail - Concetto signature quality",
+    image: "/images/green-backpack-lifestyle.jpg",
+    likes: 528,
+    caption: "Executive Tote lifestyle - Sophistication in every moment",
     hashtags: "#LuxuryCraftsmanship #ItalianMade #Concetto",
     url: "https://instagram.com"
   },
@@ -22,7 +22,7 @@ const instagramPosts = [
     image: "/images/tennis-bag-lifestyle.jpg",
     likes: 467,
     caption: "Tennis Tote in cognac leather - Sophistication meets sport",
-    hashtags: "#TennisLuxury #CogacLeather #ConceptoTote",
+    hashtags: "#TennisLuxury #CognacLeather #ConceptoTote",
     url: "https://instagram.com"
   },
   {
@@ -36,17 +36,17 @@ const instagramPosts = [
   {
     id: 5,
     image: "/images/tennis-bag-court.jpg",
-    likes: 289,
+    likes: 389,
     caption: "Court to club - Italian craftsmanship that transcends occasions",
     hashtags: "#ItalianCraftsmanship #Concetto #LuxuryLifestyle",
     url: "https://instagram.com"
   },
   {
     id: 6,
-    image: "/images/green-backpack-lifestyle.jpg",
+    image: "/images/tennis-bag-action.jpg",
     likes: 456,
-    caption: "Making a statement with forest green Italian leather",
-    hashtags: "#ForestGreen #StatementPiece #ConceptoLuxury",
+    caption: "Concetto excellence - Where heritage meets contemporary design",
+    hashtags: "#Heritage #ContemporaryLuxury #ConceptoCollection",
     url: "https://instagram.com"
   }
 ];
