@@ -3,21 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const valueItems = [
   {
     icon: "hands",
-    title: "Master Craftsmanship",
-    description: "Each piece is hand-stitched by master artisans with over 50 years of collective experience, using time-honored techniques passed down through generations.",
-    stats: "50+ Years Experience"
+    title: "Italian Mastery",
+    description: "Each Concetto piece is meticulously handcrafted by master artisans in Italy, using centuries-old techniques passed down through generations of leather craftsmen.",
+    stats: "Italian Heritage"
   },
   {
-    icon: "leaf",
-    title: "Premium Materials",
-    description: "We source only the finest full-grain leather from ethically raised South African cattle, ensuring durability that lasts decades.",
-    stats: "100% Full-Grain Leather"
+    icon: "gem",
+    title: "Finest Materials",
+    description: "We source exclusively from Italy's most prestigious tanneries, selecting only the finest full-grain leather that develops character and beauty over time.",
+    stats: "Premium Italian Leather"
   },
   {
-    icon: "heart",
-    title: "Local Impact",
-    description: "Every purchase directly empowers local communities, supporting 25+ artisan families and preserving traditional South African leather craft heritage.",
-    stats: "25+ Families Supported"
+    icon: "crown",
+    title: "Timeless Design",
+    description: "Every Concetto creation represents the perfect balance of contemporary sophistication and classical elegance, designed for the discerning individual.",
+    stats: "Luxury Redefined"
   }
 ];
 
@@ -27,15 +27,15 @@ const Values = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <div className="inline-block mb-4">
-            <span className="px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-full border border-primary/20">
-              Our Promise
+            <span className="px-6 py-3 bg-gradient-to-r from-amber-100 to-amber-50 text-amber-900 text-sm font-medium rounded-full border border-amber-200/50 shadow-sm">
+              Excellence Defined
             </span>
           </div>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
-            Crafted with Purpose
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Italian Heritage
           </h2>
-          <p className="text-xl text-neutral-light max-w-3xl mx-auto leading-relaxed">
-            Every bag tells a story of heritage, quality, and commitment to our communities
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Every Concetto piece embodies centuries of Italian craftsmanship, premium materials, and unwavering commitment to luxury
           </p>
         </div>
         

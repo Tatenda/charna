@@ -27,38 +27,38 @@ const Header = () => {
             >
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
-            <Link href="/" className="font-heading text-2xl sm:text-3xl text-primary font-semibold">
-              LIVING GREEN
+            <Link href="/" className="font-heading text-2xl sm:text-3xl text-slate-900 font-bold tracking-wider">
+              CONCETTO
             </Link>
           </div>
-          <nav className="hidden lg:flex space-x-8 font-accent text-sm uppercase tracking-wider">
+          <nav className="hidden lg:flex space-x-8 font-medium text-sm uppercase tracking-wider">
             <Link 
               href="/" 
-              className={`hover:text-accent transition duration-200 ${isActive('/') ? 'border-b-2 border-primary' : ''}`}
+              className={`text-slate-700 hover:text-amber-700 transition duration-200 ${isActive('/') ? 'border-b-2 border-amber-700' : ''}`}
             >
               Home
             </Link>
             <Link 
               href="/products" 
-              className={`hover:text-accent transition duration-200 ${isActive('/products') ? 'border-b-2 border-primary' : ''}`}
+              className={`text-slate-700 hover:text-amber-700 transition duration-200 ${isActive('/products') ? 'border-b-2 border-amber-700' : ''}`}
             >
-              Products
+              Collection
             </Link>
             <Link 
               href="/story" 
-              className={`hover:text-accent transition duration-200 ${isActive('/story') ? 'border-b-2 border-primary' : ''}`}
+              className={`text-slate-700 hover:text-amber-700 transition duration-200 ${isActive('/story') ? 'border-b-2 border-amber-700' : ''}`}
             >
-              Our Story
+              Heritage
             </Link>
             <Link 
               href="/contact" 
-              className={`hover:text-accent transition duration-200 ${isActive('/contact') ? 'border-b-2 border-primary' : ''}`}
+              className={`text-slate-700 hover:text-amber-700 transition duration-200 ${isActive('/contact') ? 'border-b-2 border-amber-700' : ''}`}
             >
               Contact
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
-            <Link href="/products" className="text-primary hover:text-accent transition duration-200">
+            <Link href="/products" className="text-slate-700 hover:text-amber-700 transition duration-200">
               <FontAwesomeIcon icon="search" className="text-xl" />
             </Link>
             <CartButton />
