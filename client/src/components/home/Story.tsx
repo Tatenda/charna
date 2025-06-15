@@ -9,13 +9,13 @@ const Story = () => {
             <h2 className="font-heading text-3xl md:text-4xl font-semibold text-primary mb-6">Our Story</h2>
             <div className="divider mb-6"></div>
             <p className="text-neutral mb-4 leading-relaxed">
-              Living Green Movement began in 2018 in a small workshop in Cape Town, born from a passion for traditional leather craftsmanship and sustainable practices.
+              Concetto began in Johannesburg, born from a family dream spanning generations. My father's Italian parents had always envisioned creating a luxury bag business, carrying with them rich traditions of Italian leather craftsmanship.
             </p>
             <p className="text-neutral mb-4 leading-relaxed">
-              Our founder, a third-generation leather artisan, started with a simple mission: create beautiful, functional bags that celebrate South African craftsmanship while providing sustainable livelihoods for local artisans.
+              Though their dream remained unrealized, the vision lived on. Today, we've brought that Italian heritage to life in South Africa, where we handcraft each piece using traditional techniques combined with local artisanal excellence.
             </p>
             <p className="text-neutral mb-6 leading-relaxed">
-              Today, we continue to handcraft each bag with the same dedication to quality and community, combining timeless techniques with modern designs that complement your lifestyle.
+              Made in Johannesburg with Italian soul, our luxury leather goods honor both family legacy and the exceptional craftsmanship of local artisans who bring these timeless designs to life.
             </p>
             <Link href="/story" className="btn-secondary inline-block">
               Learn More

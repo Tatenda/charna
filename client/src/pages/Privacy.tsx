@@ -112,7 +112,7 @@ export default function Privacy() {
                 <p className="text-gray-600">
                   <strong>Email:</strong> privacy@concetto.com<br />
                   <strong>Address:</strong> Concetto Privacy Office<br />
-                  Cape Town, South Africa
+                  Johannesburg, South Africa
                 </p>
               </div>
             </section>

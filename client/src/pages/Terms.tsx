@@ -118,7 +118,7 @@ export default function Terms() {
                 <p className="text-gray-600">
                   <strong>Email:</strong> legal@concetto.com<br />
                   <strong>Address:</strong> Concetto Legal Department<br />
-                  Cape Town, South Africa
+                  Johannesburg, South Africa
                 </p>
               </div>
             </section>

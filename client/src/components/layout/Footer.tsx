@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div>
             <h4 className="font-heading text-xl font-semibold mb-4">CONCETTO</h4>
-            <p className="text-white/70 mb-4">Italian heritage meets South African craftsmanship. Handcrafted luxury bags made with pride in Cape Town.</p>
+            <p className="text-white/70 mb-4">Italian heritage meets South African craftsmanship. Handcrafted luxury bags made with pride in Johannesburg.</p>
             <div className="flex space-x-4">
               <a 
                 href="https://facebook.com" 

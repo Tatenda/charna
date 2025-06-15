@@ -40,7 +40,7 @@ const Story = () => {
                 where we handcraft each Concetto piece using traditional Italian techniques combined with local artisanal excellence.
               </p>
               <p className="text-neutral leading-relaxed">
-                Made in South Africa with Italian soul, our luxury leather goods honor both the family legacy and the exceptional craftsmanship 
+                Made in Johannesburg with Italian soul, our luxury leather goods honor both the family legacy and the exceptional craftsmanship 
                 of local artisans who bring these timeless designs to life with pride and precision.
               </p>
             </div>
@@ -124,7 +124,7 @@ const Story = () => {
                   <h3 className="font-heading text-xl font-semibold mb-2">David Ndlovu</h3>
                   <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Master Craftsman</p>
                   <p className="text-neutral mb-4">
-                    With over 25 years of leatherwork experience in Cape Town, David leads our production team and has mastered the Italian techniques 
+                    With over 25 years of leatherwork experience in Johannesburg, David leads our production team and has mastered the Italian techniques 
                     passed down through our family heritage. His expertise brings the founder's grandparents' vision to life.
                   </p>
                   <p className="text-neutral">
@@ -147,7 +147,7 @@ const Story = () => {
                   <h3 className="font-heading text-xl font-semibold mb-2">Thandi Dlamini</h3>
                   <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Design Lead</p>
                   <p className="text-neutral mb-4">
-                    A Cape Town Design Academy graduate, Thandi bridges Italian design heritage with contemporary South African aesthetics. 
+                    A University of the Witwatersrand graduate, Thandi bridges Italian design heritage with contemporary South African aesthetics. 
                     Her work honors traditional methods while creating pieces for modern life.
                   </p>
                   <p className="text-neutral">
@@ -159,9 +159,9 @@ const Story = () => {
           </div>
           
           <div className="text-center mb-12">
-            <h3 className="font-heading text-2xl font-semibold mb-4">Made in South Africa with Italian Soul</h3>
+            <h3 className="font-heading text-2xl font-semibold mb-4">Made in Johannesburg with Italian Soul</h3>
             <p className="text-neutral max-w-3xl mx-auto">
-              Our Cape Town workshop employs skilled local artisans who have embraced the Italian techniques and design philosophy 
+              Our Johannesburg workshop employs skilled local artisans who have embraced the Italian techniques and design philosophy 
               inherited from the founder's grandparents. Each craftsperson brings pride and precision to create luxury pieces that honor both heritage and local excellence.
             </p>
           </div>
