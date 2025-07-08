@@ -116,8 +116,8 @@ export default function Terms() {
               </p>
               <div className="mt-4 p-4 bg-secondary-light/20 rounded">
                 <p className="text-gray-600">
-                  <strong>Email:</strong> legal@concetto.com<br />
-                  <strong>Address:</strong> Concetto Legal Department<br />
+                  <strong>Email:</strong> legal@ligremo.com<br />
+                  <strong>Address:</strong> LIGREMO Legal Department<br />
                   Johannesburg, South Africa
                 </p>
               </div>

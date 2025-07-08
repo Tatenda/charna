@@ -1,8 +1,8 @@
-# LIVING GREEN MOVEMENT E-commerce Platform
+# LIGREMO E-commerce Platform
 
 ## Overview
 
-This is a full-stack e-commerce platform for LIVING GREEN MOVEMENT, a South African leather goods company specializing in handcrafted bags. The application features a modern React frontend with a Node.js/Express backend, showcasing premium leather products with a focus on craftsmanship and sustainability.
+This is a full-stack e-commerce platform for LIGREMO, a South African leather goods company specializing in handcrafted bags. The application features a modern React frontend with a Node.js/Express backend, showcasing premium leather products with a focus on craftsmanship and Italian heritage brought to life in Johannesburg.
 
 ## System Architecture
 
@@ -109,6 +109,8 @@ Changelog:
 - June 14, 2025. Updated authentic brand story: Italian heritage (founder's grandparents' dream) brought to life through South African manufacturing and local craftsmanship
 - June 14, 2025. Complete navigation system implemented with all footer links functional
 - June 14, 2025. Product consolidation: 3 distinct products with accurate photography integration
+- January 8, 2025. Complete rebrand from "Concetto" to "LIGREMO" with domain ligremo.com
+- January 8, 2025. Updated all location references to Johannesburg (previously Cape Town)
 ```
 
 ## User Preferences

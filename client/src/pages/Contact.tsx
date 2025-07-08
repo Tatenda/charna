@@ -35,7 +35,7 @@ const Contact = () => {
 
   // Set page title
   useEffect(() => {
-    document.title = "Contact Us | LIVING GREEN MOVEMENT";
+    document.title = "Contact Us | LIGREMO";
   }, []);
 
   const form = useForm<ContactFormValues>({

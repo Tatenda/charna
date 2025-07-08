@@ -19,7 +19,7 @@ const Home = () => {
 
   // Set page title
   useEffect(() => {
-    document.title = "LIVING GREEN MOVEMENT | Made in South Africa, Made with Purpose";
+    document.title = "LIGREMO | Made in South Africa, Made with Purpose";
   }, []);
 
   return (

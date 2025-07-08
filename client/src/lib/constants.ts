@@ -36,9 +36,9 @@ export const WHATSAPP_NUMBER = "27123456789";
 
 // Company Info
 export const COMPANY_INFO = {
-  name: "CONCETTO",
+  name: "LIGREMO",
   founded: 2019,
-  location: "Cape Town, South Africa",
+  location: "Johannesburg, South Africa",
   tagline: "Italian Craftsmanship, Timeless Elegance",
   values: [
     "Uncompromising Quality",
@@ -49,9 +49,9 @@ export const COMPANY_INFO = {
 
 // Social Media Links
 export const SOCIAL_MEDIA = {
-  instagram: "https://instagram.com/concetto_luxury",
-  facebook: "https://facebook.com/concetto.luxury",
-  pinterest: "https://pinterest.com/concetto_luxury",
+  instagram: "https://instagram.com/ligremo_luxury",
+  facebook: "https://facebook.com/ligremo.luxury",
+  pinterest: "https://pinterest.com/ligremo_luxury",
 };
 
 // Shipping Information

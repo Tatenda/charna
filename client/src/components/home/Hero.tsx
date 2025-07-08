@@ -21,7 +21,7 @@ const Hero = () => {
               </div>
               
               <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-primary leading-[0.9] tracking-tight">
-                <span className="block">CONCETTO</span>
+                <span className="block">LIGREMO</span>
                 <span className="block text-amber-700 italic font-light">Timeless Elegance</span>
               </h1>
               

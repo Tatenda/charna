@@ -110,8 +110,8 @@ export default function Privacy() {
               </p>
               <div className="mt-4 p-4 bg-secondary-light/20 rounded">
                 <p className="text-gray-600">
-                  <strong>Email:</strong> privacy@concetto.com<br />
-                  <strong>Address:</strong> Concetto Privacy Office<br />
+                  <strong>Email:</strong> privacy@ligremo.com<br />
+                  <strong>Address:</strong> LIGREMO Privacy Office<br />
                   Johannesburg, South Africa
                 </p>
               </div>

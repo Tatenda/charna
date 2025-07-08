@@ -43,9 +43,9 @@ export class MemStorage implements IStorage {
     // Tennis Bag Tote
     this.products.set(1, {
       id: 1,
-      name: "Concetto Tennis Tote",
+      name: "LIGREMO Tennis Tote",
       description: "An exquisite cognac leather tennis bag that embodies sophistication and functionality. Crafted with meticulous attention to detail for the discerning athlete.",
-      longDescription: "The Concetto Tennis Tote represents the pinnacle of luxury sporting accessories. Each bag is meticulously handcrafted from the finest Italian full-grain leather, showcasing our commitment to uncompromising quality and timeless design. The rich cognac finish develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the sophisticated athlete who appreciates craftsmanship, this tote seamlessly transitions from court to club. The thoughtfully designed interior accommodates all your tennis essentials while maintaining an elegant silhouette that speaks to your refined taste.",
+      longDescription: "The LIGREMO Tennis Tote represents the pinnacle of luxury sporting accessories. Each bag is meticulously handcrafted from the finest Italian full-grain leather, showcasing our commitment to uncompromising quality and timeless design. The rich cognac finish develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the sophisticated athlete who appreciates craftsmanship, this tote seamlessly transitions from court to club. The thoughtfully designed interior accommodates all your tennis essentials while maintaining an elegant silhouette that speaks to your refined taste.",
       price: 3299,
       originalPrice: 3899,
       rating: 50, // 5.0
@@ -77,9 +77,9 @@ export class MemStorage implements IStorage {
     // Executive Business Tote - Ivory (with lifestyle shots)
     this.products.set(2, {
       id: 2,
-      name: "Concetto Executive Tote - Ivory",
+      name: "LIGREMO Executive Tote - Ivory",
       description: "An elegant compact leather tote in pristine ivory, designed for the sophisticated professional. Perfect for daily essentials with refined Italian craftsmanship.",
-      longDescription: "The Concetto Executive Tote in Ivory represents understated luxury at its finest. Crafted from the most exquisite Italian full-grain leather, this compact yet functional tote is designed for the discerning professional who values both style and substance.\n\nThe pristine ivory finish exudes sophistication while the structured silhouette maintains its elegant form throughout daily use. Each piece is meticulously handcrafted with attention to every detail, from the precise stitching to the signature brass hardware that bears the Concetto mark of excellence.\n\nThis versatile tote seamlessly transitions from boardroom to social events, making it an essential accessory for the modern executive who appreciates timeless design and uncompromising quality.",
+      longDescription: "The LIGREMO Executive Tote in Ivory represents understated luxury at its finest. Crafted from the most exquisite Italian full-grain leather, this compact yet functional tote is designed for the discerning professional who values both style and substance.\n\nThe pristine ivory finish exudes sophistication while the structured silhouette maintains its elegant form throughout daily use. Each piece is meticulously handcrafted with attention to every detail, from the precise stitching to the signature brass hardware that bears the LIGREMO mark of excellence.\n\nThis versatile tote seamlessly transitions from boardroom to social events, making it an essential accessory for the modern executive who appreciates timeless design and uncompromising quality.",
       price: 2799,
       originalPrice: 3299,
       rating: 48, // 4.8
@@ -95,7 +95,7 @@ export class MemStorage implements IStorage {
         "Structured top handles",
         "Magnetic closure",
         "Multiple organization pockets",
-        "Signature Concetto hardware"
+        "Signature LIGREMO hardware"
       ],
       images: [
         "/images/concetto-brand-logo.jpg",
@@ -111,9 +111,9 @@ export class MemStorage implements IStorage {
     // Compact Executive Backpack - Ivory
     this.products.set(3, {
       id: 3,
-      name: "Concetto Compact Backpack - Ivory",
+      name: "LIGREMO Compact Backpack - Ivory",
       description: "An exquisite compact backpack in pristine ivory leather. Perfect for the sophisticated professional who values both elegance and functionality in a refined silhouette.",
-      longDescription: "The Concetto Compact Backpack in Ivory represents the pinnacle of understated luxury. This beautifully proportioned piece is crafted from the finest Italian leather in a timeless ivory finish that exudes sophistication and grace.\n\nDesigned for the discerning individual who appreciates refined aesthetics, this compact backpack offers the perfect balance of form and function. The clean lines and minimalist design speak to contemporary sensibilities while the premium craftsmanship honors traditional Italian leather artistry.\n\nEvery detail has been meticulously considered, from the precision stitching to the carefully selected hardware. This is more than a backpack – it's a statement of refined taste and appreciation for the finer things in life.",
+      longDescription: "The LIGREMO Compact Backpack in Ivory represents the pinnacle of understated luxury. This beautifully proportioned piece is crafted from the finest Italian leather in a timeless ivory finish that exudes sophistication and grace.\n\nDesigned for the discerning individual who appreciates refined aesthetics, this compact backpack offers the perfect balance of form and function. The clean lines and minimalist design speak to contemporary sensibilities while the premium craftsmanship honors traditional Italian leather artistry.\n\nEvery detail has been meticulously considered, from the precision stitching to the carefully selected hardware. This is more than a backpack – it's a statement of refined taste and appreciation for the finer things in life.",
       price: 3299,
       originalPrice: 3799,
       rating: 49, // 4.9
