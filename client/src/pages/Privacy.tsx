@@ -110,7 +110,7 @@ export default function Privacy() {
               </p>
               <div className="mt-4 p-4 bg-secondary-light/20 rounded">
                 <p className="text-gray-600">
-                  <strong>Email:</strong> privacy@ligremo.com<br />
+                  <strong>Email:</strong> privacy@ligremp.replit.app<br />
                   <strong>Address:</strong> LIGREMO Privacy Office<br />
                   Johannesburg, South Africa
                 </p>

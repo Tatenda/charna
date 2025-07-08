@@ -109,8 +109,9 @@ Changelog:
 - June 14, 2025. Updated authentic brand story: Italian heritage (founder's grandparents' dream) brought to life through South African manufacturing and local craftsmanship
 - June 14, 2025. Complete navigation system implemented with all footer links functional
 - June 14, 2025. Product consolidation: 3 distinct products with accurate photography integration
-- January 8, 2025. Complete rebrand from "Concetto" to "LIGREMO" with domain ligremo.com
+- January 8, 2025. Complete rebrand from "Concetto" to "LIGREMO" with domain ligremp.replit.app
 - January 8, 2025. Updated all location references to Johannesburg (previously Cape Town)
+- January 8, 2025. Updated domain references to ligremp.replit.app
 ```
 
 ## User Preferences

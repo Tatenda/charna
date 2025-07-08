@@ -42,6 +42,7 @@ export const COMPANY_INFO = {
   founded: 2019,
   location: "Johannesburg, South Africa",
   tagline: "Italian Craftsmanship, Timeless Elegance",
+  website: "https://ligremp.replit.app",
   values: [
     "Uncompromising Quality",
     "Italian Heritage",
@@ -51,9 +52,9 @@ export const COMPANY_INFO = {
 
 // Social Media Links
 export const SOCIAL_MEDIA = {
-  instagram: "https://instagram.com/ligremo_luxury",
-  facebook: "https://facebook.com/ligremo.luxury",
-  pinterest: "https://pinterest.com/ligremo_luxury",
+  instagram: "https://instagram.com/ligremp_luxury",
+  facebook: "https://facebook.com/ligremp.luxury",
+  pinterest: "https://pinterest.com/ligremp_luxury",
 };
 
 // Shipping Information

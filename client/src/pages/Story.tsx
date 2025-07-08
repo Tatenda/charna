@@ -7,7 +7,7 @@ import { getImagePath } from "@/lib/imageUtils";
 const Story = () => {
   // Set page title
   useEffect(() => {
-    document.title = "Our Story | Concetto";
+    document.title = "Our Story | LIGREMO";
   }, []);
 
   return (
