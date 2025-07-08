@@ -141,6 +141,40 @@ export class MemStorage implements IStorage {
       featured: true,
       createdAt: new Date("2024-02-15T00:00:00Z")
     });
+
+    // Tanned Leather Work Tote
+    this.products.set(4, {
+      id: 4,
+      name: "LIGREMO Tanned Leather Work Tote",
+      description: "A sophisticated tanned leather backpack designed for the modern professional. Features premium hardware and versatile design for work or travel.",
+      longDescription: "The LIGREMO Tanned Leather Work Tote represents the perfect fusion of professional functionality and timeless elegance. Crafted from richly tanned Italian leather, this backpack develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the contemporary professional who values both style and substance, this versatile tote features multiple compartments for optimal organization. The rich tanned leather finish exudes warmth and sophistication, while the premium hardware adds refined details that speak to exceptional craftsmanship.\n\nWhether you're heading to the office or embarking on a business trip, this work tote seamlessly combines Italian design heritage with practical functionality for today's demanding lifestyle.",
+      price: 3599,
+      originalPrice: 4199,
+      rating: 50, // 5.0
+      reviewCount: 18,
+      inStock: true,
+      badge: "Professional",
+      category: "business",
+      colors: ["tan"],
+      features: [
+        "Premium Italian tanned leather",
+        "Professional work design",
+        "Multiple organization compartments",
+        "Laptop compartment (15\")",
+        "Convertible carry options",
+        "Premium metal hardware",
+        "Signature LIGREMO craftsmanship"
+      ],
+      images: [
+        "/attached_assets/IMG_1420_1751996515357.PNG",
+        "/attached_assets/IMG_1421_1751996519606.PNG"
+      ],
+      materials: "Crafted from finest Italian tanned leather, handmade in Johannesburg. Premium metal hardware with antique brass finish. Interior lined with durable cotton canvas.",
+      dimensions: "L 32cm x W 16cm x H 42cm. Adjustable straps: 70-85cm.",
+      careInstructions: "Clean with premium leather care products. The tanned leather will develop a beautiful patina over time. Store in provided dust bag. Professional conditioning recommended every 6 months.",
+      featured: true,
+      createdAt: new Date("2025-01-08T00:00:00Z")
+    });
   }
 
   // Product Methods

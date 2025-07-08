@@ -9,6 +9,7 @@ export const PRODUCT_COLORS = {
   COGNAC: "cognac",
   IVORY: "ivory",
   FOREST_GREEN: "forest green",
+  TAN: "tan",
 };
 
 // Product Badges
@@ -16,6 +17,7 @@ export const PRODUCT_BADGES = {
   SIGNATURE: "Signature",
   LIMITED_EDITION: "Limited Edition",
   EXCLUSIVE: "Exclusive",
+  PROFESSIONAL: "Professional",
 };
 
 // South African Provinces
