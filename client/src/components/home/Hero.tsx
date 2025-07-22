@@ -10,7 +10,7 @@ const Hero = () => {
           <div className="space-y-8">
             <div className="space-y-6">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary leading-tight">
-                <span className="block">
+                <span className="block text-white">
                   Designed with you
                 </span>
                 <span className="block accent-gradient bg-clip-text text-transparent">
