@@ -86,15 +86,17 @@ const Products = () => {
   const filteredProducts = filterProducts(products);
 
   return (
-    <div className="bg-secondary-light pb-16">
-      <div className="bg-primary text-white py-12 retro-stripe">
+    <div className="bg-gray-50 pb-16">
+      <div className="product-gradient text-white py-16">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-3xl md:text-4xl font-bold text-center bg-white text-primary px-6 py-3 retro-border transform -rotate-1 inline-block">
-            Far Out Groovy Gear
-          </h1>
-          <p className="text-white/90 text-center mt-6 max-w-2xl mx-auto font-semibold tracking-wide">
-            Handcrafted with premium South African leather, our bags bring that authentic 70's vibe to your lifestyle, man!
-          </p>
+          <div className="text-center space-y-4">
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">
+              Premium Collection
+            </h1>
+            <p className="text-white/90 text-xl max-w-3xl mx-auto leading-relaxed">
+              Discover our carefully curated selection of handcrafted leather goods, each piece designed and made with exceptional attention to detail in Johannesburg.
+            </p>
+          </div>
         </div>
       </div>
 

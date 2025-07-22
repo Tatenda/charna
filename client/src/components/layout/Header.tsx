@@ -16,8 +16,8 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-secondary fixed w-full z-50 retro-border border-b-4 border-primary shadow-lg">
-      <div className="container mx-auto px-4 py-3">
+    <header className="bg-white fixed w-full z-50 shadow-sm border-b border-gray-100">
+      <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <button
@@ -27,62 +27,62 @@ const Header = () => {
             >
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
-            <Link href="/" className="font-heading text-2xl sm:text-3xl text-primary font-bold tracking-wider bg-white px-4 py-2 retro-border transform -rotate-1">
+            <Link href="/" className="font-heading text-2xl sm:text-3xl text-primary font-bold tracking-wide">
               LIGREMO
             </Link>
           </div>
-          <nav className="hidden lg:flex space-x-4 font-bold text-xs uppercase tracking-wider">
+          <nav className="hidden lg:flex space-x-8 font-medium text-sm">
             <Link 
               href="/" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg ${isActive('/') ? 'bg-accent text-white' : 'hover:bg-gray-50'}`}
             >
               Home
             </Link>
             <Link 
               href="/products?category=business" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/products') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg ${isActive('/products') ? 'bg-accent text-white' : 'hover:bg-gray-50'}`}
             >
-              Business Bags
+              Business
             </Link>
             <Link 
               href="/products?category=travel" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 hover:bg-white hover:retro-border`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-50`}
             >
-              Travel Bags
+              Travel
             </Link>
             <Link 
               href="/products?category=sport" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 hover:bg-white hover:retro-border`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-50`}
             >
-              Sport Bags
+              Sport
             </Link>
             <Link 
               href="/products?category=leisure" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 hover:bg-white hover:retro-border`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-50`}
             >
-              Leisure Bags
+              Leisure
             </Link>
             <Link 
               href="/products?category=custom" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 hover:bg-white hover:retro-border`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-50`}
             >
-              Custom Bags
+              Custom
             </Link>
             <Link 
               href="/story" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/story') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg ${isActive('/story') ? 'bg-accent text-white' : 'hover:bg-gray-50'}`}
             >
-              Our Vibe
+              Our Story
             </Link>
             <Link 
               href="/contact" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/contact') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg ${isActive('/contact') ? 'bg-accent text-white' : 'hover:bg-gray-50'}`}
             >
               Contact
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
-            <Link href="/products" className="text-primary hover:text-accent transition duration-200 bg-white px-3 py-2 retro-border">
+            <Link href="/products" className="text-primary hover:text-accent transition duration-200 p-2 rounded-lg hover:bg-gray-50">
               <FontAwesomeIcon icon="search" className="text-lg" />
             </Link>
             <CartButton />
@@ -91,19 +91,19 @@ const Header = () => {
       </div>
       
       {/* Mobile Menu */}
-      <div className={`lg:hidden bg-secondary w-full retro-border border-t-4 border-primary ${mobileMenuOpen ? 'block' : 'hidden'}`}>
+      <div className={`lg:hidden bg-white w-full border-t border-gray-100 shadow-lg ${mobileMenuOpen ? 'block' : 'hidden'}`}>
         <div className="container mx-auto px-4 py-4">
-          <nav className="flex flex-col space-y-3 font-accent text-sm uppercase tracking-wider">
+          <nav className="flex flex-col space-y-3 font-medium text-sm">
             <Link
               href="/"
-              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20 ${isActive('/') ? 'text-accent' : ''}`}
+              className={`hover:text-accent transition duration-200 py-3 px-2 rounded-lg ${isActive('/') ? 'text-accent bg-gray-50' : 'hover:bg-gray-50'}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/products?category=business"
-              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20 ${isActive('/products') ? 'text-accent' : ''}`}
+              className={`hover:text-accent transition duration-200 py-3 px-2 rounded-lg ${isActive('/products') ? 'text-accent bg-gray-50' : 'hover:bg-gray-50'}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Business Bags

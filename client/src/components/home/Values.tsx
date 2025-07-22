@@ -1,105 +1,82 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHands, faGem, faCrown } from "@fortawesome/free-solid-svg-icons";
-
-const valueItems = [
-  {
-    icon: faHands,
-    title: "Groovy SA Craftsmanship",
-    description: "Each LIGREMO piece is lovingly handcrafted by rad artisans in Johannesburg, using far-out traditional techniques with a 70's twist that's totally righteous.",
-    stats: "Local Vibes"
-  },
-  {
-    icon: faGem,
-    title: "Far Out Materials",
-    description: "We dig the most righteous full-grain leather, hand-picked for its exceptional groovy quality that gets more beautiful with every adventure.",
-    stats: "Premium Leather"
-  },
-  {
-    icon: faCrown,
-    title: "Retro Groove Design",
-    description: "Every LIGREMO creation is a perfect blend of 70's cool and modern funk, designed for the individual who digs authentic style with soul.",
-    stats: "Retro Luxury"
-  }
-];
 
 const Values = () => {
+  const values = [
+    {
+      icon: "leaf",
+      title: "Premium Materials",
+      description: "We source only the finest full-grain leather, ensuring each piece develops a beautiful patina over time while maintaining exceptional durability.",
+    },
+    {
+      icon: "hammer",
+      title: "Expert Craftsmanship",
+      description: "Every bag is meticulously handcrafted by skilled artisans in our Johannesburg workshop, combining traditional techniques with modern design.",
+    },
+    {
+      icon: "heart",
+      title: "Timeless Design",
+      description: "Our designs transcend fleeting trends, focusing on classic silhouettes and refined details that complement your professional lifestyle.",
+    },
+    {
+      icon: "globe-africa",
+      title: "South African Heritage",
+      description: "Proudly made in Johannesburg, our bags represent the finest of South African craftsmanship and attention to detail.",
+    },
+  ];
+
   return (
-    <section className="bg-gradient-to-b from-secondary-light to-accent-light/30 py-20 relative overflow-hidden">
-      {/* 70's Background Elements */}
-      <div className="absolute top-0 right-0 w-full h-16 retro-stripe opacity-30"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary opacity-10 transform rotate-45 -translate-x-32 translate-y-32"></div>
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="section-spacing bg-white">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <div className="inline-block mb-4">
-            <span className="px-6 py-3 bg-primary text-white text-sm font-bold uppercase tracking-wider retro-border transform rotate-1">
-              Groovy Excellence
-            </span>
-          </div>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6 retro-shadow bg-secondary px-8 py-4 inline-block transform -rotate-1">
-            70's SA Excellence
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mb-6">
+            Why Choose LIGREMO
           </h2>
-          <p className="text-xl text-neutral-dark max-w-3xl mx-auto leading-relaxed font-medium">
-            Every LIGREMO piece embodies the grooviest South African craftsmanship, far-out materials, and totally righteous commitment to retro luxury
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            We're committed to creating exceptional leather goods that stand the test of time, combining premium materials with expert craftsmanship.
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {valueItems.map((item, index) => (
-            <div key={index} className="group relative bg-white retro-border p-8 retro-shadow hover:scale-105 transition-all duration-500 transform hover:rotate-1">
-              {/* 70's Background pattern */}
-              <div className="absolute inset-0 opacity-10 retro-stripe"></div>
-              
-              <div className="relative z-10">
-                {/* Icon */}
-                <div className="w-20 h-20 bg-secondary retro-border flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 transform rotate-3">
-                  <FontAwesomeIcon icon={item.icon} className="text-primary text-2xl" />
-                </div>
-                
-                {/* Stats badge */}
-                <div className="text-center mb-4">
-                  <span className="inline-block px-3 py-1 bg-accent text-white text-sm font-bold uppercase tracking-wider retro-border transform -rotate-1">
-                    {item.stats}
-                  </span>
-                </div>
-                
-                {/* Content */}
-                <div className="text-center">
-                  <h3 className="font-heading text-2xl font-bold text-primary mb-4">{item.title}</h3>
-                  <p className="text-neutral-dark leading-relaxed font-medium">{item.description}</p>
-                </div>
-                
-                {/* Decorative element */}
-                <div className="absolute -top-3 -right-3 w-8 h-8 bg-secondary transform rotate-45 opacity-80"></div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {values.map((value, index) => (
+            <div
+              key={index}
+              className="modern-card p-8 text-center group hover:scale-105 transition-all duration-300"
+            >
+              <div className="accent-gradient w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <FontAwesomeIcon 
+                  icon={value.icon as any} 
+                  className="text-2xl text-white" 
+                />
               </div>
+              <h3 className="font-heading text-xl font-bold text-primary mb-4">
+                {value.title}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {value.description}
+              </p>
             </div>
           ))}
         </div>
-        
-        {/* Call-to-action */}
-        <div className="text-center mt-16">
-          <div className="inline-block p-8 bg-white rounded-2xl shadow-lg border border-primary/10">
-            <h3 className="font-heading text-2xl font-bold text-primary mb-4">
-              Experience the Difference
-            </h3>
-            <p className="text-neutral-light mb-6 max-w-md">
-              Join thousands of satisfied customers who trust our commitment to quality and authenticity
-            </p>
-            <div className="flex justify-center items-center gap-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">1000+</div>
-                <div className="text-sm text-neutral-light">Happy Customers</div>
-              </div>
-              <div className="w-px h-12 bg-primary/20"></div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">98%</div>
-                <div className="text-sm text-neutral-light">Satisfaction Rate</div>
-              </div>
-              <div className="w-px h-12 bg-primary/20"></div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">Lifetime</div>
-                <div className="text-sm text-neutral-light">Warranty</div>
-              </div>
+
+        <div className="mt-16 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 md:p-12 text-center">
+          <h3 className="font-heading text-2xl md:text-3xl font-bold text-primary mb-6">
+            Experience the Difference
+          </h3>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Join thousands of professionals who trust LIGREMO for their everyday carry needs.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary">500+</div>
+              <div className="text-gray-600">Happy Customers</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary">5★</div>
+              <div className="text-gray-600">Average Rating</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary">100%</div>
+              <div className="text-gray-600">Handcrafted</div>
             </div>
           </div>
         </div>
