@@ -133,6 +133,9 @@ Changelog:
 - July 22, 2025. Updated to 2025 Canva-inspired color palette: Mocha Mousse (PANTONE Color of the Year) primary, warm earth tones, sunny yellow accents
 - July 22, 2025. Implemented warm earth color palette with terracotta, clay, sage, coral, cream, and sand tones for modern sophisticated look
 - July 22, 2025. Enhanced gradients to use warm earth combinations for backgrounds and accent elements throughout the site
+- July 22, 2025. Updated fonts to modern Canva-style typography: DM Sans for headings, Plus Jakarta Sans for accents, matching clean design aesthetic
+- July 22, 2025. Added mocha pink color variations (light, regular, dark) inspired by Canva design boards for softer, more sophisticated look
+- July 22, 2025. Implemented soft pink and mocha pink gradients throughout Hero, Header, Products, and Values sections for cohesive warm aesthetic
 ```
 
 ## User Preferences

@@ -86,7 +86,7 @@ const Products = () => {
   const filteredProducts = filterProducts(products);
 
   return (
-    <div className="warm-earth-gradient pb-16">
+    <div className="soft-pink-gradient pb-16">
       <div className="product-gradient text-white py-16">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4">

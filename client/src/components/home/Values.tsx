@@ -58,25 +58,25 @@ const Values = () => {
           ))}
         </div>
 
-        <div className="mt-16 warm-earth-gradient rounded-2xl p-8 md:p-12 text-center product-shadow">
-          <h3 className="font-heading text-2xl md:text-3xl font-bold text-primary mb-6">
+        <div className="mt-16 mocha-pink-gradient rounded-2xl p-8 md:p-12 text-center product-shadow">
+          <h3 className="font-heading text-2xl md:text-3xl font-bold text-white mb-6">
             Experience the Difference
           </h3>
-          <p className="text-xl text-primary mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
             Join thousands of professionals who trust LIGREMO for their everyday carry needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">500+</div>
-              <div className="text-gray-600">Happy Customers</div>
+              <div className="text-3xl font-bold text-white">500+</div>
+              <div className="text-white/80">Happy Customers</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">5★</div>
-              <div className="text-gray-600">Average Rating</div>
+              <div className="text-3xl font-bold text-white">5★</div>
+              <div className="text-white/80">Average Rating</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">100%</div>
-              <div className="text-gray-600">Handcrafted</div>
+              <div className="text-3xl font-bold text-white">100%</div>
+              <div className="text-white/80">Handcrafted</div>
             </div>
           </div>
         </div>

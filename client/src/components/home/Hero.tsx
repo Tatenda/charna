@@ -2,7 +2,7 @@ import { Link } from "wouter";
 
 const Hero = () => {
   return (
-    <section className="relative pt-24 min-h-screen flex items-center overflow-hidden warm-earth-gradient">
+    <section className="relative pt-24 min-h-screen flex items-center overflow-hidden soft-pink-gradient">
       
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

@@ -1,5 +1,5 @@
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+/* Import modern fonts matching Canva design */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -38,13 +38,16 @@
   --neutral-light: 0 0% 40%; /* Medium grey */
   --neutral-dark: 0 0% 10%; /* Very dark grey */
   
-  /* 2025 Warm Earth Palette - Canva Inspired */
+  /* 2025 Warm Earth Palette - Canva Inspired with Mocha Pink */
   --terracotta: 15 75% 65%; /* #c99383 - Warm clay tone */
   --clay: 25 60% 55%; /* #b17a50 - Rich wood tone */
   --sage: 120 20% 60%; /* #9ca3af - Soft green gray */
   --coral: 15 85% 70%; /* #f87171 - Bright coral accent */
   --cream: 45 60% 95%; /* #fef9f3 - Warm cream */
   --sand: 35 40% 85%; /* #e8ddd4 - Sandy beige */
+  --mocha-pink: 15 35% 75%; /* #c4a99b - Soft mocha pink from Canva design */
+  --mocha-pink-light: 15 40% 85%; /* #d4c2b8 - Light mocha pink */
+  --mocha-pink-dark: 15 30% 65%; /* #b39188 - Darker mocha pink */
   
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;
@@ -135,17 +138,20 @@
   }
 }
 
-/* Font classes */
+/* Modern font classes matching Canva style */
 .font-sans {
   font-family: 'Inter', sans-serif;
 }
 
 .font-heading {
-  font-family: 'Playfair Display', serif;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .font-accent {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
 }
 
 /* Modern Product Design Elements */
@@ -168,6 +174,14 @@
 
 .warm-earth-gradient {
   background: linear-gradient(135deg, hsl(var(--cream)) 0%, hsl(var(--sand)) 50%, hsl(var(--terracotta)) 100%);
+}
+
+.mocha-pink-gradient {
+  background: linear-gradient(135deg, hsl(var(--mocha-pink-light)) 0%, hsl(var(--mocha-pink)) 50%, hsl(var(--mocha-pink-dark)) 100%);
+}
+
+.soft-pink-gradient {
+  background: linear-gradient(135deg, hsl(var(--cream)) 0%, hsl(var(--mocha-pink-light)) 100%);
 }
 
 .glass-effect {
