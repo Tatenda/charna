@@ -31,7 +31,7 @@ const Header = () => {
               LIGREMO
             </Link>
           </div>
-          <nav className="hidden lg:flex space-x-6 font-bold text-sm uppercase tracking-wider">
+          <nav className="hidden lg:flex space-x-4 font-bold text-xs uppercase tracking-wider">
             <Link 
               href="/" 
               className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
@@ -39,10 +39,34 @@ const Header = () => {
               Home
             </Link>
             <Link 
-              href="/products" 
+              href="/products?category=business" 
               className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/products') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
             >
-              Groovy Gear
+              Business Bags
+            </Link>
+            <Link 
+              href="/products?category=travel" 
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 hover:bg-white hover:retro-border`}
+            >
+              Travel Bags
+            </Link>
+            <Link 
+              href="/products?category=sport" 
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 hover:bg-white hover:retro-border`}
+            >
+              Sport Bags
+            </Link>
+            <Link 
+              href="/products?category=leisure" 
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 hover:bg-white hover:retro-border`}
+            >
+              Leisure Bags
+            </Link>
+            <Link 
+              href="/products?category=custom" 
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 hover:bg-white hover:retro-border`}
+            >
+              Custom Bags
             </Link>
             <Link 
               href="/story" 
@@ -54,7 +78,7 @@ const Header = () => {
               href="/contact" 
               className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/contact') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
             >
-              Get In Touch
+              Contact
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
@@ -72,24 +96,52 @@ const Header = () => {
           <nav className="flex flex-col space-y-3 font-accent text-sm uppercase tracking-wider">
             <Link
               href="/"
-              className={`hover:text-accent transition duration-200 py-2 border-b border-gray-100 ${isActive('/') ? 'text-accent' : ''}`}
+              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20 ${isActive('/') ? 'text-accent' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
-              href="/products"
-              className={`hover:text-accent transition duration-200 py-2 border-b border-gray-100 ${isActive('/products') ? 'text-accent' : ''}`}
+              href="/products?category=business"
+              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20 ${isActive('/products') ? 'text-accent' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              Products
+              Business Bags
+            </Link>
+            <Link
+              href="/products?category=travel"
+              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Travel Bags
+            </Link>
+            <Link
+              href="/products?category=sport"
+              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Sport Bags
+            </Link>
+            <Link
+              href="/products?category=leisure"
+              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Leisure Bags
+            </Link>
+            <Link
+              href="/products?category=custom"
+              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Custom Bags
             </Link>
             <Link
               href="/story"
-              className={`hover:text-accent transition duration-200 py-2 border-b border-gray-100 ${isActive('/story') ? 'text-accent' : ''}`}
+              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20 ${isActive('/story') ? 'text-accent' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              Our Story
+              Our Vibe
             </Link>
             <Link
               href="/contact"

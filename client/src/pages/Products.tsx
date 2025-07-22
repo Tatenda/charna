@@ -87,13 +87,13 @@ const Products = () => {
 
   return (
     <div className="bg-secondary-light pb-16">
-      <div className="bg-primary text-white py-12">
+      <div className="bg-primary text-white py-12 retro-stripe">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-3xl md:text-4xl font-semibold text-center">
-            Our Products
+          <h1 className="font-heading text-3xl md:text-4xl font-bold text-center bg-white text-primary px-6 py-3 retro-border transform -rotate-1 inline-block">
+            Far Out Groovy Gear
           </h1>
-          <p className="text-white/80 text-center mt-4 max-w-2xl mx-auto">
-            Handcrafted with premium South African leather, our bags are designed for style and functionality.
+          <p className="text-white/90 text-center mt-6 max-w-2xl mx-auto font-semibold tracking-wide">
+            Handcrafted with premium South African leather, our bags bring that authentic 70's vibe to your lifestyle, man!
           </p>
         </div>
       </div>
@@ -123,23 +123,56 @@ const Products = () => {
                   <input 
                     type="radio" 
                     name="category" 
-                    value="tennis" 
-                    checked={selectedCategory === "tennis"} 
-                    onChange={() => setSelectedCategory("tennis")}
+                    value="business" 
+                    checked={selectedCategory === "business"} 
+                    onChange={() => setSelectedCategory("business")}
                     className="mr-2"
                   />
-                  <span>Tennis Bags</span>
+                  <span>Business Bags</span>
                 </label>
                 <label className="flex items-center cursor-pointer">
                   <input 
                     type="radio" 
                     name="category" 
-                    value="work" 
-                    checked={selectedCategory === "work"} 
-                    onChange={() => setSelectedCategory("work")}
+                    value="travel" 
+                    checked={selectedCategory === "travel"} 
+                    onChange={() => setSelectedCategory("travel")}
                     className="mr-2"
                   />
-                  <span>Work Bags</span>
+                  <span>Travel Bags</span>
+                </label>
+                <label className="flex items-center cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="category" 
+                    value="sport" 
+                    checked={selectedCategory === "sport"} 
+                    onChange={() => setSelectedCategory("sport")}
+                    className="mr-2"
+                  />
+                  <span>Sport Bags</span>
+                </label>
+                <label className="flex items-center cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="category" 
+                    value="leisure" 
+                    checked={selectedCategory === "leisure"} 
+                    onChange={() => setSelectedCategory("leisure")}
+                    className="mr-2"
+                  />
+                  <span>Leisure Bags</span>
+                </label>
+                <label className="flex items-center cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="category" 
+                    value="custom" 
+                    checked={selectedCategory === "custom"} 
+                    onChange={() => setSelectedCategory("custom")}
+                    className="mr-2"
+                  />
+                  <span>Custom Bags</span>
                 </label>
               </div>
             </div>
@@ -261,6 +294,62 @@ const Products = () => {
                     <span>Brown</span>
                   </div>
                 </label>
+                <label className="flex items-center cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="color" 
+                    value="tan" 
+                    checked={selectedColor === "tan"} 
+                    onChange={() => setColor("tan")}
+                    className="mr-2"
+                  />
+                  <div className="flex items-center">
+                    <span className="w-4 h-4 bg-amber-600 rounded-full mr-2"></span>
+                    <span>Tan</span>
+                  </div>
+                </label>
+                <label className="flex items-center cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="color" 
+                    value="mustard" 
+                    checked={selectedColor === "mustard"} 
+                    onChange={() => setColor("mustard")}
+                    className="mr-2"
+                  />
+                  <div className="flex items-center">
+                    <span className="w-4 h-4 bg-yellow-500 rounded-full mr-2"></span>
+                    <span>Mustard</span>
+                  </div>
+                </label>
+                <label className="flex items-center cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="color" 
+                    value="green" 
+                    checked={selectedColor === "green"} 
+                    onChange={() => setColor("green")}
+                    className="mr-2"
+                  />
+                  <div className="flex items-center">
+                    <span className="w-4 h-4 bg-green-600 rounded-full mr-2"></span>
+                    <span>Green</span>
+                  </div>
+                </label>
+                <label className="flex items-center cursor-pointer">
+                  <input 
+                    type="radio" 
+                    name="color" 
+                    value="ivory" 
+                    checked={selectedColor === "ivory"} 
+                    onChange={() => setColor("ivory")}
+                    className="mr-2"
+                  />
+                  <div className="flex items-center">
+                    <span className="w-4 h-4 bg-yellow-50 border border-gray-300 rounded-full mr-2"></span>
+                    <span>Ivory</span>
+                  </div>
+                </label>
               </div>
             </div>
           </div>
@@ -275,8 +364,11 @@ const Products = () => {
                 <SelectContent>
                   <SelectGroup>
                     <SelectItem value="all">All Categories</SelectItem>
-                    <SelectItem value="tennis">Tennis Bags</SelectItem>
-                    <SelectItem value="work">Work Bags</SelectItem>
+                    <SelectItem value="business">Business Bags</SelectItem>
+                    <SelectItem value="travel">Travel Bags</SelectItem>
+                    <SelectItem value="sport">Sport Bags</SelectItem>
+                    <SelectItem value="leisure">Leisure Bags</SelectItem>
+                    <SelectItem value="custom">Custom Bags</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -306,6 +398,10 @@ const Products = () => {
                     <SelectItem value="white">White</SelectItem>
                     <SelectItem value="black">Black</SelectItem>
                     <SelectItem value="brown">Brown</SelectItem>
+                    <SelectItem value="tan">Tan</SelectItem>
+                    <SelectItem value="mustard">Mustard</SelectItem>
+                    <SelectItem value="green">Green</SelectItem>
+                    <SelectItem value="ivory">Ivory</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

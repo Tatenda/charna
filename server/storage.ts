@@ -175,6 +175,138 @@ export class MemStorage implements IStorage {
       featured: true,
       createdAt: new Date("2025-01-08T00:00:00Z")
     });
+
+    // Travel Bag
+    this.products.set(5, {
+      id: 5,
+      name: "LIGREMO Explorer Travel Bag",
+      description: "A spacious travel companion with retro 70's styling. Perfect for weekend getaways and extended adventures with authentic South African craftsmanship.",
+      longDescription: "The LIGREMO Explorer Travel Bag embodies the adventurous spirit of the 70's with modern functionality. Crafted in our Johannesburg workshop, this groovy travel companion features ample storage and retro styling that makes every journey far out.",
+      price: 4299,
+      originalPrice: 4899,
+      rating: 47,
+      reviewCount: 22,
+      inStock: true,
+      badge: "Adventure Ready",
+      category: "travel",
+      colors: ["brown", "tan"],
+      features: [
+        "Large capacity design",
+        "Multiple compartments",
+        "Durable travel construction",
+        "Retro 70's styling",
+        "Premium leather handles",
+        "Adjustable shoulder strap"
+      ],
+      images: [
+        "/images/travel-bag-lifestyle.jpg",
+        "/images/travel-bag-studio.jpg"
+      ],
+      materials: "Premium travel-grade leather, handcrafted in Johannesburg. Heavy-duty hardware with vintage brass finish.",
+      dimensions: "L 45cm x W 25cm x H 30cm. Handle drop: 15cm.",
+      careInstructions: "Built for adventure. Clean with leather care products and condition regularly for optimal durability.",
+      featured: false,
+      createdAt: new Date("2025-07-22T00:00:00Z")
+    });
+
+    // Sport Bag
+    this.products.set(6, {
+      id: 6,
+      name: "LIGREMO Retro Sport Duffel",
+      description: "A groovy sport bag with 70's flair for the active lifestyle. Combines retro aesthetics with modern sports functionality.",
+      longDescription: "The LIGREMO Retro Sport Duffel brings that authentic 70's vibe to your workout routine. This far-out bag combines vintage styling with practical sports features for the active individual who digs both style and performance.",
+      price: 3199,
+      originalPrice: 3699,
+      rating: 45,
+      reviewCount: 19,
+      inStock: true,
+      badge: "Retro Active",
+      category: "sport", 
+      colors: ["green", "black"],
+      features: [
+        "Ventilated shoe compartment",
+        "Water-resistant lining",
+        "Adjustable shoulder strap",
+        "70's inspired design",
+        "Multiple pockets",
+        "Premium sport hardware"
+      ],
+      images: [
+        "/images/sport-bag-lifestyle.jpg",
+        "/images/sport-bag-studio.jpg"
+      ],
+      materials: "Durable sport leather with water-resistant treatment, made in Johannesburg.",
+      dimensions: "L 50cm x W 25cm x H 25cm. Strap length: 130cm.",
+      careInstructions: "Wipe clean after use. Air dry thoroughly. Condition leather monthly for longevity.",
+      featured: false,
+      createdAt: new Date("2025-07-22T00:00:00Z")
+    });
+
+    // Leisure Bag  
+    this.products.set(7, {
+      id: 7,
+      name: "LIGREMO Groovy Leisure Tote",
+      description: "A totally chill leisure bag perfect for casual outings. Features 70's retro styling with South African craftsmanship for the laid-back lifestyle.",
+      longDescription: "The LIGREMO Groovy Leisure Tote is all about that relaxed 70's vibe. Perfect for farmers markets, beach trips, or just hanging out with friends, this bag brings together retro cool and practical functionality.",
+      price: 2599,
+      originalPrice: 2999,
+      rating: 46,
+      reviewCount: 27,
+      inStock: true,
+      badge: "Chill Vibes",
+      category: "leisure",
+      colors: ["mustard", "brown"],
+      features: [
+        "Relaxed casual design",
+        "Spacious main compartment",
+        "Interior zip pocket",
+        "Comfortable handles",
+        "70's retro styling",
+        "Lightweight construction"
+      ],
+      images: [
+        "/images/leisure-bag-lifestyle.jpg",
+        "/images/leisure-bag-studio.jpg"
+      ],
+      materials: "Soft leisure leather with natural grain, handcrafted in Johannesburg.",
+      dimensions: "L 35cm x W 15cm x H 25cm. Handle drop: 20cm.",
+      careInstructions: "Perfect for everyday use. Clean gently and condition as needed.",
+      featured: false,
+      createdAt: new Date("2025-07-22T00:00:00Z")
+    });
+
+    // Custom Bag
+    this.products.set(8, {
+      id: 8,
+      name: "LIGREMO Custom Creation",
+      description: "Design your own groovy bag with our custom service. Choose colors, features, and styling to create your perfect 70's inspired leather companion.",
+      longDescription: "The LIGREMO Custom Creation service lets you design the bag of your dreams. Work with our Johannesburg artisans to create a one-of-a-kind piece that reflects your personal style and groovy 70's aesthetic preferences.",
+      price: 5999,
+      originalPrice: 6999,
+      rating: 50,
+      reviewCount: 8,
+      inStock: true,
+      badge: "Made to Order",
+      category: "custom",
+      colors: ["custom"],
+      features: [
+        "Completely customizable",
+        "Personal design consultation",
+        "Choice of colors and materials",
+        "Unique hardware options",
+        "Personalized details",
+        "4-6 week creation time"
+      ],
+      images: [
+        "/images/custom-bag-examples.jpg",
+        "/images/custom-process.jpg"
+      ],
+      materials: "Your choice of premium leathers and hardware, all handcrafted in Johannesburg.",
+      dimensions: "Customizable to your specifications.",
+      careInstructions: "Care instructions provided based on your chosen materials and design.",
+      featured: true,
+      createdAt: new Date("2025-07-22T00:00:00Z")
+    });
   }
 
   // Product Methods
