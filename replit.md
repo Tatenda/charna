@@ -136,6 +136,7 @@ Changelog:
 - July 22, 2025. Updated fonts to modern Canva-style typography: DM Sans for headings, Plus Jakarta Sans for accents, matching clean design aesthetic
 - July 22, 2025. Added mocha pink color variations (light, regular, dark) inspired by Canva design boards for softer, more sophisticated look
 - July 22, 2025. Implemented soft pink and mocha pink gradients throughout Hero, Header, Products, and Values sections for cohesive warm aesthetic
+- July 22, 2025. Updated Hero section with blurred green bag background image and focused product showcase with glassmorphism design elements
 ```
 
 ## User Preferences
