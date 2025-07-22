@@ -3,14 +3,13 @@ import { Link } from "wouter";
 const Hero = () => {
   return (
     <section className="relative pt-24 min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
-      
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div className="space-y-8">
             <div className="space-y-6">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary leading-tight">
-                <span className="block text-white">
+                <span className="block text-[#c7a2a2]">
                   Designed with you
                 </span>
                 <span className="block accent-gradient bg-clip-text text-transparent">
