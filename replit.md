@@ -113,6 +113,7 @@ Changelog:
 - January 8, 2025. Updated all location references to Johannesburg (previously Cape Town)
 - January 8, 2025. Updated domain references to ligremp.replit.app
 - January 8, 2025. Removed all Italian heritage references - now focuses purely on South African craftsmanship and Johannesburg manufacturing
+- January 8, 2025. Removed all remaining "Concetto" brand references and replaced with "LIGREMO" throughout the entire website
 ```
 
 ## User Preferences

@@ -72,7 +72,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h1>
           <p className="text-xl text-white/80 mt-4">
-            Everything you need to know about Concetto
+            Everything you need to know about LIGREMO
           </p>
         </div>
       </div>

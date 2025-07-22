@@ -76,16 +76,16 @@ const Hero = () => {
                 
                 {/* Brand logo overlay */}
                 <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-                  <div className="text-slate-900 font-bold text-lg tracking-wider">CONCETTO</div>
-                  <div className="text-slate-600 text-sm">Italian Craftsmanship</div>
+                  <div className="text-slate-900 font-bold text-lg tracking-wider">LIGREMO</div>
+                  <div className="text-slate-600 text-sm">South African Craftsmanship</div>
                 </div>
               </div>
               
               {/* Secondary accent image - Brand detail */}
               <div className="absolute -bottom-6 -right-6 z-0 transform rotate-3 hover:rotate-0 transition-transform duration-500">
                 <img 
-                  src="/images/concetto-brand-logo.jpg" 
-                  alt="Concetto brand craftsmanship detail" 
+                  src="/images/tennis-bag-lifestyle.jpg" 
+                  alt="LIGREMO brand craftsmanship detail" 
                   className="rounded-2xl shadow-xl w-56 h-72 object-cover border-2 border-white/50" 
                 />
                 

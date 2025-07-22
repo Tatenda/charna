@@ -122,7 +122,7 @@ const Footer = () => {
         <div className="border-t border-white/20 pt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="text-white/50 text-sm">
-              © {new Date().getFullYear()} Concetto. All rights reserved.
+              © {new Date().getFullYear()} LIGREMO. All rights reserved.
             </div>
             <div className="text-white/50 text-sm md:text-right">
               <Link href="/terms" className="hover:text-white transition duration-200">Terms & Conditions</Link> | 

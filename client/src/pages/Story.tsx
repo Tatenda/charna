@@ -209,7 +209,7 @@ const Story = () => {
                   <div>
                     <h3 className="font-accent text-lg font-semibold mb-1">Zero-Waste Philosophy</h3>
                     <p className="text-neutral">
-                      Our Italian artisans employ traditional cutting techniques that maximize leather utilization. Every piece is carefully planned to minimize waste while preserving the integrity of each hide.
+                      Our South African artisans employ traditional cutting techniques that maximize leather utilization. Every piece is carefully planned to minimize waste while preserving the integrity of each hide.
                     </p>
                   </div>
                 </div>
@@ -221,7 +221,7 @@ const Story = () => {
                   <div>
                     <h3 className="font-accent text-lg font-semibold mb-1">Responsible Sourcing</h3>
                     <p className="text-neutral">
-                      We source premium Italian leather from certified tanneries that follow strict environmental protocols, then craft each piece in our South African workshop using traditional techniques passed down through our family heritage.
+                      We source premium leather from certified tanneries that follow strict environmental protocols, then craft each piece in our Johannesburg workshop using traditional techniques refined by our skilled artisans.
                     </p>
                   </div>
                 </div>
@@ -233,7 +233,7 @@ const Story = () => {
                   <div>
                     <h3 className="font-accent text-lg font-semibold mb-1">Luxury Packaging</h3>
                     <p className="text-neutral">
-                      Each Concetto piece arrives in sustainably sourced packaging that reflects our commitment to both luxury presentation and environmental responsibility.
+                      Each LIGREMO piece arrives in sustainably sourced packaging that reflects our commitment to both luxury presentation and environmental responsibility.
                     </p>
                   </div>
                 </div>

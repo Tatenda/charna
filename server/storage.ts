@@ -98,8 +98,8 @@ export class MemStorage implements IStorage {
         "Signature LIGREMO hardware"
       ],
       images: [
-        "/images/concetto-brand-logo.jpg",
-        "/images/green-backpack-lifestyle.jpg"
+        "/images/green-backpack-lifestyle.jpg",
+        "/images/tennis-bag-lifestyle.jpg"
       ],
       materials: "Crafted from finest full-grain leather, handmade in South Africa. Signature brass hardware with gold finish. Lined with premium cotton canvas.",
       dimensions: "L 38cm x W 12cm x H 28cm. Handle drop: 22cm.",
@@ -133,7 +133,7 @@ export class MemStorage implements IStorage {
       ],
       images: [
         "/images/ivory-backpack-studio.jpg",
-        "/images/concetto-brand-logo.jpg"
+        "/images/work-backpack-studio.jpg"
       ],
       materials: "Handcrafted from finest full-grain leather, made in South Africa. Premium brass hardware with polished finish. Interior lined with luxurious cotton canvas.",
       dimensions: "L 28cm x W 14cm x H 38cm. Adjustable straps: 65-80cm.",
