@@ -58,11 +58,11 @@ const Values = () => {
           ))}
         </div>
 
-        <div className="mt-16 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 md:p-12 text-center">
+        <div className="mt-16 warm-earth-gradient rounded-2xl p-8 md:p-12 text-center product-shadow">
           <h3 className="font-heading text-2xl md:text-3xl font-bold text-primary mb-6">
             Experience the Difference
           </h3>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-primary mb-8 max-w-2xl mx-auto">
             Join thousands of professionals who trust LIGREMO for their everyday carry needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

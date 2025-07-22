@@ -130,6 +130,9 @@ Changelog:
 - July 22, 2025. Transformed Values component to modern card-based design with hover effects and professional messaging
 - July 22, 2025. Redesigned Footer with product gradient background and organized navigation structure
 - July 22, 2025. Replaced retro elements (retro-border, retro-shadow, retro-stripe) with modern design elements (product-shadow, modern-card, glass-effect)
+- July 22, 2025. Updated to 2025 Canva-inspired color palette: Mocha Mousse (PANTONE Color of the Year) primary, warm earth tones, sunny yellow accents
+- July 22, 2025. Implemented warm earth color palette with terracotta, clay, sage, coral, cream, and sand tones for modern sophisticated look
+- July 22, 2025. Enhanced gradients to use warm earth combinations for backgrounds and accent elements throughout the site
 ```
 
 ## User Preferences
