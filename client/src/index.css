@@ -19,7 +19,7 @@
   --input: 45 20% 90%; /* Warm input background */
   
   /* 2025 Canva-Inspired Product Design colors */
-  --primary: 25 25% 39%; /* Mocha Mousse #a47864 - PANTONE Color of the Year 2025 */
+  --primary: 30 40% 25%; /* Warm brown #5c4033 - matching Canva lifestyle design */
   --primary-light: 25 30% 49%; /* Light Mocha #b8897a */
   --primary-dark: 25 20% 29%; /* Dark Mocha #8d6654 */
   --primary-foreground: 0 0% 100%;
@@ -29,7 +29,7 @@
   --secondary-dark: 25 20% 88%; /* Soft taupe #e8e2dd */
   --secondary-foreground: 25 25% 39%;
   
-  --accent: 45 95% 53%; /* Sunny yellow #fbbf24 */
+  --accent: 35 85% 60%; /* Warm amber #e8b86d - matching warm lifestyle tone */
   --accent-light: 45 100% 65%; /* Light yellow #fcd34d */
   --accent-dark: 45 85% 43%; /* Golden yellow #d97706 */
   --accent-foreground: 25 25% 39%;
