@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white fixed w-full z-50 shadow-sm">
+    <header className="bg-secondary fixed w-full z-50 retro-border border-b-4 border-primary shadow-lg">
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
@@ -27,39 +27,39 @@ const Header = () => {
             >
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
-            <Link href="/" className="font-heading text-2xl sm:text-3xl text-slate-900 font-bold tracking-wider">
+            <Link href="/" className="font-heading text-2xl sm:text-3xl text-primary font-bold tracking-wider bg-white px-4 py-2 retro-border transform -rotate-1">
               LIGREMO
             </Link>
           </div>
-          <nav className="hidden lg:flex space-x-8 font-medium text-sm uppercase tracking-wider">
+          <nav className="hidden lg:flex space-x-6 font-bold text-sm uppercase tracking-wider">
             <Link 
               href="/" 
-              className={`text-slate-700 hover:text-amber-700 transition duration-200 ${isActive('/') ? 'border-b-2 border-amber-700' : ''}`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
             >
               Home
             </Link>
             <Link 
               href="/products" 
-              className={`text-slate-700 hover:text-amber-700 transition duration-200 ${isActive('/products') ? 'border-b-2 border-amber-700' : ''}`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/products') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
             >
-              Collection
+              Groovy Gear
             </Link>
             <Link 
               href="/story" 
-              className={`text-slate-700 hover:text-amber-700 transition duration-200 ${isActive('/story') ? 'border-b-2 border-amber-700' : ''}`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/story') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
             >
-              Heritage
+              Our Vibe
             </Link>
             <Link 
               href="/contact" 
-              className={`text-slate-700 hover:text-amber-700 transition duration-200 ${isActive('/contact') ? 'border-b-2 border-amber-700' : ''}`}
+              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 ${isActive('/contact') ? 'bg-accent text-white retro-border' : 'hover:bg-white hover:retro-border'}`}
             >
-              Contact
+              Get In Touch
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
-            <Link href="/products" className="text-slate-700 hover:text-amber-700 transition duration-200">
-              <FontAwesomeIcon icon="search" className="text-xl" />
+            <Link href="/products" className="text-primary hover:text-accent transition duration-200 bg-white px-3 py-2 retro-border">
+              <FontAwesomeIcon icon="search" className="text-lg" />
             </Link>
             <CartButton />
           </div>
@@ -67,7 +67,7 @@ const Header = () => {
       </div>
       
       {/* Mobile Menu */}
-      <div className={`lg:hidden bg-white w-full ${mobileMenuOpen ? 'block' : 'hidden'}`}>
+      <div className={`lg:hidden bg-secondary w-full retro-border border-t-4 border-primary ${mobileMenuOpen ? 'block' : 'hidden'}`}>
         <div className="container mx-auto px-4 py-4">
           <nav className="flex flex-col space-y-3 font-accent text-sm uppercase tracking-wider">
             <Link

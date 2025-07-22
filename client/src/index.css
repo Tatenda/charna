@@ -7,36 +7,36 @@
 
 :root {
   /* Base colors */
-  --background: 0 0% 100%;
-  --foreground: 20 14.3% 4.1%;
-  --muted: 60 4.8% 95.9%;
-  --muted-foreground: 25 5.3% 44.7%;
+  --background: 0 0% 98%; /* Off-white */
+  --foreground: 0 0% 0%; /* Black text */
+  --muted: 45 30% 92%; /* Light mustard tint */
+  --muted-foreground: 0 0% 30%;
   --popover: 0 0% 100%;
-  --popover-foreground: 20 14.3% 4.1%;
+  --popover-foreground: 0 0% 0%;
   --card: 0 0% 100%;
-  --card-foreground: 20 14.3% 4.1%;
-  --border: 20 5.9% 90%;
-  --input: 20 5.9% 90%;
+  --card-foreground: 0 0% 0%;
+  --border: 45 20% 80%; /* Warm border */
+  --input: 45 20% 90%; /* Warm input background */
   
-  /* Living Green Movement colors */
-  --primary: 133 14% 26%; /* #3A4D39 */
-  --primary-light: 126 17% 36%; /* #506B4E */
-  --primary-dark: 135 17% 20%; /* #2C3C2B */
-  --primary-foreground: 210 40% 98%;
+  /* 70's Retro South African colors */
+  --primary: 0 0% 0%; /* Pure Black */
+  --primary-light: 0 0% 15%; /* Dark charcoal */
+  --primary-dark: 0 0% 0%; /* Pure black */
+  --primary-foreground: 0 0% 100%;
   
-  --secondary: 41 40% 93%; /* #F4F0E6 */
-  --secondary-light: 36 43% 97%; /* #FAF8F4 */
-  --secondary-dark: 39 23% 86%; /* #E5DFD3 */
-  --secondary-foreground: 24 9.8% 10%;
+  --secondary: 45 88% 63%; /* Mustard Yellow #D4A843 */
+  --secondary-light: 45 92% 73%; /* Light mustard #E4BD5A */
+  --secondary-dark: 45 85% 53%; /* Dark mustard #C49936 */
+  --secondary-foreground: 0 0% 0%;
   
-  --accent: 9 50% 42%; /* #A04B36 */
-  --accent-light: 11 46% 55%; /* #C06B56 */
-  --accent-dark: 9 48% 35%; /* #843E2E */
-  --accent-foreground: 0 0% 98%;
+  --accent: 120 39% 54%; /* South African Green #6BAA75 */
+  --accent-light: 120 45% 64%; /* Light green #7BC085 */
+  --accent-dark: 120 35% 44%; /* Dark green #5B9A65 */
+  --accent-foreground: 0 0% 100%;
   
-  --neutral: 0 0% 29%; /* #4A4A4A */
-  --neutral-light: 0 0% 43%; /* #6E6E6E */
-  --neutral-dark: 0 0% 20%; /* #333333 */
+  --neutral: 0 0% 20%; /* Dark grey */
+  --neutral-light: 0 0% 40%; /* Medium grey */
+  --neutral-dark: 0 0% 10%; /* Very dark grey */
   
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;
@@ -76,7 +76,8 @@
   }
 
   body {
-    @apply bg-secondary-light text-neutral font-sans antialiased;
+    @apply bg-secondary-light text-neutral-dark font-sans antialiased;
+    background: linear-gradient(135deg, hsl(45, 30%, 96%) 0%, hsl(45, 20%, 94%) 100%);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -137,4 +138,30 @@
 
 .font-accent {
   font-family: 'Montserrat', sans-serif;
+}
+
+/* 70's Retro Elements */
+.retro-stripe {
+  background: repeating-linear-gradient(
+    45deg,
+    hsl(45, 88%, 63%),
+    hsl(45, 88%, 63%) 10px,
+    hsl(120, 39%, 54%) 10px,
+    hsl(120, 39%, 54%) 20px,
+    hsl(0, 0%, 0%) 20px,
+    hsl(0, 0%, 0%) 30px
+  );
+}
+
+.retro-shadow {
+  box-shadow: 8px 8px 0px hsl(45, 85%, 53%), 16px 16px 0px hsl(120, 35%, 44%);
+}
+
+.retro-border {
+  border: 4px solid hsl(0, 0%, 0%);
+  border-radius: 0;
+}
+
+.retro-gradient {
+  background: linear-gradient(135deg, hsl(45, 88%, 63%) 0%, hsl(120, 39%, 54%) 50%, hsl(0, 0%, 0%) 100%);
 }

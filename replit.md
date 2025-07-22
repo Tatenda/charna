@@ -114,6 +114,12 @@ Changelog:
 - January 8, 2025. Updated domain references to ligremp.replit.app
 - January 8, 2025. Removed all Italian heritage references - now focuses purely on South African craftsmanship and Johannesburg manufacturing
 - January 8, 2025. Removed all remaining "Concetto" brand references and replaced with "LIGREMO" throughout the entire website
+- July 22, 2025. Complete visual transformation to 70's retro aesthetic with mustard yellow, green, black, and white color scheme
+- July 22, 2025. Added retro styling elements: retro-stripe patterns, retro-border (thick black borders), retro-shadow (layered box shadows), and 70's-inspired language throughout
+- July 22, 2025. Updated Hero component with bold retro styling, rotated elements, and groovy language ("Far Out Collection", "Groovy Story")
+- July 22, 2025. Redesigned Header with mustard yellow background, bold black borders, and retro navigation styling
+- July 22, 2025. Updated Values component with 70's language and visual elements, including retro patterns and styling
+- July 22, 2025. Enhanced Footer with retro background elements and updated brand messaging to emphasize "groovy 70's vibes"
 ```
 
 ## User Preferences

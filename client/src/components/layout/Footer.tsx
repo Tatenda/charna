@@ -3,12 +3,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white pt-16 pb-8">
-      <div className="container mx-auto px-4">
+    <footer className="bg-primary text-white pt-16 pb-8 relative overflow-hidden">
+      {/* 70's Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-12 retro-stripe opacity-20"></div>
+      <div className="absolute bottom-0 right-0 w-48 h-48 bg-secondary opacity-20 transform rotate-45 translate-x-24 translate-y-24"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div>
             <h4 className="font-heading text-xl font-semibold mb-4">LIGREMO</h4>
-            <p className="text-white/70 mb-4">Italian heritage meets South African craftsmanship. Handcrafted luxury bags made with pride in Johannesburg.</p>
+            <p className="text-white/70 mb-4">Groovy 70's vibes meets South African craftsmanship. Handcrafted retro leather bags made with soul in Johannesburg.</p>
             <div className="flex space-x-4">
               <a 
                 href="https://facebook.com" 
