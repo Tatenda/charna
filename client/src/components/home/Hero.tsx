@@ -16,7 +16,7 @@ const Hero = () => {
             <div className="space-y-6">
               <div className="inline-block">
                 <span className="px-6 py-3 bg-gradient-to-r from-amber-100 to-amber-50 text-amber-900 text-sm font-medium rounded-full border border-amber-200/50 shadow-sm">
-                  Italian Craftsmanship
+                  South African Craftsmanship
                 </span>
               </div>
               
@@ -26,7 +26,7 @@ const Hero = () => {
               </h1>
               
               <p className="text-xl md:text-2xl text-slate-600 leading-relaxed font-light max-w-xl">
-                Luxury leather goods handcrafted from the finest Italian materials for the discerning individual who appreciates exceptional quality.
+                Luxury leather goods handcrafted in Johannesburg from the finest materials for the discerning individual who appreciates exceptional quality.
               </p>
             </div>
             
@@ -40,14 +40,14 @@ const Hero = () => {
                 </span>
               </Link>
               <Link href="/story" className="border-2 border-slate-300 text-slate-700 px-8 py-4 rounded-lg text-center group transition-all duration-300 hover:bg-slate-900 hover:text-white hover:border-slate-900 font-medium">
-                Our Heritage
+                Our Story
               </Link>
             </div>
             
             {/* Luxury indicators */}
             <div className="flex items-center gap-8 pt-8 border-t border-slate-200">
               <div className="text-center">
-                <div className="text-2xl font-bold text-slate-900">Italian</div>
+                <div className="text-2xl font-bold text-slate-900">Premium</div>
                 <div className="text-sm text-slate-600">Leather</div>
               </div>
               <div className="text-center">

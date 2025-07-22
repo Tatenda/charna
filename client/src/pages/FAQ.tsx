@@ -5,8 +5,8 @@ import { useState } from "react";
 const faqs = [
   {
     id: 1,
-    question: "What makes Concetto leather bags special?",
-    answer: "Each Concetto bag is handcrafted from the finest Italian full-grain leather using traditional artisan techniques. Our leather develops a beautiful patina over time, making each piece unique. We focus on timeless design that transcends trends, ensuring your investment lasts for decades."
+    question: "What makes LIGREMO leather bags special?",
+    answer: "Each LIGREMO bag is handcrafted from the finest full-grain leather using traditional artisan techniques in our Johannesburg workshop. Our leather develops a beautiful patina over time, making each piece unique. We focus on timeless design that transcends trends, ensuring your investment lasts for decades."
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ const faqs = [
   {
     id: 6,
     question: "Do you offer custom monogramming?",
-    answer: "We offer discrete monogramming services for an additional fee. Contact our customer service team to discuss personalization options that maintain the sophisticated aesthetic of your Concetto piece."
+    answer: "We offer discrete monogramming services for an additional fee. Contact our customer service team to discuss personalization options that maintain the sophisticated aesthetic of your LIGREMO piece."
   },
   {
     id: 7,

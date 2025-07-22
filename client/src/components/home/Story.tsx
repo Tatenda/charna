@@ -9,13 +9,13 @@ const Story = () => {
             <h2 className="font-heading text-3xl md:text-4xl font-semibold text-primary mb-6">Our Story</h2>
             <div className="divider mb-6"></div>
             <p className="text-neutral mb-4 leading-relaxed">
-              Concetto began in Johannesburg, born from a family dream spanning generations. My father's Italian parents had always envisioned creating a luxury bag business, carrying with them rich traditions of Italian leather craftsmanship.
+              LIGREMO began in Johannesburg with a simple vision: to create exceptional leather goods that showcase the incredible skill and artistry of South African craftspeople. Our workshop is where passion meets precision.
             </p>
             <p className="text-neutral mb-4 leading-relaxed">
-              Though their dream remained unrealized, the vision lived on. Today, we've brought that Italian heritage to life in South Africa, where we handcraft each piece using traditional techniques combined with local artisanal excellence.
+              Every LIGREMO piece is handcrafted by skilled local artisans who bring years of experience and deep pride in their work. We believe in the power of traditional craftsmanship combined with contemporary design sensibilities.
             </p>
             <p className="text-neutral mb-6 leading-relaxed">
-              Made in Johannesburg with Italian soul, our luxury leather goods honor both family legacy and the exceptional craftsmanship of local artisans who bring these timeless designs to life.
+              Made in Johannesburg with pride, our luxury leather goods represent the best of South African manufacturing – where attention to detail, quality materials, and expert craftsmanship come together.
             </p>
             <Link href="/story" className="btn-secondary inline-block">
               Learn More

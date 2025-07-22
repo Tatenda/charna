@@ -112,6 +112,7 @@ Changelog:
 - January 8, 2025. Complete rebrand from "Concetto" to "LIGREMO" with domain ligremp.replit.app
 - January 8, 2025. Updated all location references to Johannesburg (previously Cape Town)
 - January 8, 2025. Updated domain references to ligremp.replit.app
+- January 8, 2025. Removed all Italian heritage references - now focuses purely on South African craftsmanship and Johannesburg manufacturing
 ```
 
 ## User Preferences

@@ -1,22 +1,23 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHands, faGem, faCrown } from "@fortawesome/free-solid-svg-icons";
 
 const valueItems = [
   {
-    icon: "hands",
-    title: "Italian Mastery",
-    description: "Each Concetto piece is meticulously handcrafted by master artisans in Italy, using centuries-old techniques passed down through generations of leather craftsmen.",
-    stats: "Italian Heritage"
+    icon: faHands,
+    title: "South African Mastery",
+    description: "Each LIGREMO piece is meticulously handcrafted by master artisans in Johannesburg, using traditional techniques refined through generations of local leather craftsmen.",
+    stats: "Local Heritage"
   },
   {
-    icon: "gem",
+    icon: faGem,
     title: "Finest Materials",
-    description: "We source exclusively from Italy's most prestigious tanneries, selecting only the finest full-grain leather that develops character and beauty over time.",
-    stats: "Premium Italian Leather"
+    description: "We source only the finest full-grain leather, carefully selected for its exceptional quality and character that develops beautifully over time.",
+    stats: "Premium Leather"
   },
   {
-    icon: "crown",
+    icon: faCrown,
     title: "Timeless Design",
-    description: "Every Concetto creation represents the perfect balance of contemporary sophistication and classical elegance, designed for the discerning individual.",
+    description: "Every LIGREMO creation represents the perfect balance of contemporary sophistication and classical elegance, designed for the discerning individual.",
     stats: "Luxury Redefined"
   }
 ];
@@ -32,10 +33,10 @@ const Values = () => {
             </span>
           </div>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-            Italian Heritage
+            South African Excellence
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Every Concetto piece embodies centuries of Italian craftsmanship, premium materials, and unwavering commitment to luxury
+            Every LIGREMO piece embodies the finest South African craftsmanship, premium materials, and unwavering commitment to luxury
           </p>
         </div>
         

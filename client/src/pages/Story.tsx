@@ -19,7 +19,7 @@ const Story = () => {
             Our Story
           </h1>
           <p className="text-white/80 text-center max-w-3xl mx-auto text-lg">
-            From Italian family dreams to South African reality. Discover how we honor heritage while celebrating local craftsmanship.
+            Crafted with pride in Johannesburg. Discover the passion and skill behind our handmade leather goods.
           </p>
         </div>
       </div>
@@ -29,19 +29,19 @@ const Story = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-heading text-3xl font-semibold text-primary mb-6">From Italian Dreams to South African Reality</h2>
+              <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Crafted with Pride in Johannesburg</h2>
               <div className="divider mb-6"></div>
               <p className="text-neutral mb-4 leading-relaxed">
-                LIGREMO was born from a family dream spanning generations. My father's Italian parents had always envisioned creating a luxury bag business, 
-                carrying with them the rich traditions of Italian leather craftsmanship and the pursuit of "bellezza funzionale" – functional beauty.
+                LIGREMO was founded with a simple vision: to create exceptional leather goods that showcase the incredible skill and artistry 
+                of South African craftspeople. Our workshop in Johannesburg is where passion meets precision.
               </p>
               <p className="text-neutral mb-4 leading-relaxed">
-                Though their dream remained unrealized, the vision lived on. Today, we've brought that Italian heritage to life in South Africa, 
-                where we handcraft each LIGREMO piece using traditional Italian techniques combined with local artisanal excellence.
+                Every LIGREMO piece is handcrafted by skilled local artisans who bring years of experience and deep pride in their work. 
+                We believe in the power of traditional craftsmanship combined with contemporary design sensibilities.
               </p>
               <p className="text-neutral leading-relaxed">
-                Made in Johannesburg with Italian soul, our luxury leather goods honor both the family legacy and the exceptional craftsmanship 
-                of local artisans who bring these timeless designs to life with pride and precision.
+                Our leather goods represent the best of South African manufacturing – where attention to detail, quality materials, 
+                and expert craftsmanship come together to create timeless pieces built to last.
               </p>
             </div>
             <div>
@@ -97,9 +97,9 @@ const Story = () => {
           
           <div className="mt-16 text-center">
             <blockquote className="text-2xl font-heading text-primary italic max-w-3xl mx-auto">
-              "We honor my grandparents' Italian dream while celebrating the incredible craftsmanship of South African artisans — every Concetto piece bridges heritage with local excellence."
+              "Every LIGREMO piece represents the incredible skill and dedication of our South African artisans — we're proud to showcase the exceptional craftsmanship that our country has to offer."
             </blockquote>
-            <p className="mt-4 font-accent font-semibold">— Founder, Concetto</p>
+            <p className="mt-4 font-accent font-semibold">— Founder, LIGREMO</p>
           </div>
         </div>
       </section>
@@ -107,7 +107,7 @@ const Story = () => {
       {/* Craftspeople */}
       <section id="craftspeople" className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl font-semibold text-primary mb-6">South African Artisans, Italian Heritage</h2>
+          <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Meet Our South African Artisans</h2>
           <div className="divider mb-8"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
@@ -124,11 +124,11 @@ const Story = () => {
                   <h3 className="font-heading text-xl font-semibold mb-2">David Ndlovu</h3>
                   <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Master Craftsman</p>
                   <p className="text-neutral mb-4">
-                    With over 25 years of leatherwork experience in Johannesburg, David leads our production team and has mastered the Italian techniques 
-                    passed down through our family heritage. His expertise brings the founder's grandparents' vision to life.
+                    With over 25 years of leatherwork experience in Johannesburg, David leads our production team with exceptional skill and dedication. 
+                    His expertise ensures every piece meets our exacting standards for quality and craftsmanship.
                   </p>
                   <p className="text-neutral">
-                    "Every bag carries the Italian dream forward while celebrating the skill and pride of South African craftsmanship."
+                    "Every bag represents the skill and pride of South African craftsmanship — it's an honor to create pieces that will last a lifetime."
                   </p>
                 </div>
               </div>
@@ -147,11 +147,11 @@ const Story = () => {
                   <h3 className="font-heading text-xl font-semibold mb-2">Thandi Dlamini</h3>
                   <p className="text-accent font-accent text-sm uppercase tracking-wider mb-4">Design Lead</p>
                   <p className="text-neutral mb-4">
-                    A University of the Witwatersrand graduate, Thandi bridges Italian design heritage with contemporary South African aesthetics. 
-                    Her work honors traditional methods while creating pieces for modern life.
+                    A University of the Witwatersrand graduate, Thandi brings fresh design perspectives to our traditional leatherwork. 
+                    Her innovative approach creates pieces that blend timeless craftsmanship with contemporary South African style.
                   </p>
                   <p className="text-neutral">
-                    "We're bringing Italian family dreams to life through the incredible skill of local artisans."
+                    "We're creating beautiful, functional pieces that showcase the incredible skill and creativity of our local artisans."
                   </p>
                 </div>
               </div>
@@ -159,10 +159,10 @@ const Story = () => {
           </div>
           
           <div className="text-center mb-12">
-            <h3 className="font-heading text-2xl font-semibold mb-4">Made in Johannesburg with Italian Soul</h3>
+            <h3 className="font-heading text-2xl font-semibold mb-4">Made in Johannesburg with Pride</h3>
             <p className="text-neutral max-w-3xl mx-auto">
-              Our Johannesburg workshop employs skilled local artisans who have embraced the Italian techniques and design philosophy 
-              inherited from the founder's grandparents. Each craftsperson brings pride and precision to create luxury pieces that honor both heritage and local excellence.
+              Our Johannesburg workshop employs skilled local artisans who bring generations of craftsmanship knowledge to every piece. 
+              Each craftsperson demonstrates exceptional pride and precision, creating luxury leather goods that represent the finest South African workmanship.
             </p>
           </div>
           

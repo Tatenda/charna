@@ -55,7 +55,7 @@ export class MemStorage implements IStorage {
       category: "tennis",
       colors: ["cognac"],
       features: [
-        "Premium Italian full-grain leather",
+        "Premium full-grain leather",
         "Hand-stitched construction",
         "Signature brass hardware",
         "Multiple interior compartments",
@@ -67,7 +67,7 @@ export class MemStorage implements IStorage {
         "/images/tennis-bag-action.jpg",
         "/images/tennis-bag-court.jpg"
       ],
-      materials: "Handcrafted from premium Italian full-grain leather, made in South Africa. Signature brass hardware with antique finish. Interior lined with luxurious suede.",
+      materials: "Handcrafted from premium full-grain leather, made in South Africa. Signature brass hardware with antique finish. Interior lined with luxurious suede.",
       dimensions: "L 52cm x W 22cm x H 36cm. Handle drop: 26cm.",
       careInstructions: "Clean with premium leather care products only. Store in provided dust bag. Professional conditioning recommended every 6 months.",
       featured: true,
@@ -78,8 +78,8 @@ export class MemStorage implements IStorage {
     this.products.set(2, {
       id: 2,
       name: "LIGREMO Executive Tote - Ivory",
-      description: "An elegant compact leather tote in pristine ivory, designed for the sophisticated professional. Perfect for daily essentials with refined Italian craftsmanship.",
-      longDescription: "The LIGREMO Executive Tote in Ivory represents understated luxury at its finest. Crafted from the most exquisite Italian full-grain leather, this compact yet functional tote is designed for the discerning professional who values both style and substance.\n\nThe pristine ivory finish exudes sophistication while the structured silhouette maintains its elegant form throughout daily use. Each piece is meticulously handcrafted with attention to every detail, from the precise stitching to the signature brass hardware that bears the LIGREMO mark of excellence.\n\nThis versatile tote seamlessly transitions from boardroom to social events, making it an essential accessory for the modern executive who appreciates timeless design and uncompromising quality.",
+      description: "An elegant compact leather tote in pristine ivory, designed for the sophisticated professional. Perfect for daily essentials with refined South African craftsmanship.",
+      longDescription: "The LIGREMO Executive Tote in Ivory represents understated luxury at its finest. Crafted from the most exquisite full-grain leather in our Johannesburg workshop, this compact yet functional tote is designed for the discerning professional who values both style and substance.\n\nThe pristine ivory finish exudes sophistication while the structured silhouette maintains its elegant form throughout daily use. Each piece is meticulously handcrafted with attention to every detail, from the precise stitching to the signature brass hardware that bears the LIGREMO mark of excellence.\n\nThis versatile tote seamlessly transitions from boardroom to social events, making it an essential accessory for the modern executive who appreciates timeless design and uncompromising quality.",
       price: 2799,
       originalPrice: 3299,
       rating: 48, // 4.8
@@ -89,7 +89,7 @@ export class MemStorage implements IStorage {
       category: "business",
       colors: ["ivory"],
       features: [
-        "Premium Italian ivory leather",
+        "Premium ivory leather",
         "Compact professional design",
         "Interior laptop sleeve (13\")",
         "Structured top handles",
@@ -101,7 +101,7 @@ export class MemStorage implements IStorage {
         "/images/concetto-brand-logo.jpg",
         "/images/green-backpack-lifestyle.jpg"
       ],
-      materials: "Crafted from finest Italian full-grain leather, handmade in South Africa. Signature brass hardware with gold finish. Lined with premium cotton canvas.",
+      materials: "Crafted from finest full-grain leather, handmade in South Africa. Signature brass hardware with gold finish. Lined with premium cotton canvas.",
       dimensions: "L 38cm x W 12cm x H 28cm. Handle drop: 22cm.",
       careInstructions: "Handle with care due to light color. Use specialized ivory leather cleaner. Store in provided dust bag. Professional cleaning recommended.",
       featured: true,
@@ -113,7 +113,7 @@ export class MemStorage implements IStorage {
       id: 3,
       name: "LIGREMO Compact Backpack - Ivory",
       description: "An exquisite compact backpack in pristine ivory leather. Perfect for the sophisticated professional who values both elegance and functionality in a refined silhouette.",
-      longDescription: "The LIGREMO Compact Backpack in Ivory represents the pinnacle of understated luxury. This beautifully proportioned piece is crafted from the finest Italian leather in a timeless ivory finish that exudes sophistication and grace.\n\nDesigned for the discerning individual who appreciates refined aesthetics, this compact backpack offers the perfect balance of form and function. The clean lines and minimalist design speak to contemporary sensibilities while the premium craftsmanship honors traditional Italian leather artistry.\n\nEvery detail has been meticulously considered, from the precision stitching to the carefully selected hardware. This is more than a backpack – it's a statement of refined taste and appreciation for the finer things in life.",
+      longDescription: "The LIGREMO Compact Backpack in Ivory represents the pinnacle of understated luxury. This beautifully proportioned piece is crafted from the finest leather in our Johannesburg workshop in a timeless ivory finish that exudes sophistication and grace.\n\nDesigned for the discerning individual who appreciates refined aesthetics, this compact backpack offers the perfect balance of form and function. The clean lines and minimalist design speak to contemporary sensibilities while the premium craftsmanship honors traditional leather artistry.\n\nEvery detail has been meticulously considered, from the precision stitching to the carefully selected hardware. This is more than a backpack – it's a statement of refined taste and appreciation for the finer things in life.",
       price: 3299,
       originalPrice: 3799,
       rating: 49, // 4.9
@@ -123,7 +123,7 @@ export class MemStorage implements IStorage {
       category: "business",
       colors: ["ivory"],
       features: [
-        "Premium Italian ivory leather",
+        "Premium ivory leather",
         "Compact sophisticated design",
         "Laptop compartment (13\")",
         "Refined minimalist aesthetic",
@@ -135,7 +135,7 @@ export class MemStorage implements IStorage {
         "/images/ivory-backpack-studio.jpg",
         "/images/concetto-brand-logo.jpg"
       ],
-      materials: "Handcrafted from finest Italian full-grain leather, made in South Africa. Premium brass hardware with polished finish. Interior lined with luxurious cotton canvas.",
+      materials: "Handcrafted from finest full-grain leather, made in South Africa. Premium brass hardware with polished finish. Interior lined with luxurious cotton canvas.",
       dimensions: "L 28cm x W 14cm x H 38cm. Adjustable straps: 65-80cm.",
       careInstructions: "Handle with care due to light color. Use specialized ivory leather cleaner. Store in provided dust bag. Professional conditioning recommended every 6 months.",
       featured: true,
@@ -147,7 +147,7 @@ export class MemStorage implements IStorage {
       id: 4,
       name: "LIGREMO Tanned Leather Work Tote",
       description: "A sophisticated tanned leather backpack designed for the modern professional. Features premium hardware and versatile design for work or travel.",
-      longDescription: "The LIGREMO Tanned Leather Work Tote represents the perfect fusion of professional functionality and timeless elegance. Crafted from richly tanned Italian leather, this backpack develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the contemporary professional who values both style and substance, this versatile tote features multiple compartments for optimal organization. The rich tanned leather finish exudes warmth and sophistication, while the premium hardware adds refined details that speak to exceptional craftsmanship.\n\nWhether you're heading to the office or embarking on a business trip, this work tote seamlessly combines Italian design heritage with practical functionality for today's demanding lifestyle.",
+      longDescription: "The LIGREMO Tanned Leather Work Tote represents the perfect fusion of professional functionality and timeless elegance. Crafted from richly tanned leather in our Johannesburg workshop, this backpack develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the contemporary professional who values both style and substance, this versatile tote features multiple compartments for optimal organization. The rich tanned leather finish exudes warmth and sophistication, while the premium hardware adds refined details that speak to exceptional craftsmanship.\n\nWhether you're heading to the office or embarking on a business trip, this work tote seamlessly combines thoughtful design with practical functionality for today's demanding lifestyle.",
       price: 3599,
       originalPrice: 4199,
       rating: 50, // 5.0
@@ -157,7 +157,7 @@ export class MemStorage implements IStorage {
       category: "business",
       colors: ["tan"],
       features: [
-        "Premium Italian tanned leather",
+        "Premium tanned leather",
         "Professional work design",
         "Multiple organization compartments",
         "Laptop compartment (15\")",
@@ -169,7 +169,7 @@ export class MemStorage implements IStorage {
         "/attached_assets/IMG_1420_1751996515357.PNG",
         "/attached_assets/IMG_1421_1751996519606.PNG"
       ],
-      materials: "Crafted from finest Italian tanned leather, handmade in Johannesburg. Premium metal hardware with antique brass finish. Interior lined with durable cotton canvas.",
+      materials: "Crafted from finest tanned leather, handmade in Johannesburg. Premium metal hardware with antique brass finish. Interior lined with durable cotton canvas.",
       dimensions: "L 32cm x W 16cm x H 42cm. Adjustable straps: 70-85cm.",
       careInstructions: "Clean with premium leather care products. The tanned leather will develop a beautiful patina over time. Store in provided dust bag. Professional conditioning recommended every 6 months.",
       featured: true,
