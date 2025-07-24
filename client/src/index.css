@@ -7,7 +7,7 @@
 
 :root {
   /* Base colors */
-  --background: 0 0% 98%; /* Off-white */
+  --background: 0 0% 100%; /* Pure white background */
   --foreground: 0 0% 0%; /* Black text */
   --muted: 45 30% 92%; /* Light mustard tint */
   --muted-foreground: 0 0% 30%;

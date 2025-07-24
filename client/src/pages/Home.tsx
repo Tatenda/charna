@@ -10,7 +10,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-white">
       <Hero />
       <NewArrivals />
       <ProductTabs />
