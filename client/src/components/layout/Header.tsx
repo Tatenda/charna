@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <header className="soft-pink-gradient fixed w-full z-50 shadow-sm border-b border-gray-100">
+    <header className="bg-white fixed w-full z-50 shadow-sm border-b border-gray-100">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center">

@@ -1,83 +1,152 @@
 import { Link } from "wouter";
+import { useState, useEffect } from "react";
 
 const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const slides = [
+    {
+      id: 1,
+      title: "LOOKBOOK",
+      subtitle: "LEATHER FASHION BRANDS",
+      image: "/images/green-backpack-lifestyle.jpg"
+    },
+    {
+      id: 2,
+      title: "NEW SEASON",
+      subtitle: "PREMIUM COLLECTION",
+      image: "/images/green-backpack-lifestyle.jpg"
+    },
+    {
+      id: 3,
+      title: "NEW ARRIVAL", 
+      subtitle: "SHOP THE COLLECTION",
+      image: "/images/green-backpack-lifestyle.jpg"
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="relative pt-24 min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-stone-200 via-stone-100 to-neutral-100">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary leading-tight">
-                <span className="block text-[#c7a2a2]">
-                  Designed for you
-                </span>
-                <span className="block accent-gradient bg-clip-text text-transparent">
-                  in Mind
-                </span>
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-700 font-medium leading-relaxed">
-                Premium handcrafted leather goods made in Johannesburg, designed for the modern professional who values quality and style.
-              </p>
+    <div className="relative">
+      {/* Marketing Banner */}
+      <div className="bg-primary text-white py-2 text-center text-sm">
+        Save 20% on all premium leather bags this weekend! Free shipping on orders over R1500
+      </div>
+
+      {/* Hero Carousel */}
+      <section className="relative h-[600px] overflow-hidden">
+        {slides.map((slide, index) => (
+          <div 
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <div className="absolute inset-0">
+              <img 
+                src={slide.image}
+                alt={slide.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40"></div>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-6">
-              <Link href="/products" className="group accent-gradient text-white px-8 py-4 rounded-xl text-center transform transition-all duration-300 hover:scale-105 product-shadow font-semibold">
-                <span className="flex items-center justify-center gap-3">
-                  Explore Collection
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </span>
-              </Link>
-              <Link href="/story" className="border-2 border-primary text-primary px-8 py-4 rounded-xl text-center group transition-all duration-300 hover:bg-primary hover:text-white font-semibold">
-                Our Story
-              </Link>
-            </div>
-            
-            {/* Quality indicators */}
-            <div className="flex items-center gap-8 pt-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-olive-600">Premium</div>
-                <div className="text-sm text-olive-500 uppercase tracking-wide">Leather</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-olive-600">Hand</div>
-                <div className="text-sm text-olive-500 uppercase tracking-wide">Crafted</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-olive-600">South</div>
-                <div className="text-sm text-olive-500 uppercase tracking-wide">African</div>
+            <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
+              <div className="space-y-6">
+                <h2 className="text-lg font-semibold tracking-wider text-accent">
+                  {slide.title}
+                </h2>
+                <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+                  {slide.subtitle}
+                </h1>
+                <Link 
+                  href="/products"
+                  className="inline-block bg-white text-primary px-8 py-3 font-semibold hover:bg-accent hover:text-white transition-colors duration-300"
+                >
+                  Shop Now
+                </Link>
               </div>
             </div>
           </div>
+        ))}
+        
+        {/* Slide Indicators */}
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-colors ${
+                index === currentSlide ? 'bg-white' : 'bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Promotional Banners */}
+      <section className="py-16 bg-neutral-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-primary mb-4">What's special</h2>
+            <p className="text-xl text-gray-600">For today?</p>
+          </div>
           
-          <div className="relative">
-            <div className="relative">
-              {/* Main product image */}
-              <div className="relative z-10 transform hover:scale-105 transition-transform duration-700">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center group cursor-pointer">
+              <div className="relative overflow-hidden rounded-lg mb-4">
                 <img 
-                  src="/images/green-backpack-lifestyle.jpg" 
-                  alt="LIGREMO Executive Backpack - Premium South African leather luxury" 
-                  className="rounded-2xl w-full max-h-[700px] object-cover product-shadow" 
+                  src="/images/green-backpack-lifestyle.jpg"
+                  alt="30% discount"
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                
-                {/* Modern overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent rounded-2xl"></div>
-                
-                {/* Brand badge */}
-                <div className="absolute top-6 left-6 glass-effect px-4 py-2 rounded-full">
-                  <span className="text-primary font-bold text-sm">LIGREMO</span>
+                <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/30 transition-colors"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white text-2xl font-bold">30% OFF</span>
                 </div>
               </div>
-              
-              {/* Background decoration */}
-              <div className="absolute -top-4 -left-4 w-full h-full bg-accent/10 rounded-2xl -z-10"></div>
+              <h3 className="text-lg font-semibold text-olive-600">30% discount</h3>
+            </div>
+            
+            <div className="text-center group cursor-pointer">
+              <div className="relative overflow-hidden rounded-lg mb-4">
+                <img 
+                  src="/images/green-backpack-lifestyle.jpg"
+                  alt="free shipping"
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-accent/20 group-hover:bg-accent/30 transition-colors"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white text-2xl font-bold">FREE SHIP</span>
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-olive-600">free shipping</h3>
+            </div>
+            
+            <div className="text-center group cursor-pointer">
+              <div className="relative overflow-hidden rounded-lg mb-4">
+                <img 
+                  src="/images/green-backpack-lifestyle.jpg"
+                  alt="special gifts"
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-olive-600/20 group-hover:bg-olive-600/30 transition-colors"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white text-2xl font-bold">GIFTS</span>
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-olive-600">special gifts</h3>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 

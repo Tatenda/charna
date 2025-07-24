@@ -140,6 +140,7 @@ Changelog:
 - July 22, 2025. Changed Hero messaging from "Crafted Excellence" to "Designed for you in Mind" per user request
 - July 22, 2025. Updated color palette to warmer brown and amber tones matching modern lifestyle Canva design reference
 - July 23, 2025. Removed orange colors, replaced with soft beige/taupe tones matching reference image, added olive green for quality indicators
+- July 23, 2025. Complete redesign to match BigCommerce parallax bag template: carousel hero section, promotional banners, tabbed product sections
 ```
 
 ## User Preferences
