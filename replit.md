@@ -137,7 +137,7 @@ Changelog:
 - July 22, 2025. Added mocha pink color variations (light, regular, dark) inspired by Canva design boards for softer, more sophisticated look
 - July 22, 2025. Implemented soft pink and mocha pink gradients throughout Hero, Header, Products, and Values sections for cohesive warm aesthetic
 - July 22, 2025. Updated Hero section with clean neutral background gradient (stone/amber tones) matching Canva design aesthetic with focused green bag product showcase
-- July 22, 2025. Changed Hero messaging from "Crafted Excellence" to "Designed with you in Mind" per user request
+- July 22, 2025. Changed Hero messaging from "Crafted Excellence" to "Designed for you in Mind" per user request
 - July 22, 2025. Updated color palette to warmer brown and amber tones matching modern lifestyle Canva design reference
 ```
 
