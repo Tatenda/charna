@@ -2,7 +2,7 @@ import { Link } from "wouter";
 
 const Hero = () => {
   return (
-    <section className="relative pt-24 min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+    <section className="relative pt-24 min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-stone-200 via-stone-100 to-neutral-100">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
@@ -38,16 +38,16 @@ const Hero = () => {
             {/* Quality indicators */}
             <div className="flex items-center gap-8 pt-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary">Premium</div>
-                <div className="text-sm text-gray-600 uppercase tracking-wide">Leather</div>
+                <div className="text-3xl font-bold text-olive-600">Premium</div>
+                <div className="text-sm text-olive-500 uppercase tracking-wide">Leather</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary">Hand</div>
-                <div className="text-sm text-gray-600 uppercase tracking-wide">Crafted</div>
+                <div className="text-3xl font-bold text-olive-600">Hand</div>
+                <div className="text-sm text-olive-500 uppercase tracking-wide">Crafted</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary">South</div>
-                <div className="text-sm text-gray-600 uppercase tracking-wide">African</div>
+                <div className="text-3xl font-bold text-olive-600">South</div>
+                <div className="text-sm text-olive-500 uppercase tracking-wide">African</div>
               </div>
             </div>
           </div>

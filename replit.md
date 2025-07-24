@@ -139,6 +139,7 @@ Changelog:
 - July 22, 2025. Updated Hero section with clean neutral background gradient (stone/amber tones) matching Canva design aesthetic with focused green bag product showcase
 - July 22, 2025. Changed Hero messaging from "Crafted Excellence" to "Designed for you in Mind" per user request
 - July 22, 2025. Updated color palette to warmer brown and amber tones matching modern lifestyle Canva design reference
+- July 23, 2025. Removed orange colors, replaced with soft beige/taupe tones matching reference image, added olive green for quality indicators
 ```
 
 ## User Preferences

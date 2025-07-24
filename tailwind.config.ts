@@ -72,6 +72,19 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Warm earth tones
+        terracotta: "hsl(var(--terracotta))",
+        clay: "hsl(var(--clay))",
+        sage: "hsl(var(--sage))",
+        coral: "hsl(var(--coral))",
+        cream: "hsl(var(--cream))",
+        sand: "hsl(var(--sand))",
+        "mocha-pink": "hsl(var(--mocha-pink))",
+        "mocha-pink-light": "hsl(var(--mocha-pink-light))",
+        "mocha-pink-dark": "hsl(var(--mocha-pink-dark))",
+        "olive-600": "hsl(var(--olive-600))",
+        "olive-500": "hsl(var(--olive-500))",
+        "olive-400": "hsl(var(--olive-400))",
       },
       keyframes: {
         "accordion-down": {

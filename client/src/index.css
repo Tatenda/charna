@@ -29,9 +29,9 @@
   --secondary-dark: 25 20% 88%; /* Soft taupe #e8e2dd */
   --secondary-foreground: 25 25% 39%;
   
-  --accent: 35 85% 60%; /* Warm amber #e8b86d - matching warm lifestyle tone */
-  --accent-light: 45 100% 65%; /* Light yellow #fcd34d */
-  --accent-dark: 45 85% 43%; /* Golden yellow #d97706 */
+  --accent: 25 25% 65%; /* Soft beige #b8a898 - matching the reference image */
+  --accent-light: 25 30% 75%; /* Light beige #c9beb3 */
+  --accent-dark: 25 20% 55%; /* Dark beige #a69588 */
   --accent-foreground: 25 25% 39%;
   
   --neutral: 0 0% 20%; /* Dark grey */
@@ -48,6 +48,11 @@
   --mocha-pink: 15 35% 75%; /* #c4a99b - Soft mocha pink from Canva design */
   --mocha-pink-light: 15 40% 85%; /* #d4c2b8 - Light mocha pink */
   --mocha-pink-dark: 15 30% 65%; /* #b39188 - Darker mocha pink */
+  
+  /* Olive Green colors */
+  --olive-600: 60 9% 28%; /* #4a4d3a - Deep olive green */
+  --olive-500: 60 15% 40%; /* #6b7052 - Medium olive green */
+  --olive-400: 60 20% 55%; /* #8a9269 - Light olive green */
   
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;
