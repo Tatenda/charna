@@ -1,6 +1,5 @@
 import Hero from "@/components/home/Hero";
 import ProductTabs from "@/components/home/ProductTabs";
-import NewArrivals from "@/components/home/NewArrivals";
 import { useEffect } from "react";
 
 const Home = () => {
@@ -12,7 +11,6 @@ const Home = () => {
   return (
     <div className="bg-white">
       <Hero />
-      <NewArrivals />
       <ProductTabs />
     </div>
   );

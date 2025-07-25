@@ -144,6 +144,7 @@ Changelog:
 - July 25, 2025. Updated hero carousel with 3 new lifestyle product images (olive backpack, cream crossbody, brown backpack) and changed subtitle from "LEATHER FASHION BRANDS" to "For Every Journey"
 - July 25, 2025. Changed promotional section heading from "What's special" to "Where are you going today?"
 - July 25, 2025. Created 4 category sections under "Where are you going today?": Work (green backpack), Sports (white tennis bag), Exploring (brown backpack lifestyle), and Leisure (white backpack)
+- July 25, 2025. Removed New Arrivals section from home page per user request
 ```
 
 ## User Preferences
