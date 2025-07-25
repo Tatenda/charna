@@ -97,51 +97,66 @@ const Hero = () => {
             <h2 className="text-3xl font-bold text-primary mb-4">Where are you going today?</h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center group cursor-pointer">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <Link href="/products?category=business" className="text-center group cursor-pointer">
               <div className="relative overflow-hidden rounded-lg mb-4">
                 <img 
-                  src="/images/backpack-olive.jpg"
-                  alt="30% discount"
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  src="/images/green-backpack.jpg"
+                  alt="Work bags"
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/30 transition-colors"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white text-2xl font-bold">30% OFF</span>
+                  <span className="text-white text-2xl font-bold">WORK</span>
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-olive-600">30% discount</h3>
-            </div>
+              <h3 className="text-lg font-semibold text-olive-600">Work</h3>
+            </Link>
             
-            <div className="text-center group cursor-pointer">
+            <Link href="/products?category=sport" className="text-center group cursor-pointer">
               <div className="relative overflow-hidden rounded-lg mb-4">
                 <img 
-                  src="/images/crossbody-cream.jpg"
-                  alt="free shipping"
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  src="/images/white-tennis-bag.jpg"
+                  alt="Sports bags"
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-accent/20 group-hover:bg-accent/30 transition-colors"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white text-2xl font-bold">FREE SHIP</span>
+                  <span className="text-white text-2xl font-bold">SPORTS</span>
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-olive-600">free shipping</h3>
-            </div>
+              <h3 className="text-lg font-semibold text-olive-600">Sports</h3>
+            </Link>
             
-            <div className="text-center group cursor-pointer">
+            <Link href="/products?category=travel" className="text-center group cursor-pointer">
               <div className="relative overflow-hidden rounded-lg mb-4">
                 <img 
-                  src="/images/backpack-brown.jpg"
-                  alt="special gifts"
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  src="/images/exploring-backpack.jpg"
+                  alt="Exploring bags"
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-olive-600/20 group-hover:bg-olive-600/30 transition-colors"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white text-2xl font-bold">GIFTS</span>
+                  <span className="text-white text-2xl font-bold">EXPLORING</span>
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-olive-600">special gifts</h3>
-            </div>
+              <h3 className="text-lg font-semibold text-olive-600">Exploring</h3>
+            </Link>
+
+            <Link href="/products?category=leisure" className="text-center group cursor-pointer">
+              <div className="relative overflow-hidden rounded-lg mb-4">
+                <img 
+                  src="/images/white-backpack.jpg"
+                  alt="Leisure bags"
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-secondary/30 group-hover:bg-secondary/40 transition-colors"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white text-2xl font-bold">LEISURE</span>
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-olive-600">Leisure</h3>
+            </Link>
           </div>
         </div>
       </section>
