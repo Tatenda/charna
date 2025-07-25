@@ -142,6 +142,7 @@ Changelog:
 - July 23, 2025. Removed orange colors, replaced with soft beige/taupe tones matching reference image, added olive green for quality indicators
 - July 23, 2025. Complete redesign to match BigCommerce parallax bag template: carousel hero section, promotional banners, tabbed product sections
 - July 25, 2025. Updated hero carousel with 3 new lifestyle product images (olive backpack, cream crossbody, brown backpack) and changed subtitle from "LEATHER FASHION BRANDS" to "For Every Journey"
+- July 25, 2025. Changed promotional section heading from "What's special" to "Where are you going today?"
 ```
 
 ## User Preferences
