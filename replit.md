@@ -141,6 +141,7 @@ Changelog:
 - July 22, 2025. Updated color palette to warmer brown and amber tones matching modern lifestyle Canva design reference
 - July 23, 2025. Removed orange colors, replaced with soft beige/taupe tones matching reference image, added olive green for quality indicators
 - July 23, 2025. Complete redesign to match BigCommerce parallax bag template: carousel hero section, promotional banners, tabbed product sections
+- July 25, 2025. Updated hero carousel with 3 new lifestyle product images (olive backpack, cream crossbody, brown backpack) and changed subtitle from "LEATHER FASHION BRANDS" to "For Every Journey"
 ```
 
 ## User Preferences

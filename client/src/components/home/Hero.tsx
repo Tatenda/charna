@@ -8,20 +8,20 @@ const Hero = () => {
     {
       id: 1,
       title: "LOOKBOOK",
-      subtitle: "LEATHER FASHION BRANDS",
-      image: "/images/green-backpack-lifestyle.jpg"
+      subtitle: "For Every Journey",
+      image: "/images/backpack-olive.jpg"
     },
     {
       id: 2,
       title: "NEW SEASON",
       subtitle: "PREMIUM COLLECTION",
-      image: "/images/green-backpack-lifestyle.jpg"
+      image: "/images/crossbody-cream.jpg"
     },
     {
       id: 3,
       title: "NEW ARRIVAL", 
       subtitle: "SHOP THE COLLECTION",
-      image: "/images/green-backpack-lifestyle.jpg"
+      image: "/images/backpack-brown.jpg"
     }
   ];
 
@@ -102,7 +102,7 @@ const Hero = () => {
             <div className="text-center group cursor-pointer">
               <div className="relative overflow-hidden rounded-lg mb-4">
                 <img 
-                  src="/images/green-backpack-lifestyle.jpg"
+                  src="/images/backpack-olive.jpg"
                   alt="30% discount"
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -117,7 +117,7 @@ const Hero = () => {
             <div className="text-center group cursor-pointer">
               <div className="relative overflow-hidden rounded-lg mb-4">
                 <img 
-                  src="/images/green-backpack-lifestyle.jpg"
+                  src="/images/crossbody-cream.jpg"
                   alt="free shipping"
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -132,7 +132,7 @@ const Hero = () => {
             <div className="text-center group cursor-pointer">
               <div className="relative overflow-hidden rounded-lg mb-4">
                 <img 
-                  src="/images/green-backpack-lifestyle.jpg"
+                  src="/images/backpack-brown.jpg"
                   alt="special gifts"
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
