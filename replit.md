@@ -148,6 +148,8 @@ Changelog:
 - July 26, 2025. Removed promotional discount banners (30% OFF, FREE SHIP, GIFTS) from home page, keeping only category sections
 - July 26, 2025. Removed marketing banner "Save 20% on all premium leather bags this weekend! Free shipping on orders over R1500" from top of home page
 - July 26, 2025. Changed hero carousel text colors ("LOOKBOOK", "For Every Journey", "NEW SEASON", "PREMIUM COLLECTION", "NEW ARRIVAL", "SHOP THE COLLECTION") to mustard yellow
+- July 26, 2025. Updated hero carousel text to use darker mustard yellow (mustard-dark) for better visibility
+- July 26, 2025. Changed "Where are you going today?" section background from white to light pink
 - July 26, 2025. Updated hero carousel text to darker mustard yellow (mustard-dark) for better visibility
 ```
 
