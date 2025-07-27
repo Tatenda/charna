@@ -89,6 +89,8 @@ export default {
         "mustard-light": "hsl(var(--mustard-light))",
         "mustard-dark": "hsl(var(--mustard-dark))",
         "herbal-tonic": "#A2C5AC",
+        "pistachio-green": "#C4D7B2",
+        "mineral-green": "#708D81",
       },
       keyframes: {
         "accordion-down": {

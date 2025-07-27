@@ -171,6 +171,9 @@ const Hero = () => {
           </div>
         </div>
       </section>
+
+      {/* Ombre Footer Gradient */}
+      <div className="h-32 bg-gradient-to-b from-white via-pistachio-green to-mineral-green"></div>
     </div>
   );
 };
