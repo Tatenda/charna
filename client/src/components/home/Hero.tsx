@@ -49,7 +49,7 @@ const Hero = () => {
                 alt={slide.title}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/40"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-olive-600/60 via-black/40 to-olive-500/50"></div>
             </div>
             
             <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
@@ -62,7 +62,7 @@ const Hero = () => {
                 </h1>
                 <Link 
                   href="/products"
-                  className="inline-block bg-white text-primary px-8 py-3 font-semibold hover:bg-accent hover:text-white transition-colors duration-300"
+                  className="inline-block bg-olive-600 text-white px-8 py-3 font-semibold border-2 border-olive-600 hover:bg-transparent hover:text-olive-600 hover:border-olive-400 transition-all duration-300"
                 >
                   Shop Now
                 </Link>
@@ -77,8 +77,10 @@ const Hero = () => {
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentSlide ? 'bg-white' : 'bg-white/50'
+              className={`w-3 h-3 rounded-full transition-colors border-2 ${
+                index === currentSlide 
+                  ? 'bg-mustard-dark border-mustard-dark' 
+                  : 'bg-transparent border-olive-400 hover:border-mustard-dark'
               }`}
             />
           ))}
@@ -86,10 +88,11 @@ const Hero = () => {
       </section>
 
       {/* Category Sections */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gradient-to-b from-white to-olive-400/5">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-primary mb-4">Where are you going today?</h2>
+            <h2 className="text-3xl font-bold text-olive-600 mb-4">Where are you going today?</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-olive-600 to-olive-400 mx-auto rounded-full"></div>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
