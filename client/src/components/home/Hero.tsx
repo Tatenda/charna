@@ -89,7 +89,7 @@ const Hero = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-primary mb-4">Where are you going today?</h2>
+            <h2 className="text-5xl font-heading font-bold text-primary mb-4 tracking-wider">Where are you going today?</h2>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
