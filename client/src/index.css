@@ -54,6 +54,11 @@
   --olive-500: 60 15% 40%; /* #6b7052 - Medium olive green */
   --olive-400: 60 20% 55%; /* #8a9269 - Light olive green */
   
+  /* Mustard Yellow colors */
+  --mustard: 45 95% 55%; /* #eeb902 - Bright mustard yellow */
+  --mustard-light: 45 90% 65%; /* #f2c942 - Light mustard */
+  --mustard-dark: 45 100% 45%; /* #e6a800 - Dark mustard */
+  
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;
   --ring: 20 14.3% 4.1%;

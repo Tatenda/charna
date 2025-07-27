@@ -85,6 +85,9 @@ export default {
         "olive-600": "hsl(var(--olive-600))",
         "olive-500": "hsl(var(--olive-500))",
         "olive-400": "hsl(var(--olive-400))",
+        mustard: "hsl(var(--mustard))",
+        "mustard-light": "hsl(var(--mustard-light))",
+        "mustard-dark": "hsl(var(--mustard-dark))",
       },
       keyframes: {
         "accordion-down": {
