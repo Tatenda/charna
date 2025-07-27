@@ -1,5 +1,4 @@
 import Hero from "@/components/home/Hero";
-import ProductTabs from "@/components/home/ProductTabs";
 import { useEffect } from "react";
 
 const Home = () => {
@@ -11,7 +10,6 @@ const Home = () => {
   return (
     <div className="bg-white">
       <Hero />
-      <ProductTabs />
     </div>
   );
 };
