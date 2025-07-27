@@ -27,7 +27,7 @@ const Header = () => {
             >
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
-            <Link href="/" className="font-heading text-2xl sm:text-3xl text-primary font-bold tracking-wide">
+            <Link href="/" className="font-heading text-2xl sm:text-3xl font-bold tracking-wide" style={{color: '#A2C5AC'}}>
               LIGREMO
             </Link>
           </div>

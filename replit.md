@@ -147,6 +147,8 @@ Changelog:
 - July 25, 2025. Removed New Arrivals section from home page per user request
 - July 26, 2025. Removed promotional discount banners (30% OFF, FREE SHIP, GIFTS) from home page, keeping only category sections
 - July 26, 2025. Removed marketing banner "Save 20% on all premium leather bags this weekend! Free shipping on orders over R1500" from top of home page
+- July 27, 2025. Updated LIGREMO brand color to Herbal Tonic (#A2C5AC) from green moodboard palette
+- July 27, 2025. Updated hero carousel text to use mustard yellow for "For Every Journey", "Premium Collection", and "Shop the Collection"
 - July 26, 2025. Changed hero carousel text colors ("LOOKBOOK", "For Every Journey", "NEW SEASON", "PREMIUM COLLECTION", "NEW ARRIVAL", "SHOP THE COLLECTION") to mustard yellow
 ```
 
