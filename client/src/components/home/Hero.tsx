@@ -54,10 +54,10 @@ const Hero = () => {
             
             <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold tracking-wider text-mustard">
+                <h2 className="text-lg font-semibold tracking-wider text-mustard-dark">
                   {slide.title}
                 </h2>
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight text-mustard">
+                <h1 className="text-4xl md:text-6xl font-bold leading-tight text-mustard-dark">
                   {slide.subtitle}
                 </h1>
                 <Link 
