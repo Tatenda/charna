@@ -18,10 +18,10 @@
   --border: 45 20% 80%; /* Warm border */
   --input: 45 20% 90%; /* Warm input background */
   
-  /* 2025 Canva-Inspired Product Design colors */
-  --primary: 30 40% 25%; /* Warm brown #5c4033 - matching Canva lifestyle design */
-  --primary-light: 25 30% 49%; /* Light Mocha #b8897a */
-  --primary-dark: 25 20% 29%; /* Dark Mocha #8d6654 */
+  /* Simple black and white design */
+  --primary: 0 0% 0%; /* Pure black for headings */
+  --primary-light: 0 0% 20%; /* Dark gray */
+  --primary-dark: 0 0% 0%; /* Pure black */
   --primary-foreground: 0 0% 100%;
   
   --secondary: 25 40% 96%; /* Warm cream #faf9f7 */
@@ -97,8 +97,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    background: linear-gradient(135deg, hsl(var(--cream)) 0%, hsl(var(--secondary)) 100%);
+    @apply bg-white text-foreground font-sans antialiased;
+    background: white;
   }
 
   h1, h2, h3, h4, h5, h6 {
