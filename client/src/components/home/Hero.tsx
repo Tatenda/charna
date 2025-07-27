@@ -54,10 +54,10 @@ const Hero = () => {
             
             <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold tracking-wider text-mustard-dark">
+                <h2 className="text-lg font-semibold tracking-wider text-mustard">
                   {slide.title}
                 </h2>
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight text-mustard-dark">
+                <h1 className="text-4xl md:text-6xl font-bold leading-tight text-mustard">
                   {slide.subtitle}
                 </h1>
                 <Link 
@@ -86,7 +86,7 @@ const Hero = () => {
       </section>
 
       {/* Category Sections */}
-      <section className="py-16 bg-pink-100">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-primary mb-4">Where are you going today?</h2>
