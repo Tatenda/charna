@@ -149,7 +149,6 @@ Changelog:
 - July 26, 2025. Removed marketing banner "Save 20% on all premium leather bags this weekend! Free shipping on orders over R1500" from top of home page
 - July 26, 2025. Changed hero carousel text colors ("LOOKBOOK", "For Every Journey", "NEW SEASON", "PREMIUM COLLECTION", "NEW ARRIVAL", "SHOP THE COLLECTION") to mustard yellow
 - July 26, 2025. Updated hero carousel text to darker mustard yellow (mustard-dark) for better visibility
-- July 26, 2025. Added forest/olive green theme touches: gradient overlay on carousel images, olive green "Shop Now" button, olive green carousel indicators, olive green section heading and decorative line, subtle olive green background gradient
 ```
 
 ## User Preferences
