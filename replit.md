@@ -153,6 +153,7 @@ Changelog:
 - July 27, 2025. Added interactive hover effects to category sections: scale expansion, shadow enhancement, preview text, and "Shop Now" buttons
 - July 27, 2025. Created ombre gradient effect using moodboard green colors: Pistachio Green (#C4D7B2), Herbal Tonic (#A2C5AC), and Mineral Green (#708D81) to replace brown tones
 - July 27, 2025. Enhanced ombre gradient with additional olive green tones (olive-500, olive-600) for richer depth and more natural earth tone progression
+- July 27, 2025. Added "Bag Methodology" section with "Know your bag" subtitle featuring three pillars: Style, Functionality, and Quality with custom icons and descriptions
 ```
 
 ## User Preferences
