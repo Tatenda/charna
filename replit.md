@@ -145,6 +145,7 @@ Changelog:
 - July 25, 2025. Changed promotional section heading from "What's special" to "Where are you going today?"
 - July 25, 2025. Created 4 category sections under "Where are you going today?": Work (green backpack), Sports (white tennis bag), Exploring (brown backpack lifestyle), and Leisure (white backpack)
 - July 25, 2025. Removed New Arrivals section from home page per user request
+- July 26, 2025. Removed promotional discount banners (30% OFF, FREE SHIP, GIFTS) from home page, keeping only category sections
 ```
 
 ## User Preferences
