@@ -173,7 +173,7 @@ const Hero = () => {
       </section>
 
       {/* Ombre Footer Gradient */}
-      <div className="h-32 bg-gradient-to-b from-white via-pistachio-green to-mineral-green"></div>
+      <div className="h-40 bg-gradient-to-b from-white via-pistachio-green via-herbal-tonic via-olive-500 to-olive-600"></div>
     </div>
   );
 };

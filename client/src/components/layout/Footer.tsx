@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-pistachio-green via-herbal-tonic to-mineral-green text-white pt-16 pb-8 relative overflow-hidden">
+    <footer className="bg-gradient-to-b from-olive-500 via-olive-600 to-mineral-green text-white pt-16 pb-8 relative overflow-hidden">
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
