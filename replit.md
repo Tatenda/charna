@@ -146,6 +146,7 @@ Changelog:
 - July 25, 2025. Created 4 category sections under "Where are you going today?": Work (green backpack), Sports (white tennis bag), Exploring (brown backpack lifestyle), and Leisure (white backpack)
 - July 25, 2025. Removed New Arrivals section from home page per user request
 - July 26, 2025. Removed promotional discount banners (30% OFF, FREE SHIP, GIFTS) from home page, keeping only category sections
+- July 26, 2025. Removed marketing banner "Save 20% on all premium leather bags this weekend! Free shipping on orders over R1500" from top of home page
 ```
 
 ## User Preferences

@@ -34,11 +34,6 @@ const Hero = () => {
 
   return (
     <div className="relative">
-      {/* Marketing Banner */}
-      <div className="bg-primary text-white py-2 text-center text-sm">
-        Save 20% on all premium leather bags this weekend! Free shipping on orders over R1500
-      </div>
-
       {/* Hero Carousel */}
       <section className="relative h-[600px] overflow-hidden">
         {slides.map((slide, index) => (
