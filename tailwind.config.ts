@@ -91,6 +91,7 @@ export default {
         "herbal-tonic": "#A2C5AC",
         "pistachio-green": "#C4D7B2",
         "mineral-green": "#708D81",
+        "peach-fuzz": "#F1BDAB",
       },
       keyframes: {
         "accordion-down": {

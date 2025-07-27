@@ -173,11 +173,11 @@ const Hero = () => {
       </section>
 
       {/* Bag Methodology Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-peach-fuzz">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-primary mb-4">Bag Methodology</h2>
-            <p className="text-xl text-gray-600 mb-8">Know your bag</p>
+            <h2 className="text-3xl font-bold text-white mb-4">Bag Methodology</h2>
+            <p className="text-xl text-white/80 mb-8">Know your bag</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -187,8 +187,8 @@ const Hero = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a4 4 0 004-4V5z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-primary mb-4">Style</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-bold text-white mb-4">Style</h3>
+              <p className="text-white/80 leading-relaxed">
                 Timeless designs that complement your personal aesthetic. Each bag is crafted to be both fashionable and enduring, 
                 ensuring you look sophisticated in any setting while expressing your unique style.
               </p>
@@ -201,8 +201,8 @@ const Hero = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-primary mb-4">Functionality</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-bold text-white mb-4">Functionality</h3>
+              <p className="text-white/80 leading-relaxed">
                 Intelligent compartments and thoughtful organization systems designed for your daily needs. 
                 Every pocket, zipper, and strap is positioned to enhance your productivity and convenience.
               </p>
@@ -214,8 +214,8 @@ const Hero = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-primary mb-4">Quality</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-2xl font-bold text-white mb-4">Quality</h3>
+              <p className="text-white/80 leading-relaxed">
                 Premium South African leather and meticulous craftsmanship in every stitch. 
                 Built to withstand daily use while developing a beautiful patina that tells your unique story.
               </p>
