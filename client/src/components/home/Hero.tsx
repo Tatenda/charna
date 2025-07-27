@@ -93,64 +93,80 @@ const Hero = () => {
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <Link href="/products?category=business" className="text-center group cursor-pointer">
-              <div className="relative overflow-hidden rounded-lg mb-4">
+            <Link href="/products?category=business" className="text-center group cursor-pointer transform transition-all duration-500 hover:scale-110 hover:z-10 relative">
+              <div className="relative overflow-hidden rounded-lg mb-4 shadow-lg group-hover:shadow-2xl transition-shadow duration-500">
                 <img 
                   src="/images/green-backpack.jpg"
                   alt="Work bags"
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/30 transition-colors"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white text-2xl font-bold">WORK</span>
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-white transition-all duration-500">
+                  <span className="text-2xl font-bold mb-2 group-hover:text-3xl transition-all duration-500">WORK</span>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center px-4">
+                    <p className="text-sm mb-2">Professional bags for the modern workplace</p>
+                    <span className="bg-herbal-tonic text-white px-4 py-2 rounded-full text-xs font-semibold">Shop Now</span>
+                  </div>
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-olive-600">Work</h3>
+              <h3 className="text-lg font-semibold text-olive-600 group-hover:text-herbal-tonic transition-colors duration-300">Work</h3>
             </Link>
             
-            <Link href="/products?category=sport" className="text-center group cursor-pointer">
-              <div className="relative overflow-hidden rounded-lg mb-4">
+            <Link href="/products?category=sport" className="text-center group cursor-pointer transform transition-all duration-500 hover:scale-110 hover:z-10 relative">
+              <div className="relative overflow-hidden rounded-lg mb-4 shadow-lg group-hover:shadow-2xl transition-shadow duration-500">
                 <img 
                   src="/images/white-tennis-bag.jpg"
                   alt="Sports bags"
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-accent/20 group-hover:bg-accent/30 transition-colors"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white text-2xl font-bold">SPORTS</span>
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-white transition-all duration-500">
+                  <span className="text-2xl font-bold mb-2 group-hover:text-3xl transition-all duration-500">SPORTS</span>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center px-4">
+                    <p className="text-sm mb-2">Athletic gear for your active lifestyle</p>
+                    <span className="bg-herbal-tonic text-white px-4 py-2 rounded-full text-xs font-semibold">Shop Now</span>
+                  </div>
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-olive-600">Sports</h3>
+              <h3 className="text-lg font-semibold text-olive-600 group-hover:text-herbal-tonic transition-colors duration-300">Sports</h3>
             </Link>
             
-            <Link href="/products?category=travel" className="text-center group cursor-pointer">
-              <div className="relative overflow-hidden rounded-lg mb-4">
+            <Link href="/products?category=travel" className="text-center group cursor-pointer transform transition-all duration-500 hover:scale-110 hover:z-10 relative">
+              <div className="relative overflow-hidden rounded-lg mb-4 shadow-lg group-hover:shadow-2xl transition-shadow duration-500">
                 <img 
                   src="/images/exploring-backpack.jpg"
                   alt="Exploring bags"
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-olive-600/20 group-hover:bg-olive-600/30 transition-colors"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white text-2xl font-bold">EXPLORING</span>
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-white transition-all duration-500">
+                  <span className="text-2xl font-bold mb-2 group-hover:text-3xl transition-all duration-500">EXPLORING</span>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center px-4">
+                    <p className="text-sm mb-2">Adventure bags for your journeys</p>
+                    <span className="bg-herbal-tonic text-white px-4 py-2 rounded-full text-xs font-semibold">Shop Now</span>
+                  </div>
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-olive-600">Exploring</h3>
+              <h3 className="text-lg font-semibold text-olive-600 group-hover:text-herbal-tonic transition-colors duration-300">Exploring</h3>
             </Link>
 
-            <Link href="/products?category=leisure" className="text-center group cursor-pointer">
-              <div className="relative overflow-hidden rounded-lg mb-4">
+            <Link href="/products?category=leisure" className="text-center group cursor-pointer transform transition-all duration-500 hover:scale-110 hover:z-10 relative">
+              <div className="relative overflow-hidden rounded-lg mb-4 shadow-lg group-hover:shadow-2xl transition-shadow duration-500">
                 <img 
                   src="/images/white-backpack.jpg"
                   alt="Leisure bags"
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-secondary/30 group-hover:bg-secondary/40 transition-colors"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white text-2xl font-bold">LEISURE</span>
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-white transition-all duration-500">
+                  <span className="text-2xl font-bold mb-2 group-hover:text-3xl transition-all duration-500">LEISURE</span>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center px-4">
+                    <p className="text-sm mb-2">Relaxed bags for everyday comfort</p>
+                    <span className="bg-herbal-tonic text-white px-4 py-2 rounded-full text-xs font-semibold">Shop Now</span>
+                  </div>
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-olive-600">Leisure</h3>
+              <h3 className="text-lg font-semibold text-olive-600 group-hover:text-herbal-tonic transition-colors duration-300">Leisure</h3>
             </Link>
           </div>
         </div>

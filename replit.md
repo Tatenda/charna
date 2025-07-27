@@ -150,6 +150,7 @@ Changelog:
 - July 27, 2025. Updated LIGREMO brand color to Herbal Tonic (#A2C5AC) from green moodboard palette
 - July 27, 2025. Updated hero carousel text to use mustard yellow for "For Every Journey", "Premium Collection", and "Shop the Collection"
 - July 27, 2025. Removed ProductTabs section from home page (product grid with "On Sale" and "Featured" badges)
+- July 27, 2025. Added interactive hover effects to category sections: scale expansion, shadow enhancement, preview text, and "Shop Now" buttons
 ```
 
 ## User Preferences
