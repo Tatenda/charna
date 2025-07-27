@@ -224,8 +224,8 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Ombre Footer Gradient */}
-      <div className="h-40 bg-gradient-to-b from-white via-pistachio-green via-herbal-tonic via-olive-500 to-olive-600"></div>
+      {/* Plain White Footer Transition */}
+      <div className="h-40 bg-white"></div>
     </div>
   );
 };
