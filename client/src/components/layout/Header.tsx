@@ -34,58 +34,40 @@ const Header = () => {
           <nav className="hidden lg:flex space-x-8 font-medium text-sm">
             <Link 
               href="/" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg ${isActive('/') ? 'bg-accent text-white' : 'hover:bg-gray-50'}`}
+              className={`text-black hover:text-herbal-tonic transition duration-200 px-3 py-2 ${isActive('/') ? 'text-herbal-tonic font-semibold' : ''}`}
             >
               Home
             </Link>
             <Link 
-              href="/products?category=business" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg ${isActive('/products') ? 'bg-accent text-white' : 'hover:bg-gray-50'}`}
+              href="/products" 
+              className={`text-black hover:text-herbal-tonic transition duration-200 px-3 py-2 ${isActive('/products') ? 'text-herbal-tonic font-semibold' : ''}`}
             >
-              Business
-            </Link>
-            <Link 
-              href="/products?category=travel" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-50`}
-            >
-              Travel
-            </Link>
-            <Link 
-              href="/products?category=sport" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-50`}
-            >
-              Sport
-            </Link>
-            <Link 
-              href="/products?category=leisure" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-50`}
-            >
-              Leisure
-            </Link>
-            <Link 
-              href="/products?category=custom" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-50`}
-            >
-              Custom
+              Shop
             </Link>
             <Link 
               href="/story" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg ${isActive('/story') ? 'bg-accent text-white' : 'hover:bg-gray-50'}`}
+              className={`text-black hover:text-herbal-tonic transition duration-200 px-3 py-2 ${isActive('/story') ? 'text-herbal-tonic font-semibold' : ''}`}
             >
-              Our Story
+              About
             </Link>
             <Link 
               href="/contact" 
-              className={`text-primary hover:text-accent transition duration-200 px-3 py-2 rounded-lg ${isActive('/contact') ? 'bg-accent text-white' : 'hover:bg-gray-50'}`}
+              className={`text-black hover:text-herbal-tonic transition duration-200 px-3 py-2 ${isActive('/contact') ? 'text-herbal-tonic font-semibold' : ''}`}
             >
               Contact
             </Link>
           </nav>
-          <div className="flex items-center space-x-4">
-            <Link href="/products" className="text-primary hover:text-accent transition duration-200 p-2 rounded-lg hover:bg-gray-50">
+          <div className="flex items-center space-x-6">
+            <Link href="/products" className="text-black hover:text-herbal-tonic transition duration-200">
               <FontAwesomeIcon icon="search" className="text-lg" />
             </Link>
             <CartButton />
+            <Link 
+              href="/products"
+              className="bg-black text-white px-6 py-2 font-semibold hover:bg-herbal-tonic transition-colors duration-300 hidden lg:block"
+            >
+              Shop Now
+            </Link>
           </div>
         </div>
       </div>
@@ -93,62 +75,41 @@ const Header = () => {
       {/* Mobile Menu */}
       <div className={`lg:hidden bg-white w-full border-t border-gray-100 shadow-lg ${mobileMenuOpen ? 'block' : 'hidden'}`}>
         <div className="container mx-auto px-4 py-4">
-          <nav className="flex flex-col space-y-3 font-medium text-sm">
+          <nav className="flex flex-col space-y-4 font-medium">
             <Link
               href="/"
-              className={`hover:text-accent transition duration-200 py-3 px-2 rounded-lg ${isActive('/') ? 'text-accent bg-gray-50' : 'hover:bg-gray-50'}`}
+              className={`text-black hover:text-herbal-tonic transition duration-200 py-2 ${isActive('/') ? 'text-herbal-tonic font-semibold' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
-              href="/products?category=business"
-              className={`hover:text-accent transition duration-200 py-3 px-2 rounded-lg ${isActive('/products') ? 'text-accent bg-gray-50' : 'hover:bg-gray-50'}`}
+              href="/products"
+              className={`text-black hover:text-herbal-tonic transition duration-200 py-2 ${isActive('/products') ? 'text-herbal-tonic font-semibold' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              Business Bags
-            </Link>
-            <Link
-              href="/products?category=travel"
-              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Travel Bags
-            </Link>
-            <Link
-              href="/products?category=sport"
-              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Sport Bags
-            </Link>
-            <Link
-              href="/products?category=leisure"
-              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Leisure Bags
-            </Link>
-            <Link
-              href="/products?category=custom"
-              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Custom Bags
+              Shop
             </Link>
             <Link
               href="/story"
-              className={`hover:text-accent transition duration-200 py-2 border-b border-primary/20 ${isActive('/story') ? 'text-accent' : ''}`}
+              className={`text-black hover:text-herbal-tonic transition duration-200 py-2 ${isActive('/story') ? 'text-herbal-tonic font-semibold' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              Our Vibe
+              About
             </Link>
             <Link
               href="/contact"
-              className={`hover:text-accent transition duration-200 py-2 ${isActive('/contact') ? 'text-accent' : ''}`}
+              className={`text-black hover:text-herbal-tonic transition duration-200 py-2 ${isActive('/contact') ? 'text-herbal-tonic font-semibold' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Contact
+            </Link>
+            <Link 
+              href="/products"
+              className="bg-black text-white px-6 py-3 font-semibold hover:bg-herbal-tonic transition-colors duration-300 text-center mt-4"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Shop Now
             </Link>
           </nav>
         </div>

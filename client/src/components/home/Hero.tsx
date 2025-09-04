@@ -1,173 +1,228 @@
 import { Link } from "wouter";
-import { useState, useEffect } from "react";
 
 const Hero = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  
-  const slides = [
-    {
-      id: 1,
-      title: "LOOKBOOK",
-      subtitle: "For Every Journey",
-      image: "/images/backpack-olive.jpg"
-    },
-    {
-      id: 2,
-      title: "NEW SEASON",
-      subtitle: "PREMIUM COLLECTION",
-      image: "/images/crossbody-cream.jpg"
-    },
-    {
-      id: 3,
-      title: "NEW ARRIVAL", 
-      subtitle: "SHOP THE COLLECTION",
-      image: "/images/backpack-brown.jpg"
-    }
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <div className="relative">
-      {/* Hero Carousel */}
-      <section className="relative h-[600px] overflow-hidden">
-        {slides.map((slide, index) => (
-          <div 
-            key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            <div className="absolute inset-0">
-              <img 
-                src={slide.image}
-                alt={slide.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/40"></div>
+      {/* Modern Hero Section */}
+      <section className="relative h-[70vh] min-h-[600px] bg-gradient-to-br from-gray-50 to-white flex items-center">
+        <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <h1 className="text-5xl lg:text-7xl font-bold text-black leading-tight">
+                Is There Such a Thing as 
+                <span className="text-herbal-tonic">Too Many Bags?</span>
+              </h1>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Discover the latest addition to your growing collection of handcrafted South African leather goods
+              </p>
             </div>
-            
-            <div className="relative z-10 h-full flex items-center justify-center text-center text-white">
-              <div className="space-y-6">
-                <h2 className="text-lg font-semibold tracking-wider text-mustard">
-                  {slide.title}
-                </h2>
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight text-mustard">
-                  {slide.subtitle}
-                </h1>
-                <Link 
-                  href="/products"
-                  className="inline-block bg-white text-primary px-8 py-3 font-semibold hover:bg-accent hover:text-white transition-colors duration-300"
-                >
-                  Shop Now
-                </Link>
-              </div>
-            </div>
+            <Link 
+              href="/products"
+              className="inline-block bg-black text-white px-8 py-4 text-lg font-semibold hover:bg-herbal-tonic transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              Shop Bags
+            </Link>
           </div>
-        ))}
-        
-        {/* Slide Indicators */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentSlide ? 'bg-white' : 'bg-white/50'
-              }`}
+          <div className="relative">
+            <img 
+              src="/images/backpack-olive.jpg"
+              alt="Premium leather bag collection"
+              className="w-full h-[500px] object-cover rounded-2xl shadow-2xl"
             />
-          ))}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+          </div>
         </div>
       </section>
 
-      {/* Category Sections */}
-      <section className="py-16 bg-white">
+      {/* New Arrivals Section */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-5xl font-heading font-bold text-black mb-4 tracking-wider">Where are you going today?</h2>
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-4xl font-bold text-black">New Arrivals</h2>
+            <Link href="/products" className="text-herbal-tonic hover:text-black font-semibold text-lg">
+              Shop All
+            </Link>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <Link href="/products?category=business" className="text-center group cursor-pointer transform transition-all duration-500 hover:scale-110 hover:z-10 relative">
-              <div className="relative overflow-hidden rounded-lg mb-4 shadow-lg group-hover:shadow-2xl transition-shadow duration-500">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="group cursor-pointer">
+              <div className="relative overflow-hidden rounded-xl mb-4">
                 <img 
                   src="/images/green-backpack.jpg"
-                  alt="Work bags"
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                  alt="Professional Backpack"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white transition-all duration-500">
-                  <span className="text-2xl font-bold mb-2 group-hover:text-3xl transition-all duration-500">WORK</span>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center px-4">
-                    <p className="text-sm mb-2">Professional bags for the modern workplace</p>
-                    <span className="bg-herbal-tonic text-white px-4 py-2 rounded-full text-xs font-semibold">Shop Now</span>
-                  </div>
+                <div className="absolute top-4 left-4">
+                  <span className="bg-herbal-tonic text-white px-3 py-1 text-sm font-semibold rounded-full">
+                    New Arrival
+                  </span>
+                </div>
+                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-full bg-white text-black py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                    Add to Cart
+                  </button>
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-olive-600 group-hover:text-herbal-tonic transition-colors duration-300">Work</h3>
-            </Link>
+              <h3 className="font-semibold text-lg text-black mb-2">Professional Backpack</h3>
+              <p className="text-gray-600 text-sm mb-2">Premium leather work bag</p>
+              <p className="font-bold text-black">Price R899.99</p>
+            </div>
             
-            <Link href="/products?category=sport" className="text-center group cursor-pointer transform transition-all duration-500 hover:scale-110 hover:z-10 relative">
-              <div className="relative overflow-hidden rounded-lg mb-4 shadow-lg group-hover:shadow-2xl transition-shadow duration-500">
+            <div className="group cursor-pointer">
+              <div className="relative overflow-hidden rounded-xl mb-4">
+                <img 
+                  src="/images/crossbody-cream.jpg"
+                  alt="Cream Crossbody"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="bg-herbal-tonic text-white px-3 py-1 text-sm font-semibold rounded-full">
+                    New Arrival
+                  </span>
+                </div>
+                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-full bg-white text-black py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+              <h3 className="font-semibold text-lg text-black mb-2">Cream Crossbody</h3>
+              <p className="text-gray-600 text-sm mb-2">Elegant everyday bag</p>
+              <p className="font-bold text-black">Price R649.99</p>
+            </div>
+            
+            <div className="group cursor-pointer">
+              <div className="relative overflow-hidden rounded-xl mb-4">
                 <img 
                   src="/images/white-tennis-bag.jpg"
-                  alt="Sports bags"
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                  alt="Tennis Sports Bag"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white transition-all duration-500">
-                  <span className="text-2xl font-bold mb-2 group-hover:text-3xl transition-all duration-500">SPORTS</span>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center px-4">
-                    <p className="text-sm mb-2">Athletic gear for your active lifestyle</p>
-                    <span className="bg-herbal-tonic text-white px-4 py-2 rounded-full text-xs font-semibold">Shop Now</span>
-                  </div>
+                <div className="absolute top-4 left-4">
+                  <span className="bg-herbal-tonic text-white px-3 py-1 text-sm font-semibold rounded-full">
+                    New Arrival
+                  </span>
+                </div>
+                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-full bg-white text-black py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                    Add to Cart
+                  </button>
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-olive-600 group-hover:text-herbal-tonic transition-colors duration-300">Sports</h3>
+              <h3 className="font-semibold text-lg text-black mb-2">Tennis Sports Bag</h3>
+              <p className="text-gray-600 text-sm mb-2">Athletic gear carrier</p>
+              <p className="font-bold text-black">Price R749.99</p>
+            </div>
+            
+            <div className="group cursor-pointer">
+              <div className="relative overflow-hidden rounded-xl mb-4">
+                <img 
+                  src="/images/backpack-brown.jpg"
+                  alt="Brown Travel Backpack"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="bg-herbal-tonic text-white px-3 py-1 text-sm font-semibold rounded-full">
+                    New Arrival
+                  </span>
+                </div>
+                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-full bg-white text-black py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+              <h3 className="font-semibold text-lg text-black mb-2">Brown Travel Backpack</h3>
+              <p className="text-gray-600 text-sm mb-2">Adventure companion</p>
+              <p className="font-bold text-black">Price R999.99</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Shop by Category */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-black mb-4">Shop by Category</h2>
+            <p className="text-xl text-gray-600">Discover LIGREMO</p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <Link href="/products?category=business" className="group relative h-96 overflow-hidden rounded-2xl shadow-xl">
+              <img 
+                src="/images/green-backpack.jpg"
+                alt="Business bags"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute bottom-8 left-8 text-white">
+                <h3 className="text-3xl font-bold mb-2">Business</h3>
+                <p className="text-lg opacity-90">Professional excellence</p>
+              </div>
             </Link>
             
-            <Link href="/products?category=travel" className="text-center group cursor-pointer transform transition-all duration-500 hover:scale-110 hover:z-10 relative">
-              <div className="relative overflow-hidden rounded-lg mb-4 shadow-lg group-hover:shadow-2xl transition-shadow duration-500">
-                <img 
-                  src="/images/exploring-backpack.jpg"
-                  alt="Exploring bags"
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white transition-all duration-500">
-                  <span className="text-2xl font-bold mb-2 group-hover:text-3xl transition-all duration-500">EXPLORING</span>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center px-4">
-                    <p className="text-sm mb-2">Adventure bags for your journeys</p>
-                    <span className="bg-herbal-tonic text-white px-4 py-2 rounded-full text-xs font-semibold">Shop Now</span>
-                  </div>
-                </div>
+            <Link href="/products?category=sport" className="group relative h-96 overflow-hidden rounded-2xl shadow-xl">
+              <img 
+                src="/images/white-tennis-bag.jpg"
+                alt="Sports bags"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute bottom-8 left-8 text-white">
+                <h3 className="text-3xl font-bold mb-2">Sports</h3>
+                <p className="text-lg opacity-90">Athletic performance</p>
               </div>
-              <h3 className="text-lg font-semibold text-olive-600 group-hover:text-herbal-tonic transition-colors duration-300">Exploring</h3>
             </Link>
+            
+            <Link href="/products?category=travel" className="group relative h-96 overflow-hidden rounded-2xl shadow-xl">
+              <img 
+                src="/images/exploring-backpack.jpg"
+                alt="Travel bags"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute bottom-8 left-8 text-white">
+                <h3 className="text-3xl font-bold mb-2">Travel</h3>
+                <p className="text-lg opacity-90">Adventure awaits</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
 
-            <Link href="/products?category=leisure" className="text-center group cursor-pointer transform transition-all duration-500 hover:scale-110 hover:z-10 relative">
-              <div className="relative overflow-hidden rounded-lg mb-4 shadow-lg group-hover:shadow-2xl transition-shadow duration-500">
-                <img 
-                  src="/images/white-backpack.jpg"
-                  alt="Leisure bags"
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white transition-all duration-500">
-                  <span className="text-2xl font-bold mb-2 group-hover:text-3xl transition-all duration-500">LEISURE</span>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-center px-4">
-                    <p className="text-sm mb-2">Relaxed bags for everyday comfort</p>
-                    <span className="bg-herbal-tonic text-white px-4 py-2 rounded-full text-xs font-semibold">Shop Now</span>
-                  </div>
-                </div>
-              </div>
-              <h3 className="text-lg font-semibold text-olive-600 group-hover:text-herbal-tonic transition-colors duration-300">Leisure</h3>
-            </Link>
+      {/* Brand Story Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-6">
+              <h2 className="text-4xl font-bold text-black leading-tight">
+                From Heritage to Modern Craft
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                At LIGREMO, we believe in the perfect marriage of traditional craftsmanship and contemporary design. 
+                Each bag tells a story of South African heritage, meticulously handcrafted in Johannesburg using 
+                premium leather that develops character with every journey.
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Our artisans bring decades of experience to every stitch, creating pieces that aren't just accessories 
+                but companions for life's adventures.
+              </p>
+              <Link 
+                href="/about"
+                className="inline-block bg-herbal-tonic text-white px-8 py-3 font-semibold hover:bg-black transition-colors duration-300"
+              >
+                Our Story
+              </Link>
+            </div>
+            <div className="relative">
+              <img 
+                src="/images/backpack-brown.jpg"
+                alt="Craftsmanship"
+                className="w-full h-96 object-cover rounded-2xl shadow-2xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent rounded-2xl"></div>
+            </div>
           </div>
         </div>
       </section>
@@ -224,8 +279,167 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Plain White Footer Transition */}
-      <div className="h-40 bg-white"></div>
+      {/* Blog Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-black mb-4">Our Blog</h2>
+            <p className="text-xl text-gray-600">Your Guide to Leather Care & Style</p>
+            <Link href="/blog" className="inline-block mt-6 text-herbal-tonic hover:text-black font-semibold text-lg">
+              Read More
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <article className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+              <div className="relative">
+                <img 
+                  src="/images/green-backpack.jpg" 
+                  alt="How to Care for Leather Bags"
+                  className="w-full h-48 object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-black mb-3 hover:text-herbal-tonic cursor-pointer">
+                  How to Care for Your Leather Bags
+                </h3>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                  Essential tips and techniques to maintain your premium leather goods, ensuring they develop 
+                  a beautiful patina while lasting for decades to come.
+                </p>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>Dec 15, 2024</span>
+                  <span>3 min read</span>
+                </div>
+              </div>
+            </article>
+            
+            <article className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+              <div className="relative">
+                <img 
+                  src="/images/crossbody-cream.jpg" 
+                  alt="Choosing the Perfect Bag"
+                  className="w-full h-48 object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-black mb-3 hover:text-herbal-tonic cursor-pointer">
+                  Choosing the Perfect Bag for Your Lifestyle
+                </h3>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                  From business meetings to weekend adventures, discover how to select the ideal 
+                  leather companion that matches your daily needs and personal style.
+                </p>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>Dec 10, 2024</span>
+                  <span>4 min read</span>
+                </div>
+              </div>
+            </article>
+            
+            <article className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+              <div className="relative">
+                <img 
+                  src="/images/backpack-brown.jpg" 
+                  alt="South African Craftsmanship"
+                  className="w-full h-48 object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-black mb-3 hover:text-herbal-tonic cursor-pointer">
+                  The Art of South African Leather Craftsmanship
+                </h3>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                  Explore the rich tradition and modern techniques that make Johannesburg 
+                  a center of excellence for premium leather goods manufacturing.
+                </p>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>Dec 5, 2024</span>
+                  <span>5 min read</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-20 bg-black text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl font-bold mb-4">
+            Everything You Need to Know About Leather Goods and More
+          </h2>
+          <p className="text-xl text-gray-300 mb-8">
+            No Spam, We Promise.
+          </p>
+          <p className="text-lg text-gray-400 mb-12">
+            Subscribe now and get 15% off your first purchase
+          </p>
+          
+          <div className="max-w-md mx-auto space-y-4">
+            <input 
+              type="email" 
+              placeholder="Enter your email here"
+              className="w-full px-6 py-4 text-black rounded-lg border-0 focus:ring-2 focus:ring-herbal-tonic outline-none"
+            />
+            <div className="flex items-center justify-center space-x-2 text-sm text-gray-400">
+              <input type="checkbox" className="rounded" />
+              <span>Yes, subscribe me to your newsletter.</span>
+            </div>
+            <button className="w-full bg-herbal-tonic text-white px-8 py-4 font-semibold hover:bg-white hover:text-black transition-colors duration-300">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Instagram Gallery */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-black mb-4">LIGREMO on the #Gram</h2>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/crossbody-cream.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/white-tennis-bag.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/backpack-brown.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/white-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/exploring-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/crossbody-cream.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/white-tennis-bag.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden rounded-lg">
+              <img src="/images/backpack-brown.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+          </div>
+          
+          <div className="text-center mt-12">
+            <button className="bg-black text-white px-8 py-3 font-semibold hover:bg-herbal-tonic transition-colors duration-300">
+              Follow @LIGREMO
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
