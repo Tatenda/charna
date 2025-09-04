@@ -33,7 +33,7 @@ const Hero = () => {
       </section>
 
       {/* Our Ranges Section */}
-      <section className="py-20 bg-stone-100">
+      <section className="py-20" style={{backgroundColor: '#D4CFC0'}}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800">Our Ranges</h2>
