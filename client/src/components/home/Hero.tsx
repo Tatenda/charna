@@ -8,7 +8,7 @@ const Hero = () => {
         {/* Logo in top right */}
         <div className="absolute top-8 right-8 z-10">
           <img 
-            src="/attached_assets/LGM logo_1757000934894.pdf"
+            src="/attached_assets/lgm_1757013096855.jpg"
             alt="LGM Living Green Motion Logo"
             className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-lg"
           />
