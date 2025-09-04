@@ -3,33 +3,33 @@ import { Link } from "wouter";
 const Hero = () => {
   return (
     <div className="relative">
-      {/* Modern Hero Section */}
-      <section className="relative h-[70vh] min-h-[600px] bg-gradient-to-br from-gray-50 to-white flex items-center">
+      {/* Dark Botanical Hero Section */}
+      <section className="relative h-[70vh] min-h-[600px] bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 flex items-center overflow-hidden">
+        {/* Dark botanical overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        
         {/* Logo in top right */}
         <div className="absolute top-8 right-8 z-10">
           <img 
-            src="/attached_assets/lgm_1757013096855.jpg"
+            src="/attached_assets/lgm_1757013967625.jpg"
             alt="LGM Living Green Motion Logo"
             className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-lg"
           />
         </div>
-        <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-5xl lg:text-7xl font-bold text-forest leading-tight">
+              <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
                 Is There Such a Thing as 
-                <span className="text-botanical">Too Many Bags?</span>
+                <span className="text-white">Too Many Bags?</span>
               </h1>
-              <p className="text-xl text-gray-600 leading-relaxed">
+              <p className="text-xl text-gray-200 leading-relaxed">
                 Discover the latest addition to your growing collection of handcrafted South African leather goods
               </p>
             </div>
-            <Link 
-              href="/products"
-              className="inline-block bg-forest text-white px-8 py-4 text-lg font-semibold hover:bg-botanical transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
+            <button className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 text-lg font-semibold hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
               Shop Bags
-            </Link>
+            </button>
           </div>
           <div className="relative">
             <img 
@@ -42,14 +42,14 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* New Arrivals Section */}
-      <section className="py-20 bg-white">
+      {/* Our Ranges Section */}
+      <section className="py-20 bg-stone-100">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-12">
-            <h2 className="text-4xl font-bold text-forest">New Arrivals</h2>
-            <Link href="/products" className="text-botanical hover:text-forest font-semibold text-lg">
+            <h2 className="text-4xl font-bold text-gray-800">Our Ranges</h2>
+            <button className="bg-orange-600 text-white px-6 py-2 font-semibold hover:bg-orange-700 transition-colors">
               Shop All
-            </Link>
+            </button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -61,19 +61,19 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-botanical text-white px-3 py-1 text-sm font-semibold rounded-full">
-                    New Arrival
+                  <span className="bg-sage text-white px-3 py-1 text-sm font-semibold rounded-full">
+                    New Range
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-forest py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-forest mb-2">Professional Backpack</h3>
+              <h3 className="font-semibold text-lg text-gray-800 mb-2">Professional Backpack</h3>
               <p className="text-gray-600 text-sm mb-2">Premium leather work bag</p>
-              <p className="font-bold text-forest">Price R899.99</p>
+              <p className="font-bold text-gray-800">Price R899.99</p>
             </div>
             
             <div className="group cursor-pointer">
@@ -84,19 +84,19 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-botanical text-white px-3 py-1 text-sm font-semibold rounded-full">
-                    New Arrival
+                  <span className="bg-sage text-white px-3 py-1 text-sm font-semibold rounded-full">
+                    New Range
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-forest py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-forest mb-2">Cream Crossbody</h3>
+              <h3 className="font-semibold text-lg text-gray-800 mb-2">Cream Crossbody</h3>
               <p className="text-gray-600 text-sm mb-2">Elegant everyday bag</p>
-              <p className="font-bold text-forest">Price R649.99</p>
+              <p className="font-bold text-gray-800">Price R649.99</p>
             </div>
             
             <div className="group cursor-pointer">
@@ -107,19 +107,19 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-botanical text-white px-3 py-1 text-sm font-semibold rounded-full">
-                    New Arrival
+                  <span className="bg-sage text-white px-3 py-1 text-sm font-semibold rounded-full">
+                    New Range
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-forest py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-forest mb-2">Tennis Sports Bag</h3>
+              <h3 className="font-semibold text-lg text-gray-800 mb-2">Tennis Sports Bag</h3>
               <p className="text-gray-600 text-sm mb-2">Athletic gear carrier</p>
-              <p className="font-bold text-forest">Price R749.99</p>
+              <p className="font-bold text-gray-800">Price R749.99</p>
             </div>
             
             <div className="group cursor-pointer">
@@ -130,29 +130,29 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-botanical text-white px-3 py-1 text-sm font-semibold rounded-full">
-                    New Arrival
+                  <span className="bg-sage text-white px-3 py-1 text-sm font-semibold rounded-full">
+                    New Range
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-forest py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-forest mb-2">Brown Travel Backpack</h3>
+              <h3 className="font-semibold text-lg text-gray-800 mb-2">Brown Travel Backpack</h3>
               <p className="text-gray-600 text-sm mb-2">Adventure companion</p>
-              <p className="font-bold text-forest">Price R999.99</p>
+              <p className="font-bold text-gray-800">Price R999.99</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Shop by Category */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gradient-to-br from-stone-200 via-stone-100 to-amber-50 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-forest mb-4">Shop by Category</h2>
+            <h2 className="text-4xl font-bold text-gray-700 mb-4">Shop by Category</h2>
             <p className="text-xl text-gray-600">Discover LIGREMO</p>
           </div>
           
@@ -199,37 +199,51 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Brand Story Section */}
-      <section className="py-20 bg-white">
+      {/* Subscribe & Customise Section */}
+      <section className="py-20 bg-gradient-to-r from-orange-400 to-orange-500">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-forest leading-tight">
-                From Heritage to Modern Craft
-              </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                At LIGREMO, we believe in the perfect marriage of traditional craftsmanship and contemporary design. 
-                Each bag tells a story of South African heritage, meticulously handcrafted in Johannesburg using 
-                premium leather that develops character with every journey.
-              </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                Our artisans bring decades of experience to every stitch, creating pieces that aren't just accessories 
-                but companions for life's adventures.
-              </p>
-              <Link 
-                href="/about"
-                className="inline-block bg-botanical text-white px-8 py-3 font-semibold hover:bg-black transition-colors duration-300"
-              >
-                Our Story
-              </Link>
-            </div>
             <div className="relative">
               <img 
                 src="/images/backpack-brown.jpg"
-                alt="Craftsmanship"
+                alt="Custom leather bags"
                 className="w-full h-96 object-cover rounded-2xl shadow-2xl"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent rounded-2xl"></div>
+            </div>
+            <div className="space-y-8 text-white">
+              <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
+                Subscribe & Customise
+              </h2>
+              <p className="text-xl leading-relaxed">
+                and look forward to a new bag every month
+              </p>
+              
+              <div className="space-y-6">
+                <div className="flex items-center space-x-4 p-6 bg-white/10 rounded-xl backdrop-blur-sm">
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold">Custom Bags</h3>
+                    <p className="text-white/80">Personalise your perfect bag</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-4 p-6 bg-white/10 rounded-xl backdrop-blur-sm">
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 00-2 2H10a2 2 0 00-2-2V6m8 0h2a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h2" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold">Corporate Gifting</h3>
+                    <p className="text-white/80">Business gifting solutions</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -402,10 +416,10 @@ const Hero = () => {
       </section>
 
       {/* Instagram Gallery */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-br from-sage to-eucalyptus">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-forest mb-4">LIGREMO on the #Gram</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">LIGREMO on the #Gram</h2>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
