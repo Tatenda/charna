@@ -5,6 +5,15 @@ const Hero = () => {
     <div className="relative">
       {/* Modern Hero Section */}
       <section className="relative h-[70vh] min-h-[600px] bg-gradient-to-br from-gray-50 to-white flex items-center">
+        {/* Logo in top right */}
+        <div className="absolute top-8 right-8 z-10 text-right">
+          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+            <div className="text-2xl font-bold text-herbal-tonic mb-1">lgm</div>
+            <div className="text-xs font-medium text-gray-600 tracking-widest uppercase">
+              LIVING GREEN MOTION
+            </div>
+          </div>
+        </div>
         <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
