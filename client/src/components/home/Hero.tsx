@@ -16,9 +16,9 @@ const Hero = () => {
         <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-5xl lg:text-7xl font-bold text-black leading-tight">
+              <h1 className="text-5xl lg:text-7xl font-bold text-forest leading-tight">
                 Is There Such a Thing as 
-                <span className="text-herbal-tonic">Too Many Bags?</span>
+                <span className="text-botanical">Too Many Bags?</span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
                 Discover the latest addition to your growing collection of handcrafted South African leather goods
@@ -26,7 +26,7 @@ const Hero = () => {
             </div>
             <Link 
               href="/products"
-              className="inline-block bg-black text-white px-8 py-4 text-lg font-semibold hover:bg-herbal-tonic transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="inline-block bg-forest text-white px-8 py-4 text-lg font-semibold hover:bg-botanical transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Shop Bags
             </Link>
@@ -46,8 +46,8 @@ const Hero = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-12">
-            <h2 className="text-4xl font-bold text-black">New Arrivals</h2>
-            <Link href="/products" className="text-herbal-tonic hover:text-black font-semibold text-lg">
+            <h2 className="text-4xl font-bold text-forest">New Arrivals</h2>
+            <Link href="/products" className="text-botanical hover:text-forest font-semibold text-lg">
               Shop All
             </Link>
           </div>
@@ -61,19 +61,19 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-herbal-tonic text-white px-3 py-1 text-sm font-semibold rounded-full">
+                  <span className="bg-botanical text-white px-3 py-1 text-sm font-semibold rounded-full">
                     New Arrival
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-black py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button className="w-full bg-white text-forest py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-black mb-2">Professional Backpack</h3>
+              <h3 className="font-semibold text-lg text-forest mb-2">Professional Backpack</h3>
               <p className="text-gray-600 text-sm mb-2">Premium leather work bag</p>
-              <p className="font-bold text-black">Price R899.99</p>
+              <p className="font-bold text-forest">Price R899.99</p>
             </div>
             
             <div className="group cursor-pointer">
@@ -84,19 +84,19 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-herbal-tonic text-white px-3 py-1 text-sm font-semibold rounded-full">
+                  <span className="bg-botanical text-white px-3 py-1 text-sm font-semibold rounded-full">
                     New Arrival
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-black py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button className="w-full bg-white text-forest py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-black mb-2">Cream Crossbody</h3>
+              <h3 className="font-semibold text-lg text-forest mb-2">Cream Crossbody</h3>
               <p className="text-gray-600 text-sm mb-2">Elegant everyday bag</p>
-              <p className="font-bold text-black">Price R649.99</p>
+              <p className="font-bold text-forest">Price R649.99</p>
             </div>
             
             <div className="group cursor-pointer">
@@ -107,19 +107,19 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-herbal-tonic text-white px-3 py-1 text-sm font-semibold rounded-full">
+                  <span className="bg-botanical text-white px-3 py-1 text-sm font-semibold rounded-full">
                     New Arrival
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-black py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button className="w-full bg-white text-forest py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-black mb-2">Tennis Sports Bag</h3>
+              <h3 className="font-semibold text-lg text-forest mb-2">Tennis Sports Bag</h3>
               <p className="text-gray-600 text-sm mb-2">Athletic gear carrier</p>
-              <p className="font-bold text-black">Price R749.99</p>
+              <p className="font-bold text-forest">Price R749.99</p>
             </div>
             
             <div className="group cursor-pointer">
@@ -130,19 +130,19 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-herbal-tonic text-white px-3 py-1 text-sm font-semibold rounded-full">
+                  <span className="bg-botanical text-white px-3 py-1 text-sm font-semibold rounded-full">
                     New Arrival
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-black py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button className="w-full bg-white text-forest py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-black mb-2">Brown Travel Backpack</h3>
+              <h3 className="font-semibold text-lg text-forest mb-2">Brown Travel Backpack</h3>
               <p className="text-gray-600 text-sm mb-2">Adventure companion</p>
-              <p className="font-bold text-black">Price R999.99</p>
+              <p className="font-bold text-forest">Price R999.99</p>
             </div>
           </div>
         </div>
@@ -152,7 +152,7 @@ const Hero = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-black mb-4">Shop by Category</h2>
+            <h2 className="text-4xl font-bold text-forest mb-4">Shop by Category</h2>
             <p className="text-xl text-gray-600">Discover LIGREMO</p>
           </div>
           
@@ -204,7 +204,7 @@ const Hero = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-black leading-tight">
+              <h2 className="text-4xl font-bold text-forest leading-tight">
                 From Heritage to Modern Craft
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed">
@@ -218,7 +218,7 @@ const Hero = () => {
               </p>
               <Link 
                 href="/about"
-                className="inline-block bg-herbal-tonic text-white px-8 py-3 font-semibold hover:bg-black transition-colors duration-300"
+                className="inline-block bg-botanical text-white px-8 py-3 font-semibold hover:bg-black transition-colors duration-300"
               >
                 Our Story
               </Link>
@@ -245,7 +245,7 @@ const Hero = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="text-center group">
-              <div className="w-20 h-20 bg-herbal-tonic rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-20 h-20 bg-botanical rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a4 4 0 004-4V5z" />
                 </svg>
@@ -258,7 +258,7 @@ const Hero = () => {
             </div>
             
             <div className="text-center group">
-              <div className="w-20 h-20 bg-herbal-tonic rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-20 h-20 bg-botanical rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -272,7 +272,7 @@ const Hero = () => {
             </div>
             
             <div className="text-center group">
-              <div className="w-20 h-20 bg-herbal-tonic rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-20 h-20 bg-botanical rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
@@ -291,9 +291,9 @@ const Hero = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-black mb-4">Our Blog</h2>
+            <h2 className="text-4xl font-bold text-forest mb-4">Our Blog</h2>
             <p className="text-xl text-gray-600">Your Guide to Leather Care & Style</p>
-            <Link href="/blog" className="inline-block mt-6 text-herbal-tonic hover:text-black font-semibold text-lg">
+            <Link href="/blog" className="inline-block mt-6 text-herbal-tonic hover:text-forest font-semibold text-lg">
               Read More
             </Link>
           </div>
@@ -308,7 +308,7 @@ const Hero = () => {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-black mb-3 hover:text-herbal-tonic cursor-pointer">
+                <h3 className="text-xl font-bold text-forest mb-3 hover:text-herbal-tonic cursor-pointer">
                   How to Care for Your Leather Bags
                 </h3>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
@@ -331,7 +331,7 @@ const Hero = () => {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-black mb-3 hover:text-herbal-tonic cursor-pointer">
+                <h3 className="text-xl font-bold text-forest mb-3 hover:text-herbal-tonic cursor-pointer">
                   Choosing the Perfect Bag for Your Lifestyle
                 </h3>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
@@ -354,7 +354,7 @@ const Hero = () => {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-black mb-3 hover:text-herbal-tonic cursor-pointer">
+                <h3 className="text-xl font-bold text-forest mb-3 hover:text-herbal-tonic cursor-pointer">
                   The Art of South African Leather Craftsmanship
                 </h3>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
@@ -388,13 +388,13 @@ const Hero = () => {
             <input 
               type="email" 
               placeholder="Enter your email here"
-              className="w-full px-6 py-4 text-black rounded-lg border-0 focus:ring-2 focus:ring-herbal-tonic outline-none"
+              className="w-full px-6 py-4 text-forest rounded-lg border-0 focus:ring-2 focus:ring-herbal-tonic outline-none"
             />
             <div className="flex items-center justify-center space-x-2 text-sm text-gray-400">
               <input type="checkbox" className="rounded" />
               <span>Yes, subscribe me to your newsletter.</span>
             </div>
-            <button className="w-full bg-herbal-tonic text-white px-8 py-4 font-semibold hover:bg-white hover:text-black transition-colors duration-300">
+            <button className="w-full bg-botanical text-white px-8 py-4 font-semibold hover:bg-white hover:text-forest transition-colors duration-300">
               Subscribe
             </button>
           </div>
@@ -405,7 +405,7 @@ const Hero = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-black mb-4">LIGREMO on the #Gram</h2>
+            <h2 className="text-4xl font-bold text-forest mb-4">LIGREMO on the #Gram</h2>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -442,7 +442,7 @@ const Hero = () => {
           </div>
           
           <div className="text-center mt-12">
-            <button className="bg-black text-white px-8 py-3 font-semibold hover:bg-herbal-tonic transition-colors duration-300">
+            <button className="bg-black text-white px-8 py-3 font-semibold hover:bg-botanical transition-colors duration-300">
               Follow @LIGREMO
             </button>
           </div>

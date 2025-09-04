@@ -18,36 +18,36 @@
   --border: 45 20% 80%; /* Warm border */
   --input: 45 20% 90%; /* Warm input background */
   
-  /* Simple black and white design */
-  --primary: 0 0% 0%; /* Pure black for headings */
-  --primary-light: 0 0% 20%; /* Dark gray */
-  --primary-dark: 0 0% 0%; /* Pure black */
+  /* Fresh plant store green design */
+  --primary: 120 25% 25%; /* Deep forest green for headings */
+  --primary-light: 120 20% 35%; /* Medium green */
+  --primary-dark: 120 30% 15%; /* Very deep green */
   --primary-foreground: 0 0% 100%;
   
-  --secondary: 25 40% 96%; /* Warm cream #faf9f7 */
-  --secondary-light: 25 50% 98%; /* Very light cream #fcfbfa */
-  --secondary-dark: 25 20% 88%; /* Soft taupe #e8e2dd */
-  --secondary-foreground: 25 25% 39%;
+  --secondary: 120 15% 96%; /* Very light green-tinted white */
+  --secondary-light: 120 20% 98%; /* Almost white with green hint */
+  --secondary-dark: 120 10% 88%; /* Light green-gray */
+  --secondary-foreground: 120 25% 25%;
   
-  --accent: 25 25% 65%; /* Soft beige #b8a898 - matching the reference image */
-  --accent-light: 25 30% 75%; /* Light beige #c9beb3 */
-  --accent-dark: 25 20% 55%; /* Dark beige #a69588 */
-  --accent-foreground: 25 25% 39%;
+  --accent: 120 40% 60%; /* Fresh green accent */
+  --accent-light: 120 35% 70%; /* Light fresh green */
+  --accent-dark: 120 45% 50%; /* Deeper fresh green */
+  --accent-foreground: 0 0% 100%;
   
   --neutral: 0 0% 20%; /* Dark grey */
   --neutral-light: 0 0% 40%; /* Medium grey */
   --neutral-dark: 0 0% 10%; /* Very dark grey */
   
-  /* 2025 Warm Earth Palette - Canva Inspired with Mocha Pink */
-  --terracotta: 15 75% 65%; /* #c99383 - Warm clay tone */
-  --clay: 25 60% 55%; /* #b17a50 - Rich wood tone */
-  --sage: 120 20% 60%; /* #9ca3af - Soft green gray */
-  --coral: 15 85% 70%; /* #f87171 - Bright coral accent */
-  --cream: 45 60% 95%; /* #fef9f3 - Warm cream */
-  --sand: 35 40% 85%; /* #e8ddd4 - Sandy beige */
-  --mocha-pink: 15 35% 75%; /* #c4a99b - Soft mocha pink from Canva design */
-  --mocha-pink-light: 15 40% 85%; /* #d4c2b8 - Light mocha pink */
-  --mocha-pink-dark: 15 30% 65%; /* #b39188 - Darker mocha pink */
+  /* Fresh Natural Plant Store Palette */
+  --sage: 120 20% 60%; /* Soft sage green */
+  --forest: 120 30% 25%; /* Deep forest green */
+  --mint: 120 25% 85%; /* Light mint green */
+  --eucalyptus: 120 15% 70%; /* Muted eucalyptus */
+  --cream: 60 30% 97%; /* Natural cream white */
+  --earth: 30 15% 80%; /* Light earth tone */
+  --botanical: 120 35% 45%; /* Rich botanical green */
+  --leaf: 120 40% 65%; /* Fresh leaf green */
+  --moss: 120 20% 40%; /* Deep moss green */
   
   /* Olive Green colors */
   --olive-600: 60 9% 28%; /* #4a4d3a - Deep olive green */
@@ -98,7 +98,7 @@
 
   body {
     @apply bg-white text-foreground font-sans antialiased;
-    background: white;
+    background: linear-gradient(to bottom, #ffffff 0%, #f8fffe 100%);
   }
 
   h1, h2, h3, h4, h5, h6 {

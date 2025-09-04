@@ -27,44 +27,44 @@ const Header = () => {
             >
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
-            <Link href="/" className="font-heading text-2xl sm:text-3xl font-bold tracking-wide" style={{color: '#A2C5AC'}}>
+            <Link href="/" className="font-heading text-2xl sm:text-3xl font-bold tracking-wide text-botanical">
               LIGREMO
             </Link>
           </div>
           <nav className="hidden lg:flex space-x-8 font-medium text-sm">
             <Link 
               href="/" 
-              className={`text-black hover:text-herbal-tonic transition duration-200 px-3 py-2 ${isActive('/') ? 'text-herbal-tonic font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 px-3 py-2 ${isActive('/') ? 'text-botanical font-semibold' : ''}`}
             >
               Home
             </Link>
             <Link 
               href="/products" 
-              className={`text-black hover:text-herbal-tonic transition duration-200 px-3 py-2 ${isActive('/products') ? 'text-herbal-tonic font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 px-3 py-2 ${isActive('/products') ? 'text-botanical font-semibold' : ''}`}
             >
               Shop
             </Link>
             <Link 
               href="/story" 
-              className={`text-black hover:text-herbal-tonic transition duration-200 px-3 py-2 ${isActive('/story') ? 'text-herbal-tonic font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 px-3 py-2 ${isActive('/story') ? 'text-botanical font-semibold' : ''}`}
             >
               About
             </Link>
             <Link 
               href="/contact" 
-              className={`text-black hover:text-herbal-tonic transition duration-200 px-3 py-2 ${isActive('/contact') ? 'text-herbal-tonic font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 px-3 py-2 ${isActive('/contact') ? 'text-botanical font-semibold' : ''}`}
             >
               Contact
             </Link>
           </nav>
           <div className="flex items-center space-x-6">
-            <Link href="/products" className="text-black hover:text-herbal-tonic transition duration-200">
+            <Link href="/products" className="text-forest hover:text-botanical transition duration-200">
               <FontAwesomeIcon icon="search" className="text-lg" />
             </Link>
             <CartButton />
             <Link 
               href="/products"
-              className="bg-black text-white px-6 py-2 font-semibold hover:bg-herbal-tonic transition-colors duration-300 hidden lg:block"
+              className="bg-forest text-white px-6 py-2 font-semibold hover:bg-botanical transition-colors duration-300 hidden lg:block"
             >
               Shop Now
             </Link>
@@ -78,35 +78,35 @@ const Header = () => {
           <nav className="flex flex-col space-y-4 font-medium">
             <Link
               href="/"
-              className={`text-black hover:text-herbal-tonic transition duration-200 py-2 ${isActive('/') ? 'text-herbal-tonic font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 py-2 ${isActive('/') ? 'text-botanical font-semibold' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/products"
-              className={`text-black hover:text-herbal-tonic transition duration-200 py-2 ${isActive('/products') ? 'text-herbal-tonic font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 py-2 ${isActive('/products') ? 'text-botanical font-semibold' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Shop
             </Link>
             <Link
               href="/story"
-              className={`text-black hover:text-herbal-tonic transition duration-200 py-2 ${isActive('/story') ? 'text-herbal-tonic font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 py-2 ${isActive('/story') ? 'text-botanical font-semibold' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className={`text-black hover:text-herbal-tonic transition duration-200 py-2 ${isActive('/contact') ? 'text-herbal-tonic font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 py-2 ${isActive('/contact') ? 'text-botanical font-semibold' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Contact
             </Link>
             <Link 
               href="/products"
-              className="bg-black text-white px-6 py-3 font-semibold hover:bg-herbal-tonic transition-colors duration-300 text-center mt-4"
+              className="bg-forest text-white px-6 py-3 font-semibold hover:bg-botanical transition-colors duration-300 text-center mt-4"
               onClick={() => setMobileMenuOpen(false)}
             >
               Shop Now
