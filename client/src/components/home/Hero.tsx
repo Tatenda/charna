@@ -146,108 +146,48 @@ const Hero = () => {
           <p className="text-xl text-gray-600">Discover LIGREMO</p>
         </div>
         
-        {/* Full-width collage grid */}
-        <div className="grid grid-cols-6 grid-rows-4 gap-2 h-[80vh] max-w-full mx-auto px-4">
-          {/* Large center piece - Business Collection */}
-          <Link href="/products?category=business" className="col-span-3 row-span-2 group relative overflow-hidden border-4 border-black shadow-2xl">
+        {/* Simple 3-Image Collage */}
+        <div className="grid grid-cols-4 grid-rows-2 gap-4 h-[70vh] max-w-6xl mx-auto px-4">
+          {/* Large left image - Business Collection */}
+          <Link href="/products?category=business" className="col-span-2 row-span-2 group relative overflow-hidden shadow-xl rounded-lg">
             <img 
               src="/images/green-backpack.jpg"
               alt="Business Collection"
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
             <div className="absolute bottom-8 left-8 text-white">
               <h3 className="text-4xl font-bold mb-3">Business</h3>
               <p className="text-lg opacity-90">Professional Excellence</p>
             </div>
           </Link>
           
-          {/* Tall right piece - Sports */}
-          <Link href="/products?category=sport" className="col-span-2 row-span-3 group relative overflow-hidden border-4 border-black shadow-2xl">
+          {/* Top right - Sports */}
+          <Link href="/products?category=sport" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl rounded-lg">
             <img 
               src="/images/white-tennis-bag.jpg"
               alt="Sports Collection"
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-3xl font-bold mb-2">Sports</h3>
+              <h3 className="text-2xl font-bold mb-2">Sports</h3>
               <p className="text-base opacity-90">Athletic Performance</p>
             </div>
           </Link>
           
-          {/* Top right corner */}
-          <Link href="/products?category=casual" className="col-span-1 row-span-1 group relative overflow-hidden border-4 border-black shadow-2xl">
-            <img 
-              src="/images/crossbody-cream.jpg"
-              alt="Casual Collection"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
-            <div className="absolute inset-0 bg-black/40"></div>
-          </Link>
-          
-          {/* Left side vertical */}
-          <Link href="/products?category=travel" className="col-span-1 row-span-2 group relative overflow-hidden border-4 border-black shadow-2xl">
+          {/* Bottom right - Travel */}
+          <Link href="/products?category=travel" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl rounded-lg">
             <img 
               src="/images/exploring-backpack.jpg"
               alt="Travel Collection"
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-            <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="text-xl font-bold mb-1">Travel</h3>
-              <p className="text-xs opacity-90">Adventure</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-6 left-6 text-white">
+              <h3 className="text-2xl font-bold mb-2">Travel</h3>
+              <p className="text-base opacity-90">Adventure Awaits</p>
             </div>
-          </Link>
-          
-          {/* Bottom center wide */}
-          <Link href="/products?category=leisure" className="col-span-2 row-span-1 group relative overflow-hidden border-4 border-black shadow-2xl">
-            <img 
-              src="/images/backpack-brown.jpg"
-              alt="Leisure Collection"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
-            <div className="absolute inset-0 bg-black/50"></div>
-            <div className="absolute bottom-3 left-4 text-white">
-              <h3 className="text-xl font-bold">Leisure</h3>
-            </div>
-          </Link>
-          
-          {/* Small accent pieces */}
-          <Link href="/products?category=premium" className="col-span-1 row-span-1 group relative overflow-hidden border-4 border-black shadow-2xl">
-            <img 
-              src="/images/white-backpack.jpg"
-              alt="Premium Collection"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
-            <div className="absolute inset-0 bg-black/40"></div>
-          </Link>
-          
-          <Link href="/products?category=classic" className="col-span-1 row-span-1 group relative overflow-hidden border-4 border-black shadow-2xl">
-            <img 
-              src="/images/green-backpack.jpg"
-              alt="Classic Collection"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
-            <div className="absolute inset-0 bg-black/40"></div>
-          </Link>
-          
-          <Link href="/products?category=urban" className="col-span-1 row-span-1 group relative overflow-hidden border-4 border-black shadow-2xl">
-            <img 
-              src="/images/crossbody-cream.jpg"
-              alt="Urban Collection"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
-            <div className="absolute inset-0 bg-black/40"></div>
-          </Link>
-          
-          <Link href="/products?category=executive" className="col-span-1 row-span-1 group relative overflow-hidden border-4 border-black shadow-2xl">
-            <img 
-              src="/images/backpack-brown.jpg"
-              alt="Executive Collection"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
-            <div className="absolute inset-0 bg-black/40"></div>
           </Link>
         </div>
         
