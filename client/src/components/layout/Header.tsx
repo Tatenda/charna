@@ -27,8 +27,15 @@ const Header = () => {
             >
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
-            <Link href="/" className="font-heading text-2xl sm:text-3xl font-bold tracking-wide text-botanical">
-              LIGREMO
+            <Link href="/" className="flex items-center space-x-3">
+              <img 
+                src="/attached_assets/lgm_1757013967625.jpg"
+                alt="LGM Logo"
+                className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+              />
+              <span className="font-heading text-2xl sm:text-3xl font-bold tracking-wide text-botanical">
+                LIGREMO
+              </span>
             </Link>
           </div>
           <nav className="hidden lg:flex space-x-8 font-medium text-sm">

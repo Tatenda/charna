@@ -3,28 +3,18 @@ import { Link } from "wouter";
 const Hero = () => {
   return (
     <div className="relative">
-      {/* Dark Botanical Hero Section */}
-      <section className="relative h-[70vh] min-h-[600px] bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 flex items-center overflow-hidden">
-        {/* Dark botanical overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
-        
-        {/* Logo in top right */}
-        <div className="absolute top-8 right-8 z-10">
-          <img 
-            src="/attached_assets/lgm_1757013967625.jpg"
-            alt="LGM Living Green Motion Logo"
-            className="w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-lg"
-          />
-        </div>
+      {/* Brown Textured Hero Section */}
+      <section className="relative h-[70vh] min-h-[600px] bg-gradient-to-br from-amber-900 via-yellow-900 to-amber-800 flex items-center overflow-hidden" style={{backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23000000" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="1"%3E%3C/circle%3E%3C/g%3E%3C/g%3E%3C/svg%3E")'}}>
+        {/* Brown textured overlay */}
+        <div className="absolute inset-0 bg-black/30"></div>
         <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
-                Is There Such a Thing as 
-                <span className="text-white">Too Many Bags?</span>
+              <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                Welcome to LGM
               </h1>
               <p className="text-xl text-gray-200 leading-relaxed">
-                Discover the latest addition to your growing collection of handcrafted South African leather goods
+                Discover the latest addition of handcrafted South African leather goods
               </p>
             </div>
             <button className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 text-lg font-semibold hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
