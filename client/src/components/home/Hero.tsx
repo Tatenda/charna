@@ -7,7 +7,7 @@ const Hero = () => {
       <section className="relative h-screen flex items-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0" style={{
-          backgroundImage: 'url("/attached_assets/Man with bag and botanical background_1757070132082.png")',
+          backgroundImage: 'url("/attached_assets/Man with bag and botanical background_1757070177998.png")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
