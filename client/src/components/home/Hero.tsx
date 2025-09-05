@@ -3,66 +3,36 @@ import { Link } from "wouter";
 const Hero = () => {
   return (
     <div className="relative">
-      {/* Plant Store Inspired Hero Section */}
-      <section className="relative h-screen flex items-center overflow-hidden" style={{
-        backgroundColor: '#6B5B4D',
-        backgroundImage: `
-          radial-gradient(circle at 30% 20%, rgba(0,0,0,0.15) 1px, transparent 1px),
-          radial-gradient(circle at 70% 60%, rgba(0,0,0,0.1) 1px, transparent 1px),
-          radial-gradient(circle at 20% 80%, rgba(0,0,0,0.08) 1px, transparent 1px),
-          linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.15) 100%)
-        `,
-        backgroundSize: '120px 120px, 80px 80px, 60px 60px, 100% 100%'
-      }}>
-        {/* Subtle textured overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-stone-900/10 via-transparent to-stone-800/20"></div>
+      {/* Clean Hero Section with Background Image */}
+      <section className="relative h-screen flex items-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'url("/images/backpack-olive.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}></div>
         
-        {/* Left Plant */}
-        <div className="absolute left-0 top-0 h-full w-1/6 z-10">
-          <div className="h-full w-full bg-gradient-to-r from-green-900/80 to-transparent relative">
-            {/* Plant silhouette SVG */}
-            <svg className="absolute bottom-0 left-4 w-32 h-96 text-green-800/60" viewBox="0 0 100 300" fill="currentColor">
-              <path d="M20 300 Q25 250 35 200 Q45 150 40 100 Q35 80 30 60 Q25 40 35 20 Q45 10 50 0 M50 0 Q55 10 65 20 Q75 40 70 60 Q65 80 60 100 Q55 150 65 200 Q75 250 80 300" />
-              <ellipse cx="35" cy="80" rx="15" ry="25" transform="rotate(-20 35 80)" />
-              <ellipse cx="45" cy="120" rx="12" ry="20" transform="rotate(15 45 120)" />
-              <ellipse cx="25" cy="160" rx="18" ry="30" transform="rotate(-30 25 160)" />
-              <ellipse cx="55" cy="200" rx="14" ry="25" transform="rotate(25 55 200)" />
-            </svg>
-          </div>
-        </div>
-        
-        {/* Right Plant */}
-        <div className="absolute right-0 top-0 h-full w-1/6 z-10">
-          <div className="h-full w-full bg-gradient-to-l from-green-900/80 to-transparent relative">
-            {/* Plant silhouette SVG */}
-            <svg className="absolute bottom-0 right-4 w-40 h-full text-green-800/50" viewBox="0 0 120 400" fill="currentColor">
-              <path d="M60 400 Q55 350 45 300 Q35 250 40 200 Q45 180 50 160 Q55 140 45 120 Q35 110 30 100 M30 100 Q35 110 45 120 Q55 140 50 160 Q45 180 40 200 Q35 250 45 300 Q55 350 60 400" />
-              <ellipse cx="50" cy="180" rx="20" ry="35" transform="rotate(20 50 180)" />
-              <ellipse cx="40" cy="220" rx="16" ry="28" transform="rotate(-15 40 220)" />
-              <ellipse cx="70" cy="260" rx="22" ry="40" transform="rotate(30 70 260)" />
-              <ellipse cx="35" cy="300" rx="18" ry="32" transform="rotate(-25 35 300)" />
-              <ellipse cx="65" cy="340" rx="20" ry="35" transform="rotate(20 65 340)" />
-            </svg>
-          </div>
-        </div>
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/40"></div>
         
         {/* Navigation Bar */}
         <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
-          <nav className="bg-stone-900/80 backdrop-blur-sm rounded-full px-8 py-4 border border-stone-600/50">
+          <nav className="bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 border border-white/20">
             <div className="flex space-x-8 text-sm font-medium">
-              <Link href="/products?category=work" className="text-stone-200 hover:text-white transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/products?category=work" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Work
               </Link>
-              <Link href="/products?category=leisure" className="text-stone-200 hover:text-white transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/products?category=leisure" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Leisure
               </Link>
-              <Link href="/products?category=sport" className="text-stone-200 hover:text-white transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/products?category=sport" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Sport
               </Link>
-              <Link href="/products?category=customised" className="text-stone-200 hover:text-white transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/products?category=customised" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Customised
               </Link>
-              <Link href="/care" className="text-stone-200 hover:text-white transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/care" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Care
               </Link>
             </div>
@@ -79,7 +49,7 @@ const Hero = () => {
             <p className="text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-2xl mx-auto">
               Discover the latest addition to your growing leather collection
             </p>
-            <button className="inline-block bg-stone-700/80 backdrop-blur-sm border-2 border-stone-500 text-white px-10 py-4 text-lg font-semibold rounded-full hover:bg-stone-600/80 hover:border-stone-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <button className="inline-block bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-10 py-4 text-lg font-semibold rounded-md hover:bg-white/20 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
               Shop Bags
             </button>
           </div>
