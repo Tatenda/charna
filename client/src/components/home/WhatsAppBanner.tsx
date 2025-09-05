@@ -14,7 +14,7 @@ const WhatsAppBanner = () => {
           </div>
           <a 
             href={whatsappUrl} 
-            className="bg-green-600 hover:bg-green-700 text-white font-accent font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200 flex items-center"
+            className="bg-botanical hover:bg-botanical/90 text-white font-accent font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200 flex items-center"
             target="_blank"
             rel="noopener noreferrer"
           >
