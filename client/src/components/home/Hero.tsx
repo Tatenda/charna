@@ -4,9 +4,18 @@ const Hero = () => {
   return (
     <div className="relative">
       {/* Plant Store Inspired Hero Section */}
-      <section className="relative h-screen bg-gradient-to-br from-stone-800 via-stone-700 to-stone-600 flex items-center overflow-hidden" style={{backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23000000" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="1"%3E%3C/circle%3E%3C/g%3E%3C/g%3E%3C/svg%3E")'}}>
-        {/* Dark overlay for depth */}
-        <div className="absolute inset-0 bg-black/20"></div>
+      <section className="relative h-screen flex items-center overflow-hidden" style={{
+        backgroundColor: '#6B5B4D',
+        backgroundImage: `
+          radial-gradient(circle at 30% 20%, rgba(0,0,0,0.15) 1px, transparent 1px),
+          radial-gradient(circle at 70% 60%, rgba(0,0,0,0.1) 1px, transparent 1px),
+          radial-gradient(circle at 20% 80%, rgba(0,0,0,0.08) 1px, transparent 1px),
+          linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.15) 100%)
+        `,
+        backgroundSize: '120px 120px, 80px 80px, 60px 60px, 100% 100%'
+      }}>
+        {/* Subtle textured overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-stone-900/10 via-transparent to-stone-800/20"></div>
         
         {/* Left Plant */}
         <div className="absolute left-0 top-0 h-full w-1/6 z-10">
@@ -76,17 +85,6 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Floating man with bag - positioned to not interfere with plants */}
-        <div className="absolute bottom-16 right-1/4 transform translate-x-1/2 z-10">
-          <div className="relative">
-            <img 
-              src="/images/backpack-olive.jpg"
-              alt="Premium leather bag"
-              className="w-80 h-80 object-cover rounded-2xl shadow-2xl opacity-90"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-2xl"></div>
-          </div>
-        </div>
       </section>
 
       {/* Our Ranges Section */}
