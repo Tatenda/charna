@@ -15,7 +15,7 @@ const Hero = () => {
         }}></div>
         
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-black/15"></div>
         
         {/* Navigation Bar */}
         <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
