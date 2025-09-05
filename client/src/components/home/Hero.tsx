@@ -223,7 +223,7 @@ const Hero = () => {
         <div className="container mx-auto px-4">
           {/* Centered text above the bag */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-white mb-6">
+            <h2 className="text-5xl font-bold leading-tight text-white mb-6">
               Subscribe & Customise
             </h2>
             <p className="text-xl leading-relaxed text-white">
