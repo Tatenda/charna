@@ -75,11 +75,7 @@ const Hero = () => {
                   alt="Professional Backpack"
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gray-700 text-white px-3 py-1 text-sm font-semibold rounded-md">
-                    New Arrival
-                  </span>
-                </div>
+
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
@@ -103,11 +99,7 @@ const Hero = () => {
                   alt="Cream Crossbody"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gray-700 text-white px-3 py-1 text-sm font-semibold rounded-md">
-                    New Arrival
-                  </span>
-                </div>
+
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
@@ -126,11 +118,7 @@ const Hero = () => {
                   alt="Tennis Sports Bag"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gray-700 text-white px-3 py-1 text-sm font-semibold rounded-md">
-                    New Arrival
-                  </span>
-                </div>
+
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
@@ -149,11 +137,7 @@ const Hero = () => {
                   alt="Brown Travel Backpack"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gray-700 text-white px-3 py-1 text-sm font-semibold rounded-md">
-                    New Arrival
-                  </span>
-                </div>
+
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
                     Add to Cart
