@@ -277,7 +277,7 @@ const Hero = () => {
             <p className="text-xl text-white/80 mb-8">Know your bag</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             <div className="text-center group">
               <div className="w-20 h-20 bg-botanical rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -315,6 +315,19 @@ const Hero = () => {
               <p className="text-white/80 leading-relaxed">
                 Premium South African leather and meticulous craftsmanship in every stitch. 
                 Built to withstand daily use while developing a beautiful patina that tells your unique story.
+              </p>
+            </div>
+            
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-botanical rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4">Care</h3>
+              <p className="text-white/80 leading-relaxed">
+                Proper maintenance and care instructions to ensure your leather bag ages beautifully. 
+                Learn essential tips to preserve quality, maintain appearance, and extend the lifespan of your investment.
               </p>
             </div>
           </div>
