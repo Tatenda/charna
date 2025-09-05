@@ -86,8 +86,8 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="font-medium text-botanical mb-1">Professional Backpack</h3>
-              <p className="font-bold text-botanical">R899.99</p>
+              <h3 className="font-medium text-gray-800 mb-1">Professional Backpack</h3>
+              <p className="font-bold text-gray-800">R899.99</p>
               <div className="flex items-center mt-1">
                 <div className="flex text-orange-400 text-sm">
                   ★★★★☆
