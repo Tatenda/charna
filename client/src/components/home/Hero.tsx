@@ -220,7 +220,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-black/15"></div>
         
         <div className="container mx-auto px-4 relative z-10">
-          {/* Centered text above the bag */}
+          {/* Centered text */}
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold leading-tight text-white mb-6">
               Subscribe & Customise
@@ -228,18 +228,6 @@ const Hero = () => {
             <p className="text-xl leading-relaxed text-white">
               and look forward to a new bag every month
             </p>
-          </div>
-          
-          {/* Centered bag image */}
-          <div className="flex justify-center mb-16">
-            <div className="relative max-w-lg">
-              <img 
-                src="/images/backpack-brown.jpg"
-                alt="Custom leather bags"
-                className="w-full h-96 object-cover rounded-2xl shadow-2xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent rounded-2xl"></div>
-            </div>
           </div>
           
           {/* Feature cards */}
