@@ -44,11 +44,10 @@ const Hero = () => {
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-4xl mx-auto space-y-8">
             <h1 className="text-6xl lg:text-8xl font-bold text-white leading-tight tracking-wide">
-              Is There Such a Thing as<br />
-              <span className="text-stone-300">Too Many Bags?</span>
+              Living Green in Motion
             </h1>
             <p className="text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-2xl mx-auto">
-              Discover the latest addition to your growing leather collection
+              LGM bags offers hand crafted, beautiful and affordable bags
             </p>
             <button className="inline-block bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-10 py-4 text-lg font-semibold rounded-md hover:bg-white/20 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
               Shop Bags
