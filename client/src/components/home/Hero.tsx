@@ -139,11 +139,11 @@ const Hero = () => {
       </section>
 
       {/* Shop by Category - Full Collage Gallery */}
-      <section className="relative bg-gradient-to-br from-stone-200 via-stone-100 to-amber-50 overflow-hidden">
+      <section className="relative overflow-hidden" style={{backgroundColor: '#7A8471'}}>
         {/* Header overlay */}
         <div className="relative z-10 text-center py-16">
-          <h2 className="text-5xl font-bold text-gray-700 mb-4">Shop by Category</h2>
-          <p className="text-xl text-gray-600">Discover LIGREMO</p>
+          <h2 className="text-5xl font-bold text-white mb-4">Shop by Category</h2>
+          <p className="text-xl text-white/80">Discover LIGREMO</p>
         </div>
         
         {/* Full-width 3-Image Collage */}
