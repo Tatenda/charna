@@ -385,35 +385,6 @@ const Hero = () => {
       </section>
 
 
-      {/* Newsletter Section */}
-      <section className="py-20 bg-black text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-4">
-            Everything You Need to Know About Leather Goods and More
-          </h2>
-          <p className="text-xl text-gray-300 mb-8">
-            No Spam, We Promise.
-          </p>
-          <p className="text-lg text-gray-400 mb-12">
-            Subscribe now and get 15% off your first purchase
-          </p>
-          
-          <div className="max-w-md mx-auto space-y-4">
-            <input 
-              type="email" 
-              placeholder="Enter your email here"
-              className="w-full px-6 py-4 text-forest rounded-lg border-0 focus:ring-2 focus:ring-herbal-tonic outline-none"
-            />
-            <div className="flex items-center justify-center space-x-2 text-sm text-gray-400">
-              <input type="checkbox" className="rounded" />
-              <span>Yes, subscribe me to your newsletter.</span>
-            </div>
-            <button className="w-full bg-botanical text-white px-8 py-4 font-semibold hover:bg-white hover:text-forest transition-colors duration-300">
-              Subscribe
-            </button>
-          </div>
-        </div>
-      </section>
 
       {/* Instagram Gallery */}
       <section className="py-20" style={{backgroundColor: '#7A8471'}}>
