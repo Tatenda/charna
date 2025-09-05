@@ -380,35 +380,35 @@ const Hero = () => {
             <h2 className="text-4xl font-bold text-white mb-4">LGM on the #Gram</h2>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            <div className="aspect-square overflow-hidden rounded-lg">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-1">
+            <div className="aspect-square overflow-hidden">
               <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="aspect-square overflow-hidden">
               <img src="/images/crossbody-cream.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="aspect-square overflow-hidden">
               <img src="/images/white-tennis-bag.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="aspect-square overflow-hidden">
               <img src="/images/backpack-brown.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="aspect-square overflow-hidden">
               <img src="/images/white-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="aspect-square overflow-hidden">
               <img src="/images/exploring-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="aspect-square overflow-hidden">
               <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="aspect-square overflow-hidden">
               <img src="/images/crossbody-cream.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="aspect-square overflow-hidden">
               <img src="/images/white-tennis-bag.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
-            <div className="aspect-square overflow-hidden rounded-lg">
+            <div className="aspect-square overflow-hidden">
               <img src="/images/backpack-brown.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
           </div>
