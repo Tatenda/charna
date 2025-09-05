@@ -143,7 +143,7 @@ const Hero = () => {
         {/* Header overlay */}
         <div className="relative z-10 text-center py-16">
           <h2 className="text-5xl font-bold text-white mb-4">Shop by Category</h2>
-          <p className="text-xl text-white/80">Discover LIGREMO</p>
+          <p className="text-xl text-white/80">Discover LGM</p>
         </div>
         
         {/* Full-width 3-Image Collage */}
@@ -414,7 +414,7 @@ const Hero = () => {
       <section className="py-20 bg-gradient-to-br from-sage to-eucalyptus">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">LIGREMO on the #Gram</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">LGM on the #Gram</h2>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
