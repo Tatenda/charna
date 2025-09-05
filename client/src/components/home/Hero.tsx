@@ -261,113 +261,11 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Blog Style Care Guide Section */}
-      <section className="py-20 bg-stone-100">
+      {/* Bag Capsule Section */}
+      <section className="py-20" style={{backgroundColor: '#D2B48C'}}>
         <div className="container mx-auto px-4">
-          <div className="mb-12">
-            <p className="text-sm text-gray-600 mb-2">Our Blog</p>
-            <div className="flex items-center justify-between">
-              <h2 className="text-4xl font-bold text-gray-900">Your Guide to Leather Care</h2>
-              <button className="bg-orange-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors">
-                Read More
-              </button>
-            </div>
-          </div>
-          
-          {/* Top Row - 3 Articles */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <article className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="/images/green-backpack.jpg"
-                alt="Leather bag care"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="text-xs text-gray-500 mb-2">Jun 5, 2023 • 1 min read</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">How to Choose a Bag that Compliments Your Style</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading...
-                </p>
-              </div>
-            </article>
-            
-            <article className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="/images/crossbody-cream.jpg"
-                alt="Leather maintenance"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="text-xs text-gray-500 mb-2">Jun 5, 2023 • 2 min read</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">8 Leather-Friendly Products Safe for Daily Use</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading...
-                </p>
-              </div>
-            </article>
-            
-            <article className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="/images/backpack-brown.jpg"
-                alt="Leather conditioning"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="text-xs text-gray-500 mb-2">Jun 5, 2023 • 1 min read</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Spring Conditioning: Leather Bag Maintenance</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading...
-                </p>
-              </div>
-            </article>
-          </div>
-          
-          {/* Bottom Row - 3 Articles */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <article className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="/images/green-backpack.jpg"
-                alt="Leather restoration"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="text-xs text-gray-500 mb-2">Jun 5, 2023 • 1 min read</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">How to Restore Vintage Leather</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading...
-                </p>
-              </div>
-            </article>
-            
-            <article className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="/images/tennis-bag.jpg"
-                alt="Leather protection"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="text-xs text-gray-500 mb-2">Jun 5, 2023 • 2 min read</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">How to Treat Water Spots</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading...
-                </p>
-              </div>
-            </article>
-            
-            <article className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <img 
-                src="/images/exploring-backpack.jpg"
-                alt="Seasonal leather care"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="text-xs text-gray-500 mb-2">Jun 5, 2023 • 1 min read</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Keep Them Alive Through the Seasons</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading...
-                </p>
-              </div>
-            </article>
+          <div className="text-center">
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">Bag Capsule</h2>
           </div>
         </div>
       </section>
