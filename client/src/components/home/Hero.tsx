@@ -39,6 +39,19 @@ const Hero = () => {
           </nav>
         </div>
         
+        {/* Bottom Right Plant */}
+        <div className="absolute bottom-0 right-0 w-1/3 h-2/3 z-10">
+          <img 
+            src="@assets/image_1757067137529.png"
+            alt="Plant decoration"
+            className="w-full h-full object-contain opacity-80"
+            style={{
+              mixBlendMode: 'multiply',
+              filter: 'brightness(0.9) contrast(1.1)'
+            }}
+          />
+        </div>
+        
         {/* Central Content */}
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-4xl mx-auto space-y-8">
