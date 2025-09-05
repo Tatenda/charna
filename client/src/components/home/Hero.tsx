@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import botanicalBg from '@assets/Man with bag and botanical background_1757072953822.png';
+import newHeroBg from '@assets/website landing page _1757090692575.png';
 
 const Hero = () => {
   return (
@@ -8,7 +9,7 @@ const Hero = () => {
       <section className="relative h-screen flex items-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0" style={{
-          backgroundImage: `url(${botanicalBg})`,
+          backgroundImage: `url(${newHeroBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
@@ -45,7 +46,7 @@ const Hero = () => {
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-4xl mx-auto space-y-8">
             <h1 className="text-6xl lg:text-8xl font-bold text-white leading-tight tracking-wide">
-              Living Green in Motion
+              Living Green Motion
             </h1>
             <p className="text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-2xl mx-auto">
               LGM bags offers hand crafted, beautiful and affordable bags
