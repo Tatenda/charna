@@ -7,14 +7,14 @@ const Hero = () => {
       <section className="relative h-screen flex items-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0" style={{
-          backgroundImage: 'url("/images/backpack-olive.jpg")',
+          backgroundImage: 'url("/attached_assets/ChatGPT Image Sep 5, 2025, 12_44_50 PM_1757069177402.png")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}></div>
         
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/30"></div>
         
         {/* Navigation Bar */}
         <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
@@ -39,20 +39,6 @@ const Hero = () => {
           </nav>
         </div>
         
-        {/* Bottom Right Plant - Naturally Integrated */}
-        <div className="absolute bottom-0 right-0 w-1/4 h-3/5 z-5">
-          <img 
-            src="https://www.giablooms.com/cdn/shop/products/rubberplant_grande.jpg?v=1584725018"
-            alt="Rubber plant leaves decoration"
-            className="w-full h-full object-cover"
-            style={{
-              mixBlendMode: 'overlay',
-              filter: 'sepia(20%) brightness(0.8) contrast(1.2) saturate(0.9)',
-              clipPath: 'inset(0 0 25% 0)',
-              opacity: '0.9'
-            }}
-          />
-        </div>
         
         {/* Central Content */}
         <div className="container mx-auto px-4 text-center relative z-10">
