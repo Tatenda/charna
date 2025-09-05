@@ -42,7 +42,7 @@ const Hero = () => {
         {/* Bottom Right Plant */}
         <div className="absolute bottom-0 right-0 w-1/3 h-2/3 z-10">
           <img 
-            src="@assets/image_1757067137529.png"
+            src="/attached_assets/image_1757067137529.png"
             alt="Plant decoration"
             className="w-full h-full object-contain opacity-80"
             style={{
