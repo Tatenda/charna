@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import botanicalBg from '@assets/Man with bag and botanical background_1757072953822.png';
 
 const Hero = () => {
   return (
@@ -7,7 +8,7 @@ const Hero = () => {
       <section className="relative h-screen flex items-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0" style={{
-          backgroundImage: 'url("/images/hero-background.png")',
+          backgroundImage: `url(${botanicalBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
