@@ -220,7 +220,16 @@ const Hero = () => {
       </section>
 
       {/* Subscribe & Customise Section */}
-      <section className="py-20 bg-gradient-to-r from-orange-400 to-orange-500">
+      <section className="py-20" style={{
+        backgroundColor: '#6B5B4D',
+        backgroundImage: `
+          radial-gradient(circle at 30% 20%, rgba(0,0,0,0.15) 1px, transparent 1px),
+          radial-gradient(circle at 70% 60%, rgba(0,0,0,0.1) 1px, transparent 1px),
+          radial-gradient(circle at 20% 80%, rgba(0,0,0,0.08) 1px, transparent 1px),
+          linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.15) 100%)
+        `,
+        backgroundSize: '120px 120px, 80px 80px, 60px 60px, 100% 100%'
+      }}>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
