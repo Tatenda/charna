@@ -146,8 +146,8 @@ const Hero = () => {
           <p className="text-xl text-gray-600">Discover LIGREMO</p>
         </div>
         
-        {/* Simple 3-Image Collage */}
-        <div className="grid grid-cols-4 grid-rows-2 gap-4 h-[70vh] max-w-6xl mx-auto px-4">
+        {/* Full-width 3-Image Collage */}
+        <div className="grid grid-cols-4 grid-rows-2 gap-2 h-[70vh] w-full px-0">
           {/* Large left image - Business Collection */}
           <Link href="/products?category=business" className="col-span-2 row-span-2 group relative overflow-hidden shadow-xl rounded-lg">
             <img 
