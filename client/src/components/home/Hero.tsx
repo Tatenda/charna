@@ -241,10 +241,10 @@ const Hero = () => {
               <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent rounded-2xl"></div>
             </div>
             <div className="space-y-8">
-              <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-botanical">
+              <h2 className="text-4xl lg:text-5xl font-bold leading-tight" style={{color: '#6B7A47'}}>
                 Subscribe & Customise
               </h2>
-              <p className="text-xl leading-relaxed text-botanical">
+              <p className="text-xl leading-relaxed" style={{color: '#6B7A47'}}>
                 and look forward to a new bag every month
               </p>
               
@@ -256,8 +256,8 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-botanical">Custom Bags</h3>
-                    <p className="text-botanical/80">Personalise your perfect bag</p>
+                    <h3 className="text-xl font-semibold" style={{color: '#6B7A47'}}>Custom Bags</h3>
+                    <p style={{color: 'rgba(107, 122, 71, 0.8)'}}>Personalise your perfect bag</p>
                   </div>
                 </div>
                 
@@ -268,8 +268,8 @@ const Hero = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-botanical">Corporate Gifting</h3>
-                    <p className="text-botanical/80">Business gifting solutions</p>
+                    <h3 className="text-xl font-semibold" style={{color: '#6B7A47'}}>Corporate Gifting</h3>
+                    <p style={{color: 'rgba(107, 122, 71, 0.8)'}}>Business gifting solutions</p>
                   </div>
                 </div>
               </div>
