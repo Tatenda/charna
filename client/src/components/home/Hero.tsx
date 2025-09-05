@@ -39,16 +39,17 @@ const Hero = () => {
           </nav>
         </div>
         
-        {/* Bottom Right Plant */}
-        <div className="absolute bottom-0 right-0 w-1/3 h-2/3 z-10">
+        {/* Bottom Right Plant - Naturally Integrated */}
+        <div className="absolute bottom-0 right-0 w-1/4 h-3/5 z-5">
           <img 
             src="https://www.giablooms.com/cdn/shop/products/rubberplant_grande.jpg?v=1584725018"
             alt="Rubber plant leaves decoration"
-            className="w-full h-full object-contain opacity-80"
+            className="w-full h-full object-cover"
             style={{
-              mixBlendMode: 'multiply',
-              filter: 'brightness(0.9) contrast(1.1)',
-              clipPath: 'inset(0 0 30% 0)'
+              mixBlendMode: 'overlay',
+              filter: 'sepia(20%) brightness(0.8) contrast(1.2) saturate(0.9)',
+              clipPath: 'inset(0 0 25% 0)',
+              opacity: '0.9'
             }}
           />
         </div>
