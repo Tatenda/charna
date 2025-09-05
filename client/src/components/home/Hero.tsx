@@ -58,26 +58,26 @@ const Hero = () => {
       </section>
 
       {/* Our Ranges Section */}
-      <section className="py-20 bg-stone-100">
+      <section className="py-20" style={{backgroundColor: '#F5F1E8'}}>
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800">Our Ranges</h2>
-            <button className="bg-orange-600 text-white px-6 py-2 font-semibold hover:bg-orange-700 transition-colors">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Ranges</h2>
+            <button className="bg-gray-800 text-white px-8 py-3 font-semibold hover:bg-gray-900 transition-colors rounded-lg">
               Shop All
             </button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="group cursor-pointer">
-              <div className="relative overflow-hidden rounded-xl mb-4">
+              <div className="relative overflow-hidden bg-white rounded-lg mb-4 shadow-sm">
                 <img 
                   src="/images/green-backpack.jpg"
                   alt="Professional Backpack"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-sage text-white px-3 py-1 text-sm font-semibold rounded-full">
-                    New Range
+                  <span className="bg-gray-700 text-white px-3 py-1 text-sm font-semibold rounded-md">
+                    New Arrival
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -86,9 +86,14 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-gray-800 mb-2">Professional Backpack</h3>
-              <p className="text-gray-600 text-sm mb-2">Premium leather work bag</p>
-              <p className="font-bold text-gray-800">Price R899.99</p>
+              <h3 className="font-medium text-gray-800 mb-1">Professional Backpack</h3>
+              <p className="font-bold text-gray-800">R899.99</p>
+              <div className="flex items-center mt-1">
+                <div className="flex text-orange-400 text-sm">
+                  ★★★★☆
+                </div>
+                <span className="text-gray-500 text-sm ml-2">(15)</span>
+              </div>
             </div>
             
             <div className="group cursor-pointer">
@@ -99,8 +104,8 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-sage text-white px-3 py-1 text-sm font-semibold rounded-full">
-                    New Range
+                  <span className="bg-gray-700 text-white px-3 py-1 text-sm font-semibold rounded-md">
+                    New Arrival
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -122,8 +127,8 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-sage text-white px-3 py-1 text-sm font-semibold rounded-full">
-                    New Range
+                  <span className="bg-gray-700 text-white px-3 py-1 text-sm font-semibold rounded-md">
+                    New Arrival
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -145,8 +150,8 @@ const Hero = () => {
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-sage text-white px-3 py-1 text-sm font-semibold rounded-full">
-                    New Range
+                  <span className="bg-gray-700 text-white px-3 py-1 text-sm font-semibold rounded-md">
+                    New Arrival
                   </span>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
