@@ -61,8 +61,8 @@ const Hero = () => {
       <section className="py-20" style={{backgroundColor: '#F5F1E8'}}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Ranges</h2>
-            <button className="bg-gray-800 text-white px-8 py-3 font-semibold hover:bg-gray-900 transition-colors rounded-lg">
+            <h2 className="text-4xl font-bold text-botanical mb-4">Our Ranges</h2>
+            <button className="bg-botanical text-white px-8 py-3 font-semibold hover:bg-botanical/90 transition-colors rounded-lg">
               Shop All
             </button>
           </div>
@@ -86,8 +86,8 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="font-medium text-gray-800 mb-1">Professional Backpack</h3>
-              <p className="font-bold text-gray-800">R899.99</p>
+              <h3 className="font-medium text-botanical mb-1">Professional Backpack</h3>
+              <p className="font-bold text-botanical">R899.99</p>
               <div className="flex items-center mt-1">
                 <div className="flex text-orange-400 text-sm">
                   ★★★★☆
