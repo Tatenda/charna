@@ -210,17 +210,16 @@ const Hero = () => {
       </section>
 
       {/* Subscribe & Customise Section */}
-      <section className="py-20" style={{
-        backgroundColor: '#6B5B4D',
-        backgroundImage: `
-          radial-gradient(circle at 30% 20%, rgba(0,0,0,0.15) 1px, transparent 1px),
-          radial-gradient(circle at 70% 60%, rgba(0,0,0,0.1) 1px, transparent 1px),
-          radial-gradient(circle at 20% 80%, rgba(0,0,0,0.08) 1px, transparent 1px),
-          linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.15) 100%)
-        `,
-        backgroundSize: '120px 120px, 80px 80px, 60px 60px, 100% 100%'
+      <section className="relative py-20 overflow-hidden" style={{
+        backgroundImage: `url(${botanicalBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
       }}>
-        <div className="container mx-auto px-4">
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/15"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           {/* Centered text above the bag */}
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold leading-tight text-white mb-6">
