@@ -4,7 +4,7 @@ import { useEffect } from "react";
 const Home = () => {
   // Set page title
   useEffect(() => {
-    document.title = "LIGREMO | Premium Leather Bags Made in South Africa";
+    document.title = "LGM | Premium Leather Bags Made in South Africa";
   }, []);
 
   return (

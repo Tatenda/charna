@@ -35,7 +35,7 @@ const Contact = () => {
 
   // Set page title
   useEffect(() => {
-    document.title = "Contact Us | LIGREMO";
+    document.title = "Contact Us | LGM";
   }, []);
 
   const form = useForm<ContactFormValues>({

@@ -16,7 +16,7 @@ const careSteps = [
   {
     icon: <Sun className="w-8 h-8 text-accent" />,
     title: "Protect from Elements",
-    description: "Shield your LIGREMO bag from direct sunlight, heat, and moisture to preserve its beauty.",
+    description: "Shield your LGM bag from direct sunlight, heat, and moisture to preserve its beauty.",
     details: [
       "Avoid prolonged sun exposure",
       "Keep away from heat sources",
@@ -86,7 +86,7 @@ export default function Care() {
             Care Instructions
           </h1>
           <p className="text-xl text-white/80 mt-4">
-            Preserve the beauty of your LIGREMO leather for generations
+            Preserve the beauty of your LGM leather for generations
           </p>
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function Care() {
             <h3 className="text-2xl font-heading font-bold mb-4">Professional Care Services</h3>
             <p className="mb-6 max-w-2xl mx-auto">
               For deep cleaning, restoration, or repairs, our network of certified leather artisans 
-              can help maintain your LIGREMO piece to the highest standards.
+              can help maintain your LGM piece to the highest standards.
             </p>
             <Link 
               href="/contact" 

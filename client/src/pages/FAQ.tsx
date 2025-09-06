@@ -5,8 +5,8 @@ import { useState } from "react";
 const faqs = [
   {
     id: 1,
-    question: "What makes LIGREMO leather bags special?",
-    answer: "Each LIGREMO bag is handcrafted from the finest full-grain leather using traditional artisan techniques in our Johannesburg workshop. Our leather develops a beautiful patina over time, making each piece unique. We focus on timeless design that transcends trends, ensuring your investment lasts for decades."
+    question: "What makes LGM leather bags special?",
+    answer: "Each LGM bag is handcrafted from the finest full-grain leather using traditional artisan techniques in our Johannesburg workshop. Our leather develops a beautiful patina over time, making each piece unique. We focus on timeless design that transcends trends, ensuring your investment lasts for decades."
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ const faqs = [
   {
     id: 6,
     question: "Do you offer custom monogramming?",
-    answer: "We offer discrete monogramming services for an additional fee. Contact our customer service team to discuss personalization options that maintain the sophisticated aesthetic of your LIGREMO piece."
+    answer: "We offer discrete monogramming services for an additional fee. Contact our customer service team to discuss personalization options that maintain the sophisticated aesthetic of your LGM piece."
   },
   {
     id: 7,
@@ -72,7 +72,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h1>
           <p className="text-xl text-white/80 mt-4">
-            Everything you need to know about LIGREMO
+            Everything you need to know about LGM
           </p>
         </div>
       </div>

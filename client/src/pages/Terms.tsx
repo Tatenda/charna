@@ -18,7 +18,7 @@ export default function Terms() {
             Terms & Conditions
           </h1>
           <p className="text-xl text-white/80 mt-4">
-            Terms of service for LIGREMO luxury leather goods
+            Terms of service for LGM luxury leather goods
           </p>
         </div>
       </div>
@@ -34,7 +34,7 @@ export default function Terms() {
             <section className="mb-12">
               <h2 className="text-2xl font-heading font-bold text-primary mb-4">Acceptance of Terms</h2>
               <p className="text-gray-600">
-                By accessing and using the LIGREMO website and purchasing our products, you accept and agree 
+                By accessing and using the LGM website and purchasing our products, you accept and agree 
                 to be bound by these Terms and Conditions. If you do not agree to these terms, please do not 
                 use our services.
               </p>
@@ -43,7 +43,7 @@ export default function Terms() {
             <section className="mb-12">
               <h2 className="text-2xl font-heading font-bold text-primary mb-4">Products and Services</h2>
               <p className="text-gray-600 mb-4">
-                LIGREMO offers luxury leather goods crafted from premium Italian leather. All products are 
+                LGM offers luxury leather goods crafted from premium Italian leather. All products are 
                 handmade and may have slight variations that add to their unique character.
               </p>
               <ul className="list-disc list-inside text-gray-600 space-y-2">
@@ -97,14 +97,14 @@ export default function Terms() {
               <h2 className="text-2xl font-heading font-bold text-primary mb-4">Intellectual Property</h2>
               <p className="text-gray-600">
                 All content on this website, including designs, logos, and product images, is the property of 
-                LIGREMO and protected by copyright and trademark laws. Unauthorized use is prohibited.
+                LGM and protected by copyright and trademark laws. Unauthorized use is prohibited.
               </p>
             </section>
 
             <section className="mb-12">
               <h2 className="text-2xl font-heading font-bold text-primary mb-4">Limitation of Liability</h2>
               <p className="text-gray-600">
-                LIGREMO's liability is limited to the purchase price of the product. We are not liable for 
+                LGM's liability is limited to the purchase price of the product. We are not liable for 
                 indirect, incidental, or consequential damages.
               </p>
             </section>
@@ -117,7 +117,7 @@ export default function Terms() {
               <div className="mt-4 p-4 bg-secondary-light/20 rounded">
                 <p className="text-gray-600">
                   <strong>Email:</strong> legal@ligremp.replit.app<br />
-                  <strong>Address:</strong> LIGREMO Legal Department<br />
+                  <strong>Address:</strong> LGM Legal Department<br />
                   Johannesburg, South Africa
                 </p>
               </div>
