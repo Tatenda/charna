@@ -45,8 +45,12 @@ const Hero = () => {
         {/* Central Content */}
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-4xl mx-auto space-y-8">
-            <h1 className="text-6xl lg:text-8xl font-bold text-white leading-tight tracking-wide">
-              Living Green Motion
+            <h1 className="text-6xl lg:text-8xl font-bold text-white leading-none tracking-wide">
+              <div className="flex flex-col items-center space-y-2">
+                <span>L</span>
+                <span>G</span>
+                <span>M</span>
+              </div>
             </h1>
             <p className="text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-2xl mx-auto">
               LGM bags offers hand crafted, beautiful and affordable bags
