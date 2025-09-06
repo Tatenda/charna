@@ -162,10 +162,10 @@ const Hero = () => {
           <p className="text-xl text-white/80">Shop by Category</p>
         </div>
         
-        {/* Full-width 3-Image Collage */}
+        {/* Full-width 4-Image Collage */}
         <div className="grid grid-cols-4 grid-rows-2 gap-2 h-[70vh] w-full px-0">
           {/* Large left image - Business Collection */}
-          <Link href="/products?category=business" className="col-span-2 row-span-2 group relative overflow-hidden shadow-xl rounded-lg">
+          <Link href="/products?category=business" className="col-span-2 row-span-2 group relative overflow-hidden shadow-xl">
             <img 
               src="/images/green-backpack.jpg"
               alt="Business Collection"
@@ -179,7 +179,7 @@ const Hero = () => {
           </Link>
           
           {/* Top right - Sports */}
-          <Link href="/products?category=sport" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl rounded-lg">
+          <Link href="/products?category=sport" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
             <img 
               src="/images/white-tennis-bag.jpg"
               alt="Sports Collection"
@@ -192,8 +192,22 @@ const Hero = () => {
             </div>
           </Link>
           
+          {/* New - Styled Leisure */}
+          <Link href="/products?category=leisure" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
+            <img 
+              src="/images/crossbody-cream.jpg"
+              alt="Styled Leisure Collection"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-6 left-6 text-white">
+              <h3 className="text-2xl font-bold mb-2 text-white">Styled Leisure</h3>
+              <p className="text-base opacity-90 text-white">Elegant Comfort</p>
+            </div>
+          </Link>
+          
           {/* Bottom right - Travel */}
-          <Link href="/products?category=travel" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl rounded-lg">
+          <Link href="/products?category=travel" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl">
             <img 
               src="/images/exploring-backpack.jpg"
               alt="Travel Collection"
