@@ -224,7 +224,7 @@ const Hero = () => {
           {/* Centered text */}
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold leading-tight text-white mb-6">
-              Subscribe & Customise
+              Customise your Bag
             </h2>
             <p className="text-xl leading-relaxed text-white">
               and look forward to a new bag every month
