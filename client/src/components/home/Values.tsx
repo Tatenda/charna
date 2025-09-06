@@ -29,7 +29,7 @@ const Values = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mb-6">
-            Why Choose LGM
+            Why Choose Charna
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             We're committed to creating exceptional leather goods that stand the test of time, combining premium materials with expert craftsmanship.
@@ -63,7 +63,7 @@ const Values = () => {
             Experience the Difference
           </h3>
           <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who trust LGM for their everyday carry needs.
+            Join thousands of professionals who trust Charna for their everyday carry needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <div className="text-center">

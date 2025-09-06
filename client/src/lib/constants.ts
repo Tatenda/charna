@@ -38,7 +38,7 @@ export const WHATSAPP_NUMBER = "27123456789";
 
 // Company Info
 export const COMPANY_INFO = {
-  name: "LGM",
+  name: "Charna",
   founded: 2019,
   location: "Johannesburg, South Africa",
   tagline: "Italian Craftsmanship, Timeless Elegance",

@@ -7,7 +7,7 @@ import { getImagePath } from "@/lib/imageUtils";
 const Story = () => {
   // Set page title
   useEffect(() => {
-    document.title = "Our Story | LGM";
+    document.title = "Our Story | Charna";
   }, []);
 
   return (
@@ -32,11 +32,11 @@ const Story = () => {
               <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Crafted with Pride in Johannesburg</h2>
               <div className="divider mb-6"></div>
               <p className="text-neutral mb-4 leading-relaxed">
-                LGM was founded with a simple vision: to create exceptional leather goods that showcase the incredible skill and artistry 
+                Charna was founded with a simple vision: to create exceptional leather goods that showcase the incredible skill and artistry 
                 of South African craftspeople. Our workshop in Johannesburg is where passion meets precision.
               </p>
               <p className="text-neutral mb-4 leading-relaxed">
-                Every LGM piece is handcrafted by skilled local artisans who bring years of experience and deep pride in their work. 
+                Every Charna piece is handcrafted by skilled local artisans who bring years of experience and deep pride in their work. 
                 We believe in the power of traditional craftsmanship combined with contemporary design sensibilities.
               </p>
               <p className="text-neutral leading-relaxed">
@@ -97,9 +97,9 @@ const Story = () => {
           
           <div className="mt-16 text-center">
             <blockquote className="text-2xl font-heading text-primary italic max-w-3xl mx-auto">
-              "Every LGM piece represents the incredible skill and dedication of our South African artisans — we're proud to showcase the exceptional craftsmanship that our country has to offer."
+              "Every Charna piece represents the incredible skill and dedication of our South African artisans — we're proud to showcase the exceptional craftsmanship that our country has to offer."
             </blockquote>
-            <p className="mt-4 font-accent font-semibold">— Founder, LGM</p>
+            <p className="mt-4 font-accent font-semibold">— Founder, Charna</p>
           </div>
         </div>
       </section>
@@ -233,7 +233,7 @@ const Story = () => {
                   <div>
                     <h3 className="font-accent text-lg font-semibold mb-1">Luxury Packaging</h3>
                     <p className="text-neutral">
-                      Each LGM piece arrives in sustainably sourced packaging that reflects our commitment to both luxury presentation and environmental responsibility.
+                      Each Charna piece arrives in sustainably sourced packaging that reflects our commitment to both luxury presentation and environmental responsibility.
                     </p>
                   </div>
                 </div>
