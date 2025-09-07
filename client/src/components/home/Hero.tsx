@@ -273,10 +273,21 @@ const Hero = () => {
       </section>
 
       {/* Bag Capsule Section */}
-      <section className="py-20" style={{backgroundColor: '#D2B48C'}}>
-        <div className="container mx-auto px-4">
+      <section className="relative py-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url(${newHeroBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}></div>
+        
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/15"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">Bag Capsule</h2>
+            <h2 className="text-5xl font-bold text-white mb-4">Bag Capsule</h2>
           </div>
         </div>
       </section>
