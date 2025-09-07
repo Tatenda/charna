@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import botanicalBg from '@assets/Man with bag and botanical background_1757072953822.png';
-import newHeroBg from '@assets/website landing page _1757090692575.png';
+import newHeroBg from '@assets/1E019FAE-D1BC-47A7-8182-BC6888D595A8_1757229645652.png';
 
 const Hero = () => {
   return (
