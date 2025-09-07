@@ -27,7 +27,7 @@ const Header = () => {
             >
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
-            <Link href="/" className="font-heading text-2xl sm:text-3xl font-bold tracking-wide text-botanical">
+            <Link href="/" className="font-canela-bold text-2xl sm:text-3xl tracking-wide text-botanical">
               Charna
             </Link>
           </div>
