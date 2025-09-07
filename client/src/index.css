@@ -1,5 +1,5 @@
-/* Import Canela-inspired sophisticated fonts for branding */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
+/* Import modern fonts matching Canva design */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -97,14 +97,12 @@
   }
 
   body {
-    @apply bg-white text-foreground antialiased;
-    font-family: 'Playfair Display', serif;
+    @apply bg-white text-foreground font-sans antialiased;
     background: linear-gradient(to bottom, #ffffff 0%, #f8fffe 100%);
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
-    @apply text-primary;
+    @apply font-heading text-primary;
   }
 
   h1 {
@@ -130,18 +128,15 @@
   }
 
   .btn-primary {
-    @apply bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200;
-    font-family: 'Playfair Display', serif;
+    @apply bg-primary hover:bg-primary-dark text-white font-accent font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200;
   }
 
   .btn-secondary {
-    @apply bg-transparent hover:bg-secondary-dark border border-primary text-primary hover:text-primary-dark font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200;
-    font-family: 'Playfair Display', serif;
+    @apply bg-transparent hover:bg-secondary-dark border border-primary text-primary hover:text-primary-dark font-accent font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200;
   }
 
   .btn-accent {
-    @apply bg-accent hover:bg-accent-dark text-white font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200;
-    font-family: 'Playfair Display', serif;
+    @apply bg-accent hover:bg-accent-dark text-white font-accent font-medium py-3 px-6 rounded-md text-sm uppercase tracking-wider transition duration-200;
   }
 
   .input-field {
@@ -153,19 +148,19 @@
   }
 }
 
-/* Sophisticated serif fonts for elegant branding */
+/* Modern font classes matching Canva style */
 .font-sans {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .font-heading {
-  font-family: 'Playfair Display', serif;
+  font-family: 'DM Sans', sans-serif;
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
 .font-accent {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 500;
 }
 
