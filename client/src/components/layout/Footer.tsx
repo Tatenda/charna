@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div>
-            <h4 className="font-heading text-2xl font-bold mb-4 text-black">Canela</h4>
+            <h4 className="font-heading text-2xl font-bold mb-4 text-black">Charna</h4>
             <p className="text-gray-600 mb-6 leading-relaxed">Premium handcrafted leather goods made in Johannesburg. Excellence in every stitch, quality in every detail.</p>
             <div className="flex space-x-4">
               <a 
@@ -139,7 +139,7 @@ const Footer = () => {
         <div className="border-t border-gray-200 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-500 text-sm mb-4 md:mb-0">
-              © 2025 Canela. All rights reserved. Handcrafted in Johannesburg, South Africa.
+              © 2025 Charna. All rights reserved. Handcrafted in Johannesburg, South Africa.
             </p>
             <div className="flex items-center space-x-6 text-sm text-gray-500">
               <span>Made with ❤️ in Johannesburg</span>
