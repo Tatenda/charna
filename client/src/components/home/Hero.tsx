@@ -48,7 +48,7 @@ const Hero = () => {
             <p className="text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-2xl mx-auto">
               Charna bags offers hand crafted, beautiful and affordable bags
             </p>
-            <button className="inline-block bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-10 py-4 text-lg font-semibold rounded-md hover:bg-white/20 hover:border-white/50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <button className="inline-block bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-md hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
               Shop Bags
             </button>
           </div>
