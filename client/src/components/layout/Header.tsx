@@ -32,7 +32,7 @@ const Header = () => {
               <img 
                 src={charnaLogo} 
                 alt="Charna" 
-                className="h-8 sm:h-10 w-auto"
+                className="h-12 sm:h-16 lg:h-20 w-auto"
               />
             </Link>
           </div>
