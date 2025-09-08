@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import type { Product } from "@shared/schema";
 
 const categoryTabs = [
   { id: 'work', label: 'Work' },
@@ -31,12 +32,12 @@ export default function Browse() {
   const [priceRange, setPriceRange] = useState([0, 2000]);
   const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('All Products');
 
-  const { data: products = [], isLoading } = useQuery({
+  const { data: products = [], isLoading } = useQuery<Product[]>({
     queryKey: ['/api/products', selectedCategory],
     enabled: !!selectedCategory,
   });
 
-  const filteredProducts = products.filter(product => {
+  const filteredProducts = products.filter((product: Product) => {
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
     return matchesCategory && matchesPrice;
@@ -141,7 +142,7 @@ export default function Browse() {
             </div>
           ) : filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product) => (
+              {filteredProducts.map((product: Product) => (
                 <Link
                   key={product.id}
                   href={`/products/${product.id}`}
@@ -149,7 +150,7 @@ export default function Browse() {
                 >
                   <div className="aspect-square overflow-hidden">
                     <img
-                      src={product.image_url}
+                      src={product.images?.[0] || '/placeholder-bag.jpg'}
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
