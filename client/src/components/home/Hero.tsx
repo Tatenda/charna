@@ -13,12 +13,15 @@ import tanBusinessBag from '@assets/LGM_Grounded (1) (1)_1757354457354.png';
 import navyBusinessBag from '@assets/ChatGPT Image Sep 5, 2025, 05_34_17 PM_1757354728267.png';
 import whiteBusinessBag from '@assets/ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757354752545.png';
 import navyTennisBagNew from '@assets/Navy Tennis bag_1757355605958.png';
+import navyTravelBackpack from '@assets/Classic range - Rose Gold_1757356095029.png';
 
 const Hero = () => {
   const [currentBusinessBag, setCurrentBusinessBag] = useState(0);
   const [currentSportsBag, setCurrentSportsBag] = useState(0);
+  const [currentTravelBag, setCurrentTravelBag] = useState(0);
   const [isBusinessHovered, setIsBusinessHovered] = useState(false);
   const [isSportsHovered, setIsSportsHovered] = useState(false);
+  const [isTravelHovered, setIsTravelHovered] = useState(false);
   
   const businessBags = [
     { src: "/images/green-backpack.jpg", alt: "Business Collection - Olive" },
@@ -30,6 +33,11 @@ const Hero = () => {
   const sportsBags = [
     { src: whiteTennisBag, alt: "Sports Collection - White" },
     { src: navyTennisBagNew, alt: "Sports Collection - Navy" }
+  ];
+
+  const travelBags = [
+    { src: "/images/brown-backpack.jpg", alt: "Travel Collection - Tan" },
+    { src: navyTravelBackpack, alt: "Travel Collection - Navy" }
   ];
 
   useEffect(() => {
@@ -63,6 +71,22 @@ const Hero = () => {
       if (sportsInterval) clearInterval(sportsInterval);
     };
   }, [isSportsHovered, sportsBags.length]);
+
+  useEffect(() => {
+    let travelInterval: NodeJS.Timeout | null = null;
+    
+    if (isTravelHovered) {
+      travelInterval = setInterval(() => {
+        setCurrentTravelBag((prev) => (prev + 1) % travelBags.length);
+      }, 1500);
+    } else {
+      setCurrentTravelBag(0); // Reset to first image when not hovering
+    }
+
+    return () => {
+      if (travelInterval) clearInterval(travelInterval);
+    };
+  }, [isTravelHovered, travelBags.length]);
 
   return (
     <div className="relative">
@@ -356,12 +380,22 @@ const Hero = () => {
           </Link>
           
           {/* Top right - Travel */}
-          <Link href="/products?category=travel" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
-            <img 
-              src="/images/exploring-backpack.jpg"
-              alt="Travel Collection"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
+          <Link 
+            href="/products?category=travel" 
+            className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl"
+            onMouseEnter={() => setIsTravelHovered(true)}
+            onMouseLeave={() => setIsTravelHovered(false)}
+          >
+            {travelBags.map((bag, index) => (
+              <img 
+                key={index}
+                src={bag.src}
+                alt={bag.alt}
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentTravelBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                }`}
+              />
+            ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
               <h3 className="text-lg text-white mb-2">Travel</h3>
