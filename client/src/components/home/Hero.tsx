@@ -12,9 +12,11 @@ import navyRoseGoldBackpack from '@assets/Classic range - Rose Gold_175733876619
 import tanBusinessBag from '@assets/LGM_Grounded (1) (1)_1757354457354.png';
 import navyBusinessBag from '@assets/ChatGPT Image Sep 5, 2025, 05_34_17 PM_1757354728267.png';
 import whiteBusinessBag from '@assets/ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757354752545.png';
+import navyTennisBagNew from '@assets/Navy Tennis bag_1757355605958.png';
 
 const Hero = () => {
   const [currentBusinessBag, setCurrentBusinessBag] = useState(0);
+  const [currentSportsBag, setCurrentSportsBag] = useState(0);
   
   const businessBags = [
     { src: "/images/green-backpack.jpg", alt: "Business Collection - Olive" },
@@ -23,13 +25,25 @@ const Hero = () => {
     { src: whiteBusinessBag, alt: "Business Collection - White" }
   ];
 
+  const sportsBags = [
+    { src: whiteTennisBag, alt: "Sports Collection - White" },
+    { src: navyTennisBagNew, alt: "Sports Collection - Navy" }
+  ];
+
   useEffect(() => {
-    const interval = setInterval(() => {
+    const businessInterval = setInterval(() => {
       setCurrentBusinessBag((prev) => (prev + 1) % businessBags.length);
     }, 1500);
 
-    return () => clearInterval(interval);
-  }, [businessBags.length]);
+    const sportsInterval = setInterval(() => {
+      setCurrentSportsBag((prev) => (prev + 1) % sportsBags.length);
+    }, 1500);
+
+    return () => {
+      clearInterval(businessInterval);
+      clearInterval(sportsInterval);
+    };
+  }, [businessBags.length, sportsBags.length]);
 
   return (
     <div className="relative">
@@ -281,11 +295,16 @@ const Hero = () => {
           
           {/* Top middle - Sports (larger) */}
           <Link href="/products?category=sport" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl">
-            <img 
-              src="/images/white-tennis-bag.jpg"
-              alt="Sports Collection"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
+            {sportsBags.map((bag, index) => (
+              <img 
+                key={index}
+                src={bag.src}
+                alt={bag.alt}
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentSportsBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                }`}
+              />
+            ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
               <h3 className="text-lg text-white mb-2">Sports</h3>
