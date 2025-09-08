@@ -352,7 +352,7 @@ const Hero = () => {
         {/* Background Image */}
         <div className="absolute inset-0" style={{
           backgroundImage: `url(${navyRoseGoldBackpack})`,
-          backgroundSize: '85%',
+          backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}></div>
