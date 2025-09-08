@@ -76,7 +76,6 @@ export default function Browse() {
       {/* Header Section */}
       <section className="py-16 px-4">
         <div className="container mx-auto text-center">
-          <h1 className="text-5xl font-georgia-bold mb-6">Browse by Category</h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Discover our handcrafted leather goods organized by lifestyle and purpose. 
             Each piece is designed in Johannesburg with attention to detail and quality.
@@ -110,18 +109,6 @@ export default function Browse() {
                   <p className="text-gray-300 text-sm leading-relaxed group-hover:text-white transition-colors">
                     {category.description}
                   </p>
-                  
-                  <div className="mt-4 inline-flex items-center text-white font-medium">
-                    Shop Now
-                    <svg 
-                      className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
                 </div>
               </Link>
             ))}
