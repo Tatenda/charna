@@ -121,7 +121,7 @@ const Hero = () => {
               </div>
               <h3 className="text-lg text-botanical mb-2">Sports Range</h3>
               <p className="text-gray-600 text-sm mb-2">Athletic gear carrier</p>
-              <p className="font-bold text-black">Price R749.99</p>
+              <p className="font-bold text-black">Price R3299</p>
             </div>
             
             <div className="group cursor-pointer">
@@ -140,7 +140,7 @@ const Hero = () => {
               </div>
               <h3 className="text-lg text-botanical mb-2">Classic Range</h3>
               <p className="text-gray-600 text-sm mb-2">Adventure companion</p>
-              <p className="font-bold text-black">Price R999.99</p>
+              <p className="font-bold text-black">Price R2499</p>
             </div>
           </div>
         </div>
