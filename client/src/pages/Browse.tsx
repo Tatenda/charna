@@ -1,168 +1,190 @@
 import { Link, useLocation } from "wouter";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-const categories = [
-  {
-    id: 'work',
-    title: 'Work',
-    description: 'Professional bags for the modern workplace',
-    image: '/images/green-backpack.jpg',
-    link: '/products?category=work'
-  },
-  {
-    id: 'leisure',
-    title: 'Leisure',
-    description: 'Casual elegance for everyday adventures',
-    image: '/images/crossbody-cream.jpg',
-    link: '/products?category=leisure'
-  },
-  {
-    id: 'sport',
-    title: 'Sport',
-    description: 'Athletic performance meets luxury design',
-    image: '/images/white-tennis-bag.jpg',
-    link: '/products?category=sport'
-  },
-  {
-    id: 'travel',
-    title: 'Travel',
-    description: 'Adventure-ready companions for every journey',
-    image: '/images/brown-backpack.jpg',
-    link: '/products?category=travel'
-  },
-  {
-    id: 'accessories',
-    title: 'Accessories',
-    description: 'Complete your look with premium leather goods',
-    image: '/images/leather-wallet.jpg',
-    link: '/products?category=accessories'
-  },
-  {
-    id: 'ranges',
-    title: 'Ranges',
-    description: 'Curated collections of our finest pieces',
-    image: '/images/collection-display.jpg',
-    link: '/products'
-  },
-  {
-    id: 'onboarding',
-    title: 'Onboarding',
-    description: 'Essential pieces for new professionals',
-    image: '/images/professional-setup.jpg',
-    link: '/products?collection=onboarding'
-  },
-  {
-    id: 'gifting',
-    title: 'Gifting',
-    description: 'Perfect presents for those who appreciate quality',
-    image: '/images/gift-packaging.jpg',
-    link: '/products?collection=gifting'
-  },
-  {
-    id: 'customised',
-    title: 'Customised',
-    description: 'Personalized pieces crafted just for you',
-    image: '/images/custom-monogram.jpg',
-    link: '/products?category=customised'
-  }
+const categoryTabs = [
+  { id: 'work', label: 'Work' },
+  { id: 'leisure', label: 'Leisure' },
+  { id: 'sport', label: 'Sport' },
+  { id: 'accessories', label: 'Accessories' },
+  { id: 'customised', label: 'Customised' }
+];
+
+const browseCategories = [
+  'All Products',
+  'New Arrivals',
+  'Work',
+  'Leisure',
+  'Sport',
+  'Travel',
+  'Accessories',
+  'Ranges',
+  'Onboarding',
+  'Gifting',
+  'Customised'
 ];
 
 export default function Browse() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const searchParams = new URLSearchParams(location.split('?')[1] || '');
-  const selectedCategory = searchParams.get('category') || 'all';
+  const selectedCategory = searchParams.get('category') || 'work';
+  const [priceRange, setPriceRange] = useState([0, 2000]);
+  const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('All Products');
+
+  const { data: products = [], isLoading } = useQuery({
+    queryKey: ['/api/products', selectedCategory],
+    enabled: !!selectedCategory,
+  });
+
+  const filteredProducts = products.filter(product => {
+    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+    const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+    return matchesCategory && matchesPrice;
+  });
+
+  const handleCategoryChange = (categoryId: string) => {
+    setLocation(`/browse?category=${categoryId}`);
+  };
+
+  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value);
+    setPriceRange([priceRange[0], value]);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-800 text-white">
-      {/* Header Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto text-center">
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Discover our handcrafted leather goods organized by lifestyle and purpose. 
-            Each piece is designed in Johannesburg with attention to detail and quality.
-          </p>
-        </div>
-      </section>
+    <div className="min-h-screen bg-black text-white">
+      {/* Breadcrumb Navigation */}
+      <div className="px-6 py-4 text-sm text-gray-400">
+        <Link href="/" className="hover:text-white">Home</Link>
+        <span className="mx-2">&gt;</span>
+        <span className="text-white capitalize">{selectedCategory}</span>
+      </div>
 
-      {/* Categories Grid */}
-      <section className="pb-20 px-4">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.map((category) => (
-              <Link
-                key={category.id}
-                href={category.link}
-                className="group relative overflow-hidden rounded-lg bg-gray-700 hover:bg-gray-600 transition-all duration-300 transform hover:scale-105"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={category.image}
-                    alt={category.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                </div>
-                
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="text-2xl font-georgia-bold mb-2 text-white group-hover:text-gray-200 transition-colors">
-                    {category.title}
-                  </h3>
-                  <p className="text-gray-300 text-sm leading-relaxed group-hover:text-white transition-colors">
-                    {category.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+      {/* Top Category Navigation Tabs */}
+      <div className="px-6 mb-8">
+        <div className="bg-amber-800/20 backdrop-blur-sm rounded-2xl px-2 py-2 inline-flex">
+          {categoryTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => handleCategoryChange(tab.id)}
+              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                selectedCategory === tab.id
+                  ? 'bg-amber-600 text-white shadow-lg'
+                  : 'text-amber-200 hover:text-white hover:bg-amber-700/30'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
-      </section>
+      </div>
 
-      {/* Featured Collections Section */}
-      <section className="py-16 px-4 bg-gray-900">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-georgia-bold mb-4">Featured Collections</h2>
-            <p className="text-gray-400 max-w-xl mx-auto">
-              Explore our most popular and newest collections, carefully curated for the discerning customer.
-            </p>
+      <div className="flex">
+        {/* Left Sidebar */}
+        <div className="w-80 px-6 py-4">
+          {/* Browse by Section */}
+          <div className="mb-12">
+            <h3 className="text-xl font-georgia-bold mb-6 text-white border-b border-gray-700 pb-3">
+              Browse by
+            </h3>
+            <div className="space-y-3">
+              {browseCategories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedBrowseCategory(category)}
+                  className={`block w-full text-left py-2 px-3 rounded transition-colors ${
+                    selectedBrowseCategory === category
+                      ? 'bg-amber-600 text-white font-medium'
+                      : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Link href="/products?collection=new-arrivals" className="group relative block rounded-lg overflow-hidden">
-              <div className="aspect-[3/2]">
-                <img
-                  src="/images/new-collection.jpg"
-                  alt="New Arrivals"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors"></div>
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <h3 className="text-3xl font-georgia-bold text-white mb-2">New Arrivals</h3>
-                  <p className="text-gray-200">Latest handcrafted pieces</p>
-                </div>
-              </div>
-            </Link>
+
+          {/* Filter by Section */}
+          <div>
+            <h3 className="text-xl font-georgia-bold mb-6 text-white border-b border-gray-700 pb-3">
+              Filter by
+            </h3>
             
-            <Link href="/products?collection=bestsellers" className="group relative block rounded-lg overflow-hidden">
-              <div className="aspect-[3/2]">
-                <img
-                  src="/images/bestsellers.jpg"
-                  alt="Bestsellers"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            {/* Price Filter */}
+            <div className="mb-6">
+              <h4 className="text-white mb-4 font-medium">Price</h4>
+              <div className="relative">
+                <input
+                  type="range"
+                  min="0"
+                  max="2000"
+                  value={priceRange[1]}
+                  onChange={handlePriceChange}
+                  className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
                 />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors"></div>
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <h3 className="text-3xl font-georgia-bold text-white mb-2">Bestsellers</h3>
-                  <p className="text-gray-200">Customer favorites</p>
+                <div className="flex justify-between mt-3 text-sm text-gray-400">
+                  <span>R{priceRange[0]}</span>
+                  <span>R{priceRange[1]}</span>
                 </div>
               </div>
-            </Link>
+            </div>
           </div>
         </div>
-      </section>
+
+        {/* Main Content Area */}
+        <div className="flex-1 px-6 py-4">
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="bg-gray-800 animate-pulse rounded-lg h-80"></div>
+              ))}
+            </div>
+          ) : filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredProducts.map((product) => (
+                <Link
+                  key={product.id}
+                  href={`/products/${product.id}`}
+                  className="group bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-all duration-300"
+                >
+                  <div className="aspect-square overflow-hidden">
+                    <img
+                      src={product.image_url}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-georgia-bold text-lg text-white mb-2 group-hover:text-amber-300 transition-colors">
+                      {product.name}
+                    </h3>
+                    <p className="text-gray-400 text-sm mb-3 line-clamp-2">
+                      {product.description}
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-amber-400 font-bold text-lg">
+                        R{product.price}
+                      </span>
+                      <span className="text-xs text-gray-500 capitalize">
+                        {product.category}
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <h3 className="text-2xl font-georgia-bold text-gray-400 mb-4">
+                No products found
+              </h3>
+              <p className="text-gray-500">
+                Try adjusting your filters or browse a different category.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
