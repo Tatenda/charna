@@ -14,6 +14,7 @@ import navyBusinessBag from '@assets/ChatGPT Image Sep 5, 2025, 05_34_17 PM_1757
 import whiteBusinessBag from '@assets/ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757354752545.png';
 import navyTennisBagNew from '@assets/Navy Tennis bag_1757355605958.png';
 import navyTravelBackpack from '@assets/Classic range - Rose Gold_1757356095029.png';
+import tanTravelBackpack from '@assets/LGM_Classic_me_1757356445165.png';
 
 const Hero = () => {
   const [currentBusinessBag, setCurrentBusinessBag] = useState(0);
@@ -36,7 +37,7 @@ const Hero = () => {
   ];
 
   const travelBags = [
-    { src: "/images/brown-backpack.jpg", alt: "Travel Collection - Tan" },
+    { src: tanTravelBackpack, alt: "Travel Collection - Tan" },
     { src: navyTravelBackpack, alt: "Travel Collection - Navy" }
   ];
 
