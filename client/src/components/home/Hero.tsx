@@ -4,6 +4,7 @@ import newHeroBg from '@assets/image_1757230274214.png';
 import groundedBag from '@assets/LGM_Grounded (1)_1757318142201.png';
 import styledLaptopBag from '@assets/LGM_Styled_1757318531199.png';
 import navyTennisBag from '@assets/Navy Tennis bag_1757319259444.png';
+import navyRetroBag from '@assets/Retro Range - Navy Blue_1757319569359.png';
 
 const Hero = () => {
   return (
@@ -72,10 +73,18 @@ const Hero = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="group cursor-pointer">
               <div className="relative overflow-hidden bg-white rounded-lg mb-4 shadow-sm">
+                {/* Olive color (default) */}
                 <img 
                   src="/images/green-backpack.jpg"
-                  alt="Professional Backpack"
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt="Retro Backpack - Olive"
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                />
+                
+                {/* Navy color (on hover) */}
+                <img 
+                  src={navyRetroBag}
+                  alt="Retro Backpack - Navy"
+                  className="absolute inset-0 w-full h-64 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
