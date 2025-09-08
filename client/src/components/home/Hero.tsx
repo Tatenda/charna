@@ -247,28 +247,28 @@ const Hero = () => {
             <img 
               src="/images/green-backpack.jpg"
               alt="Business Collection - Olive"
-              className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+              className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000"
             />
             
             {/* Tan color (first hover state) */}
             <img 
               src={tanBusinessBag}
               alt="Business Collection - Tan"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:delay-0"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:delay-500"
             />
             
             {/* Navy color (second hover state) */}
             <img 
               src={navyBusinessBag}
               alt="Business Collection - Navy"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:delay-200"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:delay-1000"
             />
             
             {/* White color (third hover state) */}
             <img 
               src={whiteBusinessBag}
               alt="Business Collection - White"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-900 opacity-0 group-hover:opacity-100 group-hover:delay-400"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:delay-1500"
             />
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
