@@ -53,7 +53,7 @@ export default function Browse() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gray-800 text-white">
       {/* Breadcrumb Navigation */}
       <div className="px-6 py-4 text-sm text-gray-400">
         <Link href="/" className="hover:text-white">Home</Link>
@@ -63,15 +63,15 @@ export default function Browse() {
 
       {/* Top Category Navigation Tabs */}
       <div className="px-6 mb-8">
-        <div className="bg-amber-800/20 backdrop-blur-sm rounded-2xl px-2 py-2 inline-flex">
+        <div className="bg-orange-900/20 backdrop-blur-sm rounded-2xl px-2 py-2 inline-flex">
           {categoryTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => handleCategoryChange(tab.id)}
               className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
                 selectedCategory === tab.id
-                  ? 'bg-amber-600 text-white shadow-lg'
-                  : 'text-amber-200 hover:text-white hover:bg-amber-700/30'
+                  ? 'bg-orange-700 text-white shadow-lg'
+                  : 'text-orange-300 hover:text-white hover:bg-orange-800/30'
               }`}
             >
               {tab.label}
@@ -95,8 +95,8 @@ export default function Browse() {
                   onClick={() => setSelectedBrowseCategory(category)}
                   className={`block w-full text-left py-2 px-3 rounded transition-colors ${
                     selectedBrowseCategory === category
-                      ? 'bg-amber-600 text-white font-medium'
-                      : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                      ? 'bg-orange-700 text-white font-medium'
+                      : 'text-gray-300 hover:text-white hover:bg-gray-700'
                   }`}
                 >
                   {category}
@@ -156,14 +156,14 @@ export default function Browse() {
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="font-georgia-bold text-lg text-white mb-2 group-hover:text-amber-300 transition-colors">
+                    <h3 className="font-georgia-bold text-lg text-white mb-2 group-hover:text-orange-300 transition-colors">
                       {product.name}
                     </h3>
                     <p className="text-gray-400 text-sm mb-3 line-clamp-2">
                       {product.description}
                     </p>
                     <div className="flex justify-between items-center">
-                      <span className="text-amber-400 font-bold text-lg">
+                      <span className="text-orange-400 font-bold text-lg">
                         R{product.price}
                       </span>
                       <span className="text-xs text-gray-500 capitalize">
