@@ -230,7 +230,7 @@ const Hero = () => {
       <section className="relative overflow-hidden" style={{backgroundColor: '#7A8471'}}>
         {/* Header overlay */}
         <div className="relative z-10 text-center py-16">
-          <h2 className="text-5xl font-bold text-white mb-4">Discover your Movement</h2>
+          <h2 className="text-4xl font-georgia-bold text-white mb-4">Discover your Movement</h2>
           <p className="text-xl text-white/80">Shop by Category</p>
         </div>
         
