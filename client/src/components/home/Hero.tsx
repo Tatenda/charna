@@ -234,8 +234,8 @@ const Hero = () => {
           <p className="text-xl text-white/80">Shop by Category</p>
         </div>
         
-        {/* Full-width 4-Image Collage */}
-        <div className="grid grid-cols-4 grid-rows-2 gap-2 h-[70vh] w-full px-0">
+        {/* Full-width 5-Image Collage */}
+        <div className="grid grid-cols-5 grid-rows-2 gap-2 h-[70vh] w-full px-0">
           {/* Large left image - Business Collection */}
           <Link href="/products?category=business" className="col-span-2 row-span-2 group relative overflow-hidden shadow-xl">
             <img 
@@ -278,8 +278,8 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Bottom right - Travel */}
-          <Link href="/products?category=travel" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl">
+          {/* Bottom left - Travel */}
+          <Link href="/products?category=travel" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
             <img 
               src="/images/exploring-backpack.jpg"
               alt="Travel Collection"
@@ -289,6 +289,22 @@ const Hero = () => {
             <div className="absolute bottom-6 left-6 text-white">
               <h3 className="text-lg text-white mb-2">Travel</h3>
               <p className="text-base opacity-90 text-white">Adventure Awaits</p>
+            </div>
+          </Link>
+          
+          {/* Bottom right - Bag Accessories */}
+          <Link href="/products?category=accessories" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
+            <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+              <div className="text-center text-white">
+                <div className="text-4xl mb-2">👜</div>
+                <p className="text-sm">Bag Accessories</p>
+                <p className="text-xs opacity-70">Image coming soon</p>
+              </div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-6 left-6 text-white">
+              <h3 className="text-lg text-white mb-2">Bag Accessories</h3>
+              <p className="text-base opacity-90 text-white">Complete Your Look</p>
             </div>
           </Link>
         </div>
