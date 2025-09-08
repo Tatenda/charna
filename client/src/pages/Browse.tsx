@@ -73,7 +73,7 @@ export default function Browse() {
               onClick={() => handleCategoryChange(tab.id)}
               className={`text-sm font-medium transition-colors duration-200 px-4 py-2 rounded-full ${
                 selectedCategory === tab.id
-                  ? 'bg-slate-500/40 text-white'
+                  ? 'bg-green-700/50 text-white'
                   : 'text-stone-200 hover:text-white hover:bg-white/10'
               }`}
             >
@@ -98,7 +98,7 @@ export default function Browse() {
                   onClick={() => setSelectedBrowseCategory(category)}
                   className={`block w-full text-left py-2 px-3 rounded transition-colors ${
                     selectedBrowseCategory === category
-                      ? 'bg-slate-500 text-white font-medium'
+                      ? 'bg-green-700 text-white font-medium'
                       : 'text-gray-300 hover:text-white hover:bg-gray-700'
                   }`}
                 >
@@ -169,7 +169,7 @@ export default function Browse() {
                     {/* Sale badge */}
                     {product.badge && (
                       <div className="absolute top-3 left-3 z-10">
-                        <span className="bg-slate-500 text-white px-3 py-1 text-xs font-medium rounded">
+                        <span className="bg-green-700 text-white px-3 py-1 text-xs font-medium rounded">
                           {product.badge}
                         </span>
                       </div>
