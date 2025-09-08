@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import botanicalBg from '@assets/Man with bag and botanical background_1757072953822.png';
 import newHeroBg from '@assets/image_1757230274214.png';
+import groundedBag from '@assets/LGM_Grounded (1)_1757318142201.png';
 
 const Hero = () => {
   return (
@@ -146,7 +147,7 @@ const Hero = () => {
             <div className="group cursor-pointer">
               <div className="relative overflow-hidden rounded-xl mb-4">
                 <img 
-                  src="/images/green-backpack.jpg"
+                  src={groundedBag}
                   alt="Grounded Backpack"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
