@@ -201,6 +201,27 @@ const Hero = () => {
               <p className="text-gray-600 text-sm mb-2">Timeless style meets smart organisation, perfect for work, travel, or everyday use</p>
               <p className="font-bold text-black">Price R1899</p>
             </div>
+            
+            <div className="group cursor-pointer">
+              <div className="relative overflow-hidden rounded-xl mb-4">
+                <div className="w-full h-80 bg-gray-200 flex items-center justify-center">
+                  <div className="text-center text-gray-500">
+                    <div className="text-4xl mb-2">📱</div>
+                    <p className="text-sm">Sleeved Range</p>
+                    <p className="text-xs">Image coming soon</p>
+                  </div>
+                </div>
+
+                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+              <h3 className="text-lg text-botanical mb-2">Sleeved Range</h3>
+              <p className="text-gray-600 text-sm mb-2">Switch up your laptop sleeves with these different options</p>
+              <p className="font-bold text-black">Price R999</p>
+            </div>
           </div>
         </div>
       </section>
