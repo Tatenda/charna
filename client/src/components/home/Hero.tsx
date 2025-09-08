@@ -178,7 +178,7 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="text-lg text-botanical mb-2">Styled Laptop Range</h3>
+              <h3 className="text-lg text-botanical mb-2">Timeless Range</h3>
               <p className="text-gray-600 text-sm mb-2">Timeless style meets smart organisation, perfect for work, travel, or everyday use</p>
               <p className="font-bold text-black">Price R1899</p>
             </div>
