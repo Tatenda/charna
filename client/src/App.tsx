@@ -14,6 +14,7 @@ import Contact from "@/pages/Contact";
 import ShippingReturns from "@/pages/ShippingReturns";
 import FAQ from "@/pages/FAQ";
 import Care from "@/pages/Care";
+import Browse from "@/pages/Browse";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import Header from "@/components/layout/Header";
@@ -34,6 +35,7 @@ function Router() {
       <Route path="/shipping-returns" component={ShippingReturns} />
       <Route path="/faq" component={FAQ} />
       <Route path="/care" component={Care} />
+      <Route path="/browse" component={Browse} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
       <Route component={NotFound} />

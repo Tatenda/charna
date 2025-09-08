@@ -157,19 +157,19 @@ const Hero = () => {
         <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
           <nav className="bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 border border-white/20">
             <div className="flex space-x-8 text-sm font-medium">
-              <Link href="/products?category=work" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/browse?category=work" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Work
               </Link>
-              <Link href="/products?category=leisure" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/browse?category=leisure" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Leisure
               </Link>
-              <Link href="/products?category=sport" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/browse?category=sport" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Sport
               </Link>
-              <Link href="/products?category=accessories" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/browse?category=accessories" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Accessories
               </Link>
-              <Link href="/products?category=customised" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/browse?category=customised" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Customised
               </Link>
             </div>
