@@ -83,7 +83,7 @@ const Hero = () => {
               </div>
               <h3 className="text-lg text-botanical mb-2">Retro Range</h3>
               <p className="text-gray-600 text-sm mb-2">Bring the retro style to your laptop bag</p>
-              <p className="font-bold text-black">R899.99</p>
+              <p className="font-bold text-black">R2399</p>
             </div>
             
             <div className="group cursor-pointer">
@@ -102,7 +102,7 @@ const Hero = () => {
               </div>
               <h3 className="text-lg text-botanical mb-2">Stylish Leisure Range</h3>
               <p className="text-gray-600 text-sm mb-2">Elegant everyday bag</p>
-              <p className="font-bold text-black">Price R649.99</p>
+              <p className="font-bold text-black">Price R799</p>
             </div>
             
             <div className="group cursor-pointer">
