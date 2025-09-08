@@ -3,6 +3,7 @@ import botanicalBg from '@assets/Man with bag and botanical background_175707295
 import newHeroBg from '@assets/image_1757230274214.png';
 import groundedBag from '@assets/LGM_Grounded (1)_1757318142201.png';
 import styledLaptopBag from '@assets/LGM_Styled_1757318531199.png';
+import navyTennisBag from '@assets/Navy Tennis bag_1757319259444.png';
 
 const Hero = () => {
   return (
@@ -110,7 +111,7 @@ const Hero = () => {
             <div className="group cursor-pointer">
               <div className="relative overflow-hidden rounded-xl mb-4">
                 <img 
-                  src="/images/white-tennis-bag.jpg"
+                  src={navyTennisBag}
                   alt="Tennis Sports Bag"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
