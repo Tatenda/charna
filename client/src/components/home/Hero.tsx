@@ -81,14 +81,9 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="text-lg text-botanical mb-1">Retro Range</h3>
+              <h3 className="text-lg text-botanical mb-2">Retro Range</h3>
+              <p className="text-gray-600 text-sm mb-2">Bring the retro style to your laptop bag</p>
               <p className="font-bold text-black">R899.99</p>
-              <div className="flex items-center mt-1">
-                <div className="flex text-orange-400 text-sm">
-                  ★★★★☆
-                </div>
-                <span className="text-gray-500 text-sm ml-2">(15)</span>
-              </div>
             </div>
             
             <div className="group cursor-pointer">
