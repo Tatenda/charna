@@ -2,6 +2,8 @@ import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
+import { useCart } from "@/hooks/useCart";
+import indoorGreeneryBackdrop from "@assets/Indoor Greenery Harmony_1757361807254.png";
 
 const categoryTabs = [
   { id: 'work', label: 'Work' },
@@ -31,6 +33,7 @@ export default function Browse() {
   const selectedCategory = searchParams.get('category') || 'work';
   const [priceRange, setPriceRange] = useState([0, 2000]);
   const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('All Products');
+  const { addToCart } = useCart();
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
     queryKey: ['/api/products', selectedCategory],
@@ -70,7 +73,7 @@ export default function Browse() {
               onClick={() => handleCategoryChange(tab.id)}
               className={`text-sm font-medium transition-colors duration-200 px-4 py-2 rounded-full ${
                 selectedCategory === tab.id
-                  ? 'bg-white/20 text-white'
+                  ? 'bg-green-500/30 text-white'
                   : 'text-stone-200 hover:text-white hover:bg-white/10'
               }`}
             >
@@ -95,7 +98,7 @@ export default function Browse() {
                   onClick={() => setSelectedBrowseCategory(category)}
                   className={`block w-full text-left py-2 px-3 rounded transition-colors ${
                     selectedBrowseCategory === category
-                      ? 'bg-orange-700 text-white font-medium'
+                      ? 'bg-green-600 text-white font-medium'
                       : 'text-gray-300 hover:text-white hover:bg-gray-700'
                   }`}
                 >
@@ -133,57 +136,99 @@ export default function Browse() {
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 px-6 py-4">
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="bg-gray-800 animate-pulse rounded-lg h-80"></div>
-              ))}
+        <div className="flex-1 relative">
+          {/* Background Image for All Products Section */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+            style={{
+              backgroundImage: `url(${indoorGreeneryBackdrop})`
+            }}
+          ></div>
+          
+          {/* Content with overlay */}
+          <div className="relative z-10 px-6 py-4">
+            {/* All Products Title */}
+            <div className="mb-8">
+              <h2 className="text-4xl font-georgia-bold text-white mb-2">All Products</h2>
+              <p className="text-gray-300">Discover our full range of handcrafted leather goods</p>
             </div>
-          ) : filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product: Product) => (
-                <Link
-                  key={product.id}
-                  href={`/products/${product.id}`}
-                  className="group bg-gray-800 rounded-lg overflow-hidden hover:bg-gray-700 transition-all duration-300"
-                >
-                  <div className="aspect-square overflow-hidden">
-                    <img
-                      src={product.images?.[0] || '/placeholder-bag.jpg'}
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-georgia-bold text-lg text-white mb-2 group-hover:text-orange-300 transition-colors">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-400 text-sm mb-3 line-clamp-2">
-                      {product.description}
-                    </p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-orange-400 font-bold text-lg">
-                        R{product.price}
-                      </span>
-                      <span className="text-xs text-gray-500 capitalize">
-                        {product.category}
-                      </span>
+
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="bg-gray-700/50 backdrop-blur-sm animate-pulse rounded-lg h-96"></div>
+                ))}
+              </div>
+            ) : filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredProducts.map((product: Product) => (
+                  <div
+                    key={product.id}
+                    className="group bg-stone-200 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+                  >
+                    {/* Sale badge */}
+                    {product.badge && (
+                      <div className="absolute top-3 left-3 z-10">
+                        <span className="bg-green-600 text-white px-3 py-1 text-xs font-medium rounded">
+                          {product.badge}
+                        </span>
+                      </div>
+                    )}
+                    
+                    <div className="aspect-square overflow-hidden relative">
+                      <img
+                        src={product.images?.[0] || '/placeholder-bag.jpg'}
+                        alt={product.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    
+                    <div className="p-4 bg-stone-200">
+                      <h3 className="font-georgia-bold text-lg text-gray-900 mb-2">
+                        {product.name}
+                      </h3>
+                      
+                      <div className="mb-4">
+                        {product.originalPrice && product.originalPrice > product.price ? (
+                          <div className="flex items-center gap-2">
+                            <span className="text-gray-500 line-through text-sm">
+                              R{product.originalPrice}
+                            </span>
+                            <span className="text-gray-900 font-bold text-lg">
+                              R{product.price}
+                            </span>
+                          </div>
+                        ) : (
+                          <span className="text-gray-900 font-bold text-lg">
+                            R{product.price}
+                          </span>
+                        )}
+                      </div>
+                      
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          addToCart(product, 1);
+                        }}
+                        className="w-full bg-gray-800 text-white py-3 px-4 font-medium hover:bg-gray-700 transition-colors duration-200 border border-gray-700"
+                      >
+                        Add to Cart
+                      </button>
                     </div>
                   </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-20">
-              <h3 className="text-2xl font-georgia-bold text-gray-400 mb-4">
-                No products found
-              </h3>
-              <p className="text-gray-500">
-                Try adjusting your filters or browse a different category.
-              </p>
-            </div>
-          )}
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-20 bg-gray-800/50 backdrop-blur-sm rounded-lg">
+                <h3 className="text-2xl font-georgia-bold text-gray-300 mb-4">
+                  No products found
+                </h3>
+                <p className="text-gray-400">
+                  Try adjusting your filters or browse a different category.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
