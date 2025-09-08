@@ -139,9 +139,10 @@ export default function Browse() {
         <div className="flex-1 relative">
           {/* Background Image for All Products Section */}
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
             style={{
-              backgroundImage: `url(${indoorGreeneryBackdrop})`
+              backgroundImage: `url(${indoorGreeneryBackdrop})`,
+              filter: 'brightness(1.3) contrast(0.9)'
             }}
           ></div>
           
