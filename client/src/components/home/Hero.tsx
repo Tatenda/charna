@@ -16,16 +16,20 @@ import navyTennisBagNew from '@assets/Navy Tennis bag_1757355605958.png';
 import navyTravelBackpack from '@assets/Classic range - Rose Gold_1757356095029.png';
 import tanTravelBackpack from '@assets/LGM_Classic_me_1757356445165.png';
 import creamHipBag from '@assets/LGM_hip_1757356807770.png';
+import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
+import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
 
 const Hero = () => {
   const [currentBusinessBag, setCurrentBusinessBag] = useState(0);
   const [currentSportsBag, setCurrentSportsBag] = useState(0);
   const [currentTravelBag, setCurrentTravelBag] = useState(0);
   const [currentLeisureBag, setCurrentLeisureBag] = useState(0);
+  const [currentLeisureRange, setCurrentLeisureRange] = useState(0);
   const [isBusinessHovered, setIsBusinessHovered] = useState(false);
   const [isSportsHovered, setIsSportsHovered] = useState(false);
   const [isTravelHovered, setIsTravelHovered] = useState(false);
   const [isLeisureHovered, setIsLeisureHovered] = useState(false);
+  const [isLeisureRangeHovered, setIsLeisureRangeHovered] = useState(false);
   
   const businessBags = [
     { src: "/images/green-backpack.jpg", alt: "Business Collection - Olive" },
@@ -47,6 +51,11 @@ const Hero = () => {
   const leisureBags = [
     { src: "/images/crossbody-cream.jpg", alt: "Leisure Collection - Crossbody" },
     { src: creamHipBag, alt: "Leisure Collection - Hip Bag" }
+  ];
+
+  const leisureRangeBags = [
+    { src: hipBagSolo, alt: "Leisure Range - Hip Bag Solo" },
+    { src: hipBagLifestyle, alt: "Leisure Range - Hip Bag Lifestyle" }
   ];
 
   useEffect(() => {
@@ -112,6 +121,22 @@ const Hero = () => {
       if (leisureInterval) clearInterval(leisureInterval);
     };
   }, [isLeisureHovered, leisureBags.length]);
+
+  useEffect(() => {
+    let leisureRangeInterval: NodeJS.Timeout | null = null;
+    
+    if (isLeisureRangeHovered) {
+      leisureRangeInterval = setInterval(() => {
+        setCurrentLeisureRange((prev) => (prev + 1) % leisureRangeBags.length);
+      }, 1500);
+    } else {
+      setCurrentLeisureRange(0); // Reset to first image when not hovering
+    }
+
+    return () => {
+      if (leisureRangeInterval) clearInterval(leisureRangeInterval);
+    };
+  }, [isLeisureRangeHovered, leisureRangeBags.length]);
 
   return (
     <div className="relative">
@@ -204,13 +229,22 @@ const Hero = () => {
               <p className="font-bold text-black">R2399</p>
             </div>
             
-            <div className="group cursor-pointer">
+            <div 
+              className="group cursor-pointer"
+              onMouseEnter={() => setIsLeisureRangeHovered(true)}
+              onMouseLeave={() => setIsLeisureRangeHovered(false)}
+            >
               <div className="relative overflow-hidden rounded-xl mb-4">
-                <img 
-                  src="/images/crossbody-cream.jpg"
-                  alt="Cream Crossbody"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                {leisureRangeBags.map((bag, index) => (
+                  <img 
+                    key={index}
+                    src={bag.src}
+                    alt={bag.alt}
+                    className={`w-full h-80 object-cover transition-opacity duration-500 ${
+                      index === currentLeisureRange ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                    }`}
+                  />
+                ))}
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
