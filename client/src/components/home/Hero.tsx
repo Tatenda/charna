@@ -15,14 +15,17 @@ import whiteBusinessBag from '@assets/ChatGPT Image Jul 25, 2025, 05_27_55 PM_17
 import navyTennisBagNew from '@assets/Navy Tennis bag_1757355605958.png';
 import navyTravelBackpack from '@assets/Classic range - Rose Gold_1757356095029.png';
 import tanTravelBackpack from '@assets/LGM_Classic_me_1757356445165.png';
+import creamHipBag from '@assets/LGM_hip_1757356807770.png';
 
 const Hero = () => {
   const [currentBusinessBag, setCurrentBusinessBag] = useState(0);
   const [currentSportsBag, setCurrentSportsBag] = useState(0);
   const [currentTravelBag, setCurrentTravelBag] = useState(0);
+  const [currentLeisureBag, setCurrentLeisureBag] = useState(0);
   const [isBusinessHovered, setIsBusinessHovered] = useState(false);
   const [isSportsHovered, setIsSportsHovered] = useState(false);
   const [isTravelHovered, setIsTravelHovered] = useState(false);
+  const [isLeisureHovered, setIsLeisureHovered] = useState(false);
   
   const businessBags = [
     { src: "/images/green-backpack.jpg", alt: "Business Collection - Olive" },
@@ -39,6 +42,11 @@ const Hero = () => {
   const travelBags = [
     { src: tanTravelBackpack, alt: "Travel Collection - Tan" },
     { src: navyTravelBackpack, alt: "Travel Collection - Navy" }
+  ];
+
+  const leisureBags = [
+    { src: "/images/crossbody-cream.jpg", alt: "Leisure Collection - Crossbody" },
+    { src: creamHipBag, alt: "Leisure Collection - Hip Bag" }
   ];
 
   useEffect(() => {
@@ -88,6 +96,22 @@ const Hero = () => {
       if (travelInterval) clearInterval(travelInterval);
     };
   }, [isTravelHovered, travelBags.length]);
+
+  useEffect(() => {
+    let leisureInterval: NodeJS.Timeout | null = null;
+    
+    if (isLeisureHovered) {
+      leisureInterval = setInterval(() => {
+        setCurrentLeisureBag((prev) => (prev + 1) % leisureBags.length);
+      }, 1500);
+    } else {
+      setCurrentLeisureBag(0); // Reset to first image when not hovering
+    }
+
+    return () => {
+      if (leisureInterval) clearInterval(leisureInterval);
+    };
+  }, [isLeisureHovered, leisureBags.length]);
 
   return (
     <div className="relative">
@@ -367,12 +391,22 @@ const Hero = () => {
           </Link>
           
           {/* Top right - Leisure */}
-          <Link href="/products?category=leisure" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
-            <img 
-              src="/images/crossbody-cream.jpg"
-              alt="Leisure Collection"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
+          <Link 
+            href="/products?category=leisure" 
+            className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl"
+            onMouseEnter={() => setIsLeisureHovered(true)}
+            onMouseLeave={() => setIsLeisureHovered(false)}
+          >
+            {leisureBags.map((bag, index) => (
+              <img 
+                key={index}
+                src={bag.src}
+                alt={bag.alt}
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentLeisureBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                }`}
+              />
+            ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
               <h3 className="text-lg text-white mb-2">Leisure</h3>
