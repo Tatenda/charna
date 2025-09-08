@@ -6,6 +6,7 @@ import styledLaptopBag from '@assets/LGM_Styled_1757318531199.png';
 import navyTennisBag from '@assets/Navy Tennis bag_1757319259444.png';
 import navyRetroBag from '@assets/Retro Range - Navy Blue_1757319569359.png';
 import whiteTennisBag from '@assets/Tennis Bag on Clay Court_1757320190792.png';
+import classicBackpack from '@assets/LGM_Classic_me_1757337982042.png';
 
 const Hero = () => {
   return (
@@ -349,7 +350,7 @@ const Hero = () => {
       <section className="relative py-20 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0" style={{
-          backgroundImage: `url(${newHeroBg})`,
+          backgroundImage: `url(${classicBackpack})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
