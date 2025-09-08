@@ -44,8 +44,8 @@ const Header = () => {
               Home
             </Link>
             <Link 
-              href="/products" 
-              className={`text-forest hover:text-botanical transition duration-200 px-3 py-2 ${isActive('/products') ? 'text-botanical font-semibold' : ''}`}
+              href="/browse" 
+              className={`text-forest hover:text-botanical transition duration-200 px-3 py-2 ${isActive('/browse') ? 'text-botanical font-semibold' : ''}`}
             >
               Shop
             </Link>
@@ -63,12 +63,12 @@ const Header = () => {
             </Link>
           </nav>
           <div className="flex items-center space-x-6">
-            <Link href="/products" className="text-forest hover:text-botanical transition duration-200">
+            <Link href="/browse" className="text-forest hover:text-botanical transition duration-200">
               <FontAwesomeIcon icon="search" className="text-lg" />
             </Link>
             <CartButton />
             <Link 
-              href="/products"
+              href="/browse"
               className="bg-forest text-white px-6 py-2 font-semibold hover:bg-botanical transition-colors duration-300 hidden lg:block"
             >
               Shop Now
@@ -89,8 +89,8 @@ const Header = () => {
               Home
             </Link>
             <Link
-              href="/products"
-              className={`text-forest hover:text-botanical transition duration-200 py-2 ${isActive('/products') ? 'text-botanical font-semibold' : ''}`}
+              href="/browse"
+              className={`text-forest hover:text-botanical transition duration-200 py-2 ${isActive('/browse') ? 'text-botanical font-semibold' : ''}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Shop
@@ -110,7 +110,7 @@ const Header = () => {
               Contact
             </Link>
             <Link 
-              href="/products"
+              href="/browse"
               className="bg-forest text-white px-6 py-3 font-semibold hover:bg-botanical transition-colors duration-300 text-center mt-4"
               onClick={() => setMobileMenuOpen(false)}
             >
