@@ -273,7 +273,7 @@ const Hero = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-lg text-white mb-2">Styled Leisure</h3>
+              <h3 className="text-lg text-white mb-2">Leisure</h3>
               <p className="text-base opacity-90 text-white">Elegant Comfort</p>
             </div>
           </Link>
