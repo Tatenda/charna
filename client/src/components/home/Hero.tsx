@@ -250,8 +250,8 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Top right - Sports */}
-          <Link href="/products?category=sport" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
+          {/* Top right - Sports (larger) */}
+          <Link href="/products?category=sport" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl">
             <img 
               src="/images/white-tennis-bag.jpg"
               alt="Sports Collection"
@@ -264,7 +264,7 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* New - Styled Leisure */}
+          {/* Bottom - Leisure */}
           <Link href="/products?category=leisure" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
             <img 
               src="/images/crossbody-cream.jpg"
@@ -278,7 +278,7 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Bottom left - Travel */}
+          {/* Bottom - Travel */}
           <Link href="/products?category=travel" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
             <img 
               src="/images/exploring-backpack.jpg"
@@ -292,7 +292,7 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Bottom middle - Bag Accessories */}
+          {/* Bottom - Bag Accessories */}
           <Link href="/products?category=accessories" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
             <div className="w-full h-full bg-gray-700 flex items-center justify-center">
               <div className="text-center text-white">
@@ -308,7 +308,7 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Bottom right - Customise */}
+          {/* Bottom - Customise */}
           <Link href="/products?category=customise" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
             <div className="w-full h-full bg-gray-600 flex items-center justify-center">
               <div className="text-center text-white">
