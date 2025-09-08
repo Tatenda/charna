@@ -166,11 +166,11 @@ const Hero = () => {
               <Link href="/browse?category=sport" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Sport
               </Link>
+              <Link href="/browse?category=travel" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+                Travel
+              </Link>
               <Link href="/browse?category=accessories" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
                 Accessories
-              </Link>
-              <Link href="/browse?category=customised" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
-                Customised
               </Link>
             </div>
           </nav>

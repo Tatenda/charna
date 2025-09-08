@@ -9,8 +9,8 @@ const categoryTabs = [
   { id: 'work', label: 'Work' },
   { id: 'leisure', label: 'Leisure' },
   { id: 'sport', label: 'Sport' },
-  { id: 'accessories', label: 'Accessories' },
-  { id: 'customised', label: 'Customised' }
+  { id: 'travel', label: 'Travel' },
+  { id: 'accessories', label: 'Accessories' }
 ];
 
 const browseCategories = [
