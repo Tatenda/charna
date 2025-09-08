@@ -63,15 +63,15 @@ export default function Browse() {
 
       {/* Top Category Navigation Tabs */}
       <div className="px-6 mb-8">
-        <div className="bg-orange-900/20 backdrop-blur-sm rounded-2xl px-2 py-2 inline-flex">
+        <div className="bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 border border-white/20 inline-flex">
           {categoryTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => handleCategoryChange(tab.id)}
-              className={`px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+              className={`text-sm font-medium transition-colors duration-200 px-4 py-2 rounded-full ${
                 selectedCategory === tab.id
-                  ? 'bg-orange-700 text-white shadow-lg'
-                  : 'text-orange-300 hover:text-white hover:bg-orange-800/30'
+                  ? 'bg-white/20 text-white'
+                  : 'text-stone-200 hover:text-white hover:bg-white/10'
               }`}
             >
               {tab.label}
