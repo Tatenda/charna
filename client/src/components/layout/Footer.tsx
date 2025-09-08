@@ -12,7 +12,7 @@ const Footer = () => {
             <img 
               src={charnaLogo} 
               alt="Charna" 
-              className="h-8 w-auto mb-4"
+              className="h-24 w-auto mb-4"
             />
             <p className="text-gray-600 mb-6 leading-relaxed">Premium handcrafted leather goods made in Johannesburg. Excellence in every stitch, quality in every detail.</p>
             <div className="flex space-x-4">
