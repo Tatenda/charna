@@ -250,7 +250,7 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Top right - Sports (larger) */}
+          {/* Top middle - Sports (larger) */}
           <Link href="/products?category=sport" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl">
             <img 
               src="/images/white-tennis-bag.jpg"
@@ -261,6 +261,22 @@ const Hero = () => {
             <div className="absolute bottom-6 left-6 text-white">
               <h3 className="text-lg text-white mb-2">Sports</h3>
               <p className="text-base opacity-90 text-white">Athletic Performance</p>
+            </div>
+          </Link>
+          
+          {/* Top right - Home */}
+          <Link href="/" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl">
+            <div className="w-full h-full bg-gray-500 flex items-center justify-center">
+              <div className="text-center text-white">
+                <div className="text-4xl mb-2">🏠</div>
+                <p className="text-sm">Home</p>
+                <p className="text-xs opacity-70">Image coming soon</p>
+              </div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-6 left-6 text-white">
+              <h3 className="text-lg text-white mb-2">Home</h3>
+              <p className="text-base opacity-90 text-white">Essential Living</p>
             </div>
           </Link>
           
