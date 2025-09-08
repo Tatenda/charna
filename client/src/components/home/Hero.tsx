@@ -60,7 +60,7 @@ const Hero = () => {
       <section className="py-20" style={{backgroundColor: '#F5F1E8'}}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-botanical mb-4">Our Ranges</h2>
+            <h2 className="text-4xl font-georgia-bold text-botanical mb-4">Our Ranges</h2>
             <button className="bg-botanical text-white px-8 py-3 font-semibold hover:bg-botanical/90 transition-colors rounded-lg">
               Shop All
             </button>

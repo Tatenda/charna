@@ -8,6 +8,12 @@
   font-weight: 700;
 }
 
+/* Georgia Bold font class */
+.font-georgia-bold {
+  font-family: 'Georgia', serif;
+  font-weight: 700;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
