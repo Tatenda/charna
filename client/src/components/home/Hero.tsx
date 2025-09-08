@@ -361,7 +361,7 @@ const Hero = () => {
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-white mb-4">Bag Capsule</h2>
+            <h2 className="text-4xl font-georgia-bold text-white mb-4">Bag Capsule</h2>
             <p className="text-xl text-white/80">Create a Movement in your business</p>
           </div>
           
