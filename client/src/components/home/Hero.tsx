@@ -100,7 +100,7 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="text-lg text-botanical mb-2">Stylish Leisure Range</h3>
+              <h3 className="text-lg text-botanical mb-2">Styled Leisure Range</h3>
               <p className="text-gray-600 text-sm mb-2">Elegant everyday bag</p>
               <p className="font-bold text-black">Price R799</p>
             </div>
