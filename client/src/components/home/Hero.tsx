@@ -368,7 +368,7 @@ const Hero = () => {
           
           {/* Icon Sections */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Gifting & Events */}
+            {/* Gifting */}
             <div className="flex items-center justify-center space-x-4 p-6 bg-white/10 rounded-xl backdrop-blur-sm">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center border-2 border-white/30">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -376,7 +376,8 @@ const Hero = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white">Gifting & Events</h3>
+                <h3 className="text-lg text-white mb-2">Gifting Range</h3>
+                <p className="text-white/80 text-sm mb-2">Sustainable and timeless gifts</p>
               </div>
             </div>
             
