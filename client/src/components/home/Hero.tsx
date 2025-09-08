@@ -8,6 +8,9 @@ import navyRetroBag from '@assets/Retro Range - Navy Blue_1757319569359.png';
 import whiteTennisBag from '@assets/Tennis Bag on Clay Court_1757320190792.png';
 import classicBackpack from '@assets/LGM_Classic_me_1757337982042.png';
 import navyRoseGoldBackpack from '@assets/Classic range - Rose Gold_1757338766199.png';
+import tanBusinessBag from '@assets/LGM_Grounded (1) (1)_1757354457354.png';
+import navyBusinessBag from '@assets/ChatGPT Image Sep 5, 2025, 05_34_17 PM_1757354728267.png';
+import whiteBusinessBag from '@assets/ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757354752545.png';
 
 const Hero = () => {
   return (
@@ -240,11 +243,34 @@ const Hero = () => {
         <div className="grid grid-cols-6 grid-rows-2 gap-2 h-[70vh] w-full px-0">
           {/* Large left image - Business Collection */}
           <Link href="/products?category=business" className="col-span-2 row-span-2 group relative overflow-hidden shadow-xl">
+            {/* Olive/Green color (default) */}
             <img 
               src="/images/green-backpack.jpg"
-              alt="Business Collection"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+              alt="Business Collection - Olive"
+              className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
             />
+            
+            {/* Tan color (first hover state) */}
+            <img 
+              src={tanBusinessBag}
+              alt="Business Collection - Tan"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:delay-0"
+            />
+            
+            {/* Navy color (second hover state) */}
+            <img 
+              src={navyBusinessBag}
+              alt="Business Collection - Navy"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-0 group-hover:opacity-100 group-hover:delay-200"
+            />
+            
+            {/* White color (third hover state) */}
+            <img 
+              src={whiteBusinessBag}
+              alt="Business Collection - White"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-900 opacity-0 group-hover:opacity-100 group-hover:delay-400"
+            />
+
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
             <div className="absolute bottom-8 left-8 text-white">
               <h3 className="text-lg text-white mb-2">Business</h3>
