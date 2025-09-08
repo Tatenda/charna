@@ -32,7 +32,14 @@ export default function Browse() {
   const searchParams = new URLSearchParams(location.split('?')[1] || '');
   const selectedCategory = searchParams.get('category') || 'work';
   const [priceRange, setPriceRange] = useState([0, 2000]);
-  const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('All Products');
+  const [selectedBrowseCategory, setSelectedBrowseCategory] = useState(() => {
+    const urlCategory = searchParams.get('category');
+    if (urlCategory) {
+      const categoryName = urlCategory.charAt(0).toUpperCase() + urlCategory.slice(1);
+      return browseCategories.includes(categoryName) ? categoryName : 'All Products';
+    }
+    return 'All Products';
+  });
   const { addToCart } = useCart();
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
@@ -95,9 +102,23 @@ export default function Browse() {
               {browseCategories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => setSelectedBrowseCategory(category)}
+                  onClick={() => {
+                    if (category === 'All Products') {
+                      setLocation('/browse');
+                      setSelectedBrowseCategory('All Products');
+                    } else {
+                      const categoryId = category.toLowerCase();
+                      setLocation(`/browse?category=${categoryId}`);
+                      setSelectedBrowseCategory(category);
+                    }
+                  }}
                   className={`block w-full text-left py-2 px-3 rounded transition-colors ${
-                    selectedBrowseCategory === category
+                    (selectedCategory === 'work' && category === 'Work') ||
+                    (selectedCategory === 'leisure' && category === 'Leisure') ||
+                    (selectedCategory === 'sport' && category === 'Sport') ||
+                    (selectedCategory === 'travel' && category === 'Travel') ||
+                    (selectedCategory === 'accessories' && category === 'Accessories') ||
+                    (selectedBrowseCategory === category && !selectedCategory)
                       ? 'bg-botanical text-white font-medium'
                       : 'text-gray-300 hover:text-white hover:bg-gray-700'
                   }`}
