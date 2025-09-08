@@ -194,7 +194,7 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="text-lg text-botanical mb-2">Styled Leisure Range</h3>
+              <h3 className="text-lg text-botanical mb-2">Leisure Range</h3>
               <p className="text-gray-600 text-sm mb-2">Elegant everyday bag</p>
               <p className="font-bold text-black">Price R799</p>
             </div>
@@ -370,7 +370,7 @@ const Hero = () => {
           <Link href="/products?category=leisure" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
             <img 
               src="/images/crossbody-cream.jpg"
-              alt="Styled Leisure Collection"
+              alt="Leisure Collection"
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
