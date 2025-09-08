@@ -439,7 +439,7 @@ const Hero = () => {
           
           <div className="text-center mt-12">
             <button className="bg-black text-white px-8 py-3 font-semibold hover:bg-botanical transition-colors duration-300">
-              Follow @LIGREMO
+              Follow @charna_bags
             </button>
           </div>
         </div>
