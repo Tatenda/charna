@@ -17,6 +17,8 @@ import navyTennisBagNew from '@assets/Navy Tennis bag_1757355605958.png';
 const Hero = () => {
   const [currentBusinessBag, setCurrentBusinessBag] = useState(0);
   const [currentSportsBag, setCurrentSportsBag] = useState(0);
+  const [isBusinessHovered, setIsBusinessHovered] = useState(false);
+  const [isSportsHovered, setIsSportsHovered] = useState(false);
   
   const businessBags = [
     { src: "/images/green-backpack.jpg", alt: "Business Collection - Olive" },
@@ -31,19 +33,36 @@ const Hero = () => {
   ];
 
   useEffect(() => {
-    const businessInterval = setInterval(() => {
-      setCurrentBusinessBag((prev) => (prev + 1) % businessBags.length);
-    }, 1500);
-
-    const sportsInterval = setInterval(() => {
-      setCurrentSportsBag((prev) => (prev + 1) % sportsBags.length);
-    }, 1500);
+    let businessInterval: NodeJS.Timeout | null = null;
+    
+    if (isBusinessHovered) {
+      businessInterval = setInterval(() => {
+        setCurrentBusinessBag((prev) => (prev + 1) % businessBags.length);
+      }, 1500);
+    } else {
+      setCurrentBusinessBag(0); // Reset to first image when not hovering
+    }
 
     return () => {
-      clearInterval(businessInterval);
-      clearInterval(sportsInterval);
+      if (businessInterval) clearInterval(businessInterval);
     };
-  }, [businessBags.length, sportsBags.length]);
+  }, [isBusinessHovered, businessBags.length]);
+
+  useEffect(() => {
+    let sportsInterval: NodeJS.Timeout | null = null;
+    
+    if (isSportsHovered) {
+      sportsInterval = setInterval(() => {
+        setCurrentSportsBag((prev) => (prev + 1) % sportsBags.length);
+      }, 1500);
+    } else {
+      setCurrentSportsBag(0); // Reset to first image when not hovering
+    }
+
+    return () => {
+      if (sportsInterval) clearInterval(sportsInterval);
+    };
+  }, [isSportsHovered, sportsBags.length]);
 
   return (
     <div className="relative">
@@ -274,7 +293,12 @@ const Hero = () => {
         {/* Full-width 6-Image Collage */}
         <div className="grid grid-cols-6 grid-rows-2 gap-2 h-[70vh] w-full px-0">
           {/* Large left image - Business Collection */}
-          <Link href="/products?category=business" className="col-span-2 row-span-2 group relative overflow-hidden shadow-xl">
+          <Link 
+            href="/products?category=business" 
+            className="col-span-2 row-span-2 group relative overflow-hidden shadow-xl"
+            onMouseEnter={() => setIsBusinessHovered(true)}
+            onMouseLeave={() => setIsBusinessHovered(false)}
+          >
             {businessBags.map((bag, index) => (
               <img 
                 key={index}
@@ -294,7 +318,12 @@ const Hero = () => {
           </Link>
           
           {/* Top middle - Sports (larger) */}
-          <Link href="/products?category=sport" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl">
+          <Link 
+            href="/products?category=sport" 
+            className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl"
+            onMouseEnter={() => setIsSportsHovered(true)}
+            onMouseLeave={() => setIsSportsHovered(false)}
+          >
             {sportsBags.map((bag, index) => (
               <img 
                 key={index}
