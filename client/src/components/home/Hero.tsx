@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useState, useEffect } from "react";
 import botanicalBg from '@assets/Man with bag and botanical background_1757072953822.png';
 import newHeroBg from '@assets/image_1757230274214.png';
 import groundedBag from '@assets/LGM_Grounded (1)_1757318142201.png';
@@ -13,6 +14,23 @@ import navyBusinessBag from '@assets/ChatGPT Image Sep 5, 2025, 05_34_17 PM_1757
 import whiteBusinessBag from '@assets/ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757354752545.png';
 
 const Hero = () => {
+  const [currentBusinessBag, setCurrentBusinessBag] = useState(0);
+  
+  const businessBags = [
+    { src: "/images/green-backpack.jpg", alt: "Business Collection - Olive" },
+    { src: tanBusinessBag, alt: "Business Collection - Tan" },
+    { src: navyBusinessBag, alt: "Business Collection - Navy" },
+    { src: whiteBusinessBag, alt: "Business Collection - White" }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBusinessBag((prev) => (prev + 1) % businessBags.length);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, [businessBags.length]);
+
   return (
     <div className="relative">
       {/* Clean Hero Section with Background Image */}
@@ -243,33 +261,16 @@ const Hero = () => {
         <div className="grid grid-cols-6 grid-rows-2 gap-2 h-[70vh] w-full px-0">
           {/* Large left image - Business Collection */}
           <Link href="/products?category=business" className="col-span-2 row-span-2 group relative overflow-hidden shadow-xl">
-            {/* Olive/Green color (default) */}
-            <img 
-              src="/images/green-backpack.jpg"
-              alt="Business Collection - Olive"
-              className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000"
-            />
-            
-            {/* Tan color (first hover state) */}
-            <img 
-              src={tanBusinessBag}
-              alt="Business Collection - Tan"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:delay-500"
-            />
-            
-            {/* Navy color (second hover state) */}
-            <img 
-              src={navyBusinessBag}
-              alt="Business Collection - Navy"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:delay-1000"
-            />
-            
-            {/* White color (third hover state) */}
-            <img 
-              src={whiteBusinessBag}
-              alt="Business Collection - White"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-1000 opacity-0 group-hover:opacity-100 group-hover:delay-1500"
-            />
+            {businessBags.map((bag, index) => (
+              <img 
+                key={index}
+                src={bag.src}
+                alt={bag.alt}
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentBusinessBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                }`}
+              />
+            ))}
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
             <div className="absolute bottom-8 left-8 text-white">
