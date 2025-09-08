@@ -81,7 +81,7 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="font-medium text-gray-800 mb-1">Retro Range</h3>
+              <h3 className="text-lg text-gray-800 mb-1">Retro Range</h3>
               <p className="font-bold text-gray-800">R899.99</p>
               <div className="flex items-center mt-1">
                 <div className="flex text-orange-400 text-sm">
@@ -105,7 +105,7 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-gray-800 mb-2">Stylish Leisure Range</h3>
+              <h3 className="text-lg text-gray-800 mb-2">Stylish Leisure Range</h3>
               <p className="text-gray-600 text-sm mb-2">Elegant everyday bag</p>
               <p className="font-bold text-gray-800">Price R649.99</p>
             </div>
@@ -124,7 +124,7 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-gray-800 mb-2">Sports Range</h3>
+              <h3 className="text-lg text-gray-800 mb-2">Sports Range</h3>
               <p className="text-gray-600 text-sm mb-2">Athletic gear carrier</p>
               <p className="font-bold text-gray-800">Price R749.99</p>
             </div>
@@ -143,7 +143,7 @@ const Hero = () => {
                   </button>
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-gray-800 mb-2">Classic Range</h3>
+              <h3 className="text-lg text-gray-800 mb-2">Classic Range</h3>
               <p className="text-gray-600 text-sm mb-2">Adventure companion</p>
               <p className="font-bold text-gray-800">Price R999.99</p>
             </div>
