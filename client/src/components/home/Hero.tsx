@@ -388,7 +388,8 @@ const Hero = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white">Onboarding</h3>
+                <h3 className="text-lg text-white mb-2">Onboarding Range</h3>
+                <p className="text-white/80 text-sm mb-2">Create an unforgettable onboarding experience for your employees</p>
               </div>
             </div>
           </div>
