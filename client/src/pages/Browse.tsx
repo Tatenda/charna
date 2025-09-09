@@ -56,7 +56,7 @@ const collageProducts = [
     name: "Timeless White Backpack",
     price: 1899,
     image: whiteBackpack,
-    category: "leisure"
+    category: "business"
   },
   {
     id: 7,
