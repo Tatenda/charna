@@ -127,6 +127,27 @@ const collageProducts = [
     price: 1899,
     image: whiteBackpack,
     category: "business"
+  },
+  {
+    id: 17,
+    name: "Laptop Sleeve - Tan",
+    price: 999,
+    image: "/placeholder-laptop-sleeve-tan.jpg",
+    category: "accessories"
+  },
+  {
+    id: 18,
+    name: "Laptop Sleeve - Navy",
+    price: 999,
+    image: "/placeholder-laptop-sleeve-navy.jpg",
+    category: "accessories"
+  },
+  {
+    id: 19,
+    name: "Laptop Sleeve - Olive",
+    price: 999,
+    image: "/placeholder-laptop-sleeve-olive.jpg",
+    category: "accessories"
   }
 ];
 
