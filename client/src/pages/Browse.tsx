@@ -27,6 +27,15 @@ const browseCategories = [
   'Customised'
 ];
 
+// Map hero categories to actual product categories
+const categoryMapping: Record<string, string> = {
+  'work': 'business',
+  'sport': 'tennis', 
+  'leisure': 'leisure',
+  'travel': 'travel',
+  'accessories': 'accessories'
+};
+
 export default function Browse() {
   const [location, setLocation] = useLocation();
   const searchParams = new URLSearchParams(location.split('?')[1] || '');
@@ -54,7 +63,9 @@ export default function Browse() {
   });
 
   const filteredProducts = products.filter((product: Product) => {
-    const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+    // Map the selected category to the actual product category
+    const actualCategory = categoryMapping[selectedCategory] || selectedCategory;
+    const matchesCategory = selectedCategory === 'all' || product.category === actualCategory;
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
     return matchesCategory && matchesPrice;
   });
