@@ -295,26 +295,26 @@ export default function Browse() {
                     />
                   </div>
                   
-                  <div className="p-4 flex flex-col h-24">
-                    <h3 className="text-sm text-gray-900 mb-1 font-medium">
-                      {product.name}
-                    </h3>
-                    
-                    <div className="mb-3">
-                      <span className="text-gray-900 font-semibold text-sm">
-                        R{product.price}
-                      </span>
-                    </div>
-                    
+                  <div className="p-4">
                     <button
                       onClick={(e) => {
                         e.preventDefault();
                         handleAddToCart(product);
                       }}
-                      className="w-full border border-gray-400 text-gray-700 py-2 px-4 text-sm font-medium hover:border-gray-600 hover:text-gray-900 transition-colors duration-200 rounded mt-auto"
+                      className="w-full border border-gray-400 text-gray-700 py-2 px-4 text-sm font-medium hover:border-gray-600 hover:text-gray-900 transition-colors duration-200 rounded mb-3"
                     >
                       Add to Cart
                     </button>
+                    
+                    <h3 className="text-sm text-gray-900 mb-1 font-medium">
+                      {product.name}
+                    </h3>
+                    
+                    <div>
+                      <span className="text-gray-900 font-semibold text-sm">
+                        R{product.price}
+                      </span>
+                    </div>
                   </div>
                 </div>
               ))}
