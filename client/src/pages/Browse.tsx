@@ -203,7 +203,6 @@ const categoryTabs = [
 ];
 
 const browseCategories = [
-  'All Products',
   'Work',
   'Leisure',
   'Sport',
@@ -227,7 +226,7 @@ export default function Browse() {
   const searchParams = new URLSearchParams(location.split('?')[1] || '');
   const selectedCategory = searchParams.get('category') || 'work';
   const [priceRange, setPriceRange] = useState([0, 6000]);
-  const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('All Products');
+  const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('Work');
 
   // Sync sidebar selection with URL parameter
   useEffect(() => {
@@ -238,10 +237,10 @@ export default function Browse() {
       if (browseCategories.includes(categoryName)) {
         setSelectedBrowseCategory(categoryName);
       } else {
-        setSelectedBrowseCategory('All Products');
+        setSelectedBrowseCategory('Work');
       }
     } else {
-      setSelectedBrowseCategory('All Products');
+      setSelectedBrowseCategory('Work');
     }
   }, [location]); // Re-run when location changes
   const { addToCart } = useCart();
@@ -253,15 +252,6 @@ export default function Browse() {
 
   // Filter products based on category and price
   const filteredCollageProducts = collageProducts.filter((product) => {
-    if (selectedBrowseCategory === 'All Products') {
-      // Exclude onboarding-specific items from All Products view
-      const excludeFromAllProducts = [12, 15, 27, 28, 29, 30]; // Laptop Sleeves, Desk Mats, and duplicate work bags
-      if (excludeFromAllProducts.includes(product.id)) {
-        return false;
-      }
-      return product.price >= priceRange[0] && product.price <= priceRange[1];
-    }
-    
     // Use the sidebar category selection for filtering
     let targetCategory;
     if (selectedBrowseCategory === 'Work') {
