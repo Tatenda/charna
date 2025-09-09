@@ -370,6 +370,10 @@ export default function Browse() {
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      style={{
+                        filter: 'contrast(1.1) saturate(1.1) brightness(1.05)',
+                        imageRendering: '-webkit-optimize-contrast'
+                      }}
                     />
                   </div>
                   
