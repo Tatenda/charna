@@ -338,7 +338,7 @@ const Hero = () => {
               <p className="font-bold text-black">Price R1999</p>
             </Link>
             
-            <div className="group cursor-pointer">
+            <Link href="/browse?category=leisure" className="group cursor-pointer block">
               <div className="relative overflow-hidden rounded-xl mb-4">
                 <img 
                   src={styledLaptopBag}
@@ -347,7 +347,10 @@ const Hero = () => {
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button 
+                    className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     Add to Cart
                   </button>
                 </div>
@@ -355,9 +358,9 @@ const Hero = () => {
               <h3 className="text-lg text-botanical mb-2">Timeless Range</h3>
               <p className="text-gray-600 text-sm mb-2">Timeless style meets smart organisation, perfect for work, travel, or everyday use</p>
               <p className="font-bold text-black">Price R1899</p>
-            </div>
+            </Link>
             
-            <div className="group cursor-pointer">
+            <Link href="/browse?category=accessories" className="group cursor-pointer block">
               <div className="relative overflow-hidden rounded-xl mb-4">
                 <div className="w-full h-80 bg-gray-200 flex items-center justify-center">
                   <div className="text-center text-gray-500">
@@ -368,7 +371,10 @@ const Hero = () => {
                 </div>
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button 
+                    className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     Add to Cart
                   </button>
                 </div>
@@ -376,7 +382,7 @@ const Hero = () => {
               <h3 className="text-lg text-botanical mb-2">Sleeved Range</h3>
               <p className="text-gray-600 text-sm mb-2">Switch up your laptop sleeves with these different options</p>
               <p className="font-bold text-black">Price R999</p>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
