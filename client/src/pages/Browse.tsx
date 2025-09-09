@@ -78,6 +78,34 @@ const collageProducts = [
     price: 3299,
     image: whiteTennisBag,
     category: "tennis"
+  },
+  {
+    id: 10,
+    name: "Company Tags",
+    price: 299,
+    image: "/placeholder-company-tags.jpg",
+    category: "onboarding"
+  },
+  {
+    id: 11,
+    name: "Onboarding Bags",
+    price: 2899,
+    image: "/placeholder-onboarding-bags.jpg",
+    category: "onboarding"
+  },
+  {
+    id: 12,
+    name: "Onboarding Accessories",
+    price: 599,
+    image: "/placeholder-onboarding-accessories.jpg",
+    category: "onboarding"
+  },
+  {
+    id: 13,
+    name: "Full Onboarding Package",
+    price: 4999,
+    image: "/placeholder-full-package.jpg",
+    category: "onboarding"
   }
 ];
 
@@ -154,6 +182,8 @@ export default function Browse() {
       targetCategory = 'travel';
     } else if (selectedBrowseCategory === 'Accessories') {
       targetCategory = 'accessories';
+    } else if (selectedBrowseCategory === 'Onboarding') {
+      targetCategory = 'onboarding';
     } else {
       // For URL-based categories from top tabs
       targetCategory = categoryMapping[selectedCategory] || selectedCategory;
