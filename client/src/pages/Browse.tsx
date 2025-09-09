@@ -56,7 +56,7 @@ const collageProducts = [
     name: "Grounded Tan Backpack",
     price: 1999,
     image: brownBackpack,
-    category: "travel"
+    category: "business"
   },
   {
     id: 7,
@@ -70,7 +70,7 @@ const collageProducts = [
     name: "Retro Olive Backpack",
     price: 2399,
     image: oliveBackpack,
-    category: "leisure"
+    category: "business"
   },
   {
     id: 9,
