@@ -116,7 +116,7 @@ export default function Browse() {
   const [location, setLocation] = useLocation();
   const searchParams = new URLSearchParams(location.split('?')[1] || '');
   const selectedCategory = searchParams.get('category') || 'work';
-  const [priceRange, setPriceRange] = useState([0, 3000]);
+  const [priceRange, setPriceRange] = useState([0, 4000]);
   const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('All Products');
 
   // Sync sidebar selection with URL parameter
@@ -247,7 +247,7 @@ export default function Browse() {
                 <input
                   type="range"
                   min="0"
-                  max="3000"
+                  max="4000"
                   value={priceRange[1]}
                   onChange={handlePriceChange}
                   className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
