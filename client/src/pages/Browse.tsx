@@ -371,8 +371,8 @@ export default function Browse() {
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       style={{
-                        filter: 'contrast(1.1) saturate(1.1) brightness(1.05)',
-                        imageRendering: '-webkit-optimize-contrast'
+                        filter: 'contrast(1.3) saturate(1.2) brightness(1.1) unsharp-mask(amount=120% radius=1px threshold=3)',
+                        imageRendering: 'crisp-edges'
                       }}
                     />
                   </div>
