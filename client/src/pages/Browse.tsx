@@ -205,7 +205,7 @@ export default function Browse() {
         <div className="w-80 px-6 py-4">
           {/* Browse by Section */}
           <div className="mb-12">
-            <h3 className="text-xl font-georgia-bold mb-6 text-white border-b border-gray-700 pb-3">
+            <h3 className="text-xl font-bold mb-6 text-white border-b border-gray-700 pb-3">
               Browse by
             </h3>
             <div className="space-y-3">
@@ -236,7 +236,7 @@ export default function Browse() {
 
           {/* Filter by Section */}
           <div>
-            <h3 className="text-xl font-georgia-bold mb-6 text-white border-b border-gray-700 pb-3">
+            <h3 className="text-xl font-bold mb-6 text-white border-b border-gray-700 pb-3">
               Filter by
             </h3>
             
@@ -276,7 +276,7 @@ export default function Browse() {
           <div className="relative z-10 px-6 py-4">
             {/* All Products Title */}
             <div className="mb-8">
-              <h2 className="text-4xl font-georgia-bold text-white mb-2">All Products</h2>
+              <h2 className="text-4xl font-bold text-white mb-2">All Products</h2>
               <p className="text-gray-300">Discover our full range of handcrafted leather goods</p>
             </div>
 
@@ -295,13 +295,13 @@ export default function Browse() {
                     />
                   </div>
                   
-                  <div className="p-4">
-                    <h3 className="font-georgia-bold text-lg text-gray-900 mb-2">
+                  <div className="p-4 flex flex-col h-24">
+                    <h3 className="text-sm text-gray-900 mb-1 font-medium">
                       {product.name}
                     </h3>
                     
-                    <div className="mb-4">
-                      <span className="text-gray-900 font-bold text-xl">
+                    <div className="mb-3">
+                      <span className="text-gray-900 font-semibold text-sm">
                         R{product.price}
                       </span>
                     </div>
@@ -311,7 +311,7 @@ export default function Browse() {
                         e.preventDefault();
                         handleAddToCart(product);
                       }}
-                      className="w-full bg-botanical text-white py-3 px-4 font-medium hover:bg-botanical/90 transition-colors duration-200 rounded-lg"
+                      className="w-full border border-gray-400 text-gray-700 py-2 px-4 text-sm font-medium hover:border-gray-600 hover:text-gray-900 transition-colors duration-200 rounded mt-auto"
                     >
                       Add to Cart
                     </button>
@@ -322,7 +322,7 @@ export default function Browse() {
 
             {filteredCollageProducts.length === 0 && (
               <div className="text-center py-20 bg-gray-800/50 backdrop-blur-sm rounded-lg">
-                <h3 className="text-2xl font-georgia-bold text-gray-300 mb-4">
+                <h3 className="text-2xl font-bold text-gray-300 mb-4">
                   No products found
                 </h3>
                 <p className="text-gray-400">
