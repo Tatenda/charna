@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import { useCart } from "@/hooks/useCart";
@@ -32,14 +32,20 @@ export default function Browse() {
   const searchParams = new URLSearchParams(location.split('?')[1] || '');
   const selectedCategory = searchParams.get('category') || 'work';
   const [priceRange, setPriceRange] = useState([0, 2000]);
-  const [selectedBrowseCategory, setSelectedBrowseCategory] = useState(() => {
+  const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('All Products');
+
+  // Sync sidebar selection with URL parameter
+  useEffect(() => {
     const urlCategory = searchParams.get('category');
     if (urlCategory) {
       const categoryName = urlCategory.charAt(0).toUpperCase() + urlCategory.slice(1);
-      return browseCategories.includes(categoryName) ? categoryName : 'All Products';
+      if (browseCategories.includes(categoryName)) {
+        setSelectedBrowseCategory(categoryName);
+      }
+    } else {
+      setSelectedBrowseCategory('All Products');
     }
-    return 'All Products';
-  });
+  }, [location]); // Re-run when location changes
   const { addToCart } = useCart();
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
@@ -113,12 +119,7 @@ export default function Browse() {
                     }
                   }}
                   className={`block w-full text-left py-2 px-3 rounded transition-colors ${
-                    (selectedCategory === 'work' && category === 'Work') ||
-                    (selectedCategory === 'leisure' && category === 'Leisure') ||
-                    (selectedCategory === 'sport' && category === 'Sport') ||
-                    (selectedCategory === 'travel' && category === 'Travel') ||
-                    (selectedCategory === 'accessories' && category === 'Accessories') ||
-                    (selectedBrowseCategory === category && !selectedCategory)
+                    selectedBrowseCategory === category
                       ? 'bg-botanical text-white font-medium'
                       : 'text-gray-300 hover:text-white hover:bg-gray-700'
                   }`}
