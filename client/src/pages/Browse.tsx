@@ -26,7 +26,7 @@ const collageProducts = [
   {
     id: 2,
     name: "Cream Crossbody",
-    price: 1599,
+    price: 799,
     image: creamCrossbody,
     category: "leisure"
   },
