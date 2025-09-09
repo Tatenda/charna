@@ -406,11 +406,6 @@ export default function Browse() {
           
           {/* Content with overlay */}
           <div className="relative z-10 px-6 py-4">
-            {/* All Products Title */}
-            <div className="mb-8">
-              <h2 className="text-4xl font-bold text-white mb-2">All Products</h2>
-              <p className="text-gray-300">Discover our full range of handcrafted leather goods</p>
-            </div>
 
             {/* Collage Style Product Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
