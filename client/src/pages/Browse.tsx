@@ -33,7 +33,7 @@ const collageProducts = [
   {
     id: 3,
     name: "Timeless White Backpack",
-    price: 2299,
+    price: 1899,
     image: whiteBackpack,
     category: "business"
   },
@@ -54,7 +54,7 @@ const collageProducts = [
   {
     id: 6,
     name: "Grounded Tan Backpack",
-    price: 2999,
+    price: 1999,
     image: brownBackpack,
     category: "travel"
   },
