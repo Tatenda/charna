@@ -162,6 +162,13 @@ const collageProducts = [
     price: 899,
     image: "/placeholder-desk-mat-navy.jpg",
     category: "accessories"
+  },
+  {
+    id: 23,
+    name: "Leather Luggage Tags",
+    price: 150,
+    image: "/placeholder-luggage-tags.jpg",
+    category: "accessories"
   }
 ];
 
