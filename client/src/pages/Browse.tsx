@@ -24,17 +24,17 @@ const collageProducts = [
     category: "tennis"
   },
   {
+    id: 6,
+    name: "Grounded Tan Backpack",
+    price: 1999,
+    image: brownBackpack,
+    category: "business"
+  },
+  {
     id: 2,
     name: "Cream Crossbody",
     price: 799,
     image: creamCrossbody,
-    category: "leisure"
-  },
-  {
-    id: 3,
-    name: "Timeless White Backpack",
-    price: 1899,
-    image: whiteBackpack,
     category: "leisure"
   },
   {
@@ -52,11 +52,11 @@ const collageProducts = [
     category: "travel"
   },
   {
-    id: 6,
-    name: "Grounded Tan Backpack",
-    price: 1999,
-    image: brownBackpack,
-    category: "business"
+    id: 3,
+    name: "Timeless White Backpack",
+    price: 1899,
+    image: whiteBackpack,
+    category: "leisure"
   },
   {
     id: 7,
@@ -120,13 +120,6 @@ const collageProducts = [
     price: 399,
     image: "/placeholder-desk-mats.jpg",
     category: "onboarding"
-  },
-  {
-    id: 16,
-    name: "Timeless White Backpack",
-    price: 1899,
-    image: whiteBackpack,
-    category: "business"
   },
   {
     id: 17,
