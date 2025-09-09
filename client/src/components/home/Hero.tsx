@@ -500,7 +500,7 @@ const Hero = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
               <h3 className="text-lg text-white mb-2">Onboarding</h3>
-              <p className="text-base opacity-90 text-white">Make It Yours</p>
+              <p className="text-base opacity-90 text-white">Create a 1st class employee experience</p>
             </div>
           </Link>
           
