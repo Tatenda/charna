@@ -4,6 +4,82 @@ import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import { useCart } from "@/hooks/useCart";
 import indoorGreeneryBackdrop from "@assets/Indoor Greenery Harmony_1757361807254.png";
+import navyTennisBag from "@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1757403283994.png";
+import creamCrossbody from "@assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png";
+import whiteBackpack from "@assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757403283999.png";
+import navyRoseGoldBackpack from "@assets/Copy of Classic range - Rose Gold_1757403284000.png";
+import tanBackpack from "@assets/LGM_Classic_me (1)_1757403284001.png";
+import brownBackpack from "@assets/LGM_Grounded (1)_1757403284002.png";
+import navyModernBackpack from "@assets/Retro Range - Navy Blue_1757403284003.png";
+import oliveBackpack from "@assets/Retro Range - Olive_1757403284004.png";
+import whiteTennisBag from "@assets/Tennis bag - White - neutral background_1757403947038.png";
+
+// Product data for collage display
+const collageProducts = [
+  {
+    id: 1,
+    name: "Navy Tennis Bag",
+    price: 2899,
+    image: navyTennisBag,
+    category: "tennis"
+  },
+  {
+    id: 2,
+    name: "Cream Crossbody",
+    price: 1599,
+    image: creamCrossbody,
+    category: "leisure"
+  },
+  {
+    id: 3,
+    name: "White Backpack",
+    price: 2299,
+    image: whiteBackpack,
+    category: "business"
+  },
+  {
+    id: 4,
+    name: "Navy Rose Gold Backpack",
+    price: 2699,
+    image: navyRoseGoldBackpack,
+    category: "travel"
+  },
+  {
+    id: 5,
+    name: "Tan Classic Backpack",
+    price: 2399,
+    image: tanBackpack,
+    category: "business"
+  },
+  {
+    id: 6,
+    name: "Brown Leather Backpack",
+    price: 2999,
+    image: brownBackpack,
+    category: "travel"
+  },
+  {
+    id: 7,
+    name: "Navy Modern Backpack",
+    price: 2199,
+    image: navyModernBackpack,
+    category: "business"
+  },
+  {
+    id: 8,
+    name: "Olive Green Backpack",
+    price: 2499,
+    image: oliveBackpack,
+    category: "leisure"
+  },
+  {
+    id: 9,
+    name: "White Tennis Bag",
+    price: 2799,
+    image: whiteTennisBag,
+    category: "tennis"
+  }
+];
 
 const categoryTabs = [
   { id: 'work', label: 'Work' },
@@ -40,7 +116,7 @@ export default function Browse() {
   const [location, setLocation] = useLocation();
   const searchParams = new URLSearchParams(location.split('?')[1] || '');
   const selectedCategory = searchParams.get('category') || 'work';
-  const [priceRange, setPriceRange] = useState([0, 2000]);
+  const [priceRange, setPriceRange] = useState([0, 3000]);
   const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('All Products');
 
   // Sync sidebar selection with URL parameter
@@ -62,10 +138,15 @@ export default function Browse() {
     enabled: !!selectedCategory,
   });
 
-  const filteredProducts = products.filter((product: Product) => {
+  // Filter products based on category and price
+  const filteredCollageProducts = collageProducts.filter((product) => {
+    if (selectedBrowseCategory === 'All Products') {
+      return product.price >= priceRange[0] && product.price <= priceRange[1];
+    }
+    
     // Map the selected category to the actual product category
     const actualCategory = categoryMapping[selectedCategory] || selectedCategory;
-    const matchesCategory = selectedCategory === 'all' || product.category === actualCategory;
+    const matchesCategory = product.category === actualCategory;
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
     return matchesCategory && matchesPrice;
   });
@@ -77,6 +158,18 @@ export default function Browse() {
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
     setPriceRange([priceRange[0], value]);
+  };
+
+  const handleAddToCart = (product: any) => {
+    // Convert collage product to cart item format
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+      image: product.image
+    };
+    addToCart(cartItem as any, 1);
   };
 
   return (
@@ -154,7 +247,7 @@ export default function Browse() {
                 <input
                   type="range"
                   min="0"
-                  max="2000"
+                  max="3000"
                   value={priceRange[1]}
                   onChange={handlePriceChange}
                   className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
@@ -187,72 +280,47 @@ export default function Browse() {
               <p className="text-gray-300">Discover our full range of handcrafted leather goods</p>
             </div>
 
-            {isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="bg-gray-700/50 backdrop-blur-sm animate-pulse rounded-lg h-96"></div>
-                ))}
-              </div>
-            ) : filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.map((product: Product) => (
-                  <div
-                    key={product.id}
-                    className="group bg-stone-200 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300"
-                  >
-                    {/* Sale badge */}
-                    {product.badge && (
-                      <div className="absolute top-3 left-3 z-10">
-                        <span className="bg-botanical text-white px-3 py-1 text-xs font-medium rounded">
-                          {product.badge}
-                        </span>
-                      </div>
-                    )}
-                    
-                    <div className="aspect-square overflow-hidden relative">
-                      <img
-                        src={product.images?.[0] || '/placeholder-bag.jpg'}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    
-                    <div className="p-4 bg-stone-200">
-                      <h3 className="font-georgia-bold text-lg text-gray-900 mb-2">
-                        {product.name}
-                      </h3>
-                      
-                      <div className="mb-4">
-                        {product.originalPrice && product.originalPrice > product.price ? (
-                          <div className="flex items-center gap-2">
-                            <span className="text-gray-500 line-through text-sm">
-                              R{product.originalPrice}
-                            </span>
-                            <span className="text-gray-900 font-bold text-lg">
-                              R{product.price}
-                            </span>
-                          </div>
-                        ) : (
-                          <span className="text-gray-900 font-bold text-lg">
-                            R{product.price}
-                          </span>
-                        )}
-                      </div>
-                      
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          addToCart(product, 1);
-                        }}
-                        className="w-full bg-gray-800 text-white py-3 px-4 font-medium hover:bg-gray-700 transition-colors duration-200 border border-gray-700"
-                      >
-                        Add to Cart
-                      </button>
-                    </div>
+            {/* Collage Style Product Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredCollageProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="group bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105"
+                >
+                  <div className="aspect-square overflow-hidden relative">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
                   </div>
-                ))}
-              </div>
-            ) : (
+                  
+                  <div className="p-4">
+                    <h3 className="font-georgia-bold text-lg text-gray-900 mb-2">
+                      {product.name}
+                    </h3>
+                    
+                    <div className="mb-4">
+                      <span className="text-gray-900 font-bold text-xl">
+                        R{product.price}
+                      </span>
+                    </div>
+                    
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleAddToCart(product);
+                      }}
+                      className="w-full bg-botanical text-white py-3 px-4 font-medium hover:bg-botanical/90 transition-colors duration-200 rounded-lg"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {filteredCollageProducts.length === 0 && (
               <div className="text-center py-20 bg-gray-800/50 backdrop-blur-sm rounded-lg">
                 <h3 className="text-2xl font-georgia-bold text-gray-300 mb-4">
                   No products found
