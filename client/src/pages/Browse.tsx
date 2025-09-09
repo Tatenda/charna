@@ -116,6 +116,34 @@ const collageProducts = [
     category: "onboarding"
   },
   {
+    id: 27,
+    name: "Grounded Tan Backpack",
+    price: 1999,
+    image: brownBackpack,
+    category: "onboarding"
+  },
+  {
+    id: 28,
+    name: "Retro Navy Backpack",
+    price: 2399,
+    image: navyModernBackpack,
+    category: "onboarding"
+  },
+  {
+    id: 29,
+    name: "Retro Olive Backpack",
+    price: 2399,
+    image: oliveBackpack,
+    category: "onboarding"
+  },
+  {
+    id: 30,
+    name: "Timeless White Backpack",
+    price: 1899,
+    image: whiteBackpack,
+    category: "onboarding"
+  },
+  {
     id: 17,
     name: "Laptop Sleeve - Tan",
     price: 999,
@@ -224,7 +252,7 @@ export default function Browse() {
   const filteredCollageProducts = collageProducts.filter((product) => {
     if (selectedBrowseCategory === 'All Products') {
       // Exclude onboarding-specific items from All Products view
-      const excludeFromAllProducts = [12, 15]; // Laptop Sleeves and Desk Mats
+      const excludeFromAllProducts = [12, 15, 27, 28, 29, 30]; // Laptop Sleeves, Desk Mats, and duplicate work bags
       if (excludeFromAllProducts.includes(product.id)) {
         return false;
       }
