@@ -229,8 +229,9 @@ const Hero = () => {
               <p className="font-bold text-black">R2399</p>
             </Link>
             
-            <div 
-              className="group cursor-pointer"
+            <Link 
+              href="/browse?category=leisure"
+              className="group cursor-pointer block"
               onMouseEnter={() => setIsLeisureRangeHovered(true)}
               onMouseLeave={() => setIsLeisureRangeHovered(false)}
             >
@@ -255,7 +256,7 @@ const Hero = () => {
               <h3 className="text-lg text-botanical mb-2">Leisure Range</h3>
               <p className="text-gray-600 text-sm mb-2">Elegant everyday bag</p>
               <p className="font-bold text-black">Price R799</p>
-            </div>
+            </Link>
             
             <div className="group cursor-pointer">
               <div className="relative overflow-hidden rounded-xl mb-4">
