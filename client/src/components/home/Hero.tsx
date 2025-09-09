@@ -219,7 +219,10 @@ const Hero = () => {
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button 
+                    className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     Add to Cart
                   </button>
                 </div>
@@ -248,7 +251,10 @@ const Hero = () => {
                 ))}
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button 
+                    className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     Add to Cart
                   </button>
                 </div>
