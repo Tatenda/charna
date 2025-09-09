@@ -384,7 +384,7 @@ const Hero = () => {
         <div className="grid grid-cols-6 grid-rows-2 gap-2 h-[70vh] w-full px-0">
           {/* Large left image - Business Collection */}
           <Link 
-            href="/products?category=business" 
+            href="/browse?category=work" 
             className="col-span-2 row-span-2 group relative overflow-hidden shadow-xl"
             onMouseEnter={() => setIsBusinessHovered(true)}
             onMouseLeave={() => setIsBusinessHovered(false)}
@@ -409,7 +409,7 @@ const Hero = () => {
           
           {/* Top middle - Sports (larger) */}
           <Link 
-            href="/products?category=sport" 
+            href="/browse?category=sport" 
             className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl"
             onMouseEnter={() => setIsSportsHovered(true)}
             onMouseLeave={() => setIsSportsHovered(false)}
@@ -433,7 +433,7 @@ const Hero = () => {
           
           {/* Top right - Leisure */}
           <Link 
-            href="/products?category=leisure" 
+            href="/browse?category=leisure" 
             className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl"
             onMouseEnter={() => setIsLeisureHovered(true)}
             onMouseLeave={() => setIsLeisureHovered(false)}
@@ -457,7 +457,7 @@ const Hero = () => {
           
           {/* Top right - Travel */}
           <Link 
-            href="/products?category=travel" 
+            href="/browse?category=travel" 
             className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl"
             onMouseEnter={() => setIsTravelHovered(true)}
             onMouseLeave={() => setIsTravelHovered(false)}
@@ -480,7 +480,7 @@ const Hero = () => {
           </Link>
           
           {/* Bottom - Bag Accessories */}
-          <Link href="/products?category=accessories" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
+          <Link href="/browse?category=accessories" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
             <div className="w-full h-full bg-gray-700 flex items-center justify-center">
               <div className="text-center text-white">
                 <div className="text-4xl mb-2">👜</div>
@@ -496,7 +496,7 @@ const Hero = () => {
           </Link>
           
           {/* Bottom - Onboarding */}
-          <Link href="/products?category=onboarding" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
+          <Link href="/browse?category=onboarding" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
             <div className="w-full h-full bg-gray-600 flex items-center justify-center">
               <div className="text-center text-white">
                 <div className="text-4xl mb-2">🎨</div>
