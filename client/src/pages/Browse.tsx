@@ -231,11 +231,14 @@ export default function Browse() {
 
   // Sync sidebar selection with URL parameter
   useEffect(() => {
-    const urlCategory = searchParams.get('category');
+    const currentSearchParams = new URLSearchParams(location.split('?')[1] || '');
+    const urlCategory = currentSearchParams.get('category');
     if (urlCategory) {
       const categoryName = urlCategory.charAt(0).toUpperCase() + urlCategory.slice(1);
       if (browseCategories.includes(categoryName)) {
         setSelectedBrowseCategory(categoryName);
+      } else {
+        setSelectedBrowseCategory('All Products');
       }
     } else {
       setSelectedBrowseCategory('All Products');
