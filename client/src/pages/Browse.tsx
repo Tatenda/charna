@@ -95,7 +95,7 @@ const collageProducts = [
   },
   {
     id: 12,
-    name: "Onboarding Accessories",
+    name: "Onboarding Laptop Sleeves",
     price: 599,
     image: "/placeholder-onboarding-accessories.jpg",
     category: "onboarding"
@@ -112,6 +112,13 @@ const collageProducts = [
     name: "The Perfect Onboarding Package - Option 2",
     price: 5499,
     image: "/placeholder-full-package-2.jpg",
+    category: "onboarding"
+  },
+  {
+    id: 15,
+    name: "Onboarding Desk Mats",
+    price: 399,
+    image: "/placeholder-desk-mats.jpg",
     category: "onboarding"
   }
 ];
