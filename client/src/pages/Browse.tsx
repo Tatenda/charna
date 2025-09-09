@@ -49,7 +49,7 @@ const collageProducts = [
     name: "Classic Travel Bag - Tan",
     price: 2499,
     image: tanBackpack,
-    category: "business"
+    category: "travel"
   },
   {
     id: 6,
