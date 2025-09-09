@@ -91,7 +91,6 @@ const categoryTabs = [
 
 const browseCategories = [
   'All Products',
-  'New Arrivals',
   'Work',
   'Leisure',
   'Sport',
