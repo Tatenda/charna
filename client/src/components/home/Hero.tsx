@@ -264,7 +264,7 @@ const Hero = () => {
               <p className="font-bold text-black">Price R799</p>
             </Link>
             
-            <div className="group cursor-pointer">
+            <Link href="/browse?category=sport" className="group cursor-pointer block">
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Navy color (default) */}
                 <img 
@@ -281,7 +281,10 @@ const Hero = () => {
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100">
+                  <button 
+                    className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     Add to Cart
                   </button>
                 </div>
@@ -289,7 +292,7 @@ const Hero = () => {
               <h3 className="text-lg text-botanical mb-2">Sports Range</h3>
               <p className="text-gray-600 text-sm mb-2">Athletic gear carrier</p>
               <p className="font-bold text-black">Price R3299</p>
-            </div>
+            </Link>
             
             <div className="group cursor-pointer">
               <div className="relative overflow-hidden rounded-xl mb-4">
