@@ -120,6 +120,13 @@ const collageProducts = [
     price: 399,
     image: "/placeholder-desk-mats.jpg",
     category: "onboarding"
+  },
+  {
+    id: 16,
+    name: "Timeless White Backpack",
+    price: 1899,
+    image: whiteBackpack,
+    category: "business"
   }
 ];
 
