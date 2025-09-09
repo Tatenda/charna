@@ -154,7 +154,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-black/15"></div>
         
         {/* Navigation Bar */}
-        <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
+        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-20">
           <nav className="bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 border border-white/20">
             <div className="flex space-x-8 text-sm font-medium">
               <Link href="/browse?category=work" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">

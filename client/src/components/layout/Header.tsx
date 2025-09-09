@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <header className="bg-white fixed w-full z-50 shadow-sm border-b border-gray-100">
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 py-2">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <button
@@ -32,7 +32,7 @@ const Header = () => {
               <img 
                 src={charnaLogo} 
                 alt="Charna" 
-                className="h-16 sm:h-20 lg:h-28 w-auto"
+                className="h-12 sm:h-14 lg:h-16 w-auto"
               />
               <span className="text-forest text-lg font-medium">...</span>
             </Link>
