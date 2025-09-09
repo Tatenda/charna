@@ -84,14 +84,8 @@ const collageProducts = [
     name: "Company Leather Bag Tag",
     price: 250,
     image: "/placeholder-company-tags.jpg",
-    category: "onboarding"
-  },
-  {
-    id: 12,
-    name: "Laptop Sleeves",
-    price: 999,
-    image: "/placeholder-onboarding-accessories.jpg",
-    category: "onboarding"
+    category: "onboarding",
+    description: "Onboarding welcome message embossed on Luggage tag"
   },
   {
     id: 13,
@@ -105,13 +99,6 @@ const collageProducts = [
     name: "The Perfect Onboarding Package 2",
     price: 4399,
     image: "/placeholder-full-package-2.jpg",
-    category: "onboarding"
-  },
-  {
-    id: 15,
-    name: "Desk Mats",
-    price: 899,
-    image: "/placeholder-desk-mats.jpg",
     category: "onboarding"
   },
   {
@@ -411,6 +398,10 @@ export default function Browse() {
                     <h3 className="text-sm text-gray-900 mb-1 font-medium">
                       {product.name}
                     </h3>
+                    
+                    {product.description && (
+                      <p className="text-xs text-gray-600 mb-2">{product.description}</p>
+                    )}
                     
                     <div>
                       <span className="text-gray-900 font-semibold text-sm">
