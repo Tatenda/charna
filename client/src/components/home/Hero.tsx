@@ -202,7 +202,7 @@ const Hero = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="group cursor-pointer">
+            <Link href="/browse?category=work" className="group cursor-pointer block">
               <div className="relative overflow-hidden bg-white rounded-lg mb-4 shadow-sm">
                 {/* Olive color (default) */}
                 <img 
@@ -227,7 +227,7 @@ const Hero = () => {
               <h3 className="text-lg text-botanical mb-2">Retro Range</h3>
               <p className="text-gray-600 text-sm mb-2">Bring the retro style to your laptop bag</p>
               <p className="font-bold text-black">R2399</p>
-            </div>
+            </Link>
             
             <div 
               className="group cursor-pointer"
