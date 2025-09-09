@@ -88,36 +88,57 @@ const collageProducts = [
   },
   {
     id: 11,
-    name: "Onboarding Bags",
-    price: 2899,
-    image: "/placeholder-onboarding-bags.jpg",
+    name: "Grounded Tan Backpack",
+    price: 1999,
+    image: brownBackpack,
+    category: "onboarding"
+  },
+  {
+    id: 24,
+    name: "Retro Navy Backpack",
+    price: 2399,
+    image: navyModernBackpack,
+    category: "onboarding"
+  },
+  {
+    id: 25,
+    name: "Retro Olive Backpack",
+    price: 2399,
+    image: oliveBackpack,
+    category: "onboarding"
+  },
+  {
+    id: 26,
+    name: "Timeless White Backpack",
+    price: 1899,
+    image: whiteBackpack,
     category: "onboarding"
   },
   {
     id: 12,
-    name: "Onboarding Laptop Sleeves",
-    price: 599,
+    name: "Laptop Sleeves",
+    price: 999,
     image: "/placeholder-onboarding-accessories.jpg",
     category: "onboarding"
   },
   {
     id: 13,
-    name: "The Perfect Onboarding Package - Option 1",
-    price: 4999,
+    name: "The Perfect Onboarding Package",
+    price: 3499,
     image: "/placeholder-full-package.jpg",
     category: "onboarding"
   },
   {
     id: 14,
-    name: "The Perfect Onboarding Package - Option 2",
-    price: 5499,
+    name: "The Perfect Onboarding Package 2",
+    price: 4399,
     image: "/placeholder-full-package-2.jpg",
     category: "onboarding"
   },
   {
     id: 15,
-    name: "Onboarding Desk Mats",
-    price: 399,
+    name: "Desk Mats",
+    price: 899,
     image: "/placeholder-desk-mats.jpg",
     category: "onboarding"
   },
