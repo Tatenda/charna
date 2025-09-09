@@ -87,34 +87,6 @@ const collageProducts = [
     category: "onboarding"
   },
   {
-    id: 11,
-    name: "Grounded Tan Backpack",
-    price: 1999,
-    image: brownBackpack,
-    category: "onboarding"
-  },
-  {
-    id: 24,
-    name: "Retro Navy Backpack",
-    price: 2399,
-    image: navyModernBackpack,
-    category: "onboarding"
-  },
-  {
-    id: 25,
-    name: "Retro Olive Backpack",
-    price: 2399,
-    image: oliveBackpack,
-    category: "onboarding"
-  },
-  {
-    id: 26,
-    name: "Timeless White Backpack",
-    price: 1899,
-    image: whiteBackpack,
-    category: "onboarding"
-  },
-  {
     id: 12,
     name: "Laptop Sleeves",
     price: 999,
