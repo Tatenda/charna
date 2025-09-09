@@ -28,12 +28,13 @@ const Header = () => {
             >
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center space-x-2">
               <img 
                 src={charnaLogo} 
                 alt="Charna" 
                 className="h-16 sm:h-20 lg:h-28 w-auto"
               />
+              <span className="text-forest text-lg font-medium">...</span>
             </Link>
           </div>
           <nav className="hidden lg:flex space-x-8 font-medium text-sm">

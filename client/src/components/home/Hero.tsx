@@ -141,7 +141,7 @@ const Hero = () => {
   return (
     <div className="relative">
       {/* Clean Hero Section with Background Image */}
-      <section className="relative h-screen flex items-center overflow-hidden">
+      <section className="relative h-[85vh] flex items-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0" style={{
           backgroundImage: `url(${newHeroBg})`,
@@ -154,7 +154,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-black/15"></div>
         
         {/* Navigation Bar */}
-        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
+        <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
           <nav className="bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 border border-white/20">
             <div className="flex space-x-8 text-sm font-medium">
               <Link href="/browse?category=work" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
@@ -192,9 +192,9 @@ const Hero = () => {
       </section>
 
       {/* Our Ranges Section */}
-      <section className="py-20" style={{backgroundColor: '#F5F1E8'}}>
+      <section className="py-12" style={{backgroundColor: '#F5F1E8'}}>
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <h2 className="text-4xl font-georgia-bold text-botanical mb-4">Our Ranges</h2>
             <button className="bg-botanical text-white px-8 py-3 font-semibold hover:bg-botanical/90 transition-colors rounded-lg">
               Shop All
