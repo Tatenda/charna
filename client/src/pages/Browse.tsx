@@ -88,6 +88,20 @@ const collageProducts = [
     description: "Onboarding welcome message embossed on Luggage tag"
   },
   {
+    id: 12,
+    name: "Laptop Sleeves",
+    price: 999,
+    image: "/placeholder-onboarding-accessories.jpg",
+    category: "onboarding"
+  },
+  {
+    id: 15,
+    name: "Desk Mats",
+    price: 899,
+    image: "/placeholder-desk-mats.jpg",
+    category: "onboarding"
+  },
+  {
     id: 13,
     name: "The Perfect Onboarding Package",
     price: 3499,
@@ -209,6 +223,11 @@ export default function Browse() {
   // Filter products based on category and price
   const filteredCollageProducts = collageProducts.filter((product) => {
     if (selectedBrowseCategory === 'All Products') {
+      // Exclude onboarding-specific items from All Products view
+      const excludeFromAllProducts = [12, 15]; // Laptop Sleeves and Desk Mats
+      if (excludeFromAllProducts.includes(product.id)) {
+        return false;
+      }
       return product.price >= priceRange[0] && product.price <= priceRange[1];
     }
     
