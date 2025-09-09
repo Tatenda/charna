@@ -141,6 +141,27 @@ const collageProducts = [
     price: 999,
     image: "/placeholder-laptop-sleeve-olive.jpg",
     category: "accessories"
+  },
+  {
+    id: 20,
+    name: "Desk Mat - Tan",
+    price: 899,
+    image: "/placeholder-desk-mat-tan.jpg",
+    category: "accessories"
+  },
+  {
+    id: 21,
+    name: "Desk Mat - Olive",
+    price: 899,
+    image: "/placeholder-desk-mat-olive.jpg",
+    category: "accessories"
+  },
+  {
+    id: 22,
+    name: "Desk Mat - Navy",
+    price: 899,
+    image: "/placeholder-desk-mat-navy.jpg",
+    category: "accessories"
   }
 ];
 
