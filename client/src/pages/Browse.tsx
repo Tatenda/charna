@@ -160,8 +160,7 @@ const browseCategories = [
   'Travel',
   'Accessories',
   'Onboarding',
-  'Gifting',
-  'Customised'
+  'Gifting'
 ];
 
 // Map hero categories to actual product categories
