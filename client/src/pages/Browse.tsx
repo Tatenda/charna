@@ -61,14 +61,14 @@ const collageProducts = [
   {
     id: 7,
     name: "Retro Navy Backpack",
-    price: 2499,
+    price: 2399,
     image: navyModernBackpack,
     category: "business"
   },
   {
     id: 8,
     name: "Retro Olive Backpack",
-    price: 2499,
+    price: 2399,
     image: oliveBackpack,
     category: "leisure"
   },
