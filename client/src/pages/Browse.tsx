@@ -96,7 +96,6 @@ const browseCategories = [
   'Sport',
   'Travel',
   'Accessories',
-  'Ranges',
   'Onboarding',
   'Gifting',
   'Customised'
