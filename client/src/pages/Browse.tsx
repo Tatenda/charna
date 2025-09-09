@@ -102,9 +102,16 @@ const collageProducts = [
   },
   {
     id: 13,
-    name: "Full Onboarding Package",
+    name: "The Perfect Onboarding Package - Option 1",
     price: 4999,
     image: "/placeholder-full-package.jpg",
+    category: "onboarding"
+  },
+  {
+    id: 14,
+    name: "The Perfect Onboarding Package - Option 2",
+    price: 5499,
+    image: "/placeholder-full-package-2.jpg",
     category: "onboarding"
   }
 ];
