@@ -32,42 +32,42 @@ const collageProducts = [
   },
   {
     id: 3,
-    name: "White Backpack",
+    name: "Timeless White Backpack",
     price: 2299,
     image: whiteBackpack,
     category: "business"
   },
   {
     id: 4,
-    name: "Navy Rose Gold Backpack",
+    name: "Classic Travel Bag - Navy",
     price: 2699,
     image: navyRoseGoldBackpack,
     category: "travel"
   },
   {
     id: 5,
-    name: "Tan Classic Backpack",
+    name: "Classic Tan Bag",
     price: 2399,
     image: tanBackpack,
     category: "business"
   },
   {
     id: 6,
-    name: "Brown Leather Backpack",
+    name: "Grounded Tan Backpack",
     price: 2999,
     image: brownBackpack,
     category: "travel"
   },
   {
     id: 7,
-    name: "Navy Modern Backpack",
+    name: "Retro Navy Backpack",
     price: 2199,
     image: navyModernBackpack,
     category: "business"
   },
   {
     id: 8,
-    name: "Olive Green Backpack",
+    name: "Retro Olive Backpack",
     price: 2499,
     image: oliveBackpack,
     category: "leisure"
