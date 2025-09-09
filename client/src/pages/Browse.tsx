@@ -143,9 +143,24 @@ export default function Browse() {
       return product.price >= priceRange[0] && product.price <= priceRange[1];
     }
     
-    // Map the selected category to the actual product category
-    const actualCategory = categoryMapping[selectedCategory] || selectedCategory;
-    const matchesCategory = product.category === actualCategory;
+    // Use the sidebar category selection for filtering
+    let targetCategory;
+    if (selectedBrowseCategory === 'Work') {
+      targetCategory = 'business';
+    } else if (selectedBrowseCategory === 'Leisure') {
+      targetCategory = 'leisure';
+    } else if (selectedBrowseCategory === 'Sport') {
+      targetCategory = 'tennis';
+    } else if (selectedBrowseCategory === 'Travel') {
+      targetCategory = 'travel';
+    } else if (selectedBrowseCategory === 'Accessories') {
+      targetCategory = 'accessories';
+    } else {
+      // For URL-based categories from top tabs
+      targetCategory = categoryMapping[selectedCategory] || selectedCategory;
+    }
+    
+    const matchesCategory = product.category === targetCategory;
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
     return matchesCategory && matchesPrice;
   });
