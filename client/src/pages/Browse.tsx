@@ -19,7 +19,7 @@ const collageProducts = [
   {
     id: 1,
     name: "Navy Tennis Bag",
-    price: 2899,
+    price: 3299,
     image: navyTennisBag,
     category: "tennis"
   },
@@ -75,7 +75,7 @@ const collageProducts = [
   {
     id: 9,
     name: "White Tennis Bag",
-    price: 2799,
+    price: 3299,
     image: whiteTennisBag,
     category: "tennis"
   }
