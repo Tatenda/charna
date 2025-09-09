@@ -278,6 +278,11 @@ export default function Browse() {
 
   const handleCategoryChange = (categoryId: string) => {
     setLocation(`/browse?category=${categoryId}`);
+    // Also update the sidebar selection to stay in sync
+    const categoryName = categoryId.charAt(0).toUpperCase() + categoryId.slice(1);
+    if (browseCategories.includes(categoryName)) {
+      setSelectedBrowseCategory(categoryName);
+    }
   };
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
