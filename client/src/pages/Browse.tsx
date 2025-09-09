@@ -81,8 +81,8 @@ const collageProducts = [
   },
   {
     id: 10,
-    name: "Company Tags",
-    price: 299,
+    name: "Company Leather Bag Tag",
+    price: 250,
     image: "/placeholder-company-tags.jpg",
     category: "onboarding"
   },
