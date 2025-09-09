@@ -40,14 +40,14 @@ const collageProducts = [
   {
     id: 4,
     name: "Classic Travel Bag - Navy",
-    price: 2399,
+    price: 2499,
     image: navyRoseGoldBackpack,
     category: "travel"
   },
   {
     id: 5,
     name: "Classic Travel Bag - Tan",
-    price: 2399,
+    price: 2499,
     image: tanBackpack,
     category: "business"
   },
