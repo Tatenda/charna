@@ -26,7 +26,7 @@ const Footer = () => {
                 <FontAwesomeIcon icon={['fab', 'facebook-f']} />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-10 h-10 bg-gray-100 hover:bg-herbal-tonic hover:text-white rounded-lg flex items-center justify-center transition duration-200 text-gray-600"

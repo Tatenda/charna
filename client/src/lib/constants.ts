@@ -52,7 +52,7 @@ export const COMPANY_INFO = {
 
 // Social Media Links
 export const SOCIAL_MEDIA = {
-  instagram: "https://instagram.com/ligremp_luxury",
+  instagram: "https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr",
   facebook: "https://facebook.com/ligremp.luxury",
   pinterest: "https://pinterest.com/ligremp_luxury",
 };

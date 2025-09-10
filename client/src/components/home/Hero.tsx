@@ -643,12 +643,12 @@ const Hero = () => {
           
           <div className="text-center mt-12">
             <a 
-              href="https://www.instagram.com/charna_bags/" 
+              href="https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-block bg-black text-white px-8 py-3 font-semibold hover:bg-botanical transition-colors duration-300"
             >
-              Follow @charna_bags
+              Follow @charna.co
             </a>
           </div>
         </div>

@@ -342,7 +342,7 @@ const Contact = () => {
           </p>
           <div className="flex justify-center space-x-6">
             <a 
-              href="https://instagram.com/livinggreenmovement" 
+              href="https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr" 
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white text-primary hover:bg-secondary transition-colors rounded-full w-12 h-12 flex items-center justify-center"

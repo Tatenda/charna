@@ -7,7 +7,7 @@ const instagramPosts = [
     likes: 642,
     caption: "Executive Tote in Ivory - Where timeless elegance meets modern functionality",
     hashtags: "#Charna #PremiumLeather #ExecutiveTote",
-    url: "https://instagram.com"
+    url: "https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr"
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const instagramPosts = [
     likes: 528,
     caption: "Executive Tote lifestyle - Sophistication in every moment",
     hashtags: "#LuxuryCraftsmanship #SouthAfricanMade #Charna",
-    url: "https://instagram.com"
+    url: "https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr"
   },
   {
     id: 3,
@@ -23,7 +23,7 @@ const instagramPosts = [
     likes: 467,
     caption: "Tennis Tote in cognac leather - Sophistication meets sport",
     hashtags: "#TennisLuxury #CognacLeather #CharnaTote",
-    url: "https://instagram.com"
+    url: "https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr"
   },
   {
     id: 4,
@@ -31,7 +31,7 @@ const instagramPosts = [
     likes: 521,
     caption: "Compact Backpack in Ivory - Refined elegance in perfect proportions",
     hashtags: "#CompactBackpack #IvoryLeather #MinimalistLuxury",
-    url: "https://instagram.com"
+    url: "https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr"
   },
   {
     id: 5,
@@ -39,7 +39,7 @@ const instagramPosts = [
     likes: 389,
     caption: "Court to club - South African craftsmanship that transcends occasions",
     hashtags: "#SouthAfricanCraftsmanship #Charna #LuxuryLifestyle",
-    url: "https://instagram.com"
+    url: "https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr"
   },
   {
     id: 6,
@@ -47,7 +47,7 @@ const instagramPosts = [
     likes: 456,
     caption: "Charna excellence - Where heritage meets contemporary design",
     hashtags: "#Heritage #ContemporaryLuxury #CharnaCollection",
-    url: "https://instagram.com"
+    url: "https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr"
   }
 ];
 
@@ -115,19 +115,19 @@ const InstagramFeed = () => {
         
         <div className="text-center">
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr"
             target="_blank"
             rel="noopener noreferrer"
             className="group bg-gradient-to-r from-slate-900 to-slate-800 text-white px-8 py-4 rounded-lg inline-flex items-center gap-3 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl font-medium"
           >
             <FontAwesomeIcon icon={["fab", "instagram"]} className="text-lg" />
-            <span>Follow LIGREMO</span>
+            <span>Follow Charna</span>
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </a>
           <p className="mt-4 text-slate-600 text-sm">
-            @ligremo_luxury • South African Craftsmanship, Timeless Elegance
+            @charna.co • South African Craftsmanship, Timeless Elegance
           </p>
         </div>
       </div>
