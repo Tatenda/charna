@@ -643,7 +643,7 @@ const Hero = () => {
           
           <div className="text-center mt-12">
             <a 
-              href="https://www.threads.com/@charna_bags?xmt=AQF0IC6jOBOoeWEvY2xaAPTii71eZez9QqGoO0qzE_TIxvM" 
+              href="https://www.instagram.com/charna_bags/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-block bg-black text-white px-8 py-3 font-semibold hover:bg-botanical transition-colors duration-300"
