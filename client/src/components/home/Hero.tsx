@@ -8,6 +8,8 @@ import navyTennisBag from '@assets/Navy Tennis bag_1757319259444.png';
 import navyRetroBag from '@assets/Retro Range - Navy Blue_1757319569359.png';
 import whiteTennisBag from '@assets/Tennis Bag on Clay Court_1757320190792.png';
 import whiteTennisBagBrowse from '@assets/Tennis bag - White - neutral background_1757403947038.png';
+import creamCrossbodyBrowse from '@assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png';
+import tanBackpackBrowse from '@assets/LGM_Classic_me (1)_1757403284001.png';
 import classicBackpack from '@assets/LGM_Classic_me_1757337982042.png';
 import navyRoseGoldBackpack from '@assets/Classic range - Rose Gold_1757338766199.png';
 import tanBusinessBag from '@assets/LGM_Grounded (1) (1)_1757354457354.png';
@@ -611,7 +613,7 @@ const Hero = () => {
               <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src="/images/crossbody-cream.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={creamCrossbodyBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="aspect-square overflow-hidden">
               <img src={navyTennisBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
@@ -629,7 +631,7 @@ const Hero = () => {
               <img src={groundedBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src="/images/backpack-brown.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={tanBackpackBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="aspect-square overflow-hidden">
               <img src={whiteTennisBagBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
