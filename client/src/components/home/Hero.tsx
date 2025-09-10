@@ -617,19 +617,19 @@ const Hero = () => {
               <img src={navyTennisBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src="/images/backpack-brown.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={navyRetroBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="aspect-square overflow-hidden">
               <img src="/images/white-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src="/images/exploring-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
-            </div>
-            <div className="aspect-square overflow-hidden">
-              <img src={navyRetroBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
-            </div>
-            <div className="aspect-square overflow-hidden">
               <img src={navyTravelBackpack} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden">
+              <img src={groundedBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square overflow-hidden">
+              <img src="/images/backpack-brown.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="aspect-square overflow-hidden">
               <img src={whiteTennisBagBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
