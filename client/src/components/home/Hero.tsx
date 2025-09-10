@@ -642,9 +642,14 @@ const Hero = () => {
           </div>
           
           <div className="text-center mt-12">
-            <button className="bg-black text-white px-8 py-3 font-semibold hover:bg-botanical transition-colors duration-300">
+            <a 
+              href="https://www.threads.com/@charna_bags?xmt=AQF0IC6jOBOoeWEvY2xaAPTii71eZez9QqGoO0qzE_TIxvM" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block bg-black text-white px-8 py-3 font-semibold hover:bg-botanical transition-colors duration-300"
+            >
               Follow @charna_bags
-            </button>
+            </a>
           </div>
         </div>
       </section>
