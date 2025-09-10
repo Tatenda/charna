@@ -223,19 +223,25 @@ const categoryMapping: Record<string, string> = {
 
 export default function Browse() {
   const [location, setLocation] = useLocation();
-  const searchParams = new URLSearchParams(location.split('?')[1] || '');
-  const selectedCategory = searchParams.get('category') || 'work';
   const [priceRange, setPriceRange] = useState([0, 6000]);
   const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('Work');
+  const [selectedCategory, setSelectedCategory] = useState('work');
 
-  // Sync sidebar selection with URL parameter
+  // Sync URL parameters and sidebar selection
   useEffect(() => {
-    const currentSearchParams = new URLSearchParams(location.split('?')[1] || '');
-    const urlCategory = currentSearchParams.get('category');
-    console.log('URL Category:', urlCategory); // Debug log
+    // Parse URL to get the category parameter
+    const currentUrl = window.location.href;
+    const url = new URL(currentUrl);
+    const urlCategory = url.searchParams.get('category');
+    
+    console.log('Current URL:', currentUrl); // Debug log
+    console.log('URL Category from searchParams:', urlCategory); // Debug log
+    
     if (urlCategory) {
+      setSelectedCategory(urlCategory);
       const categoryName = urlCategory.charAt(0).toUpperCase() + urlCategory.slice(1);
       console.log('Mapped Category Name:', categoryName); // Debug log
+      
       if (browseCategories.includes(categoryName)) {
         setSelectedBrowseCategory(categoryName);
         console.log('Setting category to:', categoryName); // Debug log
@@ -244,10 +250,11 @@ export default function Browse() {
         console.log('Category not found, defaulting to Work'); // Debug log
       }
     } else {
+      setSelectedCategory('work');
       setSelectedBrowseCategory('Work');
       console.log('No URL category, defaulting to Work'); // Debug log
     }
-  }, [location]); // Re-run when location changes
+  }, [location]); // Re-run when wouter location changes
   const { addToCart } = useCart();
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
