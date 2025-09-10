@@ -338,7 +338,7 @@ const Hero = () => {
               <p className="font-bold text-black">Price R1999</p>
             </Link>
             
-            <Link href="/browse?category=leisure" className="group cursor-pointer block">
+            <Link href="/browse?category=work" className="group cursor-pointer block">
               <div className="relative overflow-hidden rounded-xl mb-4">
                 <img 
                   src={styledLaptopBag}
