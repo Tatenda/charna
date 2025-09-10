@@ -237,25 +237,18 @@ export default function Browse() {
     const url = new URL(currentUrl);
     const urlCategory = url.searchParams.get('category');
     
-    console.log('Current URL:', currentUrl); // Debug log
-    console.log('URL Category from searchParams:', urlCategory); // Debug log
-    
     if (urlCategory) {
       setSelectedCategory(urlCategory);
       const categoryName = urlCategory.charAt(0).toUpperCase() + urlCategory.slice(1);
-      console.log('Mapped Category Name:', categoryName); // Debug log
       
       if (browseCategories.includes(categoryName)) {
         setSelectedBrowseCategory(categoryName);
-        console.log('Setting category to:', categoryName); // Debug log
       } else {
         setSelectedBrowseCategory('Work');
-        console.log('Category not found, defaulting to Work'); // Debug log
       }
     } else {
       setSelectedCategory('work');
       setSelectedBrowseCategory('Work');
-      console.log('No URL category, defaulting to Work'); // Debug log
     }
   }, [location]); // Re-run when wouter location changes
   const { addToCart } = useCart();
@@ -286,14 +279,10 @@ export default function Browse() {
       targetCategory = categoryMapping[selectedCategory] || selectedCategory;
     }
     
-    console.log('Filtering - selectedBrowseCategory:', selectedBrowseCategory, 'targetCategory:', targetCategory, 'product.category:', product.category); // Debug log
-    
     const matchesCategory = product.category === targetCategory;
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
     return matchesCategory && matchesPrice;
   });
-  
-  console.log('Filtered products:', filteredCollageProducts.map(p => p.name)); // Debug log
 
   const handleCategoryChange = (categoryId: string) => {
     setLocation(`/browse?category=${categoryId}`);
