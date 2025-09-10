@@ -183,9 +183,9 @@ const Hero = () => {
             <p className="text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-2xl mx-auto">
               Handcrafted, beautiful and affordable bags
             </p>
-            <button className="inline-block bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-md hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <Link href="/browse?category=work" className="inline-block bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-md hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
               Shop Bags
-            </button>
+            </Link>
           </div>
         </div>
         
@@ -196,9 +196,9 @@ const Hero = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="text-4xl font-georgia-bold text-botanical mb-4">Our Ranges</h2>
-            <button className="bg-botanical text-white px-8 py-3 font-semibold hover:bg-botanical/90 transition-colors rounded-lg">
+            <Link href="/browse?category=work" className="bg-botanical text-white px-8 py-3 font-semibold hover:bg-botanical/90 transition-colors rounded-lg">
               Shop All
-            </button>
+            </Link>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
