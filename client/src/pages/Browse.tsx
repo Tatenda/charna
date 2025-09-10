@@ -229,6 +229,9 @@ export default function Browse() {
 
   // Sync URL parameters and sidebar selection
   useEffect(() => {
+    // Scroll to top when page loads or category changes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     // Parse URL to get the category parameter
     const currentUrl = window.location.href;
     const url = new URL(currentUrl);
