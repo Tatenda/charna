@@ -1,8 +1,8 @@
-# LIGREMO E-commerce Platform
+# Charna E-commerce Platform
 
 ## Overview
 
-This is a full-stack e-commerce platform for LIGREMO, a South African leather goods company specializing in handcrafted bags. The application features a modern React frontend with a Node.js/Express backend, showcasing premium leather products with a focus on craftsmanship and Italian heritage brought to life in Johannesburg.
+This is a full-stack e-commerce platform for Charna, a South African leather goods company specializing in handcrafted bags. The application features a modern React frontend with a Node.js/Express backend, showcasing premium leather products with a focus on craftsmanship and South African manufacturing in Johannesburg.
 
 ## System Architecture
 
@@ -114,6 +114,7 @@ Changelog:
 - January 8, 2025. Updated domain references to ligremp.replit.app
 - January 8, 2025. Removed all Italian heritage references - now focuses purely on South African craftsmanship and Johannesburg manufacturing
 - January 8, 2025. Removed all remaining "Concetto" brand references and replaced with "LIGREMO" throughout the entire website
+- September 10, 2025. Complete rebrand from "LIGREMO" to "Charna" - updated all product names, page titles, and brand references throughout the website
 - July 22, 2025. Complete visual transformation to 70's retro aesthetic with mustard yellow, green, black, and white color scheme
 - July 22, 2025. Added retro styling elements: retro-stripe patterns, retro-border (thick black borders), retro-shadow (layered box shadows), and 70's-inspired language throughout
 - July 22, 2025. Updated Hero component with bold retro styling, rotated elements, and groovy language ("Far Out Collection", "Groovy Story")
