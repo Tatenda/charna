@@ -6,7 +6,7 @@ const instagramPosts = [
     image: "/images/concetto-brand-logo.jpg",
     likes: 642,
     caption: "Executive Tote in Ivory - Where timeless elegance meets modern functionality",
-    hashtags: "#Concetto #ItalianLeather #ExecutiveTote",
+    hashtags: "#Charna #PremiumLeather #ExecutiveTote",
     url: "https://instagram.com"
   },
   {
@@ -14,7 +14,7 @@ const instagramPosts = [
     image: "/images/green-backpack-lifestyle.jpg",
     likes: 528,
     caption: "Executive Tote lifestyle - Sophistication in every moment",
-    hashtags: "#LuxuryCraftsmanship #ItalianMade #Concetto",
+    hashtags: "#LuxuryCraftsmanship #SouthAfricanMade #Charna",
     url: "https://instagram.com"
   },
   {
@@ -22,7 +22,7 @@ const instagramPosts = [
     image: "/images/tennis-bag-lifestyle.jpg",
     likes: 467,
     caption: "Tennis Tote in cognac leather - Sophistication meets sport",
-    hashtags: "#TennisLuxury #CognacLeather #ConceptoTote",
+    hashtags: "#TennisLuxury #CognacLeather #CharnaTote",
     url: "https://instagram.com"
   },
   {
@@ -37,16 +37,16 @@ const instagramPosts = [
     id: 5,
     image: "/images/tennis-bag-court.jpg",
     likes: 389,
-    caption: "Court to club - Italian craftsmanship that transcends occasions",
-    hashtags: "#ItalianCraftsmanship #Concetto #LuxuryLifestyle",
+    caption: "Court to club - South African craftsmanship that transcends occasions",
+    hashtags: "#SouthAfricanCraftsmanship #Charna #LuxuryLifestyle",
     url: "https://instagram.com"
   },
   {
     id: 6,
     image: "/images/tennis-bag-action.jpg",
     likes: 456,
-    caption: "Concetto excellence - Where heritage meets contemporary design",
-    hashtags: "#Heritage #ContemporaryLuxury #ConceptoCollection",
+    caption: "Charna excellence - Where heritage meets contemporary design",
+    hashtags: "#Heritage #ContemporaryLuxury #CharnaCollection",
     url: "https://instagram.com"
   }
 ];
@@ -62,10 +62,10 @@ const InstagramFeed = () => {
             </span>
           </div>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-            Italian Excellence
+            South African Excellence
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Discover the sophistication of Concetto through the eyes of discerning individuals who appreciate timeless luxury
+            Discover the sophistication of Charna through the eyes of discerning individuals who appreciate timeless luxury
           </p>
         </div>
         

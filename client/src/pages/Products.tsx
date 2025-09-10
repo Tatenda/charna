@@ -33,7 +33,7 @@ const Products = () => {
 
   // Set page title
   useEffect(() => {
-    document.title = "Products | LIVING GREEN MOVEMENT";
+    document.title = "Products | Charna";
   }, []);
 
   // Fetch all products

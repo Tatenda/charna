@@ -9,10 +9,10 @@ const Story = () => {
             <h2 className="font-heading text-3xl md:text-4xl font-semibold text-primary mb-6">Our Story</h2>
             <div className="divider mb-6"></div>
             <p className="text-neutral mb-4 leading-relaxed">
-              LIGREMO began in Johannesburg with a simple vision: to create exceptional leather goods that showcase the incredible skill and artistry of South African craftspeople. Our workshop is where passion meets precision.
+              Charna began in Johannesburg with a simple vision: to create exceptional leather goods that showcase the incredible skill and artistry of South African craftspeople. Our workshop is where passion meets precision.
             </p>
             <p className="text-neutral mb-4 leading-relaxed">
-              Every LIGREMO piece is handcrafted by skilled local artisans who bring years of experience and deep pride in their work. We believe in the power of traditional craftsmanship combined with contemporary design sensibilities.
+              Every Charna piece is handcrafted by skilled local artisans who bring years of experience and deep pride in their work. We believe in the power of traditional craftsmanship combined with contemporary design sensibilities.
             </p>
             <p className="text-neutral mb-6 leading-relaxed">
               Made in Johannesburg with pride, our luxury leather goods represent the best of South African manufacturing – where attention to detail, quality materials, and expert craftsmanship come together.

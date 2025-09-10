@@ -43,9 +43,9 @@ export class MemStorage implements IStorage {
     // Tennis Bag Tote
     this.products.set(1, {
       id: 1,
-      name: "LIGREMO Tennis Tote",
+      name: "Charna Tennis Tote",
       description: "An exquisite cognac leather tennis bag that embodies sophistication and functionality. Crafted with meticulous attention to detail for the discerning athlete.",
-      longDescription: "The LIGREMO Tennis Tote represents the pinnacle of luxury sporting accessories. Each bag is meticulously handcrafted from the finest Italian full-grain leather, showcasing our commitment to uncompromising quality and timeless design. The rich cognac finish develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the sophisticated athlete who appreciates craftsmanship, this tote seamlessly transitions from court to club. The thoughtfully designed interior accommodates all your tennis essentials while maintaining an elegant silhouette that speaks to your refined taste.",
+      longDescription: "The Charna Tennis Tote represents the pinnacle of luxury sporting accessories. Each bag is meticulously handcrafted from the finest full-grain leather, showcasing our commitment to uncompromising quality and timeless design. The rich cognac finish develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the sophisticated athlete who appreciates craftsmanship, this tote seamlessly transitions from court to club. The thoughtfully designed interior accommodates all your tennis essentials while maintaining an elegant silhouette that speaks to your refined taste.",
       price: 3299,
       originalPrice: 3899,
       rating: 50, // 5.0

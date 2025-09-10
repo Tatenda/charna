@@ -56,7 +56,7 @@ const Checkout = () => {
 
   // Set page title
   useEffect(() => {
-    document.title = "Checkout | LIVING GREEN MOVEMENT";
+    document.title = "Checkout | Charna";
   }, []);
 
   const form = useForm<CheckoutFormValues>({

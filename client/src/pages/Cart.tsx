@@ -11,7 +11,7 @@ const Cart = () => {
 
   // Set page title
   useEffect(() => {
-    document.title = "Your Cart | LIVING GREEN MOVEMENT";
+    document.title = "Your Cart | Charna";
   }, []);
 
   const handleContinueShopping = () => {

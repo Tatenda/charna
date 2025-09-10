@@ -31,7 +31,7 @@ const ProductDetail = () => {
   // Set page title
   useEffect(() => {
     if (product) {
-      document.title = `${product.name} | LIVING GREEN MOVEMENT`;
+      document.title = `${product.name} | Charna`;
     }
   }, [product]);
 
