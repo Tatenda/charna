@@ -332,15 +332,29 @@ export default function Browse() {
   };
 
   const handleAddToCart = (product: any) => {
-    // Convert collage product to cart item format
-    const cartItem = {
+    // Convert collage product to proper Product schema format
+    const fullProduct: Product = {
       id: product.id,
       name: product.name,
+      description: product.description || `Premium handcrafted ${product.category} bag from Johannesburg`,
+      longDescription: `Meticulously crafted in our Johannesburg workshop, this ${product.name.toLowerCase()} represents the perfect blend of South African craftsmanship and modern design.`,
       price: product.price,
-      quantity: 1,
-      image: product.image
+      originalPrice: null,
+      rating: 5,
+      reviewCount: 12,
+      inStock: true,
+      badge: "Signature",
+      category: product.category,
+      colors: ["natural", "cognac"],
+      features: ["Premium leather", "Handcrafted", "Made in Johannesburg"],
+      images: [product.image], // Convert single image to array
+      materials: "Premium Italian leather",
+      dimensions: "40cm x 30cm x 15cm",
+      careInstructions: "Clean with leather conditioner, avoid water",
+      featured: true,
+      createdAt: new Date()
     };
-    addToCart(cartItem as any, 1);
+    addToCart(fullProduct, 1);
   };
 
   return (

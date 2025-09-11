@@ -1,5 +1,8 @@
 import { Link } from "wouter";
 import { useState, useEffect } from "react";
+import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/use-toast";
+import { Product } from "@shared/schema";
 import botanicalBg from '@assets/Man with bag and botanical background_1757072953822.png';
 import newHeroBg from '@assets/image_1757230274214.png';
 import groundedBag from '@assets/LGM_Grounded (1)_1757318142201.png';
@@ -23,6 +26,9 @@ import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
 import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
 
 const Hero = () => {
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+  
   const [currentBusinessBag, setCurrentBusinessBag] = useState(0);
   const [currentSportsBag, setCurrentSportsBag] = useState(0);
   const [currentTravelBag, setCurrentTravelBag] = useState(0);
@@ -33,6 +39,39 @@ const Hero = () => {
   const [isTravelHovered, setIsTravelHovered] = useState(false);
   const [isLeisureHovered, setIsLeisureHovered] = useState(false);
   const [isLeisureRangeHovered, setIsLeisureRangeHovered] = useState(false);
+
+  // Helper function to create Product objects that match the schema
+  const createProduct = (id: number, name: string, price: number, image: string, category: string): Product => ({
+    id,
+    name,
+    description: `Premium handcrafted ${category} bag from Johannesburg`,
+    longDescription: `Meticulously crafted in our Johannesburg workshop, this ${name.toLowerCase()} represents the perfect blend of South African craftsmanship and modern design. Each piece is made with premium materials and attention to detail.`,
+    price,
+    originalPrice: null,
+    rating: 5,
+    reviewCount: 12,
+    inStock: true,
+    badge: "Signature",
+    category,
+    colors: ["natural", "cognac"],
+    features: ["Premium leather", "Handcrafted", "Made in Johannesburg"],
+    images: [image],
+    materials: "Premium Italian leather",
+    dimensions: "40cm x 30cm x 15cm",
+    careInstructions: "Clean with leather conditioner, avoid water",
+    featured: true,
+    createdAt: new Date()
+  });
+
+  // Handle Add to Cart with toast notification
+  const handleAddToCart = (productName: string, price: number, image: string, category: string, productId: number = Date.now()) => {
+    const product = createProduct(productId, productName, price, image, category);
+    addToCart(product, 1);
+    toast({
+      title: "Added to Cart",
+      description: `${productName} has been added to your cart.`,
+    });
+  };
   
   const businessBags = [
     { src: "/images/green-backpack.jpg", alt: "Business Collection - Olive" },
@@ -224,7 +263,11 @@ const Hero = () => {
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart("Retro Backpack", 2399, "/images/green-backpack.jpg", "business", 201);
+                    }}
+                    data-testid="button-add-to-cart-retro-backpack"
                   >
                     Add to Cart
                   </button>
@@ -256,7 +299,11 @@ const Hero = () => {
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart("Hip Bag", 799, hipBagSolo, "leisure", 202);
+                    }}
+                    data-testid="button-add-to-cart-hip-bag"
                   >
                     Add to Cart
                   </button>
