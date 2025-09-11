@@ -95,10 +95,9 @@ const Contact = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FontAwesomeIcon icon="map-marker-alt" className="text-primary text-xl" />
               </div>
-              <h3 className="font-accent text-lg font-semibold mb-2">Craighall Park, Johannesburg, 2196</h3>
-              <p className="text-neutral">123 Main Street</p>
-              <p className="text-neutral">Woodstock</p>
-              <p className="text-neutral">Cape Town, 8001</p>
+              <h3 className="font-accent text-lg font-semibold mb-2">Visit Our Workshop</h3>
+              <p className="text-neutral">Craighall Park</p>
+              <p className="text-neutral">Johannesburg, 2196</p>
               <p className="text-neutral">South Africa</p>
             </div>
             
@@ -107,13 +106,13 @@ const Contact = () => {
                 <FontAwesomeIcon icon="envelope" className="text-primary text-xl" />
               </div>
               <h3 className="font-accent text-lg font-semibold mb-2">Email Us</h3>
-              <p className="text-neutral mb-2">For general inquiries:</p>
-              <a href="mailto:info@livinggreen.co.za" className="text-primary hover:text-accent">
-                info@livinggreen.co.za
+              <p className="text-neutral mb-2">For general and order queries:</p>
+              <a href="mailto:info@charna.co" className="text-primary hover:text-accent">
+                info@charna.co
               </a>
-              <p className="text-neutral mt-3 mb-2">For wholesale inquiries:</p>
-              <a href="mailto:wholesale@livinggreen.co.za" className="text-primary hover:text-accent">
-                wholesale@livinggreen.co.za
+              <p className="text-neutral mt-3 mb-2">For wholesale queries:</p>
+              <a href="mailto:wholesale@charna.co" className="text-primary hover:text-accent">
+                wholesale@charna.co
               </a>
             </div>
             
@@ -122,9 +121,9 @@ const Contact = () => {
                 <FontAwesomeIcon icon="phone" className="text-primary text-xl" />
               </div>
               <h3 className="font-accent text-lg font-semibold mb-2">Call or Chat</h3>
-              <p className="text-neutral mb-2">Phone:</p>
-              <a href="tel:+27211234567" className="text-primary hover:text-accent">
-                +27 21 123 4567
+              <p className="text-neutral mb-2">Cell:</p>
+              <a href="tel:0723560321" className="text-primary hover:text-accent">
+                072 356 0321
               </a>
               <p className="text-neutral mt-3 mb-2">WhatsApp:</p>
               <a 
@@ -271,9 +270,9 @@ const Contact = () => {
                 </ul>
                 
                 <div className="mt-6 pt-4 border-t border-gray-200">
-                  <h3 className="font-heading text-xl font-semibold text-primary mb-4">Craighall Park, Johannesburg, 2196</h3>
+                  <h3 className="font-heading text-xl font-semibold text-primary mb-4">Visit Our Joburg Workshop</h3>
                   <p className="text-neutral mb-4">
-                    We welcome visitors to our workshop in Woodstock, Cape Town. See our craftspeople at work 
+                    We welcome visitors to our workshop in Craighall Park, Johannesburg. See our craftspeople at work 
                     and experience our products firsthand.
                   </p>
                   <p className="text-neutral">
