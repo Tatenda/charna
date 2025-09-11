@@ -199,7 +199,8 @@ const categoryTabs = [
   { id: 'leisure', label: 'Leisure' },
   { id: 'sport', label: 'Sport' },
   { id: 'travel', label: 'Travel' },
-  { id: 'accessories', label: 'Accessories' }
+  { id: 'accessories', label: 'Accessories' },
+  { id: 'onboarding', label: 'Onboarding' }
 ];
 
 const browseCategories = [
@@ -218,7 +219,9 @@ const categoryMapping: Record<string, string> = {
   'sport': 'tennis', 
   'leisure': 'leisure',
   'travel': 'travel',
-  'accessories': 'accessories'
+  'accessories': 'accessories',
+  'onboarding': 'onboarding',
+  'gifting': 'onboarding' // Map gifting to onboarding products for now
 };
 
 export default function Browse() {
