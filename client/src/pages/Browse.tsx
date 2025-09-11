@@ -229,13 +229,10 @@ export default function Browse() {
   const [priceRange, setPriceRange] = useState([0, 6000]);
   const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('Work');
   const [selectedCategory, setSelectedCategory] = useState('work');
+  const [urlSearchParams, setUrlSearchParams] = useState(window.location.search);
 
-  // Sync URL parameters and sidebar selection
-  useEffect(() => {
-    // Scroll to top when page loads or category changes
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // Parse URL to get the category parameter
+  // Function to update category from URL
+  const updateCategoryFromURL = () => {
     const currentUrl = window.location.href;
     const url = new URL(currentUrl);
     const urlCategory = url.searchParams.get('category');
@@ -253,7 +250,39 @@ export default function Browse() {
       setSelectedCategory('work');
       setSelectedBrowseCategory('Work');
     }
-  }, [location]); // Re-run when wouter location changes
+  };
+
+  // Sync URL parameters and sidebar selection
+  useEffect(() => {
+    // Scroll to top when page loads or category changes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    updateCategoryFromURL();
+    setUrlSearchParams(window.location.search);
+  }, [location]);
+
+  // Listen for URL parameter changes (like footer link clicks)
+  useEffect(() => {
+    const handleURLChange = () => {
+      const currentSearch = window.location.search;
+      if (currentSearch !== urlSearchParams) {
+        setUrlSearchParams(currentSearch);
+        updateCategoryFromURL();
+      }
+    };
+
+    // Listen for popstate events (browser back/forward)
+    window.addEventListener('popstate', handleURLChange);
+    
+    // Check for URL changes less frequently to avoid render issues
+    const interval = setInterval(handleURLChange, 500);
+
+    return () => {
+      window.removeEventListener('popstate', handleURLChange);
+      clearInterval(interval);
+    };
+  }, [urlSearchParams]);
+
   const { addToCart } = useCart();
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
@@ -286,6 +315,7 @@ export default function Browse() {
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
     return matchesCategory && matchesPrice;
   });
+
 
   const handleCategoryChange = (categoryId: string) => {
     setLocation(`/browse?category=${categoryId}`);
