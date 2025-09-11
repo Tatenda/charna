@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { WHATSAPP_NUMBER } from '@/lib/constants';
 
 const WhatsAppButton = () => {
-  const whatsappNumber = "27123456789"; // Replace with actual WhatsApp number
-  const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}`;
 
   return (
     <a 

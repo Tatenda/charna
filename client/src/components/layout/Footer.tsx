@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import charnaLogo from '@assets/image_1757323855942.png';
+import { WHATSAPP_NUMBER } from '@/lib/constants';
 
 const Footer = () => {
   return (
@@ -133,7 +134,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://wa.me/27123456789" 
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-gray-600 hover:text-herbal-tonic transition duration-200 flex items-center gap-2"

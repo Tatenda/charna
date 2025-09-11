@@ -34,7 +34,7 @@ export const SA_PROVINCES = [
 ];
 
 // WhatsApp Business Number
-export const WHATSAPP_NUMBER = "27123456789";
+export const WHATSAPP_NUMBER = "27723560321";
 
 // Company Info
 export const COMPANY_INFO = {
