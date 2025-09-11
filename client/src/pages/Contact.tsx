@@ -243,11 +243,11 @@ const Contact = () => {
               <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
                 <div className="aspect-w-16 aspect-h-9 h-80">
                   <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53070.84236835631!2d18.414839999999998!3d-33.92632485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc6764c54d7e87%3A0xf01388032398e20!2sWoodstock%2C%20Cape%20Town%2C%207925%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1691426821500!5m2!1sen!2sus" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28658.34354238706!2d28.0436195!3d-26.2023129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950c68f0406a51%3A0x238ac9d9b1d34041!2sJohannesburg%20Central%2C%20Johannesburg%2C%202001%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1691426821500!5m2!1sen!2sus" 
                     className="w-full h-full border-0"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Living Green Movement Workshop Location"
+                    title="Charna Workshop Location - Johannesburg CBD"
                   ></iframe>
                 </div>
               </div>
