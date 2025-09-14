@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CartButton from "@/components/cart/CartButton";
-import charnaLogo from '@assets/image_1757316339645.png';
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -29,11 +28,9 @@ const Header = () => {
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
             <Link href="/" className="flex items-center">
-              <img 
-                src={charnaLogo} 
-                alt="Charna" 
-                className="h-12 sm:h-14 lg:h-16 w-auto"
-              />
+              <span className="text-4xl font-georgia-bold text-botanical">
+                Charna.co
+              </span>
             </Link>
           </div>
           <nav className="hidden lg:flex space-x-8 font-medium text-sm">
