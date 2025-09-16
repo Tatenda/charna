@@ -245,7 +245,7 @@ const Hero = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <Link href="/browse?category=work" className="group cursor-pointer block">
-              <div className="relative overflow-hidden bg-white rounded-lg mb-4 shadow-sm">
+              <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Olive color (default) */}
                 <img 
                   src="/images/green-backpack.jpg"
