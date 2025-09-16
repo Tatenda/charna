@@ -250,14 +250,14 @@ const Hero = () => {
                 <img 
                   src="/images/green-backpack.jpg"
                   alt="Retro Backpack - Olive"
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                 />
                 
                 {/* Navy color (on hover) */}
                 <img 
                   src={navyRetroBag}
                   alt="Retro Backpack - Navy"
-                  className="absolute inset-0 w-full h-64 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
