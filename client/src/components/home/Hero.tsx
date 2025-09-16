@@ -320,14 +320,14 @@ const Hero = () => {
                 <img 
                   src={navyTennisBag}
                   alt="Tennis Sports Bag - Navy"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                  className="w-full h-80 object-contain group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                 />
                 
                 {/* White color (on hover) */}
                 <img 
                   src={whiteTennisBag}
                   alt="Tennis Sports Bag - White"
-                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  className="absolute inset-0 w-full h-80 object-contain group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -663,7 +663,7 @@ const Hero = () => {
               <img src={creamCrossbodyBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={navyTennisBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={navyTennisBag} alt="Instagram post" className="w-full h-full object-contain hover:scale-110 transition-transform duration-300" />
             </div>
             <div className="aspect-square overflow-hidden">
               <img src={navyRetroBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />

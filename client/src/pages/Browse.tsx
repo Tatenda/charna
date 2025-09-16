@@ -471,7 +471,7 @@ export default function Browse() {
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className={`w-full h-full ${product.name === "Navy Tennis Bag" ? "object-contain" : "object-cover"} group-hover:scale-110 transition-transform duration-500`}
                       style={{
                         filter: 'contrast(1.3) saturate(1.2) brightness(1.1) unsharp-mask(amount=120% radius=1px threshold=3)',
                         imageRendering: 'crisp-edges'
