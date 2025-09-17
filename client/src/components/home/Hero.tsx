@@ -29,6 +29,7 @@ import newClassicNavyBag from '@assets/Copy of Classic range - Rose Gold_1758112
 import newClassicTanBag from '@assets/LGM_Classic_me (1)_1758112410768.png';
 import navyGoldZipBag from '@assets/Retro range - Navy with gold zip_1758113011142.png';
 import newGroundedBag from '@assets/ChatGPT Image Sep 17, 2025, 03_24_36 PM_1758115521218.png';
+import timelessRoseGoldBag from '@assets/ChatGPT Image Sep 17, 2025, 01_40_31 PM_1758117004601.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -36,6 +37,7 @@ const Hero = () => {
   const [retroImageIndex, setRetroImageIndex] = useState(0);
   const [hoverTimer, setHoverTimer] = useState<NodeJS.Timeout | null>(null);
   const [isGroundedHovered, setIsGroundedHovered] = useState(false);
+  const [isTimelessHovered, setIsTimelessHovered] = useState(false);
 
   const retroImages = [
     { src: "/images/green-backpack.jpg", alt: "Retro Backpack - Olive" },
@@ -459,19 +461,37 @@ const Hero = () => {
               <p className="font-bold text-black">Price R1999</p>
             </Link>
             
-            <Link href="/browse?category=work" className="group cursor-pointer block">
+            <Link 
+              href="/browse?category=work" 
+              className="group cursor-pointer block"
+              onMouseEnter={() => setIsTimelessHovered(true)}
+              onMouseLeave={() => setIsTimelessHovered(false)}
+            >
               <div className="relative overflow-hidden rounded-xl mb-4">
+                {/* Original Timeless bag (default) */}
                 <img 
                   src={styledLaptopBag}
-                  alt="Styled Laptop Backpack"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt="Timeless Backpack - Original"
+                  className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${isTimelessHovered ? 'opacity-0' : 'opacity-100'}`}
+                  style={{ imageRendering: 'auto' }}
+                />
+                
+                {/* Rose Gold Zip bag (on hover) */}
+                <img 
+                  src={timelessRoseGoldBag}
+                  alt="Timeless Backpack - Rose Gold Zip"
+                  className={`absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${isTimelessHovered ? 'opacity-100' : 'opacity-0'}`}
                   style={{ imageRendering: 'auto' }}
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart("Timeless Backpack", 1899, isTimelessHovered ? timelessRoseGoldBag : styledLaptopBag, "work", 205);
+                    }}
+                    data-testid="button-add-to-cart-timeless-backpack"
                   >
                     Add to Cart
                   </button>
