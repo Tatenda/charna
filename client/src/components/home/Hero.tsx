@@ -424,6 +424,9 @@ const Hero = () => {
                   src={groundedBag}
                   alt="Grounded Backpack - Original"
                   className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${isGroundedHovered ? 'opacity-0' : 'opacity-100'}`}
+                  style={{
+                    imageRendering: 'auto'
+                  }}
                 />
                 
                 {/* New Grounded bag with neutral background (on hover) */}
@@ -431,6 +434,9 @@ const Hero = () => {
                   src={newGroundedBag}
                   alt="Grounded Backpack - Enhanced"
                   className={`absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${isGroundedHovered ? 'opacity-100' : 'opacity-0'}`}
+                  style={{
+                    imageRendering: 'auto'
+                  }}
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
