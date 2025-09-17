@@ -24,6 +24,7 @@ import tanTravelBackpack from '@assets/LGM_Classic_me_1757356445165.png';
 import creamHipBag from '@assets/LGM_hip_1757356807770.png';
 import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
 import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
+import newWhiteTennisBag from '@assets/Tennis bag - White - neutral background_1758110253206.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -325,7 +326,7 @@ const Hero = () => {
                 
                 {/* White color (on hover) */}
                 <img 
-                  src="@assets/Tennis bag - White - neutral background_1758110253206.png"
+                  src={newWhiteTennisBag}
                   alt="Tennis Sports Bag - White"
                   className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                 />
