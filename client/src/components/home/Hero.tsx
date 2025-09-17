@@ -67,12 +67,10 @@ const Hero = () => {
   const [currentSportsBag, setCurrentSportsBag] = useState(0);
   const [currentTravelBag, setCurrentTravelBag] = useState(0);
   const [currentLeisureBag, setCurrentLeisureBag] = useState(0);
-  const [currentLeisureRange, setCurrentLeisureRange] = useState(0);
   const [isBusinessHovered, setIsBusinessHovered] = useState(false);
   const [isSportsHovered, setIsSportsHovered] = useState(false);
   const [isTravelHovered, setIsTravelHovered] = useState(false);
   const [isLeisureHovered, setIsLeisureHovered] = useState(false);
-  const [isLeisureRangeHovered, setIsLeisureRangeHovered] = useState(false);
 
   // Helper function to create Product objects that match the schema
   const createProduct = (id: number, name: string, price: number, image: string, category: string): Product => ({
@@ -130,8 +128,7 @@ const Hero = () => {
   ];
 
   const leisureRangeBags = [
-    { src: hipBagSolo, alt: "Leisure Range - Hip Bag Solo" },
-    { src: hipBagLifestyle, alt: "Leisure Range - Hip Bag Lifestyle" }
+    { src: hipBagSolo, alt: "Leisure Range - Hip Bag Solo" }
   ];
 
   useEffect(() => {
@@ -198,21 +195,6 @@ const Hero = () => {
     };
   }, [isLeisureHovered, leisureBags.length]);
 
-  useEffect(() => {
-    let leisureRangeInterval: NodeJS.Timeout | null = null;
-    
-    if (isLeisureRangeHovered) {
-      leisureRangeInterval = setInterval(() => {
-        setCurrentLeisureRange((prev) => (prev + 1) % leisureRangeBags.length);
-      }, 1500);
-    } else {
-      setCurrentLeisureRange(0); // Reset to first image when not hovering
-    }
-
-    return () => {
-      if (leisureRangeInterval) clearInterval(leisureRangeInterval);
-    };
-  }, [isLeisureRangeHovered, leisureRangeBags.length]);
 
   return (
     <div className="relative">
@@ -318,21 +300,14 @@ const Hero = () => {
             <Link 
               href="/browse?category=leisure"
               className="group cursor-pointer block"
-              onMouseEnter={() => setIsLeisureRangeHovered(true)}
-              onMouseLeave={() => setIsLeisureRangeHovered(false)}
             >
               <div className="relative overflow-hidden rounded-xl mb-4">
-                {leisureRangeBags.map((bag, index) => (
-                  <img 
-                    key={index}
-                    src={bag.src}
-                    alt={bag.alt}
-                    className={`w-full h-80 object-cover transition-opacity duration-500 ${
-                      index === currentLeisureRange ? 'opacity-100' : 'opacity-0 absolute inset-0'
-                    }`}
-                    style={{ imageRendering: 'auto' }}
-                  />
-                ))}
+                <img 
+                  src={hipBagSolo}
+                  alt="Leisure Range - Hip Bag Solo"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                  style={{ imageRendering: 'auto' }}
+                />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
