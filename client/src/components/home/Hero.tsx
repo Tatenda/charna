@@ -27,10 +27,37 @@ import newWhiteTennisBag from '@assets/Tennis bag - White - neutral background_1
 import newNavyTennisBag from '@assets/Navy sports back - neutral background_1758112268197.png';
 import newClassicNavyBag from '@assets/Copy of Classic range - Rose Gold_1758112410766.png';
 import newClassicTanBag from '@assets/LGM_Classic_me (1)_1758112410768.png';
+import navyGoldZipBag from '@assets/Retro range - Navy with gold zip_1758113011142.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
   const { toast } = useToast();
+  const [retroImageIndex, setRetroImageIndex] = useState(0);
+  const [hoverTimer, setHoverTimer] = useState<NodeJS.Timeout | null>(null);
+
+  const retroImages = [
+    { src: "/images/green-backpack.jpg", alt: "Retro Backpack - Olive" },
+    { src: navyRetroBag, alt: "Retro Backpack - Navy" },
+    { src: navyGoldZipBag, alt: "Retro Backpack - Navy with Gold Zip" }
+  ];
+
+  const handleRetroHover = () => {
+    if (hoverTimer) clearInterval(hoverTimer);
+    
+    const timer = setInterval(() => {
+      setRetroImageIndex((prev) => (prev + 1) % retroImages.length);
+    }, 800); // Switch every 800ms
+    
+    setHoverTimer(timer);
+  };
+
+  const handleRetroLeave = () => {
+    if (hoverTimer) {
+      clearInterval(hoverTimer);
+      setHoverTimer(null);
+    }
+    setRetroImageIndex(0); // Reset to first image
+  };
   
   const [currentBusinessBag, setCurrentBusinessBag] = useState(0);
   const [currentSportsBag, setCurrentSportsBag] = useState(0);
@@ -247,28 +274,30 @@ const Hero = () => {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-            <Link href="/browse?category=work" className="group cursor-pointer block">
+            <Link 
+              href="/browse?category=work" 
+              className="group cursor-pointer block"
+              onMouseEnter={handleRetroHover}
+              onMouseLeave={handleRetroLeave}
+            >
               <div className="relative overflow-hidden rounded-xl mb-4">
-                {/* Olive color (default) */}
-                <img 
-                  src="/images/green-backpack.jpg"
-                  alt="Retro Backpack - Olive"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
-                />
-                
-                {/* Navy color (on hover) */}
-                <img 
-                  src={navyRetroBag}
-                  alt="Retro Backpack - Navy"
-                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
-                />
+                {retroImages.map((image, index) => (
+                  <img 
+                    key={index}
+                    src={image.src}
+                    alt={image.alt}
+                    className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${
+                      index === retroImageIndex ? 'opacity-100' : 'opacity-0'
+                    } ${index === 0 ? 'relative' : 'absolute inset-0'}`}
+                  />
+                ))}
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart("Retro Backpack", 2399, "/images/green-backpack.jpg", "business", 201);
+                      handleAddToCart("Retro Backpack", 2399, retroImages[retroImageIndex].src, "business", 201);
                     }}
                     data-testid="button-add-to-cart-retro-backpack"
                   >
