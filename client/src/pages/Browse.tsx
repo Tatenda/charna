@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import { useCart } from "@/hooks/useCart";
+import Seo from "@/components/layout/Seo";
 import indoorGreeneryBackdrop from "@assets/Indoor Greenery Harmony_1757361807254.png";
 import navyTennisBag from "@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1757403283994.png";
 import creamCrossbody from "@assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png";
@@ -232,6 +233,27 @@ export default function Browse() {
   const [selectedCategory, setSelectedCategory] = useState('work');
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
+  // Generate dynamic SEO content based on category
+  const getSEOContent = () => {
+    const categoryTitle = selectedBrowseCategory;
+    const baseTitle = `${categoryTitle} Bags | Charna Leather Goods`;
+    const descriptions: Record<string, string> = {
+      'Work': 'Discover Charna\'s professional work bags and business backpacks. Handcrafted in Johannesburg from premium leather for the modern professional.',
+      'Leisure': 'Explore Charna\'s leisure collection of casual bags and everyday accessories. Perfect for weekend adventures and daily errands.',
+      'Sport': 'Shop Charna\'s sports collection including tennis bags and athletic gear. Handcrafted leather bags for the active lifestyle.',
+      'Travel': 'Browse Charna\'s travel collection of luggage and travel bags. Premium leather travel gear made in South Africa.',
+      'Accessories': 'Discover Charna\'s leather accessories including laptop sleeves, desk mats, and luggage tags. Handcrafted in Johannesburg.',
+      'Onboarding': 'Explore Charna\'s corporate onboarding packages and business gifts. Premium leather goods for employee welcome packages.',
+      'Gifting': 'Find the perfect leather gift from Charna\'s curated collection. Handcrafted bags and accessories made in South Africa.'
+    };
+    
+    return {
+      title: baseTitle,
+      description: descriptions[categoryTitle] || descriptions['Work'],
+      keywords: `${categoryTitle.toLowerCase()} bags, Charna leather goods, handcrafted leather, South African leather bags, ${categoryTitle.toLowerCase()} accessories`
+    };
+  };
+
   // Function to update category from URL (no polling)
   const updateCategoryFromURL = () => {
     const searchParams = new URLSearchParams(location.split('?')[1] || '');
@@ -331,8 +353,17 @@ export default function Browse() {
     addToCart(fullProduct, 1);
   };
 
+  const seoContent = getSEOContent();
+
   return (
     <div className="min-h-screen bg-gray-800 text-white pt-16 md:pt-20 overflow-x-hidden">
+      <Seo 
+        title={seoContent.title}
+        description={seoContent.description}
+        keywords={seoContent.keywords}
+        url={`/browse${location.includes('?') ? '?' + location.split('?')[1] : ''}`}
+        image={indoorGreeneryBackdrop}
+      />
       {/* Breadcrumb Navigation */}
       <div className="px-4 md:px-6 py-4 text-sm text-gray-400 max-w-full">
         <div className="flex items-center flex-wrap">

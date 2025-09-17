@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Seo from "@/components/layout/Seo";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,10 +32,6 @@ const Products = () => {
     }
   }, [categoryParam]);
 
-  // Set page title
-  useEffect(() => {
-    document.title = "Products | Charna";
-  }, []);
 
   // Fetch all products
   const { data: products, isLoading, error } = useQuery<Product[]>({
@@ -87,6 +84,12 @@ const Products = () => {
 
   return (
     <div className="soft-pink-gradient pb-16">
+      <Seo 
+        title="All Products | Charna - Premium Handcrafted Leather Bags"
+        description="Browse Charna's complete collection of handcrafted leather bags. From work backpacks to tennis bags, discover premium leather goods made in Johannesburg, South Africa."
+        keywords="Charna products, leather bags collection, handcrafted bags, South African leather goods, premium backpacks, tennis bags"
+        url="/products"
+      />
       <div className="product-gradient text-white py-16">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4">

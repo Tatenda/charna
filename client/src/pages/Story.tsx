@@ -1,17 +1,19 @@
-import { useEffect } from "react";
+import Seo from "@/components/layout/Seo";
 import { Link } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import WhatsAppBanner from "@/components/home/WhatsAppBanner";
 import { getImagePath } from "@/lib/imageUtils";
 
 const Story = () => {
-  // Set page title
-  useEffect(() => {
-    document.title = "Our Story | Charna";
-  }, []);
-
   return (
     <div className="bg-secondary-light">
+      <Seo 
+        title="Our Story | Charna - Made in Johannesburg with Purpose"
+        description="Discover the story behind Charna's handcrafted leather bags. Learn about our skilled South African artisans in Johannesburg who create premium leather goods with traditional craftsmanship and sustainable practices."
+        keywords="Charna story, South African craftsmanship, Johannesburg leather workshop, artisan bags, sustainable leather goods, handmade bags South Africa"
+        image="/images/tennis-bag-lifestyle.jpg"
+        url="/story"
+      />
       {/* Hero */}
       <div className="bg-primary text-white py-16">
         <div className="container mx-auto px-4">

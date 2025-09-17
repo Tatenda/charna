@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import Seo from "@/components/layout/Seo";
 import { Link, useLocation } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCart } from "@/hooks/useCart";
@@ -8,11 +8,6 @@ import CartSummary from "@/components/cart/CartSummary";
 const Cart = () => {
   const { cart, updateQuantity, removeFromCart } = useCart();
   const [, setLocation] = useLocation();
-
-  // Set page title
-  useEffect(() => {
-    document.title = "Your Cart | Charna";
-  }, []);
 
   const handleContinueShopping = () => {
     setLocation('/products');
@@ -24,6 +19,13 @@ const Cart = () => {
 
   return (
     <div className="bg-secondary-light">
+      <Seo 
+        title="Shopping Cart | Charna - Review Your Leather Bag Selection"
+        description="Review your selected Charna leather bags. Secure checkout with free shipping on orders over R1000. Made in Johannesburg with premium craftsmanship."
+        keywords="Charna shopping cart, leather bag checkout, South African leather goods"
+        url="/cart"
+        robots="noindex, nofollow"
+      />
       <div className="container mx-auto px-4 py-12">
         <h1 className="font-heading text-3xl md:text-4xl font-semibold mb-4">Your Cart</h1>
         

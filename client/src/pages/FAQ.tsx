@@ -1,6 +1,7 @@
 import { ArrowLeft, Plus, Minus } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
+import Seo from "@/components/layout/Seo";
 
 const faqs = [
   {
@@ -58,6 +59,12 @@ export default function FAQ() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-secondary-light to-white">
+      <Seo 
+        title="FAQ | Charna - Frequently Asked Questions About Our Leather Bags"
+        description="Find answers to common questions about Charna's handcrafted leather bags. Learn about shipping, returns, care instructions, and our Johannesburg craftsmanship."
+        keywords="Charna FAQ, leather bag care, shipping returns, handcrafted bags questions, South African leather goods"
+        url="/faq"
+      />
       {/* Header */}
       <div className="bg-primary text-white py-16">
         <div className="container mx-auto px-4">

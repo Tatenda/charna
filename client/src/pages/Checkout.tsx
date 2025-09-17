@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Seo from "@/components/layout/Seo";
 import { useLocation } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCart } from "@/hooks/useCart";
@@ -53,11 +54,6 @@ const Checkout = () => {
       setLocation('/cart');
     }
   }, [cart, setLocation]);
-
-  // Set page title
-  useEffect(() => {
-    document.title = "Checkout | Charna";
-  }, []);
 
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(formSchema),
@@ -116,6 +112,13 @@ const Checkout = () => {
 
   return (
     <div className="bg-secondary-light">
+      <Seo 
+        title="Secure Checkout | Charna - Complete Your Leather Bag Purchase"
+        description="Complete your purchase of premium handcrafted leather bags from Charna. Secure checkout with multiple payment options. Made in Johannesburg, South Africa."
+        keywords="Charna checkout, secure payment, leather bag purchase, South African leather goods"
+        url="/checkout"
+        robots="noindex, nofollow"
+      />
       <div className="container mx-auto px-4 py-12">
         <h1 className="font-heading text-3xl md:text-4xl font-semibold mb-8">Checkout</h1>
         

@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Seo from "@/components/layout/Seo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
@@ -32,11 +33,6 @@ type ContactFormValues = z.infer<typeof formSchema>;
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Set page title
-  useEffect(() => {
-    document.title = "Contact Us | Charna";
-  }, []);
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(formSchema),
@@ -75,6 +71,13 @@ const Contact = () => {
 
   return (
     <div className="bg-secondary-light">
+      <Seo 
+        title="Contact Us | Charna Leather Bags - Get in Touch"
+        description="Contact Charna's team in Johannesburg for questions about our handcrafted leather bags. Visit our workshop, call us, or send a message. We're here to help with product inquiries and custom orders."
+        keywords="contact Charna, Johannesburg leather workshop, leather bag inquiries, custom leather bags, Charna customer service"
+        image="/images/tennis-bag-lifestyle.jpg"
+        url="/contact"
+      />
       {/* Hero */}
       <div className="bg-primary text-white py-16">
         <div className="container mx-auto px-4">

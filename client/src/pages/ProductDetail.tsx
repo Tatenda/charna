@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Seo from "@/components/layout/Seo";
 import { useParams, useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,12 +29,6 @@ const ProductDetail = () => {
     enabled: !!product,
   });
 
-  // Set page title
-  useEffect(() => {
-    if (product) {
-      document.title = `${product.name} | Charna`;
-    }
-  }, [product]);
 
   if (isLoading) {
     return (
@@ -63,6 +58,14 @@ const ProductDetail = () => {
 
   return (
     <div className="bg-secondary-light">
+      <Seo 
+        title={product ? `${product.name} | Charna Leather Bags` : 'Product | Charna'}
+        description={product ? `${product.description} Handcrafted in Johannesburg, South Africa. Premium leather with ${product.materials || 'premium materials'}.` : 'Premium handcrafted leather bag from Charna.'}
+        keywords={product ? `${product.name}, ${product.category} bag, leather goods, handcrafted bags, South African craftsmanship` : 'leather bags, handcrafted bags'}
+        url={`/products/${id}`}
+        image={product?.images?.[0] || '/images/hero-background.png'}
+        type="product"
+      />
       <div className="container mx-auto px-4 py-12">
         {/* Breadcrumbs */}
         <div className="mb-8 flex items-center text-sm">
