@@ -320,14 +320,14 @@ const Hero = () => {
                 <img 
                   src={navyTennisBag}
                   alt="Tennis Sports Bag - Navy"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                  className="w-full h-80 object-contain group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                 />
                 
                 {/* White color (on hover) */}
                 <img 
-                  src={whiteTennisBag}
+                  src="@assets/Tennis bag - White - neutral background_1758110099407.png"
                   alt="Tennis Sports Bag - White"
-                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  className="absolute inset-0 w-full h-80 object-contain group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
