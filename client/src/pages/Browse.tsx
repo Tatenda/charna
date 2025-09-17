@@ -332,23 +332,25 @@ export default function Browse() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-800 text-white pt-16 md:pt-20">
+    <div className="min-h-screen bg-gray-800 text-white pt-16 md:pt-20 overflow-x-hidden">
       {/* Breadcrumb Navigation */}
-      <div className="px-4 md:px-6 py-4 text-sm text-gray-400">
-        <Link href="/" className="hover:text-white">Home</Link>
-        <span className="mx-2">&gt;</span>
-        <span className="text-white capitalize">{selectedCategory}</span>
+      <div className="px-4 md:px-6 py-4 text-sm text-gray-400 max-w-full">
+        <div className="flex items-center flex-wrap">
+          <Link href="/" className="hover:text-white flex-shrink-0">Home</Link>
+          <span className="mx-2 flex-shrink-0">&gt;</span>
+          <span className="text-white capitalize truncate">{selectedCategory}</span>
+        </div>
       </div>
 
       {/* Top Category Navigation Tabs - Mobile Friendly */}
       <div className="px-4 md:px-6 mb-8">
         <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-2">
-          <div className="flex overflow-x-auto scrollbar-hide gap-2 pb-2">
+          <div className="flex overflow-x-auto scrollbar-hide gap-2 pb-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {categoryTabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => handleCategoryChange(tab.id)}
-                className={`text-sm font-medium transition-colors duration-200 px-4 py-2 rounded-lg whitespace-nowrap min-h-[44px] flex-shrink-0 ${
+                className={`text-xs sm:text-sm font-medium transition-colors duration-200 px-3 sm:px-4 py-2 rounded-lg whitespace-nowrap min-h-[40px] sm:min-h-[44px] flex-shrink-0 ${
                   selectedCategory === tab.id
                     ? 'bg-botanical/60 text-white'
                     : 'text-stone-200 hover:text-white hover:bg-white/10'
@@ -374,9 +376,9 @@ export default function Browse() {
         </button>
       </div>
 
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-col md:flex-row min-h-0">
         {/* Left Sidebar - Desktop & Mobile Responsive */}
-        <div className={`md:w-80 px-4 md:px-6 py-4 transition-all duration-300 ${
+        <div className={`md:w-80 px-4 md:px-6 py-4 transition-all duration-300 flex-shrink-0 ${
           isMobileFiltersOpen ? 'block' : 'hidden md:block'
         }`}>
           {/* Browse by Section */}
@@ -438,9 +440,9 @@ export default function Browse() {
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 relative md:ml-4">
+        <div className="flex-1 relative md:ml-4 min-w-0">
           {/* Background Image for All Products Section */}
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 overflow-hidden">
             <div 
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
@@ -451,16 +453,16 @@ export default function Browse() {
           </div>
           
           {/* Content with overlay */}
-          <div className="relative z-10 px-4 md:px-6 py-4">
+          <div className="relative z-10 px-4 md:px-6 py-4 min-h-screen">
 
             {/* Collage Style Product Grid - Mobile Optimized */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6">
+            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6 w-full">
               {filteredCollageProducts.map((product) => (
                 <div
                   key={product.id}
-                  className="group bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105"
+                  className="group bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105 w-full"
                 >
-                  <div className="aspect-square overflow-hidden relative">
+                  <div className="aspect-square overflow-hidden relative w-full">
                     <img
                       src={product.image}
                       alt={product.name}
@@ -469,31 +471,31 @@ export default function Browse() {
                       style={{
                         imageRendering: 'auto'
                       }}
-                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                      sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                     />
                   </div>
                   
-                  <div className="p-4">
+                  <div className="p-3 sm:p-4">
                     <button
                       onClick={(e) => {
                         e.preventDefault();
                         handleAddToCart(product);
                       }}
-                      className="w-full border border-gray-400 text-gray-700 py-2 px-4 text-sm font-medium hover:border-gray-600 hover:text-gray-900 transition-colors duration-200 rounded mb-3"
+                      className="w-full border border-gray-400 text-gray-700 py-2 px-2 sm:px-4 text-xs sm:text-sm font-medium hover:border-gray-600 hover:text-gray-900 transition-colors duration-200 rounded mb-3 min-h-[36px] sm:min-h-[40px]"
                     >
                       Add to Cart
                     </button>
                     
-                    <h3 className="text-sm text-gray-900 mb-1 font-medium">
+                    <h3 className="text-xs sm:text-sm text-gray-900 mb-1 font-medium line-clamp-2">
                       {product.name}
                     </h3>
                     
                     {product.description && (
-                      <p className="text-xs text-gray-600 mb-2">{product.description}</p>
+                      <p className="text-xs text-gray-600 mb-2 line-clamp-2">{product.description}</p>
                     )}
                     
                     <div>
-                      <span className="text-gray-900 font-semibold text-sm">
+                      <span className="text-gray-900 font-semibold text-xs sm:text-sm">
                         R{product.price}
                       </span>
                     </div>
@@ -503,11 +505,11 @@ export default function Browse() {
             </div>
 
             {filteredCollageProducts.length === 0 && (
-              <div className="text-center py-20 bg-gray-800/50 backdrop-blur-sm rounded-lg">
-                <h3 className="text-2xl font-bold text-gray-300 mb-4">
+              <div className="text-center py-12 sm:py-20 bg-gray-800/50 backdrop-blur-sm rounded-lg mx-auto max-w-lg">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-300 mb-4 px-4">
                   No products found
                 </h3>
-                <p className="text-gray-400">
+                <p className="text-gray-400 px-4 text-sm sm:text-base">
                   Try adjusting your filters or browse a different category.
                 </p>
               </div>
