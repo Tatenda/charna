@@ -439,13 +439,15 @@ export default function Browse() {
         {/* Main Content Area */}
         <div className="flex-1 relative md:ml-4">
           {/* Background Image for All Products Section */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80"
-            style={{
-              backgroundImage: `url(${indoorGreeneryBackdrop})`,
-              filter: 'brightness(1.7) contrast(1.1)'
-            }}
-          ></div>
+          <div className="absolute inset-0">
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url(${indoorGreeneryBackdrop})`
+              }}
+            ></div>
+            <div className="absolute inset-0 bg-black/25"></div>
+          </div>
           
           {/* Content with overlay */}
           <div className="relative z-10 px-4 md:px-6 py-4">
