@@ -107,8 +107,8 @@ const Contact = () => {
               </div>
               <h3 className="font-accent text-lg font-semibold mb-2">Email Us</h3>
               <p className="text-neutral mb-2">For general and order queries:</p>
-              <a href="mailto:info@charna.co" className="text-primary hover:text-accent">
-                info@charna.co
+              <a href="mailto:info@charna.co.com" className="text-primary hover:text-accent">
+                info@charna.co.com
               </a>
               <p className="text-neutral mt-3 mb-2">For wholesale queries:</p>
               <a href="mailto:wholesale@charna.co" className="text-primary hover:text-accent">
