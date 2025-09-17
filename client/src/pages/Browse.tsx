@@ -13,6 +13,7 @@ import brownBackpack from "@assets/LGM_Grounded (1)_1757403284002.png";
 import navyModernBackpack from "@assets/Retro Range - Navy Blue_1757403284003.png";
 import oliveBackpack from "@assets/Retro Range - Olive_1757403284004.png";
 import whiteTennisBag from "@assets/Tennis bag - White - neutral background_1757403947038.png";
+import newNavyTennisBag from "@assets/Navy sports back - neutral background_1758112268197.png";
 
 // Product data for collage display
 const collageProducts = [
@@ -20,7 +21,7 @@ const collageProducts = [
     id: 1,
     name: "Navy Tennis Bag",
     price: 3299,
-    image: navyTennisBag,
+    image: newNavyTennisBag,
     category: "tennis"
   },
   {

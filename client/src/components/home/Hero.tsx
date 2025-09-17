@@ -25,6 +25,7 @@ import creamHipBag from '@assets/LGM_hip_1757356807770.png';
 import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
 import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
 import newWhiteTennisBag from '@assets/Tennis bag - White - neutral background_1758110253206.png';
+import newNavyTennisBag from '@assets/Navy sports back - neutral background_1758112268197.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -83,7 +84,7 @@ const Hero = () => {
 
   const sportsBags = [
     { src: whiteTennisBag, alt: "Sports Collection - White" },
-    { src: navyTennisBagNew, alt: "Sports Collection - Navy" }
+    { src: newNavyTennisBag, alt: "Sports Collection - Navy" }
   ];
 
   const travelBags = [
@@ -319,7 +320,7 @@ const Hero = () => {
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Navy color (default) */}
                 <img 
-                  src={navyTennisBag}
+                  src={newNavyTennisBag}
                   alt="Tennis Sports Bag - Navy"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                 />
