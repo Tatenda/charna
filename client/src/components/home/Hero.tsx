@@ -29,7 +29,7 @@ import newClassicNavyBag from '@assets/Copy of Classic range - Rose Gold_1758112
 import newClassicTanBag from '@assets/LGM_Classic_me (1)_1758112410768.png';
 import navyGoldZipBag from '@assets/Retro range - Navy with gold zip_1758113011142.png';
 import newGroundedBag from '@assets/ChatGPT Image Sep 17, 2025, 03_24_36 PM_1758115521218.png';
-import timelessRoseGoldBag from '@assets/ChatGPT Image Sep 17, 2025, 01_40_31 PM_1758117004601.png';
+import timelessRoseGoldBag from '@assets/Timeless Range - Rose Gold zip_1758117345340.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
