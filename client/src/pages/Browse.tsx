@@ -229,13 +229,12 @@ export default function Browse() {
   const [priceRange, setPriceRange] = useState([0, 6000]);
   const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('Work');
   const [selectedCategory, setSelectedCategory] = useState('work');
-  const [urlSearchParams, setUrlSearchParams] = useState(window.location.search);
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
-  // Function to update category from URL
+  // Function to update category from URL (no polling)
   const updateCategoryFromURL = () => {
-    const currentUrl = window.location.href;
-    const url = new URL(currentUrl);
-    const urlCategory = url.searchParams.get('category');
+    const searchParams = new URLSearchParams(location.split('?')[1] || '');
+    const urlCategory = searchParams.get('category');
     
     if (urlCategory) {
       setSelectedCategory(urlCategory);
@@ -252,36 +251,10 @@ export default function Browse() {
     }
   };
 
-  // Sync URL parameters and sidebar selection
+  // Sync URL parameters and sidebar selection (no polling)
   useEffect(() => {
-    // Scroll to top when page loads or category changes
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
     updateCategoryFromURL();
-    setUrlSearchParams(window.location.search);
   }, [location]);
-
-  // Listen for URL parameter changes (like footer link clicks)
-  useEffect(() => {
-    const handleURLChange = () => {
-      const currentSearch = window.location.search;
-      if (currentSearch !== urlSearchParams) {
-        setUrlSearchParams(currentSearch);
-        updateCategoryFromURL();
-      }
-    };
-
-    // Listen for popstate events (browser back/forward)
-    window.addEventListener('popstate', handleURLChange);
-    
-    // Check for URL changes less frequently to avoid render issues
-    const interval = setInterval(handleURLChange, 500);
-
-    return () => {
-      window.removeEventListener('popstate', handleURLChange);
-      clearInterval(interval);
-    };
-  }, [urlSearchParams]);
 
   const { addToCart } = useCart();
 
@@ -358,36 +331,53 @@ export default function Browse() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-800 text-white">
+    <div className="min-h-screen bg-gray-800 text-white pt-16 md:pt-20">
       {/* Breadcrumb Navigation */}
-      <div className="px-6 py-4 text-sm text-gray-400">
+      <div className="px-4 md:px-6 py-4 text-sm text-gray-400">
         <Link href="/" className="hover:text-white">Home</Link>
         <span className="mx-2">&gt;</span>
         <span className="text-white capitalize">{selectedCategory}</span>
       </div>
 
-      {/* Top Category Navigation Tabs */}
-      <div className="px-6 mb-8">
-        <div className="bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 border border-white/20 inline-flex">
-          {categoryTabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => handleCategoryChange(tab.id)}
-              className={`text-sm font-medium transition-colors duration-200 px-4 py-2 rounded-full ${
-                selectedCategory === tab.id
-                  ? 'bg-botanical/60 text-white'
-                  : 'text-stone-200 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+      {/* Top Category Navigation Tabs - Mobile Friendly */}
+      <div className="px-4 md:px-6 mb-8">
+        <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-2">
+          <div className="flex overflow-x-auto scrollbar-hide gap-2 pb-2">
+            {categoryTabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleCategoryChange(tab.id)}
+                className={`text-sm font-medium transition-colors duration-200 px-4 py-2 rounded-lg whitespace-nowrap min-h-[44px] flex-shrink-0 ${
+                  selectedCategory === tab.id
+                    ? 'bg-botanical/60 text-white'
+                    : 'text-stone-200 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="flex">
-        {/* Left Sidebar */}
-        <div className="w-80 px-6 py-4">
+      {/* Mobile Filter Button */}
+      <div className="md:hidden px-4 mb-4">
+        <button
+          onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
+          className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.121A1 1 0 013 6.414V4z" />
+          </svg>
+          Filters
+        </button>
+      </div>
+
+      <div className="flex flex-col md:flex-row">
+        {/* Left Sidebar - Desktop & Mobile Responsive */}
+        <div className={`md:w-80 px-4 md:px-6 py-4 transition-all duration-300 ${
+          isMobileFiltersOpen ? 'block' : 'hidden md:block'
+        }`}>
           {/* Browse by Section */}
           <div className="mb-12">
             <h3 className="text-xl font-bold mb-6 text-white border-b border-gray-700 pb-3">
@@ -447,7 +437,7 @@ export default function Browse() {
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 relative">
+        <div className="flex-1 relative md:ml-4">
           {/* Background Image for All Products Section */}
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-80"
@@ -458,10 +448,10 @@ export default function Browse() {
           ></div>
           
           {/* Content with overlay */}
-          <div className="relative z-10 px-6 py-4">
+          <div className="relative z-10 px-4 md:px-6 py-4">
 
-            {/* Collage Style Product Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {/* Collage Style Product Grid - Mobile Optimized */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6">
               {filteredCollageProducts.map((product) => (
                 <div
                   key={product.id}
@@ -471,11 +461,13 @@ export default function Browse() {
                     <img
                       src={product.image}
                       alt={product.name}
+                      loading="lazy"
                       className={`w-full h-full ${product.name === "Navy Tennis Bag" ? "object-contain" : "object-cover"} group-hover:scale-110 transition-transform duration-500`}
                       style={{
-                        filter: 'contrast(1.3) saturate(1.2) brightness(1.1) unsharp-mask(amount=120% radius=1px threshold=3)',
-                        imageRendering: 'crisp-edges'
+                        filter: 'contrast(1.3) saturate(1.2) brightness(1.1)',
+                        imageRendering: 'auto'
                       }}
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                     />
                   </div>
                   
