@@ -364,10 +364,13 @@ export default function Browse() {
       </div>
 
       {/* Mobile Filter Button */}
-      <div className="md:hidden px-4 mb-4">
+      <div className="md:hidden px-4 mb-4 relative z-20">
         <button
+          data-testid="button-filters"
+          aria-controls="filters-panel"
+          aria-expanded={isMobileFiltersOpen}
           onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
-          className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+          className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg flex items-center gap-2 min-h-[44px]"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.121A1 1 0 013 6.414V4z" />
@@ -378,9 +381,13 @@ export default function Browse() {
 
       <div className="flex flex-col md:flex-row min-h-0">
         {/* Left Sidebar - Desktop & Mobile Responsive */}
-        <div className={`md:w-80 px-4 md:px-6 py-4 transition-all duration-300 flex-shrink-0 ${
-          isMobileFiltersOpen ? 'block' : 'hidden md:block'
-        }`}>
+        <div 
+          id="filters-panel"
+          data-testid="filters-panel"
+          className={`md:w-80 px-4 md:px-6 py-4 transition-all duration-300 flex-shrink-0 ${
+            isMobileFiltersOpen ? 'block' : 'hidden md:block'
+          }`}
+        >
           {/* Browse by Section */}
           <div className="mb-12">
             <h3 className="text-xl font-bold mb-6 text-white border-b border-gray-700 pb-3">
@@ -442,14 +449,14 @@ export default function Browse() {
         {/* Main Content Area */}
         <div className="flex-1 relative md:ml-4 min-w-0">
           {/* Background Image for All Products Section */}
-          <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none"
               style={{
                 backgroundImage: `url(${indoorGreeneryBackdrop})`
               }}
             ></div>
-            <div className="absolute inset-0 bg-black/25"></div>
+            <div className="absolute inset-0 bg-black/25 pointer-events-none"></div>
           </div>
           
           {/* Content with overlay */}
@@ -481,7 +488,7 @@ export default function Browse() {
                         e.preventDefault();
                         handleAddToCart(product);
                       }}
-                      className="w-full border border-gray-400 text-gray-700 py-2 px-2 sm:px-4 text-xs sm:text-sm font-medium hover:border-gray-600 hover:text-gray-900 transition-colors duration-200 rounded mb-3 min-h-[36px] sm:min-h-[40px]"
+                      className="w-full border border-gray-400 text-gray-700 py-2 px-2 sm:px-4 text-xs sm:text-sm font-medium hover:border-gray-600 hover:text-gray-900 transition-colors duration-200 rounded mb-3 min-h-[44px]"
                     >
                       Add to Cart
                     </button>
