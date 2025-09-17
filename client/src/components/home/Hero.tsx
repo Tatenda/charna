@@ -28,12 +28,14 @@ import newNavyTennisBag from '@assets/Navy sports back - neutral background_1758
 import newClassicNavyBag from '@assets/Copy of Classic range - Rose Gold_1758112410766.png';
 import newClassicTanBag from '@assets/LGM_Classic_me (1)_1758112410768.png';
 import navyGoldZipBag from '@assets/Retro range - Navy with gold zip_1758113011142.png';
+import newGroundedBag from '@assets/ChatGPT Image Sep 17, 2025, 03_09_28 PM_1758115074081.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [retroImageIndex, setRetroImageIndex] = useState(0);
   const [hoverTimer, setHoverTimer] = useState<NodeJS.Timeout | null>(null);
+  const [isGroundedHovered, setIsGroundedHovered] = useState(false);
 
   const retroImages = [
     { src: "/images/green-backpack.jpg", alt: "Retro Backpack - Olive" },
@@ -410,12 +412,25 @@ const Hero = () => {
               <p className="font-bold text-black">Price R2499</p>
             </Link>
             
-            <Link href="/browse?category=work" className="group cursor-pointer block">
+            <Link 
+              href="/browse?category=work" 
+              className="group cursor-pointer block"
+              onMouseEnter={() => setIsGroundedHovered(true)}
+              onMouseLeave={() => setIsGroundedHovered(false)}
+            >
               <div className="relative overflow-hidden rounded-xl mb-4">
+                {/* Original Grounded bag (default) */}
                 <img 
                   src={groundedBag}
-                  alt="Grounded Backpack"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt="Grounded Backpack - Original"
+                  className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${isGroundedHovered ? 'opacity-0' : 'opacity-100'}`}
+                />
+                
+                {/* New Grounded bag with neutral background (on hover) */}
+                <img 
+                  src={newGroundedBag}
+                  alt="Grounded Backpack - Enhanced"
+                  className={`absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${isGroundedHovered ? 'opacity-100' : 'opacity-0'}`}
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
