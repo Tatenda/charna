@@ -466,7 +466,6 @@ export default function Browse() {
                       loading="lazy"
                       className={`w-full h-full ${product.name === "Navy Tennis Bag" ? "object-contain" : "object-cover"} group-hover:scale-110 transition-transform duration-500`}
                       style={{
-                        filter: 'contrast(1.3) saturate(1.2) brightness(1.1)',
                         imageRendering: 'auto'
                       }}
                       sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
