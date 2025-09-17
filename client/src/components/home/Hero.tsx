@@ -28,7 +28,7 @@ import newNavyTennisBag from '@assets/Navy sports back - neutral background_1758
 import newClassicNavyBag from '@assets/Copy of Classic range - Rose Gold_1758112410766.png';
 import newClassicTanBag from '@assets/LGM_Classic_me (1)_1758112410768.png';
 import navyGoldZipBag from '@assets/Retro range - Navy with gold zip_1758113011142.png';
-import newGroundedBag from '@assets/ChatGPT Image Sep 17, 2025, 03_09_28 PM_1758115074081.png';
+import newGroundedBag from '@assets/ChatGPT Image Sep 17, 2025, 03_24_36 PM_1758115521218.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
