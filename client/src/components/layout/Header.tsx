@@ -17,18 +17,18 @@ const Header = () => {
 
   return (
     <header className="bg-white fixed w-full z-50 shadow-sm border-b border-gray-100">
-      <div className="container mx-auto px-4 py-2">
+      <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <button
-              className="lg:hidden mr-4 text-primary"
+              className="lg:hidden mr-3 text-primary p-2 min-h-[44px] min-w-[44px] flex items-center justify-center"
               onClick={toggleMobileMenu}
               aria-label="Toggle menu"
             >
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
             <Link href="/" className="flex items-center">
-              <span className="text-4xl font-georgia-bold text-botanical">
+              <span className="text-2xl sm:text-3xl md:text-4xl font-georgia-bold text-botanical">
                 Charna.co
               </span>
             </Link>
@@ -59,8 +59,8 @@ const Header = () => {
               Contact
             </Link>
           </nav>
-          <div className="flex items-center space-x-6">
-            <Link href="/browse" className="text-forest hover:text-botanical transition duration-200">
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <Link href="/browse" className="text-forest hover:text-botanical transition duration-200 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center">
               <FontAwesomeIcon icon="search" className="text-lg" />
             </Link>
             <CartButton />
@@ -75,40 +75,40 @@ const Header = () => {
       </div>
       
       {/* Mobile Menu */}
-      <div className={`lg:hidden bg-white w-full border-t border-gray-100 shadow-lg ${mobileMenuOpen ? 'block' : 'hidden'}`}>
-        <div className="container mx-auto px-4 py-4">
-          <nav className="flex flex-col space-y-4 font-medium">
+      <div className={`lg:hidden bg-white w-full border-t border-gray-100 shadow-lg transition-all duration-300 ${mobileMenuOpen ? 'block' : 'hidden'}`}>
+        <div className="container mx-auto px-4 py-6">
+          <nav className="flex flex-col space-y-2 font-medium">
             <Link
               href="/"
-              className={`text-forest hover:text-botanical transition duration-200 py-2 ${isActive('/') ? 'text-botanical font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 py-3 px-2 rounded-lg min-h-[44px] flex items-center ${isActive('/') ? 'text-botanical font-semibold bg-botanical/10' : 'hover:bg-gray-50'}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/browse"
-              className={`text-forest hover:text-botanical transition duration-200 py-2 ${isActive('/browse') ? 'text-botanical font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 py-3 px-2 rounded-lg min-h-[44px] flex items-center ${isActive('/browse') ? 'text-botanical font-semibold bg-botanical/10' : 'hover:bg-gray-50'}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Shop
             </Link>
             <Link
               href="/story"
-              className={`text-forest hover:text-botanical transition duration-200 py-2 ${isActive('/story') ? 'text-botanical font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 py-3 px-2 rounded-lg min-h-[44px] flex items-center ${isActive('/story') ? 'text-botanical font-semibold bg-botanical/10' : 'hover:bg-gray-50'}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className={`text-forest hover:text-botanical transition duration-200 py-2 ${isActive('/contact') ? 'text-botanical font-semibold' : ''}`}
+              className={`text-forest hover:text-botanical transition duration-200 py-3 px-2 rounded-lg min-h-[44px] flex items-center ${isActive('/contact') ? 'text-botanical font-semibold bg-botanical/10' : 'hover:bg-gray-50'}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Contact
             </Link>
             <Link 
               href="/browse"
-              className="bg-forest text-white px-6 py-3 font-semibold hover:bg-botanical transition-colors duration-300 text-center mt-4"
+              className="bg-forest text-white px-6 py-3 font-semibold hover:bg-botanical transition-colors duration-300 text-center mt-6 rounded-lg min-h-[44px] flex items-center justify-center"
               onClick={() => setMobileMenuOpen(false)}
             >
               Shop Now

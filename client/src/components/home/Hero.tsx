@@ -183,7 +183,7 @@ const Hero = () => {
   return (
     <div className="relative">
       {/* Clean Hero Section with Background Image */}
-      <section className="relative h-[85vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[60vh] sm:min-h-[70vh] md:h-[85vh] flex items-center overflow-hidden pt-16 md:pt-0">
         {/* Background Image */}
         <div className="absolute inset-0" style={{
           backgroundImage: `url(${newHeroBg})`,
@@ -195,24 +195,24 @@ const Hero = () => {
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black/15"></div>
         
-        {/* Navigation Bar */}
-        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-20">
-          <nav className="bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 border border-white/20">
-            <div className="flex space-x-8 text-sm font-medium">
-              <Link href="/browse?category=work" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+        {/* Navigation Bar - Mobile Responsive */}
+        <div className="absolute top-4 md:top-20 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-xs sm:max-w-none px-4 sm:px-0">
+          <nav className="bg-white/10 backdrop-blur-sm rounded-lg md:rounded-full px-4 sm:px-8 py-3 md:py-4 border border-white/20">
+            <div className="flex flex-wrap sm:flex-nowrap justify-center gap-2 sm:gap-4 md:gap-8 text-xs sm:text-sm font-medium">
+              <Link href="/browse?category=work" className="text-white hover:text-stone-200 transition-colors duration-200 px-2 sm:px-4 py-2 rounded-full hover:bg-white/10 whitespace-nowrap">
                 Work
               </Link>
-              <Link href="/browse?category=leisure" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/browse?category=leisure" className="text-white hover:text-stone-200 transition-colors duration-200 px-2 sm:px-4 py-2 rounded-full hover:bg-white/10 whitespace-nowrap">
                 Leisure
               </Link>
-              <Link href="/browse?category=sport" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/browse?category=sport" className="text-white hover:text-stone-200 transition-colors duration-200 px-2 sm:px-4 py-2 rounded-full hover:bg-white/10 whitespace-nowrap">
                 Sport
               </Link>
-              <Link href="/browse?category=travel" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
+              <Link href="/browse?category=travel" className="text-white hover:text-stone-200 transition-colors duration-200 px-2 sm:px-4 py-2 rounded-full hover:bg-white/10 whitespace-nowrap">
                 Travel
               </Link>
-              <Link href="/browse?category=accessories" className="text-white hover:text-stone-200 transition-colors duration-200 px-4 py-2 rounded-full hover:bg-white/10">
-                Accessories
+              <Link href="/browse?category=accessories" className="text-white hover:text-stone-200 transition-colors duration-200 px-2 sm:px-4 py-2 rounded-full hover:bg-white/10 whitespace-nowrap">
+                Access
               </Link>
             </div>
           </nav>
@@ -221,11 +221,11 @@ const Hero = () => {
         
         {/* Central Content */}
         <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <p className="text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-2xl mx-auto">
+          <div className="max-w-xs sm:max-w-xl md:max-w-4xl mx-auto space-y-6 md:space-y-8 mt-16 sm:mt-20 md:mt-0">
+            <p className="text-lg sm:text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-xl md:max-w-2xl mx-auto">
               Handcrafted, beautiful and affordable bags
             </p>
-            <Link href="/browse?category=work" className="inline-block bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-md hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <Link href="/browse?category=work" className="inline-block bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-6 sm:px-10 py-3 md:py-4 text-base md:text-lg font-semibold rounded-md hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] flex items-center">
               Shop Bags
             </Link>
           </div>
@@ -243,7 +243,7 @@ const Hero = () => {
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             <Link href="/browse?category=work" className="group cursor-pointer block">
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Olive color (default) */}
@@ -445,8 +445,8 @@ const Hero = () => {
           <p className="text-xl text-white/80">Shop by Category</p>
         </div>
         
-        {/* Full-width 6-Image Collage */}
-        <div className="grid grid-cols-6 grid-rows-2 gap-2 h-[70vh] w-full px-0">
+        {/* Mobile-Responsive Collage */}
+        <div className="hidden md:grid md:grid-cols-6 md:grid-rows-2 gap-2 h-[70vh] w-full px-0">
           {/* Large left image - Business Collection */}
           <Link 
             href="/browse?category=work" 
@@ -593,6 +593,42 @@ const Hero = () => {
           </Link>
         </div>
         
+        {/* Mobile Alternative Layout */}
+        <div className="md:hidden grid grid-cols-2 gap-2 px-4">
+          <Link href="/browse?category=work" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
+            <img src="/images/green-backpack.jpg" alt="Business Collection" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-sm font-semibold">Business</h3>
+              <p className="text-xs opacity-90">Professional</p>
+            </div>
+          </Link>
+          <Link href="/browse?category=sport" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
+            <img src="/images/navy-tennis-bag.jpg" alt="Sports Collection" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-sm font-semibold">Sports</h3>
+              <p className="text-xs opacity-90">Athletic</p>
+            </div>
+          </Link>
+          <Link href="/browse?category=leisure" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
+            <img src="/images/cream-crossbody.jpg" alt="Leisure Collection" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-sm font-semibold">Leisure</h3>
+              <p className="text-xs opacity-90">Everyday</p>
+            </div>
+          </Link>
+          <Link href="/browse?category=travel" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
+            <img src="/images/backpack-brown.jpg" alt="Travel Collection" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-sm font-semibold">Travel</h3>
+              <p className="text-xs opacity-90">Adventure</p>
+            </div>
+          </Link>
+        </div>
+        
         <div className="py-16"></div>
       </section>
 
@@ -655,7 +691,7 @@ const Hero = () => {
             <h2 className="text-4xl font-georgia-bold text-white mb-4">Charna on the #Gram</h2>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-1">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1 md:gap-2">
             <div className="aspect-square overflow-hidden">
               <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
             </div>
