@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
 import { Product } from "@shared/schema";
-import botanicalBg from '@assets/Man with bag and botanical background_1757072953822.png';
 import newHeroBg from '@assets/image_1757230274214.png';
 import groundedBag from '@assets/LGM_Grounded (1)_1757318142201.png';
 import styledLaptopBag from '@assets/LGM_Styled_1757318531199.png';
@@ -26,6 +25,8 @@ import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
 import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
 import newWhiteTennisBag from '@assets/Tennis bag - White - neutral background_1758110253206.png';
 import newNavyTennisBag from '@assets/Navy sports back - neutral background_1758112268197.png';
+import newClassicNavyBag from '@assets/Copy of Classic range - Rose Gold_1758112410766.png';
+import newClassicTanBag from '@assets/LGM_Classic_me (1)_1758112410768.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -348,16 +349,28 @@ const Hero = () => {
             
             <Link href="/browse?category=travel" className="group cursor-pointer block">
               <div className="relative overflow-hidden rounded-xl mb-4">
+                {/* Navy color (default) */}
                 <img 
-                  src="/images/backpack-brown.jpg"
-                  alt="Brown Travel Backpack"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                  src={newClassicNavyBag}
+                  alt="Classic Backpack - Navy"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                />
+                
+                {/* Tan color (on hover) */}
+                <img 
+                  src={newClassicTanBag}
+                  alt="Classic Backpack - Tan"
+                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart("Classic Backpack", 2499, newClassicNavyBag, "travel", 204);
+                    }}
+                    data-testid="button-add-to-cart-classic-backpack"
                   >
                     Add to Cart
                   </button>
