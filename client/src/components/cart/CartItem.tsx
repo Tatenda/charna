@@ -25,6 +25,7 @@ const CartItem = ({ item, updateQuantity, removeFromCart }: CartItemProps) => {
           src={product.images[0]} 
           alt={product.name} 
           className="h-full w-full object-cover"
+          style={{ imageRendering: 'auto' }}
         />
       </div>
       <div className="ml-4 flex-grow">

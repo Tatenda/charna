@@ -36,6 +36,7 @@ const NewArrivals = () => {
                     src={product.images[0]}
                     alt={product.name}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    style={{ imageRendering: 'auto' }}
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
                   

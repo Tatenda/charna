@@ -291,6 +291,7 @@ const Hero = () => {
                     className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${
                       index === retroImageIndex ? 'opacity-100' : 'opacity-0'
                     } ${index === 0 ? 'relative' : 'absolute inset-0'}`}
+                    style={{ imageRendering: 'auto' }}
                   />
                 ))}
 
@@ -327,6 +328,7 @@ const Hero = () => {
                     className={`w-full h-80 object-cover transition-opacity duration-500 ${
                       index === currentLeisureRange ? 'opacity-100' : 'opacity-0 absolute inset-0'
                     }`}
+                    style={{ imageRendering: 'auto' }}
                   />
                 ))}
 
@@ -355,6 +357,7 @@ const Hero = () => {
                   src={newNavyTennisBag}
                   alt="Tennis Sports Bag - Navy"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                  style={{ imageRendering: 'auto' }}
                 />
                 
                 {/* White color (on hover) */}
@@ -362,6 +365,7 @@ const Hero = () => {
                   src={newWhiteTennisBag}
                   alt="Tennis Sports Bag - White"
                   className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  style={{ imageRendering: 'auto' }}
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -385,6 +389,7 @@ const Hero = () => {
                   src={newClassicNavyBag}
                   alt="Classic Backpack - Navy"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                  style={{ imageRendering: 'auto' }}
                 />
                 
                 {/* Tan color (on hover) */}
@@ -392,6 +397,7 @@ const Hero = () => {
                   src={newClassicTanBag}
                   alt="Classic Backpack - Tan"
                   className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  style={{ imageRendering: 'auto' }}
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -459,6 +465,7 @@ const Hero = () => {
                   src={styledLaptopBag}
                   alt="Styled Laptop Backpack"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                  style={{ imageRendering: 'auto' }}
                 />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -661,7 +668,7 @@ const Hero = () => {
         {/* Mobile Alternative Layout */}
         <div className="md:hidden grid grid-cols-2 gap-2 px-4">
           <Link href="/browse?category=work" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
-            <img src="/images/green-backpack.jpg" alt="Business Collection" className="w-full h-full object-cover" />
+            <img src="/images/green-backpack.jpg" alt="Business Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Business</h3>
@@ -669,7 +676,7 @@ const Hero = () => {
             </div>
           </Link>
           <Link href="/browse?category=sport" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
-            <img src="/images/navy-tennis-bag.jpg" alt="Sports Collection" className="w-full h-full object-cover" />
+            <img src="/images/navy-tennis-bag.jpg" alt="Sports Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Sports</h3>
@@ -677,7 +684,7 @@ const Hero = () => {
             </div>
           </Link>
           <Link href="/browse?category=leisure" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
-            <img src="/images/cream-crossbody.jpg" alt="Leisure Collection" className="w-full h-full object-cover" />
+            <img src="/images/cream-crossbody.jpg" alt="Leisure Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Leisure</h3>
@@ -685,7 +692,7 @@ const Hero = () => {
             </div>
           </Link>
           <Link href="/browse?category=travel" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
-            <img src="/images/backpack-brown.jpg" alt="Travel Collection" className="w-full h-full object-cover" />
+            <img src="/images/backpack-brown.jpg" alt="Travel Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Travel</h3>
@@ -758,34 +765,34 @@ const Hero = () => {
           
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1 md:gap-2">
             <div className="aspect-square overflow-hidden">
-              <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={creamCrossbodyBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={creamCrossbodyBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={navyTennisBag} alt="Instagram post" className="w-full h-full object-contain hover:scale-110 transition-transform duration-300" />
+              <img src={navyTennisBag} alt="Instagram post" className="w-full h-full object-contain hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={navyRetroBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={navyRetroBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src="/images/white-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src="/images/white-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={navyTravelBackpack} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={navyTravelBackpack} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={groundedBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={groundedBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={tanBackpackBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={tanBackpackBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={whiteTennisBagBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={whiteTennisBagBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={navyBusinessBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+              <img src={navyBusinessBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
           </div>
           

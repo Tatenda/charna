@@ -49,6 +49,7 @@ const Story = () => {
                 src="/images/tennis-bag-lifestyle.jpg" 
                 alt="Leather craftsman at work" 
                 className="rounded-lg shadow-lg w-full"
+                style={{ imageRendering: 'auto' }}
               />
             </div>
           </div>

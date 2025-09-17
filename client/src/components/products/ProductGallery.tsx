@@ -18,6 +18,7 @@ const ProductGallery = ({ images, name }: ProductGalleryProps) => {
           src={getImagePath(mainImage)}
           alt={name}
           className="w-full object-cover"
+          style={{ imageRendering: 'auto' }}
         />
       </div>
       <div className="grid grid-cols-3 gap-3 mt-3">
@@ -28,6 +29,7 @@ const ProductGallery = ({ images, name }: ProductGalleryProps) => {
             alt={`${name} - Angle ${index + 1}`}
             className={`rounded-md cursor-pointer shadow hover:shadow-md ${mainImage === image ? 'ring-2 ring-primary' : ''}`}
             onClick={() => setMainImage(image)}
+            style={{ imageRendering: 'auto' }}
           />
         ))}
         {hasMoreImages && (

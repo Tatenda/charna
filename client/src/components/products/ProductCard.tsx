@@ -20,6 +20,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             src={getImagePath(product.images[0])} 
             alt={product.name} 
             className="w-full h-64 object-cover"
+            style={{ imageRendering: 'auto' }}
           />
           {product.badge && (
             <span className="absolute top-4 left-4 inline-block bg-accent text-white text-xs font-accent uppercase tracking-wider px-3 py-1 rounded">
