@@ -30,6 +30,8 @@ import newClassicTanBag from '@assets/LGM_Classic_me (1)_1758112410768.png';
 import navyGoldZipBag from '@assets/Retro range - Navy with gold zip_1758113011142.png';
 import newGroundedBag from '@assets/ChatGPT Image Sep 17, 2025, 03_24_36 PM_1758115521218.png';
 import timelessRoseGoldBag from '@assets/Timeless Range - Rose Gold zip_1758117345340.png';
+import manCarryingOliveBag from '@assets/ChatGPT Image Sep 17, 2025, 04_11_01 PM_1758118389040.png';
+import newNavyBusinessBag from '@assets/ChatGPT Image Sep 17, 2025, 01_42_26 PM_1758118389041.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -106,9 +108,10 @@ const Hero = () => {
   };
   
   const businessBags = [
+    { src: manCarryingOliveBag, alt: "Business Collection - Man with Olive Bag" },
     { src: "/images/green-backpack.jpg", alt: "Business Collection - Olive" },
     { src: tanBusinessBag, alt: "Business Collection - Tan" },
-    { src: navyBusinessBag, alt: "Business Collection - Navy" },
+    { src: newNavyBusinessBag, alt: "Business Collection - Navy" },
     { src: whiteBusinessBag, alt: "Business Collection - White" }
   ];
 
