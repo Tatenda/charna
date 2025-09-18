@@ -214,8 +214,15 @@ const Hero = () => {
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black/15"></div>
         
+        {/* Shop Bags Button - Repositioned to top */}
+        <div className="absolute top-4 md:top-8 left-1/2 transform -translate-x-1/2 z-20">
+          <Link href="/browse?category=work" className="inline-block bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-6 sm:px-10 py-3 md:py-4 text-base md:text-lg font-semibold rounded-md hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] flex items-center">
+            Shop Bags
+          </Link>
+        </div>
+
         {/* Navigation Bar - Mobile Responsive */}
-        <div className="absolute top-4 md:top-20 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-xs sm:max-w-none px-4 sm:px-0">
+        <div className="absolute top-20 md:top-28 left-1/2 transform -translate-x-1/2 z-20 w-full max-w-xs sm:max-w-none px-4 sm:px-0">
           <nav className="bg-white/10 backdrop-blur-sm rounded-lg md:rounded-full px-4 sm:px-8 py-3 md:py-4 border border-white/20">
             <div className="flex flex-wrap sm:flex-nowrap justify-center gap-2 sm:gap-4 md:gap-8 text-xs sm:text-sm font-medium">
               <Link href="/browse?category=work" className="text-white hover:text-stone-200 transition-colors duration-200 px-2 sm:px-4 py-2 rounded-full hover:bg-white/10 whitespace-nowrap">
@@ -244,9 +251,6 @@ const Hero = () => {
             <p className="text-lg sm:text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-xl md:max-w-2xl mx-auto">
               Handcrafted, beautiful and affordable bags
             </p>
-            <Link href="/browse?category=work" className="inline-block bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-6 sm:px-10 py-3 md:py-4 text-base md:text-lg font-semibold rounded-md hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] flex items-center">
-              Shop Bags
-            </Link>
           </div>
         </div>
         
