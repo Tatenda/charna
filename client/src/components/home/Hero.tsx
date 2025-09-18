@@ -548,7 +548,7 @@ const Hero = () => {
       </section>
 
       {/* Shop by Category - Full Collage Gallery */}
-      <section id="discover-your-movement" className="relative overflow-hidden" style={{backgroundColor: '#7A8471'}}>
+      <section className="relative overflow-hidden" style={{backgroundColor: '#7A8471'}}>
         {/* Header overlay */}
         <div className="relative z-10 text-center py-16">
           <h2 className="text-4xl font-georgia-bold text-white mb-4">Discover your Movement</h2>
@@ -839,7 +839,7 @@ const Hero = () => {
                 </Link>
                 
                 {/* Onboarding Capsule */}
-                <Link href="#discover-your-movement" className="flex items-center justify-center space-x-4 p-6 bg-white/10 rounded-xl backdrop-blur-sm hover:bg-white/20 transition-all duration-300 cursor-pointer group">
+                <Link href="/browse?category=onboarding" className="flex items-center justify-center space-x-4 p-6 bg-white/10 rounded-xl backdrop-blur-sm hover:bg-white/20 transition-all duration-300 cursor-pointer group">
                   <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center border-2 border-white/30 group-hover:bg-white/30 transition-all duration-300">
                     <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
