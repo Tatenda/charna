@@ -229,8 +229,36 @@ const categoryMapping: Record<string, string> = {
 export default function Browse() {
   const [location, setLocation] = useLocation();
   const [priceRange, setPriceRange] = useState([0, 6000]);
-  const [selectedCategory, setSelectedCategory] = useState('work');
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+
+  // State that tracks current category from URL
+  const [selectedCategory, setSelectedCategory] = useState(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    return searchParams.get('category') || 'work';
+  });
+
+  // Update category when URL changes (for browser back/forward navigation)
+  useEffect(() => {
+    const updateCategoryFromURL = () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      const category = searchParams.get('category') || 'work';
+      setSelectedCategory(category);
+    };
+
+    // Update immediately
+    updateCategoryFromURL();
+
+    // Listen for browser back/forward navigation
+    const handleLocationChange = () => {
+      updateCategoryFromURL();
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, [location]);
 
   // Generate dynamic SEO content based on category
   const getSEOContent = () => {
@@ -253,22 +281,7 @@ export default function Browse() {
     };
   };
 
-  // Function to update category from URL (no polling)
-  const updateCategoryFromURL = () => {
-    const searchParams = new URLSearchParams(location.split('?')[1] || '');
-    const urlCategory = searchParams.get('category');
-    
-    if (urlCategory) {
-      setSelectedCategory(urlCategory);
-    } else {
-      setSelectedCategory('work');
-    }
-  };
-
-  // Sync URL parameters and sidebar selection (no polling)
-  useEffect(() => {
-    updateCategoryFromURL();
-  }, [location]);
+  // selectedCategory is now calculated directly from URL, no state management needed
 
   // Scroll to top when navigating to browse page
   useEffect(() => {
@@ -294,6 +307,7 @@ export default function Browse() {
 
 
   const handleCategoryChange = (categoryId: string) => {
+    setSelectedCategory(categoryId);
     setLocation(`/browse?category=${categoryId}`);
   };
 
