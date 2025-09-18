@@ -805,32 +805,41 @@ const Hero = () => {
       <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4">
           {/* Section Heading */}
-          <div className="text-center mb-8">
-            <h2 className="text-4xl font-georgia-bold text-terracotta mb-8">Bag Capsule</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-georgia-bold text-black mb-2">Bag Capsule</h2>
+            <p className="text-gray-600 text-lg">Choose your focus</p>
           </div>
           
           {/* Capsule Options */}
-          <div className="flex justify-center gap-12 mb-12">
+          <div className="flex justify-center gap-8 mb-12 max-w-2xl mx-auto">
             {/* Gifting Capsule */}
-            <Link href="/browse?category=gifting" className="text-center group cursor-pointer">
-              <div className="w-16 h-16 bg-terracotta/10 rounded-full flex items-center justify-center border-2 border-terracotta/20 group-hover:bg-terracotta/20 transition-all duration-300 mx-auto mb-3">
-                <svg className="w-8 h-8 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <Link href="/browse?category=gifting" className="flex items-center space-x-4 group cursor-pointer p-4 rounded-lg hover:bg-gray-50 transition-all duration-300">
+              <div className="w-12 h-12 bg-terracotta/10 rounded-full flex items-center justify-center border-2 border-terracotta/20 group-hover:bg-terracotta/20 transition-all duration-300 flex-shrink-0">
+                <svg className="w-6 h-6 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-1">Gifting</h3>
-              <p className="text-gray-600 text-sm">Sustainable and timeless gifts</p>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-1">Gifting</h3>
+                <p className="text-gray-600 text-sm">Sustainable and timeless gifts</p>
+              </div>
             </Link>
             
             {/* Onboarding Capsule */}
-            <Link href="/browse?category=onboarding" className="text-center group cursor-pointer">
-              <div className="w-16 h-16 bg-terracotta/10 rounded-full flex items-center justify-center border-2 border-terracotta/20 group-hover:bg-terracotta/20 transition-all duration-300 mx-auto mb-3">
-                <svg className="w-8 h-8 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 515.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 919.288 0M15 7a3 3 0 11-6 0 3 3 0 616 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            <Link href="/browse?category=onboarding" className="flex items-center space-x-4 group cursor-pointer p-4 rounded-lg hover:bg-gray-50 transition-all duration-300">
+              <div className="w-12 h-12 bg-terracotta/10 rounded-full flex items-center justify-center border-2 border-terracotta/20 group-hover:bg-terracotta/20 transition-all duration-300 flex-shrink-0">
+                <svg className="w-6 h-6 text-terracotta" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  <circle cx="18" cy="8" r="2"/>
+                  <circle cx="6" cy="8" r="2"/>
+                  <path d="M18 14c.55 0 1.05.07 1.53.2-.86-.9-2.87-1.2-3.53-1.2v2c.66 0 2 .34 2 2h2c0-1.66-1.34-3-2-3z"/>
+                  <path d="M6 14c-.55 0-1.05.07-1.53.2.86-.9 2.87-1.2 3.53-1.2v2c-.66 0-2 .34-2 2H4c0-1.66 1.34-3 2-3z"/>
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-1">Onboarding</h3>
-              <p className="text-gray-600 text-sm">Unforgettable employee experiences</p>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-1">Onboarding</h3>
+                <p className="text-gray-600 text-sm">Unforgettable employee experiences</p>
+              </div>
             </Link>
           </div>
         </div>
