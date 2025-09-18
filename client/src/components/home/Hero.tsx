@@ -23,10 +23,10 @@ import tanTravelBackpack from '@assets/LGM_Classic_me_1757356445165.png';
 import travelBackpackLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 05_56_03 PM_1758206025280.png';
 import embossInitials from '@assets/Embossing example_1758224006405.png';
 import embossCompanyTag from '@assets/Welcome message - Christopher_1758224465167.png';
-import whiteBackpack from "@assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757403283999.png";
-import brownBackpack from "@assets/LGM_Grounded (1)_1757403284002.png";
-import navyModernBackpack from "@assets/Retro Range - Navy Blue_1757403284003.png";
-import oliveBackpack from "@assets/Retro Range - Olive_1757403284004.png";
+import whiteWorkBackpack from "@assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1758225069381.png";
+import brownWorkBackpack from "@assets/LGM_Grounded (1)_1758225069383.png";
+import navyWorkBackpack from "@assets/Retro Range - Navy Blue_1758225069385.png";
+import oliveWorkBackpack from "@assets/Retro Range - Olive_1758225069386.png";
 import creamHipBag from '@assets/LGM_hip_1757356807770.png';
 import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
 import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
@@ -141,10 +141,10 @@ const Hero = () => {
   ];
 
   const workLaptopBags = [
-    { src: brownBackpack, alt: "Grounded Tan Backpack" },
-    { src: whiteBackpack, alt: "Timeless White Backpack" },
-    { src: navyModernBackpack, alt: "Retro Navy Backpack" },
-    { src: oliveBackpack, alt: "Retro Olive Backpack" }
+    { src: whiteWorkBackpack, alt: "Timeless White Backpack" },
+    { src: brownWorkBackpack, alt: "Grounded Tan Backpack" },
+    { src: navyWorkBackpack, alt: "Retro Navy Backpack" },
+    { src: oliveWorkBackpack, alt: "Retro Olive Backpack" }
   ];
 
   const leisureRangeBags = [
