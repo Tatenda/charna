@@ -806,7 +806,7 @@ const Hero = () => {
         <div className="container mx-auto px-4">
           {/* Section Heading */}
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-georgia-bold text-black mb-2">Bag Capsule</h2>
+            <h2 className="text-4xl font-georgia-bold text-terracotta mb-4">Bag Capsule</h2>
             <p className="text-gray-600 text-base">Choose your focus</p>
           </div>
           
