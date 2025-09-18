@@ -30,7 +30,7 @@ const Header = () => {
             </button>
             <Link href="/" className="flex items-center">
               <span className="text-2xl sm:text-3xl md:text-4xl font-georgia-bold text-terracotta">
-                Charna
+                Charna.
               </span>
             </Link>
           </div>
