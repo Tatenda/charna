@@ -39,6 +39,7 @@ import newGroundedBag from '@assets/ChatGPT Image Sep 17, 2025, 03_24_36 PM_1758
 import timelessRoseGoldBag from '@assets/Timeless Range - Rose Gold zip_1758117345340.png';
 import manCarryingOliveBag from '@assets/ChatGPT Image Sep 17, 2025, 04_11_01 PM_1758118389040.png';
 import newNavyBusinessBag from '@assets/ChatGPT Image Sep 17, 2025, 01_42_26 PM_1758118389041.png';
+import newNavyTennisBagInstagram from '@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1758226256896.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -865,7 +866,7 @@ const Hero = () => {
               <img src={creamCrossbodyBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={navyTennisBag} alt="Instagram post" className="w-full h-full object-contain hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+              <img src={newNavyTennisBagInstagram} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
               <img src={navyRetroBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
