@@ -231,7 +231,7 @@ const Hero = () => {
                 Travel
               </Link>
               <Link href="/browse?category=accessories" className="text-white hover:text-stone-200 transition-colors duration-200 px-2 sm:px-4 py-2 rounded-full hover:bg-white/10 whitespace-nowrap">
-                Access
+                Accessories
               </Link>
             </div>
           </nav>
