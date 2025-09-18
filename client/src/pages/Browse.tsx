@@ -345,7 +345,7 @@ export default function Browse() {
   const seoContent = getSEOContent();
 
   return (
-    <div className="min-h-screen bg-gray-800 text-white pt-16 md:pt-20 overflow-x-hidden">
+    <div className="min-h-screen bg-terracotta text-white pt-16 md:pt-20 overflow-x-hidden">
       <Seo 
         title={seoContent.title}
         description={seoContent.description}
@@ -354,7 +354,7 @@ export default function Browse() {
         image={indoorGreeneryBackdrop}
       />
       {/* Breadcrumb Navigation */}
-      <div className="px-4 md:px-6 py-4 text-sm text-gray-400 max-w-full">
+      <div className="px-4 md:px-6 py-4 text-sm text-white/70 max-w-full">
         <div className="flex items-center flex-wrap">
           <Link href="/" className="hover:text-white flex-shrink-0">Home</Link>
           <span className="mx-2 flex-shrink-0">&gt;</span>
@@ -410,7 +410,7 @@ export default function Browse() {
         >
           {/* Browse by Section */}
           <div className="mb-12">
-            <h3 className="text-xl font-bold mb-6 text-white border-b border-gray-700 pb-3">
+            <h3 className="text-xl font-bold mb-6 text-white border-b border-white/30 pb-3">
               Browse by
             </h3>
             <div className="space-y-3">
@@ -427,7 +427,7 @@ export default function Browse() {
                     className={`block w-full text-left py-2 px-3 rounded transition-colors ${
                       isActive
                         ? 'bg-botanical text-white font-medium'
-                        : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                        : 'text-white/80 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     {category}
@@ -439,7 +439,7 @@ export default function Browse() {
 
           {/* Filter by Section */}
           <div>
-            <h3 className="text-xl font-bold mb-6 text-white border-b border-gray-700 pb-3">
+            <h3 className="text-xl font-bold mb-6 text-white border-b border-white/30 pb-3">
               Filter by
             </h3>
             
@@ -453,9 +453,9 @@ export default function Browse() {
                   max="6000"
                   value={priceRange[1]}
                   onChange={handlePriceChange}
-                  className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
+                  className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
                 />
-                <div className="flex justify-between mt-3 text-sm text-gray-400">
+                <div className="flex justify-between mt-3 text-sm text-white/70">
                   <span>R{priceRange[0]}</span>
                   <span>R{priceRange[1]}</span>
                 </div>
@@ -530,11 +530,11 @@ export default function Browse() {
             </div>
 
             {filteredCollageProducts.length === 0 && (
-              <div className="text-center py-12 sm:py-20 bg-gray-800/50 backdrop-blur-sm rounded-lg mx-auto max-w-lg">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-300 mb-4 px-4">
+              <div className="text-center py-12 sm:py-20 bg-terracotta/70 backdrop-blur-sm rounded-lg mx-auto max-w-lg">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 px-4">
                   No products found
                 </h3>
-                <p className="text-gray-400 px-4 text-sm sm:text-base">
+                <p className="text-white/80 px-4 text-sm sm:text-base">
                   Try adjusting your filters or browse a different category.
                 </p>
               </div>
