@@ -21,6 +21,8 @@ import navyTennisBagNew from '@assets/Navy Tennis bag_1757355605958.png';
 import navyTravelBackpack from '@assets/Classic range - Rose Gold_1757356095029.png';
 import tanTravelBackpack from '@assets/LGM_Classic_me_1757356445165.png';
 import travelBackpackLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 05_56_03 PM_1758206025280.png';
+import embossInitials from '@assets/Embossing example_1758224006405.png';
+import embossCompanyTag from '@assets/Welcome message - Christopher_1758224465167.png';
 import creamHipBag from '@assets/LGM_hip_1757356807770.png';
 import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
 import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
@@ -70,10 +72,12 @@ const Hero = () => {
   const [currentSportsBag, setCurrentSportsBag] = useState(0);
   const [currentTravelBag, setCurrentTravelBag] = useState(0);
   const [currentLeisureBag, setCurrentLeisureBag] = useState(0);
+  const [currentWorkBag, setCurrentWorkBag] = useState(0);
   const [isBusinessHovered, setIsBusinessHovered] = useState(false);
   const [isSportsHovered, setIsSportsHovered] = useState(false);
   const [isTravelHovered, setIsTravelHovered] = useState(false);
   const [isLeisureHovered, setIsLeisureHovered] = useState(false);
+  const [isWorkHovered, setIsWorkHovered] = useState(false);
 
   // Helper function to create Product objects that match the schema
   const createProduct = (id: number, name: string, price: number, image: string, category: string): Product => ({
@@ -130,6 +134,12 @@ const Hero = () => {
   const leisureBags = [
     { src: "/images/crossbody-cream.jpg", alt: "Leisure Collection - Crossbody" },
     { src: creamHipBag, alt: "Leisure Collection - Hip Bag" }
+  ];
+
+  const workLaptopBags = [
+    { src: tanBusinessBag, alt: "Work Collection - Tan Laptop Bag" },
+    { src: navyBusinessBag, alt: "Work Collection - Navy Laptop Bag" },
+    { src: whiteBusinessBag, alt: "Work Collection - White Laptop Bag" }
   ];
 
   const leisureRangeBags = [
@@ -199,6 +209,22 @@ const Hero = () => {
       if (leisureInterval) clearInterval(leisureInterval);
     };
   }, [isLeisureHovered, leisureBags.length]);
+
+  useEffect(() => {
+    let workInterval: NodeJS.Timeout | null = null;
+    
+    if (isWorkHovered) {
+      workInterval = setInterval(() => {
+        setCurrentWorkBag((prev) => (prev + 1) % workLaptopBags.length);
+      }, 1500);
+    } else {
+      setCurrentWorkBag(0); // Reset to first image when not hovering
+    }
+
+    return () => {
+      if (workInterval) clearInterval(workInterval);
+    };
+  }, [isWorkHovered, workLaptopBags.length]);
 
 
   return (
@@ -654,21 +680,77 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Bottom right - Onboarding (moved from previous position) */}
-          <Link href="/browse?category=onboarding" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl">
-            <div className="w-full h-full bg-gray-600 flex items-center justify-center">
-              <div className="text-center text-white">
-                <div className="text-4xl mb-2">🎨</div>
-                <p className="text-sm">Onboarding</p>
-                <p className="text-xs opacity-70">Image coming soon</p>
+          {/* Bottom right - Onboarding (5-block nested layout) */}
+          <div 
+            className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg"
+            onMouseEnter={() => setIsWorkHovered(true)}
+            onMouseLeave={() => setIsWorkHovered(false)}
+          >
+            <div className="grid grid-cols-4 grid-rows-2 gap-2 h-full p-4">
+              {/* Large rotating work laptop bags block (left 2x2) */}
+              <div className="col-span-2 row-span-2 relative overflow-hidden rounded-lg" data-testid="card-onboard-bags">
+                {workLaptopBags.map((bag, index) => (
+                  <img 
+                    key={index}
+                    src={bag.src}
+                    alt={bag.alt}
+                    className={`w-full h-full object-cover transition-opacity duration-500 ${
+                      index === currentWorkBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                    }`}
+                  />
+                ))}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-4 left-4 text-white">
+                  <h3 className="text-lg font-semibold mb-1">Onboarding</h3>
+                  <p className="text-sm opacity-90">Work Laptop Bags</p>
+                </div>
+              </div>
+              
+              {/* Top right - Laptop Sleeves placeholder */}
+              <div className="col-span-1 row-span-1 bg-gray-500/50 rounded-lg border-2 border-dashed border-gray-400 flex items-center justify-center" data-testid="card-sleeves">
+                <div className="text-center text-white">
+                  <div className="text-2xl mb-1">💻</div>
+                  <p className="text-xs font-medium">Laptop Sleeves</p>
+                  <p className="text-xs opacity-70">Coming Soon</p>
+                </div>
+              </div>
+              
+              {/* Top right 2 - Desk Mat placeholder */}
+              <div className="col-span-1 row-span-1 bg-gray-500/50 rounded-lg border-2 border-dashed border-gray-400 flex items-center justify-center" data-testid="card-deskmat">
+                <div className="text-center text-white">
+                  <div className="text-2xl mb-1">🖱️</div>
+                  <p className="text-xs font-medium">Desk Mat</p>
+                  <p className="text-xs opacity-70">Coming Soon</p>
+                </div>
+              </div>
+              
+              {/* Bottom right - Embossed Initials */}
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="img-emboss-initials">
+                <img 
+                  src={embossInitials} 
+                  alt="Embossed initials example" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-2 left-2 text-white">
+                  <p className="text-xs font-medium">Embossed Initials</p>
+                </div>
+              </div>
+              
+              {/* Bottom right 2 - Embossed Company Tag */}
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="img-emboss-company">
+                <img 
+                  src={embossCompanyTag} 
+                  alt="Embossed company tag example" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-2 left-2 text-white">
+                  <p className="text-xs font-medium">Welcome Tag</p>
+                </div>
               </div>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-lg text-white mb-2">Onboarding</h3>
-              <p className="text-base opacity-90 text-white">Create a 1st class employee experience</p>
-            </div>
-          </Link>
+          </div>
           
         </div>
         
