@@ -805,13 +805,12 @@ const Hero = () => {
       <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4">
           {/* Section Heading */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
             <h2 className="text-4xl font-georgia-bold text-terracotta mb-4">Bag Capsule</h2>
-            <p className="text-gray-600 text-base">Choose your focus</p>
           </div>
           
           {/* Capsule Options */}
-          <div className="flex justify-center gap-8 mb-12 max-w-2xl mx-auto">
+          <div className="flex justify-center gap-6 mb-8 max-w-xl mx-auto">
             {/* Gifting Capsule */}
             <Link href="/browse?category=gifting" className="flex items-center space-x-4 group cursor-pointer p-4 rounded-lg hover:bg-gray-50 transition-all duration-300">
               <div className="w-12 h-12 bg-terracotta/10 rounded-full flex items-center justify-center border-2 border-terracotta/20 group-hover:bg-terracotta/20 transition-all duration-300 flex-shrink-0">
