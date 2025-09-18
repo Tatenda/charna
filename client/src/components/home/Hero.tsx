@@ -885,8 +885,11 @@ const Hero = () => {
             <div className="aspect-square overflow-hidden">
               <img src={whiteTennisBagBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
-            <div className="aspect-square overflow-hidden">
-              <img src={navyBusinessBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+            <div className="aspect-square overflow-hidden bg-gray-300 flex items-center justify-center">
+              <div className="text-center text-gray-600">
+                <div className="text-2xl mb-1">📷</div>
+                <p className="text-xs">Coming Soon</p>
+              </div>
             </div>
           </div>
           
