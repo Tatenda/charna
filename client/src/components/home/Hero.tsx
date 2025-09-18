@@ -815,7 +815,7 @@ const Hero = () => {
         <div className="relative h-[80vh] w-full overflow-hidden">
             {/* Background Image */}
             <img 
-              src="@assets/ChatGPT Image Sep 18, 2025, 11_09_00 PM_1758230243532.png"
+              src="/images/navy-backpack-capsule.png"
               alt="Premium Navy Leather Backpack"
               className="w-full h-full object-cover"
             />
