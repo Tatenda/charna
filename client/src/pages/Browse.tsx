@@ -422,7 +422,7 @@ export default function Browse() {
                   <button
                     key={category}
                     onClick={() => {
-                      setLocation(`/browse?category=${categoryId}`);
+                      handleCategoryChange(categoryId);
                     }}
                     className={`block w-full text-left py-2 px-3 rounded transition-colors ${
                       isActive
