@@ -71,6 +71,9 @@
   --mustard: 45 95% 55%; /* #eeb902 - Bright mustard yellow */
   --mustard-light: 45 90% 65%; /* #f2c942 - Light mustard */
   --mustard-dark: 45 100% 45%; /* #e6a800 - Dark mustard */
+
+  /* Terracotta colors */
+  --terracotta: 20 65% 50%; /* #bf6536 - Warm terracotta brown */
   
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;
@@ -264,6 +267,11 @@
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Terracotta text color utility */
+.text-terracotta {
+  color: hsl(var(--terracotta));
 }
 
 /* Ensure proper mobile touch targets */
