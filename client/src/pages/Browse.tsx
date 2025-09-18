@@ -279,9 +279,11 @@ export default function Browse() {
     updateCategoryFromURL();
   }, [location]);
 
-  // Scroll to top when navigating to browse page
+  // Scroll to top when navigating to browse page (with slight delay to avoid interfering with category updates)
   useEffect(() => {
-    window.scrollTo(0, 0);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 10);
   }, [location]);
 
   const { addToCart } = useCart();
