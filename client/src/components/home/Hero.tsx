@@ -637,7 +637,7 @@ const Hero = () => {
           </Link>
           
           {/* Bottom - Gifts */}
-          <Link href="/browse?category=gifts" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
+          <Link href="/browse?category=gifting" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
             <div className="w-full h-full bg-gray-800 flex items-center justify-center">
               <div className="text-center text-white">
                 <div className="text-4xl mb-2">🎁</div>
