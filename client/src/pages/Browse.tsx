@@ -270,11 +270,9 @@ export default function Browse() {
     updateCategoryFromURL();
   }, [location]);
 
-  // Scroll to top when navigating to browse page (with slight delay to avoid interfering with category updates)
+  // Scroll to top when navigating to browse page
   useEffect(() => {
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 10);
+    window.scrollTo(0, 0);
   }, [location]);
 
   const { addToCart } = useCart();
