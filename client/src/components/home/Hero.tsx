@@ -20,6 +20,7 @@ import whiteBusinessBag from '@assets/ChatGPT Image Jul 25, 2025, 05_27_55 PM_17
 import navyTennisBagNew from '@assets/Navy Tennis bag_1757355605958.png';
 import navyTravelBackpack from '@assets/Classic range - Rose Gold_1757356095029.png';
 import tanTravelBackpack from '@assets/LGM_Classic_me_1757356445165.png';
+import travelBackpackLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 05_56_03 PM_1758206025280.png';
 import creamHipBag from '@assets/LGM_hip_1757356807770.png';
 import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
 import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
@@ -121,6 +122,7 @@ const Hero = () => {
   ];
 
   const travelBags = [
+    { src: travelBackpackLifestyle, alt: "Travel Collection - Lifestyle" },
     { src: tanTravelBackpack, alt: "Travel Collection - Tan" },
     { src: navyTravelBackpack, alt: "Travel Collection - Navy" }
   ];
