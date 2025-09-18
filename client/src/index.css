@@ -269,9 +269,13 @@
   display: none;
 }
 
-/* Terracotta text color utility */
+/* Terracotta color utilities */
 .text-terracotta {
   color: hsl(var(--terracotta));
+}
+
+.bg-terracotta {
+  background-color: hsl(var(--terracotta));
 }
 
 /* Ensure proper mobile touch targets */
