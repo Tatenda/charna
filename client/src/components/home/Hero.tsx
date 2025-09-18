@@ -575,9 +575,9 @@ const Hero = () => {
             ))}
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-            <div className="absolute bottom-8 left-8 text-white">
+            <div className="absolute bottom-6 left-6 text-white">
               <h3 className="text-lg text-white mb-2">Business</h3>
-              <p className="text-lg opacity-90 text-white">Professional Excellence</p>
+              <p className="text-base opacity-90 text-white">Professional Excellence</p>
             </div>
           </Link>
           
@@ -706,8 +706,8 @@ const Hero = () => {
                 ))}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-lg font-semibold mb-1">Onboarding</h3>
-                  <p className="text-sm opacity-90">Work Laptop Bags</p>
+                  <h3 className="text-lg text-white font-semibold mb-2">Onboarding</h3>
+                  <p className="text-base opacity-90 text-white">Work Laptop Bags</p>
                 </div>
               </div>
               
