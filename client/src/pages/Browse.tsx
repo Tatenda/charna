@@ -345,7 +345,7 @@ export default function Browse() {
   const seoContent = getSEOContent();
 
   return (
-    <div className="min-h-screen bg-terracotta text-white pt-16 md:pt-20 overflow-x-hidden">
+    <div className="min-h-screen bg-primary text-white pt-16 md:pt-20 overflow-x-hidden">
       <Seo 
         title={seoContent.title}
         description={seoContent.description}
