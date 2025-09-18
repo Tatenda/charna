@@ -229,13 +229,12 @@ const categoryMapping: Record<string, string> = {
 export default function Browse() {
   const [location, setLocation] = useLocation();
   const [priceRange, setPriceRange] = useState([0, 6000]);
-  const [selectedBrowseCategory, setSelectedBrowseCategory] = useState('Work');
   const [selectedCategory, setSelectedCategory] = useState('work');
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   // Generate dynamic SEO content based on category
   const getSEOContent = () => {
-    const categoryTitle = selectedBrowseCategory;
+    const categoryTitle = selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
     const baseTitle = `${categoryTitle} Bags | Charna Leather Goods`;
     const descriptions: Record<string, string> = {
       'Work': 'Discover Charna\'s professional work bags and business backpacks. Handcrafted in Johannesburg from premium leather for the modern professional.',
@@ -261,16 +260,8 @@ export default function Browse() {
     
     if (urlCategory) {
       setSelectedCategory(urlCategory);
-      const categoryName = urlCategory.charAt(0).toUpperCase() + urlCategory.slice(1);
-      
-      if (browseCategories.includes(categoryName)) {
-        setSelectedBrowseCategory(categoryName);
-      } else {
-        setSelectedBrowseCategory('Work');
-      }
     } else {
       setSelectedCategory('work');
-      setSelectedBrowseCategory('Work');
     }
   };
 
@@ -295,24 +286,8 @@ export default function Browse() {
 
   // Filter products based on category and price
   const filteredCollageProducts = collageProducts.filter((product) => {
-    // Use the sidebar category selection for filtering
-    let targetCategory;
-    if (selectedBrowseCategory === 'Work') {
-      targetCategory = 'business';
-    } else if (selectedBrowseCategory === 'Leisure') {
-      targetCategory = 'leisure';
-    } else if (selectedBrowseCategory === 'Sport') {
-      targetCategory = 'tennis';
-    } else if (selectedBrowseCategory === 'Travel') {
-      targetCategory = 'travel';
-    } else if (selectedBrowseCategory === 'Accessories') {
-      targetCategory = 'accessories';
-    } else if (selectedBrowseCategory === 'Onboarding') {
-      targetCategory = 'onboarding';
-    } else {
-      // For URL-based categories from top tabs
-      targetCategory = categoryMapping[selectedCategory] || selectedCategory;
-    }
+    // Use URL category as single source of truth
+    const targetCategory = categoryMapping[selectedCategory] || selectedCategory;
     
     const matchesCategory = product.category === targetCategory;
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
@@ -322,11 +297,6 @@ export default function Browse() {
 
   const handleCategoryChange = (categoryId: string) => {
     setLocation(`/browse?category=${categoryId}`);
-    // Also update the sidebar selection to stay in sync
-    const categoryName = categoryId.charAt(0).toUpperCase() + categoryId.slice(1);
-    if (browseCategories.includes(categoryName)) {
-      setSelectedBrowseCategory(categoryName);
-    }
   };
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -432,28 +402,26 @@ export default function Browse() {
               Browse by
             </h3>
             <div className="space-y-3">
-              {browseCategories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => {
-                    if (category === 'All Products') {
-                      setLocation('/browse');
-                      setSelectedBrowseCategory('All Products');
-                    } else {
-                      const categoryId = category.toLowerCase();
+              {browseCategories.map((category) => {
+                const categoryId = category.toLowerCase();
+                const isActive = selectedCategory === categoryId;
+                
+                return (
+                  <button
+                    key={category}
+                    onClick={() => {
                       setLocation(`/browse?category=${categoryId}`);
-                      setSelectedBrowseCategory(category);
-                    }
-                  }}
-                  className={`block w-full text-left py-2 px-3 rounded transition-colors ${
-                    selectedBrowseCategory === category
-                      ? 'bg-botanical text-white font-medium'
-                      : 'text-gray-300 hover:text-white hover:bg-gray-700'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+                    }}
+                    className={`block w-full text-left py-2 px-3 rounded transition-colors ${
+                      isActive
+                        ? 'bg-botanical text-white font-medium'
+                        : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
