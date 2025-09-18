@@ -24,6 +24,7 @@ const Header = () => {
               className="lg:hidden mr-3 text-primary p-2 min-h-[44px] min-w-[44px] flex items-center justify-center"
               onClick={toggleMobileMenu}
               aria-label="Toggle menu"
+              data-testid="mobile-menu-toggle"
             >
               <FontAwesomeIcon icon="bars" className="text-xl" />
             </button>
@@ -33,7 +34,7 @@ const Header = () => {
               </span>
             </Link>
           </div>
-          <nav className="hidden lg:flex space-x-8 font-medium text-sm">
+          <nav className="hidden lg:flex space-x-8 font-medium text-sm" data-testid="desktop-navigation">
             <Link 
               href="/" 
               className={`text-forest hover:text-botanical transition duration-200 px-3 py-2 ${isActive('/') ? 'text-botanical font-semibold' : ''}`}
@@ -75,13 +76,14 @@ const Header = () => {
       </div>
       
       {/* Mobile Menu */}
-      <div className={`lg:hidden bg-white w-full border-t border-gray-100 shadow-lg transition-all duration-300 ${mobileMenuOpen ? 'block' : 'hidden'}`}>
+      <div className={`lg:hidden bg-white w-full border-t border-gray-100 shadow-lg transition-all duration-300 ${mobileMenuOpen ? 'block' : 'hidden'}`} data-testid="mobile-menu">
         <div className="container mx-auto px-4 py-6">
           <nav className="flex flex-col space-y-2 font-medium">
             <Link
               href="/"
               className={`text-forest hover:text-botanical transition duration-200 py-3 px-2 rounded-lg min-h-[44px] flex items-center ${isActive('/') ? 'text-botanical font-semibold bg-botanical/10' : 'hover:bg-gray-50'}`}
               onClick={() => setMobileMenuOpen(false)}
+              data-testid="mobile-link-home"
             >
               Home
             </Link>
@@ -89,6 +91,7 @@ const Header = () => {
               href="/browse"
               className={`text-forest hover:text-botanical transition duration-200 py-3 px-2 rounded-lg min-h-[44px] flex items-center ${isActive('/browse') ? 'text-botanical font-semibold bg-botanical/10' : 'hover:bg-gray-50'}`}
               onClick={() => setMobileMenuOpen(false)}
+              data-testid="mobile-link-browse"
             >
               Shop
             </Link>
