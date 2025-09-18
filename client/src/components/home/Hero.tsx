@@ -244,9 +244,15 @@ const Hero = () => {
             <p className="text-lg sm:text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-xl md:max-w-2xl mx-auto">
               Handcrafted, beautiful and affordable bags
             </p>
-            <Link href="/browse?category=work" className="inline-block bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-6 sm:px-10 py-3 md:py-4 text-base md:text-lg font-semibold rounded-md hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 min-h-[44px] flex items-center">
-              Shop Bags
-            </Link>
+            <div className="flex justify-center">
+              <Link
+                href="/browse?category=work"
+                className="inline-block bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-6 sm:px-10 py-3 md:py-4 text-base md:text-lg font-semibold rounded-md hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 md:-translate-x-6 min-h-[44px] flex items-center"
+                data-testid="button-shop-bags"
+              >
+                Shop Bags
+              </Link>
+            </div>
           </div>
         </div>
         
