@@ -202,7 +202,7 @@ const categoryTabs = [
   { id: 'sport', label: 'Sport' },
   { id: 'travel', label: 'Travel' },
   { id: 'accessories', label: 'Accessories' },
-  { id: 'gifts', label: 'Gifts' }
+  { id: 'onboarding', label: 'Onboarding' }
 ];
 
 const browseCategories = [
@@ -211,8 +211,8 @@ const browseCategories = [
   'Sport',
   'Travel',
   'Accessories',
-  'Gifts',
-  'Onboarding'
+  'Onboarding',
+  'Gifting'
 ];
 
 // Map hero categories to actual product categories
@@ -223,7 +223,6 @@ const categoryMapping: Record<string, string> = {
   'travel': 'travel',
   'accessories': 'accessories',
   'onboarding': 'onboarding',
-  'gifts': 'onboarding', // Map gifts to onboarding products for now
   'gifting': 'onboarding' // Map gifting to onboarding products for now
 };
 
