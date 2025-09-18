@@ -636,8 +636,24 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Bottom - Onboarding */}
-          <Link href="/browse?category=onboarding" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
+          {/* Bottom - Gifts */}
+          <Link href="/browse?category=gifts" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
+            <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+              <div className="text-center text-white">
+                <div className="text-4xl mb-2">🎁</div>
+                <p className="text-sm">Gifts</p>
+                <p className="text-xs opacity-70">Image coming soon</p>
+              </div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-6 left-6 text-white">
+              <h3 className="text-lg text-white mb-2">Gifts</h3>
+              <p className="text-base opacity-90 text-white">Perfect for Every Occasion</p>
+            </div>
+          </Link>
+          
+          {/* Bottom right - Onboarding (moved from previous position) */}
+          <Link href="/browse?category=onboarding" className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl">
             <div className="w-full h-full bg-gray-600 flex items-center justify-center">
               <div className="text-center text-white">
                 <div className="text-4xl mb-2">🎨</div>
