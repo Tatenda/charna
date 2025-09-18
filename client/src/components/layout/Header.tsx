@@ -34,7 +34,7 @@ const Header = () => {
               </span>
             </Link>
           </div>
-          <nav className="hidden lg:flex space-x-8 font-medium text-sm" data-testid="desktop-navigation">
+          <nav className="hidden lg:flex space-x-8 font-medium text-base" data-testid="desktop-navigation">
             <Link 
               href="/" 
               className={`text-forest hover:text-botanical transition duration-200 px-3 py-2 ${isActive('/') ? 'text-botanical font-semibold' : ''}`}
