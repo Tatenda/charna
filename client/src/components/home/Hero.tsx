@@ -801,19 +801,19 @@ const Hero = () => {
 
 
       {/* Bag Capsule Section */}
-      <section className="py-20" style={{backgroundColor: '#2C3E50'}}>
+      <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4">
           {/* Section Heading */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-georgia-bold text-white mb-4">Bag Capsule</h2>
+            <h2 className="text-4xl font-georgia-bold text-black mb-4">Bag Capsule</h2>
           </div>
           
           {/* Content Area with Background Image */}
-          <div className="relative overflow-hidden rounded-2xl" style={{backgroundColor: '#34495E'}}>
+          <div className="relative overflow-hidden rounded-2xl h-[600px]">
             {/* Background Image */}
             <div className="absolute inset-0" style={{
               backgroundImage: `url(${navyRoseGoldBackpack})`,
-              backgroundSize: '100%',
+              backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'
             }}></div>
@@ -822,7 +822,7 @@ const Hero = () => {
             <div className="absolute inset-0 bg-black/20"></div>
             
             {/* Content */}
-            <div className="relative z-10 py-16 px-8">
+            <div className="relative z-10 h-full flex items-center justify-center py-16 px-8">
               {/* Button Sections */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 {/* Gifting Capsule */}
