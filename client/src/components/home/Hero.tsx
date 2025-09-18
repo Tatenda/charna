@@ -805,14 +805,38 @@ const Hero = () => {
       <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4">
           {/* Section Heading */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-georgia-bold text-terracotta mb-4">Bag Capsule</h2>
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-georgia-bold text-terracotta mb-8">Bag Capsule</h2>
           </div>
           
+          {/* Capsule Options */}
+          <div className="flex justify-center gap-12 mb-12">
+            {/* Gifting Capsule */}
+            <Link href="/browse?category=gifting" className="text-center group cursor-pointer">
+              <div className="w-16 h-16 bg-terracotta/10 rounded-full flex items-center justify-center border-2 border-terracotta/20 group-hover:bg-terracotta/20 transition-all duration-300 mx-auto mb-3">
+                <svg className="w-8 h-8 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-1">Gifting</h3>
+              <p className="text-gray-600 text-sm">Sustainable and timeless gifts</p>
+            </Link>
+            
+            {/* Onboarding Capsule */}
+            <Link href="/browse?category=onboarding" className="text-center group cursor-pointer">
+              <div className="w-16 h-16 bg-terracotta/10 rounded-full flex items-center justify-center border-2 border-terracotta/20 group-hover:bg-terracotta/20 transition-all duration-300 mx-auto mb-3">
+                <svg className="w-8 h-8 text-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 515.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 919.288 0M15 7a3 3 0 11-6 0 3 3 0 616 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-1">Onboarding</h3>
+              <p className="text-gray-600 text-sm">Unforgettable employee experiences</p>
+            </Link>
+          </div>
         </div>
         
         {/* Full Screen Image */}
-        <div className="relative h-[80vh] w-full overflow-hidden">
+        <div className="h-[80vh] w-full overflow-hidden">
             {/* Background Image */}
             <img 
               src="/images/navy-backpack-capsule.png"
@@ -821,7 +845,7 @@ const Hero = () => {
             />
             
             {/* Content Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-end justify-center pb-16">
+            <div style={{display: 'none'}} className="hidden">
               {/* Button Sections */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto px-8">
                 {/* Gifting Capsule */}
