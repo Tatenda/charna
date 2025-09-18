@@ -279,6 +279,11 @@ export default function Browse() {
     updateCategoryFromURL();
   }, [location]);
 
+  // Scroll to top when navigating to browse page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   const { addToCart } = useCart();
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
