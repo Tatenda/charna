@@ -687,7 +687,8 @@ const Hero = () => {
           </Link>
           
           {/* Bottom right - Onboarding (5-block nested layout) */}
-          <div 
+          <Link 
+            href="/browse?category=onboarding"
             className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg"
             onMouseEnter={() => setIsWorkHovered(true)}
             onMouseLeave={() => setIsWorkHovered(false)}
@@ -756,7 +757,7 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
           
         </div>
         
