@@ -809,23 +809,21 @@ const Hero = () => {
             <h2 className="text-4xl font-georgia-bold text-terracotta mb-4">Bag Capsule</h2>
           </div>
           
-          {/* Content Area with Background Image */}
-          <div className="relative overflow-hidden rounded-2xl h-[600px]">
+        </div>
+        
+        {/* Full Screen Image */}
+        <div className="relative h-[80vh] w-full overflow-hidden">
             {/* Background Image */}
-            <div className="absolute inset-0" style={{
-              backgroundImage: `url(${navyRoseGoldBackpack})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }}></div>
+            <img 
+              src="@assets/ChatGPT Image Sep 18, 2025, 11_09_00 PM_1758230243532.png"
+              alt="Premium Navy Leather Backpack"
+              className="w-full h-full object-cover"
+            />
             
-            {/* Overlay for better text readability */}
-            <div className="absolute inset-0 bg-black/20"></div>
-            
-            {/* Content */}
-            <div className="relative z-10 h-full flex items-center justify-center py-16 px-8">
+            {/* Content Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-end justify-center pb-16">
               {/* Button Sections */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto px-8">
                 {/* Gifting Capsule */}
                 <Link href="/browse?category=gifting" className="flex items-center justify-center space-x-4 p-6 bg-white/10 rounded-xl backdrop-blur-sm hover:bg-white/20 transition-all duration-300 cursor-pointer group">
                   <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center border-2 border-white/30 group-hover:bg-white/30 transition-all duration-300">
@@ -851,7 +849,6 @@ const Hero = () => {
                     <p className="text-white/80 text-sm mb-2">Create an unforgettable onboarding experience for your employees</p>
                   </div>
                 </Link>
-              </div>
             </div>
           </div>
         </div>
