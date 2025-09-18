@@ -141,9 +141,9 @@ const Hero = () => {
   ];
 
   const workLaptopBags = [
-    { src: whiteWorkBackpack, alt: "Timeless White Backpack" },
-    { src: brownWorkBackpack, alt: "Grounded Tan Backpack" },
     { src: navyWorkBackpack, alt: "Retro Navy Backpack" },
+    { src: brownWorkBackpack, alt: "Grounded Tan Backpack" },
+    { src: whiteWorkBackpack, alt: "Timeless White Backpack" },
     { src: oliveWorkBackpack, alt: "Retro Olive Backpack" }
   ];
 
