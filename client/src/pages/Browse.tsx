@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import { useCart } from "@/hooks/useCart";
 import Seo from "@/components/layout/Seo";
+import johannesburgSkyline from "@assets/generated_images/Johannesburg_skyline_sketch_e0b3dcb5.png";
 import navyTennisBag from "@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1757403283994.png";
 import creamCrossbody from "@assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png";
 import whiteBackpack from "@assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757403283999.png";
@@ -465,6 +466,15 @@ export default function Browse() {
 
         {/* Main Content Area */}
         <div className="flex-1 relative md:ml-4 min-w-0">
+          {/* Johannesburg Skyline Background */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div 
+              className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-10 pointer-events-none"
+              style={{
+                backgroundImage: `url(${johannesburgSkyline})`
+              }}
+            ></div>
+          </div>
           
           {/* Content with overlay */}
           <div className="relative z-10 px-4 md:px-6 py-4 min-h-screen">
