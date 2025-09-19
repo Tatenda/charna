@@ -178,8 +178,8 @@ const Hero = () => {
   ];
 
   const sleevedLaptopBags = [
-    { src: navyLaptopSleeve, alt: "Laptop Sleeve - Navy" },
-    { src: tanLaptopSleeve, alt: "Laptop Sleeve - Tan" }
+    { src: tanLaptopSleeve, alt: "Laptop Sleeve - Tan" },
+    { src: navyLaptopSleeve, alt: "Laptop Sleeve - Navy" }
   ];
 
   useEffect(() => {
@@ -563,7 +563,7 @@ const Hero = () => {
                     key={index}
                     src={bag.src}
                     alt={bag.alt}
-                    className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${
+                    className={`w-full h-80 object-contain group-hover:scale-105 transition-all duration-500 ${
                       index === currentSleevedBag ? 'opacity-100' : 'opacity-0'
                     } ${index === 0 ? 'relative' : 'absolute inset-0'}`}
                     style={{ imageRendering: 'auto' }}
