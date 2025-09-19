@@ -107,77 +107,8 @@ const Story = () => {
         </div>
       </section>
       
-      {/* Sustainability */}
-      <section id="sustainability" className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <img 
-                src="/images/work-backpack-studio.jpg" 
-                alt="Sustainable leather production" 
-                className="rounded-lg shadow-lg"
-              />
-            </div>
-            <div>
-              <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Sustainable Luxury</h2>
-              <div className="divider mb-6"></div>
-              
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <div className="bg-secondary rounded-full p-2 mr-4 mt-1">
-                    <FontAwesomeIcon icon="recycle" className="text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-accent text-lg font-semibold mb-1">Zero-Waste Philosophy</h3>
-                    <p className="text-neutral">
-                      Our South African artisans employ traditional cutting techniques that maximize leather utilization. Every piece is carefully planned to minimize waste while preserving the integrity of each hide.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-secondary rounded-full p-2 mr-4 mt-1">
-                    <FontAwesomeIcon icon="water" className="text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-accent text-lg font-semibold mb-1">Responsible Sourcing</h3>
-                    <p className="text-neutral">
-                      We source premium leather from certified tanneries that follow strict environmental protocols, then craft each piece in our Johannesburg workshop using traditional techniques refined by our skilled artisans.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-secondary rounded-full p-2 mr-4 mt-1">
-                    <FontAwesomeIcon icon="box" className="text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-accent text-lg font-semibold mb-1">Luxury Packaging</h3>
-                    <p className="text-neutral">
-                      Each Charna piece arrives in sustainably sourced packaging that reflects our commitment to both luxury presentation and environmental responsibility.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-secondary rounded-full p-2 mr-4 mt-1">
-                    <FontAwesomeIcon icon="seedling" className="text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-accent text-lg font-semibold mb-1">Local Community Support</h3>
-                    <p className="text-neutral">
-                      Made in South Africa, we support local craftspeople and communities while preserving Italian family heritage. Each piece creates meaningful employment and celebrates both traditions.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
       {/* CTA */}
-      <section className="py-16">
+      <section className="py-4">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Experience the Living Green Difference</h2>
           <p className="text-neutral max-w-2xl mx-auto mb-8">
