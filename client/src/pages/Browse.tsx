@@ -5,6 +5,7 @@ import type { Product } from "@shared/schema";
 import { useCart } from "@/hooks/useCart";
 import Seo from "@/components/layout/Seo";
 import johannesburgSkyline from "@assets/ChatGPT Image Sep 18, 2025, 10_43_30 PM_1758254550927.png";
+import welcomeTag from "@assets/Welcome message - Christopher_1758261765918.png";
 import navyTennisBag from "@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1757403283994.png";
 import creamCrossbody from "@assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png";
 import whiteBackpack from "@assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757403283999.png";
@@ -191,7 +192,7 @@ const collageProducts = [
     id: 23,
     name: "Leather Luggage Tags",
     price: 150,
-    image: "/attached_assets/Welcome message - Christopher_1758261765918.png",
+    image: welcomeTag,
     category: "accessories"
   }
 ];
