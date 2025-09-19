@@ -191,7 +191,7 @@ const collageProducts = [
     id: 23,
     name: "Leather Luggage Tags",
     price: 150,
-    image: "/placeholder-luggage-tags.jpg",
+    image: "/attached_assets/Welcome message - Christopher_1758261765918.png",
     category: "accessories"
   }
 ];
