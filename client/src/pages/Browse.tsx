@@ -105,20 +105,6 @@ const collageProducts = [
     category: "onboarding"
   },
   {
-    id: 13,
-    name: "The Perfect Onboarding Package",
-    price: 3499,
-    image: "/placeholder-full-package.jpg",
-    category: "onboarding"
-  },
-  {
-    id: 14,
-    name: "The Perfect Onboarding Package 2",
-    price: 4399,
-    image: "/placeholder-full-package-2.jpg",
-    category: "onboarding"
-  },
-  {
     id: 27,
     name: "Grounded Tan Backpack",
     price: 1999,
@@ -144,6 +130,20 @@ const collageProducts = [
     name: "Timeless White Backpack",
     price: 1899,
     image: whiteBackpack,
+    category: "onboarding"
+  },
+  {
+    id: 13,
+    name: "The Perfect Onboarding Package",
+    price: 3499,
+    image: "/placeholder-full-package.jpg",
+    category: "onboarding"
+  },
+  {
+    id: 14,
+    name: "The Perfect Onboarding Package 2",
+    price: 4399,
+    image: "/placeholder-full-package-2.jpg",
     category: "onboarding"
   },
   {
