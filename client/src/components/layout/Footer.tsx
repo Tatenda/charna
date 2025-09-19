@@ -1,9 +1,15 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import charnaLogo from '@assets/image_1757323855942.png';
 import { WHATSAPP_NUMBER } from '@/lib/constants';
 
 const Footer = () => {
+  const [, setLocation] = useLocation();
+  
+  const handleShopLinkClick = (category: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setLocation(`/browse?category=${category}`);
+  };
   return (
     <footer className="bg-white text-gray-800 pt-16 pb-8 relative overflow-hidden border-t border-gray-200">
       
@@ -51,39 +57,39 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-4 text-black">Shop</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/browse?category=work" className="text-gray-600 hover:text-black transition duration-200">
+                <a href="/browse?category=work" onClick={handleShopLinkClick('work')} className="text-gray-600 hover:text-black transition duration-200 cursor-pointer">
                   Work Bags
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/browse?category=leisure" className="text-gray-600 hover:text-black transition duration-200">
+                <a href="/browse?category=leisure" onClick={handleShopLinkClick('leisure')} className="text-gray-600 hover:text-black transition duration-200 cursor-pointer">
                   Leisure Bags
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/browse?category=sport" className="text-gray-600 hover:text-black transition duration-200">
+                <a href="/browse?category=sport" onClick={handleShopLinkClick('sport')} className="text-gray-600 hover:text-black transition duration-200 cursor-pointer">
                   Sport Bags
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/browse?category=travel" className="text-gray-600 hover:text-black transition duration-200">
+                <a href="/browse?category=travel" onClick={handleShopLinkClick('travel')} className="text-gray-600 hover:text-black transition duration-200 cursor-pointer">
                   Travel Bags
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/browse?category=accessories" className="text-gray-600 hover:text-black transition duration-200">
+                <a href="/browse?category=accessories" onClick={handleShopLinkClick('accessories')} className="text-gray-600 hover:text-black transition duration-200 cursor-pointer">
                   Accessories
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/browse?category=onboarding" className="text-gray-600 hover:text-black transition duration-200">
+                <a href="/browse?category=onboarding" onClick={handleShopLinkClick('onboarding')} className="text-gray-600 hover:text-black transition duration-200 cursor-pointer">
                   Onboarding
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/browse?category=gifting" className="text-gray-600 hover:text-black transition duration-200">
+                <a href="/browse?category=gifting" onClick={handleShopLinkClick('gifting')} className="text-gray-600 hover:text-black transition duration-200 cursor-pointer">
                   Gifting
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
