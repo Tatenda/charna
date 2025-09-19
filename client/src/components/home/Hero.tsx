@@ -40,6 +40,8 @@ import timelessRoseGoldBag from '@assets/Timeless Range - Rose Gold zip_17581173
 import manCarryingOliveBag from '@assets/ChatGPT Image Sep 17, 2025, 04_11_01 PM_1758118389040.png';
 import newNavyBusinessBag from '@assets/ChatGPT Image Sep 17, 2025, 01_42_26 PM_1758118389041.png';
 import newNavyTennisBagInstagram from '@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1758226256896.png';
+import navyLaptopSleeve from '@assets/Laptop sleeve - Navy_1758299888839.png';
+import tanLaptopSleeve from '@assets/Laptop sleeve - Tan_1758299888842.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -72,17 +74,40 @@ const Hero = () => {
     }
     setRetroImageIndex(0); // Reset to first image
   };
+
+  const handleSleevedHover = () => {
+    if (sleevedHoverTimer) clearInterval(sleevedHoverTimer);
+    
+    const timer = setInterval(() => {
+      setCurrentSleevedBag((prev) => (prev + 1) % sleevedLaptopBags.length);
+    }, 1500); // Switch every 1500ms
+    
+    setSleevedHoverTimer(timer);
+    setIsSleevedHovered(true);
+  };
+
+  const handleSleevedLeave = () => {
+    if (sleevedHoverTimer) {
+      clearInterval(sleevedHoverTimer);
+      setSleevedHoverTimer(null);
+    }
+    setCurrentSleevedBag(0); // Reset to first image
+    setIsSleevedHovered(false);
+  };
   
   const [currentBusinessBag, setCurrentBusinessBag] = useState(0);
   const [currentSportsBag, setCurrentSportsBag] = useState(0);
   const [currentTravelBag, setCurrentTravelBag] = useState(0);
   const [currentLeisureBag, setCurrentLeisureBag] = useState(0);
   const [currentWorkBag, setCurrentWorkBag] = useState(0);
+  const [currentSleevedBag, setCurrentSleevedBag] = useState(0);
+  const [sleevedHoverTimer, setSleevedHoverTimer] = useState<NodeJS.Timeout | null>(null);
   const [isBusinessHovered, setIsBusinessHovered] = useState(false);
   const [isSportsHovered, setIsSportsHovered] = useState(false);
   const [isTravelHovered, setIsTravelHovered] = useState(false);
   const [isLeisureHovered, setIsLeisureHovered] = useState(false);
   const [isWorkHovered, setIsWorkHovered] = useState(false);
+  const [isSleevedHovered, setIsSleevedHovered] = useState(false);
 
   // Helper function to create Product objects that match the schema
   const createProduct = (id: number, name: string, price: number, image: string, category: string): Product => ({
@@ -150,6 +175,11 @@ const Hero = () => {
 
   const leisureRangeBags = [
     { src: hipBagSolo, alt: "Leisure Range - Hip Bag Solo" }
+  ];
+
+  const sleevedLaptopBags = [
+    { src: navyLaptopSleeve, alt: "Laptop Sleeve - Navy" },
+    { src: tanLaptopSleeve, alt: "Laptop Sleeve - Tan" }
   ];
 
   useEffect(() => {
@@ -231,6 +261,7 @@ const Hero = () => {
       if (workInterval) clearInterval(workInterval);
     };
   }, [isWorkHovered, workLaptopBags.length]);
+
 
 
   return (
@@ -520,20 +551,33 @@ const Hero = () => {
               <p className="font-bold text-black">Price R1899</p>
             </Link>
             
-            <Link href="/browse?category=accessories" className="group cursor-pointer block">
-              <div className="relative overflow-hidden rounded-xl mb-4">
-                <div className="w-full h-80 bg-gray-200 flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <div className="text-4xl mb-2">📱</div>
-                    <p className="text-sm">Sleeved Range</p>
-                    <p className="text-xs">Image coming soon</p>
-                  </div>
-                </div>
+            <Link 
+              href="/browse?category=accessories" 
+              className="group cursor-pointer block"
+              onMouseEnter={handleSleevedHover}
+              onMouseLeave={handleSleevedLeave}
+            >
+              <div className="relative overflow-hidden rounded-xl mb-4 bg-gray-800 border-2 border-gray-700">
+                {sleevedLaptopBags.map((bag, index) => (
+                  <img 
+                    key={index}
+                    src={bag.src}
+                    alt={bag.alt}
+                    className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${
+                      index === currentSleevedBag ? 'opacity-100' : 'opacity-0'
+                    } ${index === 0 ? 'relative' : 'absolute inset-0'}`}
+                    style={{ imageRendering: 'auto' }}
+                  />
+                ))}
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart("Laptop Sleeve", 999, sleevedLaptopBags[currentSleevedBag].src, "accessories", 206);
+                    }}
+                    data-testid="button-add-to-cart-laptop-sleeve"
                   >
                     Add to Cart
                   </button>
