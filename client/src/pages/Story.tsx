@@ -32,7 +32,7 @@ const Story = () => {
         {/* Johannesburg Skyline Overlay */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div 
-            className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-10 pointer-events-none mix-blend-multiply"
+            className="absolute inset-0 bg-cover bg-bottom bg-no-repeat opacity-20 pointer-events-none"
             style={{
               backgroundImage: `url(${johannesburgSkyline})`
             }}
