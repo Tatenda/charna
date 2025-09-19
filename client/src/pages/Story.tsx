@@ -111,9 +111,9 @@ const Story = () => {
       {/* CTA */}
       <section className="py-4">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Experience the Living Green Difference</h2>
+          <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Experience the Charna. Difference</h2>
           <p className="text-neutral max-w-2xl mx-auto mb-8">
-            When you purchase a Living Green bag, you're not just buying a product – you're supporting a movement of sustainable, 
+            When you purchase a Charna. bag, you're not just buying a product – you're supporting a movement of sustainable, 
             ethical craftsmanship and becoming part of our story.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
