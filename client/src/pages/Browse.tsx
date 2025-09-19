@@ -346,7 +346,7 @@ export default function Browse() {
   const seoContent = getSEOContent();
 
   return (
-    <div className="min-h-screen bg-primary text-white pt-16 md:pt-20 overflow-x-hidden relative">
+    <div className="min-h-screen bg-browse text-white pt-16 md:pt-20 overflow-x-hidden relative">
       {/* Johannesburg Skyline Background - Full Page */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 

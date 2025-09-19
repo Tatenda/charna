@@ -37,6 +37,11 @@
   --primary-dark: 120 30% 15%; /* Very deep green */
   --primary-foreground: 0 0% 100%;
   
+  /* Browse/Shop page beige colors */
+  --browse-primary: 33 46% 74%; /* Light beige color #dbc09e */
+  --browse-primary-light: 33 50% 80%; /* Lighter beige */
+  --browse-primary-dark: 33 40% 60%; /* Darker beige */
+  
   --secondary: 120 15% 96%; /* Very light green-tinted white */
   --secondary-light: 120 20% 98%; /* Almost white with green hint */
   --secondary-dark: 120 10% 88%; /* Light green-gray */
