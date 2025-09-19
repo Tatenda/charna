@@ -51,37 +51,37 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-4 text-black">Shop</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/browse?category=work" className="text-gray-600 hover:text-black transition duration-200">
+                <Link to="/browse?category=work" className="text-gray-600 hover:text-black transition duration-200">
                   Work Bags
                 </Link>
               </li>
               <li>
-                <Link href="/browse?category=leisure" className="text-gray-600 hover:text-black transition duration-200">
+                <Link to="/browse?category=leisure" className="text-gray-600 hover:text-black transition duration-200">
                   Leisure Bags
                 </Link>
               </li>
               <li>
-                <Link href="/browse?category=sport" className="text-gray-600 hover:text-black transition duration-200">
+                <Link to="/browse?category=sport" className="text-gray-600 hover:text-black transition duration-200">
                   Sport Bags
                 </Link>
               </li>
               <li>
-                <Link href="/browse?category=travel" className="text-gray-600 hover:text-black transition duration-200">
+                <Link to="/browse?category=travel" className="text-gray-600 hover:text-black transition duration-200">
                   Travel Bags
                 </Link>
               </li>
               <li>
-                <Link href="/browse?category=accessories" className="text-gray-600 hover:text-black transition duration-200">
+                <Link to="/browse?category=accessories" className="text-gray-600 hover:text-black transition duration-200">
                   Accessories
                 </Link>
               </li>
               <li>
-                <Link href="/browse?category=onboarding" className="text-gray-600 hover:text-black transition duration-200">
+                <Link to="/browse?category=onboarding" className="text-gray-600 hover:text-black transition duration-200">
                   Onboarding
                 </Link>
               </li>
               <li>
-                <Link href="/browse?category=gifting" className="text-gray-600 hover:text-black transition duration-200">
+                <Link to="/browse?category=gifting" className="text-gray-600 hover:text-black transition duration-200">
                   Gifting
                 </Link>
               </li>
