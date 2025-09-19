@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import { useCart } from "@/hooks/useCart";
 import Seo from "@/components/layout/Seo";
-import indoorGreeneryBackdrop from "@assets/Indoor Greenery Harmony_1757361807254.png";
 import navyTennisBag from "@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1757403283994.png";
 import creamCrossbody from "@assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png";
 import whiteBackpack from "@assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757403283999.png";
@@ -351,7 +350,7 @@ export default function Browse() {
         description={seoContent.description}
         keywords={seoContent.keywords}
         url={`/browse${location.includes('?') ? '?' + location.split('?')[1] : ''}`}
-        image={indoorGreeneryBackdrop}
+        image=""
       />
       {/* Breadcrumb Navigation */}
       <div className="px-4 md:px-6 py-4 text-sm text-white/70 max-w-full">
@@ -466,16 +465,6 @@ export default function Browse() {
 
         {/* Main Content Area */}
         <div className="flex-1 relative md:ml-4 min-w-0">
-          {/* Background Image for All Products Section */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none"
-              style={{
-                backgroundImage: `url(${indoorGreeneryBackdrop})`
-              }}
-            ></div>
-            <div className="absolute inset-0 bg-black/25 pointer-events-none"></div>
-          </div>
           
           {/* Content with overlay */}
           <div className="relative z-10 px-4 md:px-6 py-4 min-h-screen">
