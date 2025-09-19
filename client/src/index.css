@@ -31,20 +31,20 @@
   --border: 45 20% 80%; /* Warm border */
   --input: 45 20% 90%; /* Warm input background */
   
-  /* WhatsApp green design */
-  --primary: 138 69% 49%; /* WhatsApp green #25D366 */
-  --primary-light: 138 69% 59%; /* Light WhatsApp green */
-  --primary-dark: 138 69% 39%; /* Dark WhatsApp green */
+  /* Fresh plant store green design */
+  --primary: 33 46% 74%; /* Light beige color #dbc09e */
+  --primary-light: 120 20% 35%; /* Medium green */
+  --primary-dark: 120 30% 15%; /* Very deep green */
   --primary-foreground: 0 0% 100%;
   
-  --secondary: 138 20% 95%; /* Very light WhatsApp green-tinted white */
-  --secondary-light: 138 25% 97%; /* Almost white with WhatsApp green hint */
-  --secondary-dark: 138 15% 88%; /* Light WhatsApp green-gray */
-  --secondary-foreground: 138 69% 25%;
+  --secondary: 120 15% 96%; /* Very light green-tinted white */
+  --secondary-light: 120 20% 98%; /* Almost white with green hint */
+  --secondary-dark: 120 10% 88%; /* Light green-gray */
+  --secondary-foreground: 120 25% 25%;
   
-  --accent: 138 69% 60%; /* WhatsApp green accent */
-  --accent-light: 138 69% 70%; /* Light WhatsApp green */
-  --accent-dark: 138 69% 50%; /* Deeper WhatsApp green */
+  --accent: 120 40% 60%; /* Fresh green accent */
+  --accent-light: 120 35% 70%; /* Light fresh green */
+  --accent-dark: 120 45% 50%; /* Deeper fresh green */
   --accent-foreground: 0 0% 100%;
   
   --neutral: 0 0% 20%; /* Dark grey */
