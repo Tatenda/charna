@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import WhatsAppBanner from "@/components/home/WhatsAppBanner";
 import { getImagePath } from "@/lib/imageUtils";
+import johannesburgSkyline from "@assets/ChatGPT Image Sep 18, 2025, 10_43_30 PM_1758281930928.png";
 
 const Story = () => {
   return (
@@ -27,8 +28,17 @@ const Story = () => {
       </div>
       
       {/* Origin Story */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
+      <section className="py-16 relative overflow-hidden">
+        {/* Johannesburg Skyline Overlay */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div 
+            className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-10 pointer-events-none mix-blend-multiply"
+            style={{
+              backgroundImage: `url(${johannesburgSkyline})`
+            }}
+          ></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Crafted with Pride in Johannesburg</h2>
