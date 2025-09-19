@@ -557,7 +557,7 @@ const Hero = () => {
               onMouseEnter={handleSleevedHover}
               onMouseLeave={handleSleevedLeave}
             >
-              <div className="relative overflow-hidden rounded-xl mb-4 bg-gray-800 border-2 border-gray-700">
+              <div className="relative overflow-hidden rounded-xl mb-4 bg-stone-100 border-2 border-stone-200">
                 {sleevedLaptopBags.map((bag, index) => (
                   <img 
                     key={index}
