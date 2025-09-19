@@ -559,15 +559,19 @@ const Hero = () => {
             >
               <div className="relative overflow-hidden rounded-xl mb-4 bg-stone-100 border-2 border-stone-200">
                 {sleevedLaptopBags.map((bag, index) => (
-                  <img 
+                  <div 
                     key={index}
-                    src={bag.src}
-                    alt={bag.alt}
-                    className={`w-full h-80 object-contain group-hover:scale-105 transition-all duration-500 ${
+                    className={`w-full h-80 bg-stone-50 flex items-center justify-center group-hover:scale-105 transition-all duration-500 ${
                       index === currentSleevedBag ? 'opacity-100' : 'opacity-0'
                     } ${index === 0 ? 'relative' : 'absolute inset-0'}`}
-                    style={{ imageRendering: 'auto' }}
-                  />
+                  >
+                    <img 
+                      src={bag.src}
+                      alt={bag.alt}
+                      className="max-w-full max-h-full object-contain"
+                      style={{ imageRendering: 'auto' }}
+                    />
+                  </div>
                 ))}
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
