@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
 import { Product } from "@shared/schema";
+import { RangeTile } from "@/components/RangeTile";
 import newHeroBg from '@assets/image_1757230274214.png';
 import groundedBag from '@assets/LGM_Grounded (1)_1757318142201.png';
 import styledLaptopBag from '@assets/LGM_Styled_1757318531199.png';
@@ -486,122 +487,44 @@ const Hero = () => {
               <p className="font-bold text-black">Price R2499</p>
             </Link>
             
-            <Link 
-              href="/browse?category=work" 
-              className="group cursor-pointer block"
-            >
-              <div className="relative overflow-hidden rounded-xl mb-4">
-                {/* Original Grounded bag (default) */}
-                <img 
-                  src={groundedBag}
-                  alt="Grounded Backpack - Original"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
-                  style={{
-                    imageRendering: 'auto'
-                  }}
-                />
-                
-                {/* New Grounded bag with neutral background (on hover) */}
-                <img 
-                  src={newGroundedBag}
-                  alt="Grounded Backpack - Enhanced"
-                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
-                  style={{
-                    imageRendering: 'auto'
-                  }}
-                />
-
-                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button 
-                    className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-              <h3 className="text-lg text-botanical mb-2">Grounded Range</h3>
-              <p className="text-gray-600 text-sm mb-2">Practical everyday essentials</p>
-              <p className="font-bold text-black">Price R1999</p>
-            </Link>
+            <RangeTile
+              href="/browse?category=work"
+              defaultImage={groundedBag}
+              hoverImage={newGroundedBag}
+              defaultAlt="Grounded Backpack - Original"
+              hoverAlt="Grounded Backpack - Enhanced"
+              title="Grounded Range"
+              description="Practical everyday essentials"
+              price="Price R1999"
+              onAddToCart={() => handleAddToCart("Grounded Backpack", 1999, groundedBag, "work", 203)}
+              testId="button-add-to-cart-grounded-backpack"
+            />
             
-            <Link 
-              href="/browse?category=work" 
-              className="group cursor-pointer block"
-            >
-              <div className="relative overflow-hidden rounded-xl mb-4">
-                {/* Original Timeless bag (default) */}
-                <img 
-                  src={styledLaptopBag}
-                  alt="Timeless Backpack - Original"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
-                  style={{ imageRendering: 'auto' }}
-                />
-                
-                {/* Rose Gold Zip bag (on hover) */}
-                <img 
-                  src={timelessRoseGoldBag}
-                  alt="Timeless Backpack - Rose Gold Zip"
-                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
-                  style={{ imageRendering: 'auto' }}
-                />
-
-                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button 
-                    className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleAddToCart("Timeless Backpack", 1899, styledLaptopBag, "work", 205);
-                    }}
-                    data-testid="button-add-to-cart-timeless-backpack"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-              <h3 className="text-lg text-botanical mb-2">Timeless Range</h3>
-              <p className="text-gray-600 text-sm mb-2">Timeless style meets smart organisation, perfect for work, travel, or everyday use</p>
-              <p className="font-bold text-black">Price R1899</p>
-            </Link>
+            <RangeTile
+              href="/browse?category=work"
+              defaultImage={styledLaptopBag}
+              hoverImage={timelessRoseGoldBag}
+              defaultAlt="Timeless Backpack - Original"
+              hoverAlt="Timeless Backpack - Rose Gold Zip"
+              title="Timeless Range"
+              description="Timeless style meets smart organisation, perfect for work, travel, or everyday use"
+              price="Price R1899"
+              onAddToCart={() => handleAddToCart("Timeless Backpack", 1899, styledLaptopBag, "work", 205)}
+              testId="button-add-to-cart-timeless-backpack"
+            />
             
-            <Link 
-              href="/browse?category=accessories" 
-              className="group cursor-pointer block"
-            >
-              <div className="relative overflow-hidden rounded-xl mb-4">
-                {/* Tan laptop sleeve front (default) */}
-                <img 
-                  src={tanLaptopSleeve}
-                  alt="Laptop Sleeve - Tan Front"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
-                  style={{ imageRendering: 'auto' }}
-                />
-                
-                {/* Navy laptop sleeve front (on hover) */}
-                <img 
-                  src={navyLaptopSleeveFront}
-                  alt="Laptop Sleeve - Navy Front"
-                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
-                  style={{ imageRendering: 'auto' }}
-                />
-
-                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button 
-                    className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleAddToCart("Laptop Sleeve", 999, tanLaptopSleeve, "accessories", 206);
-                    }}
-                    data-testid="button-add-to-cart-laptop-sleeve"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-              <h3 className="text-lg text-botanical mb-2">Sleeved Range</h3>
-              <p className="text-gray-600 text-sm mb-2">Switch up your laptop sleeves with these different options</p>
-              <p className="font-bold text-black">Price R999</p>
-            </Link>
+            <RangeTile
+              href="/browse?category=accessories"
+              defaultImage={tanLaptopSleeve}
+              hoverImage={navyLaptopSleeveFront}
+              defaultAlt="Laptop Sleeve - Tan Front"
+              hoverAlt="Laptop Sleeve - Navy Front"
+              title="Sleeved Range"
+              description="Switch up your laptop sleeves with these different options"
+              price="Price R999"
+              onAddToCart={() => handleAddToCart("Laptop Sleeve", 999, tanLaptopSleeve, "accessories", 206)}
+              testId="button-add-to-cart-laptop-sleeve"
+            />
           </div>
         </div>
       </section>
