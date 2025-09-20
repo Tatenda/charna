@@ -828,8 +828,24 @@ const Hero = () => {
           </Link>
           
           {/* Leisure Collection */}
-          <Link href="/browse?category=leisure" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-leisure-mobile">
-            <img src={creamHipBag} alt="Leisure Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+          <Link 
+            href="/browse?category=leisure" 
+            className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" 
+            data-testid="tile-leisure-mobile"
+            onMouseEnter={() => setIsLeisureHovered(true)}
+            onMouseLeave={() => setIsLeisureHovered(false)}
+          >
+            {leisureBags.map((bag, index) => (
+              <img 
+                key={index}
+                src={bag.src}
+                alt={bag.alt}
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentLeisureBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                }`}
+                style={{ imageRendering: 'auto' }}
+              />
+            ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Leisure</h3>
