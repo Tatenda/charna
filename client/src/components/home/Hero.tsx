@@ -704,14 +704,22 @@ const Hero = () => {
           </Link>
           
           {/* Bottom - Bag Accessories */}
-          <Link href="/browse?category=accessories" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
-            <div className="w-full h-full bg-gray-700 flex items-center justify-center">
-              <div className="text-center text-white">
-                <div className="text-4xl mb-2">👜</div>
-                <p className="text-sm">Accessories</p>
-                <p className="text-xs opacity-70">Image coming soon</p>
-              </div>
-            </div>
+          <Link 
+            href="/browse?category=accessories" 
+            className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl"
+            onMouseEnter={handleSleevedHover}
+            onMouseLeave={handleSleevedLeave}
+          >
+            {sleevedLaptopBags.map((bag, index) => (
+              <img 
+                key={index}
+                src={bag.src}
+                alt={bag.alt}
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentSleevedBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                }`}
+              />
+            ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
               <h3 className="text-lg text-white mb-2">Accessories</h3>
