@@ -21,6 +21,10 @@ import navyLaptopSleeve from "@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_17583
 import groundedGoldZip from "@assets/ChatGPT Image Sep 17, 2025, 03_09_28 PM_1758392791511.png";
 import timelessWhiteRoseGold from "@assets/Timeless Range - Rose Gold zip_1758117345340.png";
 import navySideBag from "@assets/Navy side bag - neutral background_1758388433671.png";
+import tanLaptopSleeve2 from "@assets/Laptop sleeve - Tan_1758299564397.png";
+import tanLaptopSleeve3 from "@assets/Laptop sleeve - Tan_1758299666358.png";
+import navyLaptopSleeve2 from "@assets/Laptop sleeve - Navy_1758299564401.png";
+import navyLaptopSleeve3 from "@assets/Laptop sleeve - Navy_1758299666356.png";
 
 // Product data for collage display
 const collageProducts = [
@@ -184,6 +188,34 @@ const collageProducts = [
     name: "Laptop Sleeve - Navy",
     price: 999,
     image: navyLaptopSleeve,
+    category: "accessories"
+  },
+  {
+    id: 34,
+    name: "Laptop Sleeve - Tan",
+    price: 999,
+    image: tanLaptopSleeve2,
+    category: "accessories"
+  },
+  {
+    id: 35,
+    name: "Laptop Sleeve - Navy",
+    price: 999,
+    image: navyLaptopSleeve2,
+    category: "accessories"
+  },
+  {
+    id: 36,
+    name: "Laptop Sleeve - Tan",
+    price: 999,
+    image: tanLaptopSleeve3,
+    category: "accessories"
+  },
+  {
+    id: 37,
+    name: "Laptop Sleeve - Navy",
+    price: 999,
+    image: navyLaptopSleeve3,
     category: "accessories"
   },
   {
