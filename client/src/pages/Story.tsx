@@ -9,9 +9,9 @@ const Story = () => {
   return (
     <div className="bg-secondary-light">
       <Seo 
-        title="Our Story | Charna - Made in Johannesburg with Purpose"
-        description="Discover the story behind Charna's handcrafted leather bags. Learn about our skilled South African artisans in Johannesburg who create premium leather goods with traditional craftsmanship and sustainable practices."
-        keywords="Charna story, South African craftsmanship, Johannesburg leather workshop, artisan bags, sustainable leather goods, handmade bags South Africa"
+        title="Our Story | Charna. - Made in Johannesburg with Purpose"
+        description="Discover the story behind Charna.'s handcrafted leather bags. Learn about our skilled South African artisans in Johannesburg who create premium leather goods with traditional craftsmanship and sustainable practices."
+        keywords="Charna. story, South African craftsmanship, Johannesburg leather workshop, artisan bags, sustainable leather goods, handmade bags South Africa"
         image="/images/tennis-bag-lifestyle.jpg"
         url="/story"
       />
@@ -35,11 +35,11 @@ const Story = () => {
               <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Crafted with Pride in Johannesburg</h2>
               <div className="divider mb-6"></div>
               <p className="text-neutral mb-4 leading-relaxed">
-                Charna was founded with a simple vision: to create exceptional leather goods that showcase the incredible skill and artistry 
+                Charna. was founded with a simple vision: to create exceptional leather goods that showcase the incredible skill and artistry 
                 of South African craftspeople. Our workshop in Johannesburg is where passion meets precision.
               </p>
               <p className="text-neutral mb-4 leading-relaxed">
-                Every Charna piece is handcrafted by skilled local artisans who bring years of experience and deep pride in their work. 
+                Every Charna. piece is handcrafted by skilled local artisans who bring years of experience and deep pride in their work. 
                 We believe in the power of traditional craftsmanship combined with contemporary design sensibilities.
               </p>
               <p className="text-neutral leading-relaxed">
@@ -50,7 +50,7 @@ const Story = () => {
             <div>
               <img 
                 src={aboutImage} 
-                alt="Charna tennis bag with Johannesburg skyline" 
+                alt="Charna. tennis bag with Johannesburg skyline" 
                 className="rounded-lg shadow-lg w-full"
                 style={{ imageRendering: 'auto' }}
               />
@@ -101,9 +101,9 @@ const Story = () => {
           
           <div className="mt-16 text-center">
             <blockquote className="text-2xl font-heading text-primary italic max-w-3xl mx-auto">
-              "Every Charna piece represents the incredible skill and dedication of our South African artisans — we're proud to showcase the exceptional craftsmanship that our country has to offer."
+              "Every Charna. piece represents the incredible skill and dedication of our South African artisans — we're proud to showcase the exceptional craftsmanship that our country has to offer."
             </blockquote>
-            <p className="mt-4 font-accent font-semibold">— Founder, Charna</p>
+            <p className="mt-4 font-accent font-semibold">— Founder, Charna.</p>
           </div>
         </div>
       </section>
