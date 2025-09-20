@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
 import { Product } from "@shared/schema";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import newHeroBg from '@assets/image_1757230274214.png';
 import groundedBag from '@assets/LGM_Grounded (1)_1757318142201.png';
 import styledLaptopBag from '@assets/LGM_Styled_1757318531199.png';
@@ -112,6 +113,10 @@ const Hero = () => {
   const [isOnboardingHovered, setIsOnboardingHovered] = useState(false);
   const [isGiftsHovered, setIsGiftsHovered] = useState(false);
 
+  // Color selection modal state
+  const [colorModalOpen, setColorModalOpen] = useState(false);
+  const [selectedRange, setSelectedRange] = useState<string | null>(null);
+
   // Helper function to create Product objects that match the schema
   const createProduct = (id: number, name: string, price: number, image: string, category: string): Product => ({
     id,
@@ -135,7 +140,91 @@ const Hero = () => {
     createdAt: new Date()
   });
 
-  // Handle Add to Cart with toast notification
+  // Color options for each range
+  const rangeColorOptions = {
+    retro: {
+      name: "Retro Backpack",
+      price: 2399,
+      category: "business",
+      colors: [
+        { name: "Navy", image: navyWorkBackpack, value: "navy" },
+        { name: "Olive", image: oliveWorkBackpack, value: "olive" }
+      ]
+    },
+    leisure: {
+      name: "Hip Bag",
+      price: 799,
+      category: "leisure",
+      colors: [
+        { name: "Cream", image: creamHipBag, value: "cream" },
+        { name: "Blue", image: blueCrossbodyBag, value: "blue" }
+      ]
+    },
+    sports: {
+      name: "Tennis Bag",
+      price: 3299,
+      category: "sport",
+      colors: [
+        { name: "Navy", image: newNavyTennisBag, value: "navy" },
+        { name: "White", image: newWhiteTennisBag, value: "white" }
+      ]
+    },
+    classic: {
+      name: "Classic Backpack",
+      price: 2499,
+      category: "travel",
+      colors: [
+        { name: "Navy", image: newClassicNavyBag, value: "navy" },
+        { name: "Tan", image: newClassicTanBag, value: "tan" }
+      ]
+    },
+    grounded: {
+      name: "Grounded Backpack",
+      price: 1999,
+      category: "work",
+      colors: [
+        { name: "Original", image: groundedBag, value: "original" },
+        { name: "Enhanced", image: newGroundedBag, value: "enhanced" }
+      ]
+    },
+    timeless: {
+      name: "Timeless Backpack",
+      price: 1899,
+      category: "work",
+      colors: [
+        { name: "Original", image: styledLaptopBag, value: "original" },
+        { name: "Rose Gold Zip", image: timelessRoseGoldBag, value: "rose-gold" }
+      ]
+    }
+  };
+
+  // Handle opening color selection modal
+  const handleOpenColorModal = (rangeName: string) => {
+    setSelectedRange(rangeName);
+    setColorModalOpen(true);
+  };
+
+  // Handle color selection and add to cart
+  const handleColorSelection = (colorOption: any) => {
+    if (!selectedRange) return;
+    
+    const range = rangeColorOptions[selectedRange as keyof typeof rangeColorOptions];
+    const productName = `${range.name} - ${colorOption.name}`;
+    const productId = Date.now() + Math.random(); // Ensure unique ID
+    
+    const product = createProduct(productId, productName, range.price, colorOption.image, range.category);
+    addToCart(product, 1);
+    
+    toast({
+      title: "Added to Cart",
+      description: `${productName} has been added to your cart.`,
+    });
+    
+    setColorModalOpen(false);
+    setSelectedRange(null);
+  };
+
+  // Handle Add to Cart with toast notification (legacy function for non-range items)
   const handleAddToCart = (productName: string, price: number, image: string, category: string, productId: number = Date.now()) => {
     const product = createProduct(productId, productName, price, image, category);
     addToCart(product, 1);
@@ -454,7 +543,7 @@ const Hero = () => {
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart("Retro Backpack", 2399, navyWorkBackpack, "business", 201);
+                      handleOpenColorModal("retro");
                     }}
                     data-testid="button-add-to-cart-retro-backpack"
                   >
@@ -493,7 +582,7 @@ const Hero = () => {
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart("Hip Bag", 799, creamHipBag, "leisure", 202);
+                      handleOpenColorModal("leisure");
                     }}
                     data-testid="button-add-to-cart-hip-bag"
                   >
@@ -527,7 +616,11 @@ const Hero = () => {
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleOpenColorModal("sports");
+                    }}
+                    data-testid="button-add-to-cart-tennis-bag"
                   >
                     Add to Cart
                   </button>
@@ -561,7 +654,7 @@ const Hero = () => {
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart("Classic Backpack", 2499, newClassicNavyBag, "travel", 204);
+                      handleOpenColorModal("classic");
                     }}
                     data-testid="button-add-to-cart-classic-backpack"
                   >
@@ -600,7 +693,7 @@ const Hero = () => {
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart("Grounded Backpack", 1999, groundedBag, "work", 203);
+                      handleOpenColorModal("grounded");
                     }}
                     data-testid="button-add-to-cart-grounded-backpack"
                   >
@@ -639,7 +732,7 @@ const Hero = () => {
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart("Timeless Backpack", 1899, styledLaptopBag, "work", 205);
+                      handleOpenColorModal("timeless");
                     }}
                     data-testid="button-add-to-cart-timeless-backpack"
                   >
@@ -1167,6 +1260,52 @@ const Hero = () => {
           </div>
         </div>
       </section>
+
+      {/* Color Selection Modal */}
+      <Dialog open={colorModalOpen} onOpenChange={setColorModalOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Choose Your Color</DialogTitle>
+            <DialogDescription>
+              {selectedRange && rangeColorOptions[selectedRange as keyof typeof rangeColorOptions] && 
+                `Select a color for your ${rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].name}`
+              }
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            {selectedRange && rangeColorOptions[selectedRange as keyof typeof rangeColorOptions] && 
+              rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].colors.map((color) => (
+                <button
+                  key={color.value}
+                  onClick={() => handleColorSelection(color)}
+                  className="group relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-botanical transition-colors"
+                  data-testid={`button-color-${color.value}`}
+                >
+                  <div className="aspect-square">
+                    <img 
+                      src={color.image} 
+                      alt={color.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-center py-2">
+                    <p className="text-sm font-medium">{color.name}</p>
+                  </div>
+                </button>
+              ))
+            }
+          </div>
+          
+          {selectedRange && rangeColorOptions[selectedRange as keyof typeof rangeColorOptions] && (
+            <div className="text-center mt-4 pt-4 border-t">
+              <p className="text-lg font-semibold text-botanical">
+                R{rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].price}
+              </p>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
