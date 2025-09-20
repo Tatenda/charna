@@ -343,28 +343,30 @@ const Hero = () => {
             <Link 
               href="/browse?category=work" 
               className="group cursor-pointer block"
-              onMouseEnter={handleRetroHover}
-              onMouseLeave={handleRetroLeave}
             >
               <div className="relative overflow-hidden rounded-xl mb-4">
-                {retroImages.map((image, index) => (
-                  <img 
-                    key={index}
-                    src={image.src}
-                    alt={image.alt}
-                    className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${
-                      index === retroImageIndex ? 'opacity-100' : 'opacity-0'
-                    } ${index === 0 ? 'relative' : 'absolute inset-0'}`}
-                    style={{ imageRendering: 'auto' }}
-                  />
-                ))}
+                {/* Navy backpack (default) */}
+                <img 
+                  src={navyWorkBackpack}
+                  alt="Retro Range - Navy Backpack"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                  style={{ imageRendering: 'auto' }}
+                />
+                
+                {/* Brown backpack (on hover) */}
+                <img 
+                  src={brownWorkBackpack}
+                  alt="Retro Range - Brown Backpack"
+                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  style={{ imageRendering: 'auto' }}
+                />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart("Retro Backpack", 2399, retroImages[retroImageIndex].src, "business", 201);
+                      handleAddToCart("Retro Backpack", 2399, navyWorkBackpack, "business", 201);
                     }}
                     data-testid="button-add-to-cart-retro-backpack"
                   >
