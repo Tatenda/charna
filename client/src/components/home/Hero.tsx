@@ -23,6 +23,7 @@ import tanTravelBackpack from '@assets/LGM_Classic_me_1757356445165.png';
 import travelBackpackLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 05_56_03 PM_1758206025280.png';
 import embossInitials from '@assets/Embossing example_1758224006405.png';
 import embossCompanyTag from '@assets/Welcome message - Christopher_1758224465167.png';
+import laptopTag from '@assets/Label Tag for company_1758222915683.png';
 import whiteWorkBackpack from "@assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1758225069381.png";
 import brownWorkBackpack from "@assets/LGM_Grounded (1)_1758225069383.png";
 import navyWorkBackpack from "@assets/Retro Range - Navy Blue_1758225069385.png";
@@ -168,10 +169,8 @@ const Hero = () => {
   ];
 
   const sleevedLaptopBags = [
-    { src: tanLaptopSleeve, alt: "Laptop Sleeve - Tan Front" },
-    { src: tanLaptopSleeveSide, alt: "Laptop Sleeve - Tan Side" },
-    { src: navyLaptopSleeveFront, alt: "Laptop Sleeve - Navy Front" },
-    { src: navyLaptopSleeveSide, alt: "Laptop Sleeve - Navy Side" }
+    { src: laptopTag, alt: "Laptop Tag" },
+    { src: embossInitials, alt: "Embossing Example" }
   ];
 
   useEffect(() => {
