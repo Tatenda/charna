@@ -528,15 +528,13 @@ const Hero = () => {
             <Link 
               href="/browse?category=work" 
               className="group cursor-pointer block"
-              onMouseEnter={() => setIsTimelessHovered(true)}
-              onMouseLeave={() => setIsTimelessHovered(false)}
             >
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Original Timeless bag (default) */}
                 <img 
                   src={styledLaptopBag}
                   alt="Timeless Backpack - Original"
-                  className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${isTimelessHovered ? 'opacity-0' : 'opacity-100'}`}
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                   style={{ imageRendering: 'auto' }}
                 />
                 
@@ -544,7 +542,7 @@ const Hero = () => {
                 <img 
                   src={timelessRoseGoldBag}
                   alt="Timeless Backpack - Rose Gold Zip"
-                  className={`absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${isTimelessHovered ? 'opacity-100' : 'opacity-0'}`}
+                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ imageRendering: 'auto' }}
                 />
 
@@ -553,7 +551,7 @@ const Hero = () => {
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart("Timeless Backpack", 1899, isTimelessHovered ? timelessRoseGoldBag : styledLaptopBag, "work", 205);
+                      handleAddToCart("Timeless Backpack", 1899, styledLaptopBag, "work", 205);
                     }}
                     data-testid="button-add-to-cart-timeless-backpack"
                   >
