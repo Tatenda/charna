@@ -42,10 +42,10 @@ import timelessRoseGoldBag from '@assets/Timeless Range - Rose Gold zip_17581173
 import manCarryingOliveBag from '@assets/ChatGPT Image Sep 17, 2025, 04_11_01 PM_1758118389040.png';
 import newNavyBusinessBag from '@assets/ChatGPT Image Sep 17, 2025, 01_42_26 PM_1758118389041.png';
 import newNavyTennisBagInstagram from '@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1758226256896.png';
-import tanLaptopSleeveSide from '@assets/1FCA156B-07B9-4EB4-B6CB-90243D3F1240_1758347866221.png';
-import tanLaptopSleeve from '@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758343502287.png';
-import navyLaptopSleeveFront from '@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758348677472.png';
-import navyLaptopSleeveSide from '@assets/73877EA7-4681-4580-9B27-19C20A7D3A10_1758348677472.png';
+import tanLaptopSleeve from '@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png';
+import tanLaptopSleeveSide from '@assets/1FCA156B-07B9-4EB4-B6CB-90243D3F1240_1758358612678.png';
+import navyLaptopSleeveSide from '@assets/73877EA7-4681-4580-9B27-19C20A7D3A10_1758358612678.png';
+import navyLaptopSleeveFront from '@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758358612678.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -513,18 +513,43 @@ const Hero = () => {
               testId="button-add-to-cart-timeless-backpack"
             />
             
-            <RangeTile
+            <Link 
               href="/browse?category=accessories"
-              defaultImage={tanLaptopSleeve}
-              hoverImage={navyLaptopSleeveFront}
-              defaultAlt="Laptop Sleeve - Tan Front"
-              hoverAlt="Laptop Sleeve - Navy Front"
-              title="Sleeved Range"
-              description="Switch up your laptop sleeves with these different options"
-              price="Price R999"
-              onAddToCart={() => handleAddToCart("Laptop Sleeve", 999, tanLaptopSleeve, "accessories", 206)}
-              testId="button-add-to-cart-laptop-sleeve"
-            />
+              className="group cursor-pointer block"
+              onMouseEnter={() => setIsSleevedHovered(true)}
+              onMouseLeave={() => setIsSleevedHovered(false)}
+            >
+              <div className="relative overflow-hidden rounded-xl mb-4">
+                {/* Cycle through all 4 laptop sleeve images */}
+                {sleevedLaptopBags.map((bag, index) => (
+                  <img 
+                    key={index}
+                    src={bag.src}
+                    alt={bag.alt}
+                    className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${
+                      index === currentSleevedBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                    }`}
+                    style={{ imageRendering: 'auto' }}
+                  />
+                ))}
+
+                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button 
+                    className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart("Laptop Sleeve", 999, tanLaptopSleeve, "accessories", 206);
+                    }}
+                    data-testid="button-add-to-cart-laptop-sleeve"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+              <h3 className="text-lg text-botanical mb-2">Sleeved Range</h3>
+              <p className="text-gray-600 text-sm mb-2">Switch up your laptop sleeves with these different options</p>
+              <p className="font-bold text-black">Price R999</p>
+            </Link>
           </div>
         </div>
       </section>
@@ -640,8 +665,8 @@ const Hero = () => {
           <Link 
             href="/browse?category=accessories" 
             className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl"
-            onMouseEnter={handleSleevedHover}
-            onMouseLeave={handleSleevedLeave}
+            onMouseEnter={() => setIsSleevedHovered(true)}
+            onMouseLeave={() => setIsSleevedHovered(false)}
           >
             {sleevedLaptopBags.map((bag, index) => (
               <img 
