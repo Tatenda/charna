@@ -603,7 +603,144 @@ const Hero = () => {
           <p className="text-xl text-white/80">Shop by Category</p>
         </div>
         
-        {/* Mobile-Responsive Collage */}
+        {/* Mobile Layout - Simple Grid */}
+        <div className="md:hidden px-4 pb-16">
+          <div className="grid grid-cols-2 gap-4">
+            {/* Business */}
+            <Link 
+              href="/browse?category=work" 
+              className="group relative overflow-hidden rounded-xl shadow-lg h-48"
+              onMouseEnter={() => setIsBusinessHovered(true)}
+              onMouseLeave={() => setIsBusinessHovered(false)}
+            >
+              {businessBags.map((bag, index) => (
+                <img 
+                  key={index}
+                  src={bag.src}
+                  alt={bag.alt}
+                  className={`w-full h-full object-cover transition-opacity duration-500 ${
+                    index === currentBusinessBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                  }`}
+                />
+              ))}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-base font-semibold text-white mb-1">Business</h3>
+                <p className="text-sm opacity-90 text-white">Professional Excellence</p>
+              </div>
+            </Link>
+
+            {/* Sports */}
+            <Link 
+              href="/browse?category=sport" 
+              className="group relative overflow-hidden rounded-xl shadow-lg h-48"
+              onMouseEnter={() => setIsSportsHovered(true)}
+              onMouseLeave={() => setIsSportsHovered(false)}
+            >
+              {sportsBags.map((bag, index) => (
+                <img 
+                  key={index}
+                  src={bag.src}
+                  alt={bag.alt}
+                  className={`w-full h-full object-cover transition-opacity duration-500 ${
+                    index === currentSportsBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                  }`}
+                />
+              ))}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-base font-semibold text-white mb-1">Sports</h3>
+                <p className="text-sm opacity-90 text-white">Athletic Performance</p>
+              </div>
+            </Link>
+
+            {/* Leisure */}
+            <Link 
+              href="/browse?category=leisure" 
+              className="group relative overflow-hidden rounded-xl shadow-lg h-48"
+              onMouseEnter={() => setIsLeisureHovered(true)}
+              onMouseLeave={() => setIsLeisureHovered(false)}
+            >
+              {leisureBags.map((bag, index) => (
+                <img 
+                  key={index}
+                  src={bag.src}
+                  alt={bag.alt}
+                  className={`w-full h-full object-cover transition-opacity duration-500 ${
+                    index === currentLeisureBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                  }`}
+                />
+              ))}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-base font-semibold text-white mb-1">Leisure</h3>
+                <p className="text-sm opacity-90 text-white">Elegant Comfort</p>
+              </div>
+            </Link>
+
+            {/* Travel */}
+            <Link 
+              href="/browse?category=travel" 
+              className="group relative overflow-hidden rounded-xl shadow-lg h-48"
+              onMouseEnter={() => setIsTravelHovered(true)}
+              onMouseLeave={() => setIsTravelHovered(false)}
+            >
+              {travelBags.map((bag, index) => (
+                <img 
+                  key={index}
+                  src={bag.src}
+                  alt={bag.alt}
+                  className={`w-full h-full object-cover transition-opacity duration-500 ${
+                    index === currentTravelBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                  }`}
+                />
+              ))}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-base font-semibold text-white mb-1">Travel</h3>
+                <p className="text-sm opacity-90 text-white">Adventure Awaits</p>
+              </div>
+            </Link>
+
+            {/* Accessories */}
+            <Link 
+              href="/browse?category=accessories" 
+              className="group relative overflow-hidden rounded-xl shadow-lg h-48"
+            >
+              <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <div className="text-3xl mb-2">👜</div>
+                  <p className="text-sm font-semibold">Accessories</p>
+                </div>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-base font-semibold text-white mb-1">Accessories</h3>
+                <p className="text-sm opacity-90 text-white">Complete Your Look</p>
+              </div>
+            </Link>
+
+            {/* Gifts */}
+            <Link 
+              href="/browse?category=gifting" 
+              className="group relative overflow-hidden rounded-xl shadow-lg h-48"
+            >
+              <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <div className="text-3xl mb-2">🎁</div>
+                  <p className="text-sm font-semibold">Gifts</p>
+                </div>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-base font-semibold text-white mb-1">Gifts</h3>
+                <p className="text-sm opacity-90 text-white">Perfect for Every Occasion</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {/* Desktop Layout - Complex Grid */}
         <div className="hidden md:grid md:grid-cols-6 md:grid-rows-2 gap-2 h-[70vh] w-full px-0">
           {/* Large left image - Business Collection */}
           <Link 
