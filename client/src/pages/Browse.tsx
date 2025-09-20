@@ -187,13 +187,6 @@ const collageProducts = [
     category: "accessories"
   },
   {
-    id: 19,
-    name: "Laptop Sleeve - Olive",
-    price: 999,
-    image: tanLaptopSleeve, // Using tan image as placeholder for olive
-    category: "accessories"
-  },
-  {
     id: 20,
     name: "Desk Mat - Tan",
     price: 899,
