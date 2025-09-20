@@ -42,6 +42,8 @@ import newNavyBusinessBag from '@assets/ChatGPT Image Sep 17, 2025, 01_42_26 PM_
 import newNavyTennisBagInstagram from '@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1758226256896.png';
 import tanLaptopSleeveSide from '@assets/1FCA156B-07B9-4EB4-B6CB-90243D3F1240_1758347866221.png';
 import tanLaptopSleeve from '@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758343502287.png';
+import navyLaptopSleeveFront from '@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758348677472.png';
+import navyLaptopSleeveSide from '@assets/73877EA7-4681-4580-9B27-19C20A7D3A10_1758348677472.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -179,7 +181,9 @@ const Hero = () => {
 
   const sleevedLaptopBags = [
     { src: tanLaptopSleeve, alt: "Laptop Sleeve - Tan Front" },
-    { src: tanLaptopSleeveSide, alt: "Laptop Sleeve - Tan Side" }
+    { src: tanLaptopSleeveSide, alt: "Laptop Sleeve - Tan Side" },
+    { src: navyLaptopSleeveFront, alt: "Laptop Sleeve - Navy Front" },
+    { src: navyLaptopSleeveSide, alt: "Laptop Sleeve - Navy Side" }
   ];
 
   useEffect(() => {
