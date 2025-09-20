@@ -40,7 +40,7 @@ import timelessRoseGoldBag from '@assets/Timeless Range - Rose Gold zip_17581173
 import manCarryingOliveBag from '@assets/ChatGPT Image Sep 17, 2025, 04_11_01 PM_1758118389040.png';
 import newNavyBusinessBag from '@assets/ChatGPT Image Sep 17, 2025, 01_42_26 PM_1758118389041.png';
 import newNavyTennisBagInstagram from '@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1758226256896.png';
-import navyLaptopSleeve from '@assets/Laptop sleeve - Navy_1758299888839.png';
+import tanLaptopSleeveSide from '@assets/1FCA156B-07B9-4EB4-B6CB-90243D3F1240_1758347866221.png';
 import tanLaptopSleeve from '@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758343502287.png';
 
 const Hero = () => {
@@ -178,8 +178,8 @@ const Hero = () => {
   ];
 
   const sleevedLaptopBags = [
-    { src: tanLaptopSleeve, alt: "Laptop Sleeve - Tan" },
-    { src: navyLaptopSleeve, alt: "Laptop Sleeve - Navy" }
+    { src: tanLaptopSleeve, alt: "Laptop Sleeve - Tan Front" },
+    { src: tanLaptopSleeveSide, alt: "Laptop Sleeve - Tan Side" }
   ];
 
   useEffect(() => {
