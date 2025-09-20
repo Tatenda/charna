@@ -195,6 +195,15 @@ const Hero = () => {
         { name: "Original", image: styledLaptopBag, value: "original" },
         { name: "Rose Gold Zip", image: timelessRoseGoldBag, value: "rose-gold" }
       ]
+    },
+    sleeved: {
+      name: "Laptop Sleeve",
+      price: 999,
+      category: "accessories",
+      colors: [
+        { name: "Tan", image: tanLaptopSleeve, value: "tan" },
+        { name: "Navy", image: navyLaptopSleeveFront, value: "navy" }
+      ]
     }
   };
 
@@ -775,8 +784,9 @@ const Hero = () => {
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
-                      handleAddToCart("Laptop Sleeve", 999, tanLaptopSleeve, "accessories", 206);
+                      handleOpenColorModal("sleeved");
                     }}
                     data-testid="button-add-to-cart-laptop-sleeve"
                   >
