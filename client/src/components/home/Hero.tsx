@@ -770,21 +770,27 @@ const Hero = () => {
                 </div>
               </div>
               
-              {/* Top right - Laptop Sleeves placeholder */}
-              <div className="col-span-1 row-span-1 bg-gray-500/50 rounded-lg border-2 border-dashed border-gray-400 flex items-center justify-center" data-testid="card-sleeves">
-                <div className="text-center text-white">
-                  <div className="text-2xl mb-1">💻</div>
+              {/* Top right - Laptop Sleeves */}
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-sleeves">
+                <img 
+                  src={tanLaptopSleeve} 
+                  alt="Laptop sleeve example" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-2 left-2 text-white">
                   <p className="text-xs font-medium">Laptop Sleeves</p>
-                  <p className="text-xs opacity-70">Coming Soon</p>
                 </div>
               </div>
               
-              {/* Top right 2 - Desk Mat placeholder */}
-              <div className="col-span-1 row-span-1 bg-gray-500/50 rounded-lg border-2 border-dashed border-gray-400 flex items-center justify-center" data-testid="card-deskmat">
-                <div className="text-center text-white">
-                  <div className="text-2xl mb-1">🖱️</div>
+              {/* Top right 2 - Desk Mat */}
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg bg-gradient-to-br from-amber-800 to-amber-900" data-testid="card-deskmat">
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-16 h-12 bg-amber-700 rounded-sm shadow-lg border-2 border-amber-600"></div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-2 left-2 text-white">
                   <p className="text-xs font-medium">Desk Mat</p>
-                  <p className="text-xs opacity-70">Coming Soon</p>
                 </div>
               </div>
               
