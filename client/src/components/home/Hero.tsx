@@ -41,7 +41,7 @@ import manCarryingOliveBag from '@assets/ChatGPT Image Sep 17, 2025, 04_11_01 PM
 import newNavyBusinessBag from '@assets/ChatGPT Image Sep 17, 2025, 01_42_26 PM_1758118389041.png';
 import newNavyTennisBagInstagram from '@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1758226256896.png';
 import navyLaptopSleeve from '@assets/Laptop sleeve - Navy_1758299888839.png';
-import tanLaptopSleeve from '@assets/Laptop sleeve - Tan_1758299888842.png';
+import tanLaptopSleeve from '@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758343502287.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
