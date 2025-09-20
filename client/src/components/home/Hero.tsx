@@ -46,6 +46,9 @@ import tanLaptopSleeveSide from '@assets/1FCA156B-07B9-4EB4-B6CB-90243D3F1240_17
 import navyLaptopSleeveSide from '@assets/73877EA7-4681-4580-9B27-19C20A7D3A10_1758358612678.png';
 import navyLaptopSleeveFront from '@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758358612678.png';
 import ladyWithSideBag from '@assets/Lady with side bag - navy_1758383464073.png';
+import gentWithTennisBag from '@assets/Gent wih tennis bag - navy _1758386562325.png';
+import whiteTennisBagNew from '@assets/Tennis bag - White - neutral background_1758386577764.png';
+import navyTennisBagNew2 from '@assets/Navy Tennis bag_1758386586336.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -146,8 +149,9 @@ const Hero = () => {
   ];
 
   const sportsBags = [
-    { src: whiteTennisBag, alt: "Sports Collection - White" },
-    { src: newNavyTennisBag, alt: "Sports Collection - Navy" }
+    { src: gentWithTennisBag, alt: "Gentleman with Tennis Bag - Navy" },
+    { src: whiteTennisBagNew, alt: "Tennis Bag - White" },
+    { src: navyTennisBagNew2, alt: "Tennis Bag - Navy" }
   ];
 
   const travelBags = [
