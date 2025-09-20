@@ -94,6 +94,7 @@ const Hero = () => {
   const [currentWorkBag, setCurrentWorkBag] = useState(0);
   const [currentSleevedBag, setCurrentSleevedBag] = useState(0);
   const [currentAccessoriesBag, setCurrentAccessoriesBag] = useState(0);
+  const [currentOnboardingBag, setCurrentOnboardingBag] = useState(0);
   const [isBusinessHovered, setIsBusinessHovered] = useState(false);
   const [isSportsHovered, setIsSportsHovered] = useState(false);
   const [isTravelHovered, setIsTravelHovered] = useState(false);
@@ -101,6 +102,7 @@ const Hero = () => {
   const [isWorkHovered, setIsWorkHovered] = useState(false);
   const [isSleevedHovered, setIsSleevedHovered] = useState(false);
   const [isAccessoriesHovered, setIsAccessoriesHovered] = useState(false);
+  const [isOnboardingHovered, setIsOnboardingHovered] = useState(false);
 
   // Helper function to create Product objects that match the schema
   const createProduct = (id: number, name: string, price: number, image: string, category: string): Product => ({
@@ -185,6 +187,12 @@ const Hero = () => {
     { src: navyLaptopSleeveSide, alt: "Laptop Sleeve - Navy Side" },
     { src: embossCompanyTag, alt: "Laptop Tag - Welcome Message" },
     { src: embossInitials, alt: "Embossing - Custom Initials" }
+  ];
+
+  const onboardingBags = [
+    { src: navyWorkBackpack, alt: "Navy Work Laptop Bag" },
+    { src: brownWorkBackpack, alt: "Grounded Tan Work Laptop Bag" },
+    { src: oliveWorkBackpack, alt: "Olive Work Laptop Bag" }
   ];
 
   useEffect(() => {
@@ -303,6 +311,22 @@ const Hero = () => {
       if (accessoriesInterval) clearInterval(accessoriesInterval);
     };
   }, [isAccessoriesHovered, accessoriesBags.length]);
+
+  useEffect(() => {
+    let onboardingInterval: NodeJS.Timeout | null = null;
+    
+    if (isOnboardingHovered) {
+      onboardingInterval = setInterval(() => {
+        setCurrentOnboardingBag((prev) => (prev + 1) % onboardingBags.length);
+      }, 1500);
+    } else {
+      setCurrentOnboardingBag(0); // Reset to first image when not hovering
+    }
+
+    return () => {
+      if (onboardingInterval) clearInterval(onboardingInterval);
+    };
+  }, [isOnboardingHovered, onboardingBags.length]);
 
   return (
     <div className="relative">
@@ -786,19 +810,26 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Bottom right - Onboarding (4-tile layout) */}
+          {/* Bottom right - Onboarding (5-tile layout) */}
           <Link 
             href="/browse?category=onboarding"
             className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg"
+            onMouseEnter={() => setIsOnboardingHovered(true)}
+            onMouseLeave={() => setIsOnboardingHovered(false)}
           >
-            <div className="grid grid-cols-3 grid-rows-2 gap-2 h-full p-4">
+            <div className="grid grid-cols-3 grid-rows-3 gap-2 h-full p-4">
               {/* Large laptop bag block (left 2x2) */}
               <div className="col-span-2 row-span-2 relative overflow-hidden rounded-lg" data-testid="card-onboard-bags">
-                <img 
-                  src={navyWorkBackpack}
-                  alt="Work laptop bag" 
-                  className="w-full h-full object-cover"
-                />
+                {onboardingBags.map((bag, index) => (
+                  <img 
+                    key={index}
+                    src={bag.src}
+                    alt={bag.alt}
+                    className={`w-full h-full object-cover transition-opacity duration-500 ${
+                      index === currentOnboardingBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                    }`}
+                  />
+                ))}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 text-white">
                   <h3 className="text-lg text-white font-semibold mb-2">Onboarding</h3>
@@ -820,7 +851,7 @@ const Hero = () => {
               </div>
               
               {/* Middle right - Welcome Tag */}
-              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-laptop-tag">
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-welcome-tag">
                 <img 
                   src={embossCompanyTag} 
                   alt="Welcome tag example" 
@@ -832,8 +863,21 @@ const Hero = () => {
                 </div>
               </div>
               
-              {/* Bottom right - Desk Mat */}
-              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg bg-gradient-to-br from-amber-800 to-amber-900" data-testid="card-deskmat">
+              {/* Bottom right - Named */}
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-named">
+                <img 
+                  src={embossInitials} 
+                  alt="Named embossing example" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-2 left-2 text-white">
+                  <p className="text-xs font-medium">Named</p>
+                </div>
+              </div>
+              
+              {/* Bottom left - Desk Mat */}
+              <div className="col-span-2 row-span-1 relative overflow-hidden rounded-lg bg-gradient-to-br from-amber-800 to-amber-900" data-testid="card-deskmat">
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="w-16 h-12 bg-amber-700 rounded-sm shadow-lg border-2 border-amber-600"></div>
                 </div>
