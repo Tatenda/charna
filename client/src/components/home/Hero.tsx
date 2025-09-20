@@ -30,6 +30,7 @@ import oliveWorkBackpack from "@assets/Retro Range - Olive_1758225069386.png";
 import creamHipBag from '@assets/LGM_hip_1757356807770.png';
 import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
 import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
+import blueCrossbodyBag from '@assets/913E8FCD-4943-44D3-A3EF-645778762B43_1758357180594.png';
 import newWhiteTennisBag from '@assets/Tennis bag - White - neutral background_1758110253206.png';
 import newNavyTennisBag from '@assets/Navy sports back - neutral background_1758112268197.png';
 import newClassicNavyBag from '@assets/Copy of Classic range - Rose Gold_1758112410766.png';
@@ -151,8 +152,8 @@ const Hero = () => {
   ];
 
   const leisureBags = [
-    { src: "/images/crossbody-cream.jpg", alt: "Leisure Collection - Crossbody" },
-    { src: creamHipBag, alt: "Leisure Collection - Hip Bag" }
+    { src: creamHipBag, alt: "Leisure Collection - White Hip Bag" },
+    { src: blueCrossbodyBag, alt: "Leisure Collection - Blue Crossbody Bag" }
   ];
 
   const workLaptopBags = [
