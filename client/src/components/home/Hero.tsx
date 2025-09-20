@@ -721,9 +721,9 @@ const Hero = () => {
             ))}
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-lg text-white mb-2">Business</h3>
-              <p className="text-base opacity-90 text-white">Professional Excellence</p>
+            <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
+              <h3 className="text-lg text-white mb-1 leading-tight">Business</h3>
+              <p className="text-sm opacity-90 text-white leading-tight">Professional Excellence</p>
             </div>
           </Link>
           
@@ -817,9 +817,9 @@ const Hero = () => {
               />
             ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-lg text-white mb-2">Accessories</h3>
-              <p className="text-base opacity-90 text-white">Complete Your Look</p>
+            <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
+              <h3 className="text-lg text-white mb-1 leading-tight">Accessories</h3>
+              <p className="text-sm opacity-90 text-white leading-tight">Complete Your Look</p>
             </div>
           </Link>
           
@@ -841,9 +841,9 @@ const Hero = () => {
               />
             ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-lg text-white mb-2">Gifts</h3>
-              <p className="text-base opacity-90 text-white">Perfect for Every Occasion</p>
+            <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
+              <h3 className="text-lg text-white mb-1 leading-tight">Gifts</h3>
+              <p className="text-sm opacity-90 text-white leading-tight">Perfect for Every Occasion</p>
             </div>
           </Link>
           
