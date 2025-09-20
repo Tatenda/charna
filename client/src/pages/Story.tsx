@@ -117,7 +117,7 @@ const Story = () => {
             ethical craftsmanship and becoming part of our story.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <Link href="/products" className="btn-primary">
+            <Link href="/browse" className="btn-primary">
               Shop Our Collection
             </Link>
             <Link href="/contact" className="btn-secondary">
