@@ -78,22 +78,10 @@ const Hero = () => {
   };
 
   const handleSleevedHover = () => {
-    if (sleevedHoverTimer) clearInterval(sleevedHoverTimer);
-    
-    const timer = setInterval(() => {
-      setCurrentSleevedBag((prev) => (prev + 1) % sleevedLaptopBags.length);
-    }, 1500); // Switch every 1500ms
-    
-    setSleevedHoverTimer(timer);
     setIsSleevedHovered(true);
   };
 
   const handleSleevedLeave = () => {
-    if (sleevedHoverTimer) {
-      clearInterval(sleevedHoverTimer);
-      setSleevedHoverTimer(null);
-    }
-    setCurrentSleevedBag(0); // Reset to first image
     setIsSleevedHovered(false);
   };
   
@@ -103,7 +91,6 @@ const Hero = () => {
   const [currentLeisureBag, setCurrentLeisureBag] = useState(0);
   const [currentWorkBag, setCurrentWorkBag] = useState(0);
   const [currentSleevedBag, setCurrentSleevedBag] = useState(0);
-  const [sleevedHoverTimer, setSleevedHoverTimer] = useState<NodeJS.Timeout | null>(null);
   const [isBusinessHovered, setIsBusinessHovered] = useState(false);
   const [isSportsHovered, setIsSportsHovered] = useState(false);
   const [isTravelHovered, setIsTravelHovered] = useState(false);
@@ -266,7 +253,21 @@ const Hero = () => {
     };
   }, [isWorkHovered, workLaptopBags.length]);
 
+  useEffect(() => {
+    let sleevedInterval: NodeJS.Timeout | null = null;
+    
+    if (isSleevedHovered) {
+      sleevedInterval = setInterval(() => {
+        setCurrentSleevedBag((prev) => (prev + 1) % sleevedLaptopBags.length);
+      }, 1500);
+    } else {
+      setCurrentSleevedBag(0); // Reset to first image when not hovering
+    }
 
+    return () => {
+      if (sleevedInterval) clearInterval(sleevedInterval);
+    };
+  }, [isSleevedHovered, sleevedLaptopBags.length]);
 
   return (
     <div className="relative">
