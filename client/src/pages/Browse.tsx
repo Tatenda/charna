@@ -18,6 +18,7 @@ import whiteTennisBag from "@assets/Tennis bag - White - neutral background_1757
 import newNavyTennisBag from "@assets/Navy sports back - neutral background_1758112268197.png";
 import tanLaptopSleeve from "@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758343502287.png";
 import navyLaptopSleeve from "@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758348677472.png";
+import timelessGoldZip from "@assets/Timeless Range - Rose Gold zip_1758117345340.png";
 
 // Product data for collage display
 const collageProducts = [
@@ -33,6 +34,13 @@ const collageProducts = [
     name: "Grounded Tan Backpack",
     price: 1999,
     image: brownBackpack,
+    category: "business"
+  },
+  {
+    id: 31,
+    name: "Grounded Tab Backpack - Gold Zip",
+    price: 1999,
+    image: timelessGoldZip,
     category: "business"
   },
   {
