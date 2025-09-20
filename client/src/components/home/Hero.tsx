@@ -489,15 +489,13 @@ const Hero = () => {
             <Link 
               href="/browse?category=work" 
               className="group cursor-pointer block"
-              onMouseEnter={() => setIsGroundedHovered(true)}
-              onMouseLeave={() => setIsGroundedHovered(false)}
             >
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Original Grounded bag (default) */}
                 <img 
                   src={groundedBag}
                   alt="Grounded Backpack - Original"
-                  className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${isGroundedHovered ? 'opacity-0' : 'opacity-100'}`}
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                   style={{
                     imageRendering: 'auto'
                   }}
@@ -507,7 +505,7 @@ const Hero = () => {
                 <img 
                   src={newGroundedBag}
                   alt="Grounded Backpack - Enhanced"
-                  className={`absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${isGroundedHovered ? 'opacity-100' : 'opacity-0'}`}
+                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{
                     imageRendering: 'auto'
                   }}
