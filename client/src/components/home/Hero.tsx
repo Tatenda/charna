@@ -184,7 +184,7 @@ const Hero = () => {
       category: "work",
       colors: [
         { name: "Original", image: groundedBag, value: "original" },
-        { name: "Enhanced", image: newGroundedBag, value: "enhanced" }
+        { name: "Gold Zip", image: newGroundedBag, value: "gold-zip" }
       ]
     },
     timeless: {
