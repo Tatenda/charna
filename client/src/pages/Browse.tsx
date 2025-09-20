@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import { useCart } from "@/hooks/useCart";
@@ -181,6 +181,7 @@ const collageProducts = [
     name: "Laptop Sleeve - Tan",
     price: 999,
     image: tanLaptopSleeve,
+    images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
     category: "accessories"
   },
   {
@@ -188,34 +189,7 @@ const collageProducts = [
     name: "Laptop Sleeve - Navy",
     price: 999,
     image: navyLaptopSleeve,
-    category: "accessories"
-  },
-  {
-    id: 34,
-    name: "Laptop Sleeve - Tan",
-    price: 999,
-    image: tanLaptopSleeve2,
-    category: "accessories"
-  },
-  {
-    id: 35,
-    name: "Laptop Sleeve - Navy",
-    price: 999,
-    image: navyLaptopSleeve2,
-    category: "accessories"
-  },
-  {
-    id: 36,
-    name: "Laptop Sleeve - Tan",
-    price: 999,
-    image: tanLaptopSleeve3,
-    category: "accessories"
-  },
-  {
-    id: 37,
-    name: "Laptop Sleeve - Navy",
-    price: 999,
-    image: navyLaptopSleeve3,
+    images: [navyLaptopSleeve, navyLaptopSleeve2, navyLaptopSleeve3],
     category: "accessories"
   },
   {
@@ -313,6 +287,111 @@ export default function Browse() {
   }, [location]);
 
   // Generate dynamic SEO content based on category
+  // ProductTile component with image cycling functionality
+  const ProductTile = ({ product, onAddToCart }: { product: any, onAddToCart: (product: any) => void }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const timerRef = useRef<number | null>(null);
+    
+    const hasGallery = Array.isArray(product.images) && product.images.length > 1;
+    const currentImage = hasGallery ? product.images[currentImageIndex] : product.image;
+    
+    const startCycling = () => {
+      if (!hasGallery) return;
+      
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+      
+      timerRef.current = window.setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
+      }, 900);
+    };
+    
+    const stopCycling = () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+    
+    const handleImageClick = (e: React.MouseEvent | React.TouchEvent) => {
+      if (hasGallery) {
+        e.preventDefault();
+        e.stopPropagation();
+        setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
+      }
+    };
+    
+    useEffect(() => {
+      return () => {
+        stopCycling();
+      };
+    }, []);
+    
+    return (
+      <div
+        data-testid={`tile-product-${product.id}`}
+        className="group bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105 w-full"
+        onMouseEnter={startCycling}
+        onMouseLeave={stopCycling}
+      >
+        <div className="aspect-square overflow-hidden relative w-full">
+          <img
+            data-testid={`img-product-${product.id}`}
+            src={currentImage}
+            alt={product.name}
+            loading="lazy"
+            className={`w-full h-full ${product.name === "Navy Tennis Bag" ? "object-contain" : "object-cover"} group-hover:scale-110 transition-transform duration-500 ${hasGallery ? 'cursor-pointer' : ''}`}
+            style={{
+              imageRendering: 'auto'
+            }}
+            sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+            onClick={handleImageClick}
+            onTouchStart={handleImageClick}
+          />
+          {hasGallery && (
+            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+              {product.images.map((_: any, index: number) => (
+                <div
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+                    index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+        
+        <div className="p-3 sm:p-4">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              onAddToCart(product);
+            }}
+            className="w-full border border-gray-400 text-gray-700 py-2 px-2 sm:px-4 text-xs sm:text-sm font-medium hover:border-gray-600 hover:text-gray-900 transition-colors duration-200 rounded mb-3 min-h-[44px]"
+          >
+            Add to Cart
+          </button>
+          
+          <h3 className="text-xs sm:text-sm text-gray-900 mb-1 font-medium line-clamp-2">
+            {product.name}
+          </h3>
+          
+          {product.description && (
+            <p className="text-xs text-gray-600 mb-2 line-clamp-2">{product.description}</p>
+          )}
+          
+          <div>
+            <span className="text-gray-900 font-semibold text-xs sm:text-sm">
+              R{product.price}
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const getSEOContent = () => {
     const categoryTitle = selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
     const baseTitle = `${categoryTitle} Bags | Charna Leather Goods`;
@@ -384,7 +463,7 @@ export default function Browse() {
       category: product.category,
       colors: ["natural", "cognac"],
       features: ["Premium leather", "Handcrafted", "Made in Johannesburg"],
-      images: [product.image], // Convert single image to array
+      images: product.images ?? [product.image], // Use images array if available, fallback to single image
       materials: "Premium Italian leather",
       dimensions: "40cm x 30cm x 15cm",
       careInstructions: "Clean with leather conditioner, avoid water",
@@ -533,49 +612,11 @@ export default function Browse() {
             {/* Collage Style Product Grid - Mobile Optimized */}
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6 w-full">
               {filteredCollageProducts.map((product) => (
-                <div
+                <ProductTile
                   key={product.id}
-                  className="group bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105 w-full"
-                >
-                  <div className="aspect-square overflow-hidden relative w-full">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      loading="lazy"
-                      className={`w-full h-full ${product.name === "Navy Tennis Bag" ? "object-contain" : "object-cover"} group-hover:scale-110 transition-transform duration-500`}
-                      style={{
-                        imageRendering: 'auto'
-                      }}
-                      sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                    />
-                  </div>
-                  
-                  <div className="p-3 sm:p-4">
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleAddToCart(product);
-                      }}
-                      className="w-full border border-gray-400 text-gray-700 py-2 px-2 sm:px-4 text-xs sm:text-sm font-medium hover:border-gray-600 hover:text-gray-900 transition-colors duration-200 rounded mb-3 min-h-[44px]"
-                    >
-                      Add to Cart
-                    </button>
-                    
-                    <h3 className="text-xs sm:text-sm text-gray-900 mb-1 font-medium line-clamp-2">
-                      {product.name}
-                    </h3>
-                    
-                    {product.description && (
-                      <p className="text-xs text-gray-600 mb-2 line-clamp-2">{product.description}</p>
-                    )}
-                    
-                    <div>
-                      <span className="text-gray-900 font-semibold text-xs sm:text-sm">
-                        R{product.price}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                />
               ))}
             </div>
 
