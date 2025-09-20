@@ -175,8 +175,26 @@ const collageProducts = [
     id: 13,
     name: "The Perfect Onboarding Package",
     price: 3499,
-    image: "/placeholder-full-package.jpg",
-    category: "onboarding"
+    image: brownBackpack,
+    category: "onboarding",
+    isPackage: true,
+    packageItems: [
+      {
+        name: "Grounded Tan Backpack",
+        image: brownBackpack,
+        size: "large"
+      },
+      {
+        name: "Laptop Sleeve",
+        images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
+        size: "small"
+      },
+      {
+        name: "Company Leather Bag Tag",
+        image: welcomeTag,
+        size: "small"
+      }
+    ]
   },
   {
     id: 14,
@@ -296,6 +314,79 @@ export default function Browse() {
   }, [location]);
 
   // Generate dynamic SEO content based on category
+  // Package Item Component for cycling images within package
+  const PackageItem = ({ item }: { item: any }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const timerRef = useRef<number | null>(null);
+    
+    const hasImages = Array.isArray(item.images) && item.images.length > 1;
+    const currentImage = hasImages ? item.images[currentImageIndex] : item.image;
+    
+    const startCycling = () => {
+      if (!hasImages) return;
+      
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+      
+      timerRef.current = window.setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % item.images.length);
+      }, 900);
+    };
+    
+    const stopCycling = () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+    
+    const handleImageClick = (e: React.MouseEvent | React.TouchEvent) => {
+      if (hasImages) {
+        e.preventDefault();
+        e.stopPropagation();
+        setCurrentImageIndex((prev) => (prev + 1) % item.images.length);
+      }
+    };
+    
+    useEffect(() => {
+      return () => {
+        stopCycling();
+      };
+    }, []);
+    
+    return (
+      <div 
+        className={`relative overflow-hidden rounded-lg ${item.size === 'large' ? 'row-span-2' : ''}`}
+        onMouseEnter={startCycling}
+        onMouseLeave={stopCycling}
+      >
+        <img
+          src={currentImage}
+          alt={item.name}
+          className={`w-full h-full object-cover transition-transform duration-300 hover:scale-105 ${hasImages ? 'cursor-pointer' : ''}`}
+          onClick={handleImageClick}
+          onTouchStart={handleImageClick}
+        />
+        {hasImages && (
+          <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-1">
+            {item.images.map((_: any, index: number) => (
+              <div
+                key={index}
+                className={`w-1.5 h-1.5 rounded-full transition-colors duration-200 ${
+                  index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-2">
+          <p className="text-white text-xs font-medium">{item.name}</p>
+        </div>
+      </div>
+    );
+  };
+
   // ProductTile component with image cycling functionality
   const ProductTile = ({ product, onAddToCart }: { product: any, onAddToCart: (product: any) => void }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -337,6 +428,51 @@ export default function Browse() {
       };
     }, []);
     
+    // Special package layout
+    if (product.isPackage && product.packageItems) {
+      return (
+        <div
+          data-testid={`tile-product-${product.id}`}
+          className="group bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:scale-105 w-full"
+        >
+          <div className="aspect-square relative w-full p-2">
+            <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
+              {product.packageItems.map((item: any, index: number) => (
+                <PackageItem key={index} item={item} />
+              ))}
+            </div>
+          </div>
+          
+          <div className="p-3 sm:p-4">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                onAddToCart(product);
+              }}
+              className="w-full border border-gray-400 text-gray-700 py-2 px-2 sm:px-4 text-xs sm:text-sm font-medium hover:border-gray-600 hover:text-gray-900 transition-colors duration-200 rounded mb-3 min-h-[44px]"
+            >
+              Add to Cart
+            </button>
+            
+            <h3 className="text-xs sm:text-sm text-gray-900 mb-1 font-medium line-clamp-2">
+              {product.name}
+            </h3>
+            
+            {product.description && (
+              <p className="text-xs text-gray-600 mb-2 line-clamp-2">{product.description}</p>
+            )}
+            
+            <div>
+              <span className="text-gray-900 font-semibold text-xs sm:text-sm">
+                R{product.price}
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Regular product layout
     return (
       <div
         data-testid={`tile-product-${product.id}`}
