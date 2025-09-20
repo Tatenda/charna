@@ -283,6 +283,13 @@
   background-color: hsl(var(--terracotta));
 }
 
+/* Brand dot styling - make it larger and more prominent */
+.brand-dot {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: hsl(var(--primary));
+}
+
 /* Ensure proper mobile touch targets */
 @media (max-width: 768px) {
   button, a[role="button"] {

@@ -35,11 +35,11 @@ const Story = () => {
               <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Crafted with Pride in Johannesburg</h2>
               <div className="divider mb-6"></div>
               <p className="text-neutral mb-4 leading-relaxed">
-                Charna. was founded with a simple vision: to create exceptional leather goods that showcase the incredible skill and artistry 
+                Charna<span className="brand-dot">.</span> was founded with a simple vision: to create exceptional leather goods that showcase the incredible skill and artistry 
                 of South African craftspeople. Our workshop in Johannesburg is where passion meets precision.
               </p>
               <p className="text-neutral mb-4 leading-relaxed">
-                Every Charna. piece is handcrafted by skilled local artisans who bring years of experience and deep pride in their work. 
+                Every Charna<span className="brand-dot">.</span> piece is handcrafted by skilled local artisans who bring years of experience and deep pride in their work. 
                 We believe in the power of traditional craftsmanship combined with contemporary design sensibilities.
               </p>
               <p className="text-neutral leading-relaxed">
@@ -101,9 +101,9 @@ const Story = () => {
           
           <div className="mt-16 text-center">
             <blockquote className="text-2xl font-heading text-primary italic max-w-3xl mx-auto">
-              "Every Charna. piece represents the incredible skill and dedication of our South African artisans — we're proud to showcase the exceptional craftsmanship that our country has to offer."
+              "Every Charna<span className="brand-dot">.</span> piece represents the incredible skill and dedication of our South African artisans — we're proud to showcase the exceptional craftsmanship that our country has to offer."
             </blockquote>
-            <p className="mt-4 font-accent font-semibold">— Founder, Charna.</p>
+            <p className="mt-4 font-accent font-semibold">— Founder, Charna<span className="brand-dot">.</span></p>
           </div>
         </div>
       </section>
@@ -111,9 +111,9 @@ const Story = () => {
       {/* CTA */}
       <section className="py-4">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Experience the Charna. Difference</h2>
+          <h2 className="font-heading text-3xl font-semibold text-primary mb-6">Experience the Charna<span className="brand-dot">.</span> Difference</h2>
           <p className="text-neutral max-w-2xl mx-auto mb-8">
-            When you purchase a Charna. bag, you're not just buying a product – you're supporting a movement of sustainable, 
+            When you purchase a Charna<span className="brand-dot">.</span> bag, you're not just buying a product – you're supporting a movement of sustainable, 
             ethical craftsmanship and becoming part of our story.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
