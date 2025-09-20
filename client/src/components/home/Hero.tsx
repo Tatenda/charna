@@ -26,7 +26,7 @@ import embossCompanyTag from '@assets/Welcome message - Christopher_175822446516
 import whiteWorkBackpack from "@assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1758225069381.png";
 import brownWorkBackpack from "@assets/LGM_Grounded (1)_1758225069383.png";
 import navyWorkBackpack from "@assets/Retro Range - Navy Blue_1758225069385.png";
-import oliveWorkBackpack from "@assets/Retro Range - Olive_1758225069386.png";
+import oliveWorkBackpack from "@assets/Retro Range - Olive_1758362124136.png";
 import creamHipBag from '@assets/LGM_hip_1757356807770.png';
 import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
 import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
@@ -353,10 +353,10 @@ const Hero = () => {
                   style={{ imageRendering: 'auto' }}
                 />
                 
-                {/* Brown backpack (on hover) */}
+                {/* Olive backpack (on hover) */}
                 <img 
-                  src={brownWorkBackpack}
-                  alt="Retro Range - Brown Backpack"
+                  src={oliveWorkBackpack}
+                  alt="Retro Range - Olive Backpack"
                   className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ imageRendering: 'auto' }}
                 />
