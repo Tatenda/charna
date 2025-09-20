@@ -809,38 +809,70 @@ const Hero = () => {
           
         </div>
         
-        {/* Mobile Alternative Layout */}
-        <div className="md:hidden grid grid-cols-2 gap-2 px-4">
-          <Link href="/browse?category=work" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
-            <img src="/images/green-backpack.jpg" alt="Business Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+        {/* Mobile Alternative Layout - Complete Category Grid */}
+        <div className="md:hidden grid grid-cols-2 gap-3 px-4 pb-8">
+          {/* Business Collection */}
+          <Link href="/browse?category=work" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-business-mobile">
+            <img src={manCarryingOliveBag} alt="Business Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Business</h3>
               <p className="text-xs opacity-90">Professional</p>
             </div>
           </Link>
-          <Link href="/browse?category=sport" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
-            <img src="/images/navy-tennis-bag.jpg" alt="Sports Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+          
+          {/* Sports Collection */}
+          <Link href="/browse?category=sport" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-sports-mobile">
+            <img src={whiteTennisBag} alt="Sports Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Sports</h3>
               <p className="text-xs opacity-90">Athletic</p>
             </div>
           </Link>
-          <Link href="/browse?category=leisure" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
-            <img src="/images/cream-crossbody.jpg" alt="Leisure Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+          
+          {/* Leisure Collection */}
+          <Link href="/browse?category=leisure" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-leisure-mobile">
+            <img src={creamHipBag} alt="Leisure Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Leisure</h3>
               <p className="text-xs opacity-90">Everyday</p>
             </div>
           </Link>
-          <Link href="/browse?category=travel" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg">
-            <img src="/images/backpack-brown.jpg" alt="Travel Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+          
+          {/* Travel Collection */}
+          <Link href="/browse?category=travel" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-travel-mobile">
+            <img src={travelBackpackLifestyle} alt="Travel Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Travel</h3>
               <p className="text-xs opacity-90">Adventure</p>
+            </div>
+          </Link>
+          
+          {/* Accessories Collection */}
+          <Link href="/browse?category=accessories" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-accessories-mobile">
+            <div className="w-full h-full bg-gradient-to-br from-stone-600 to-stone-700 flex items-center justify-center">
+              <div className="text-center text-white">
+                <div className="text-4xl mb-2">👜</div>
+                <p className="text-sm font-medium">Accessories</p>
+              </div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-sm font-semibold">Accessories</h3>
+              <p className="text-xs opacity-90">Complete Your Look</p>
+            </div>
+          </Link>
+          
+          {/* Onboarding Collection */}
+          <Link href="/browse?category=onboarding" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-onboarding-mobile">
+            <img src={navyWorkBackpack} alt="Onboarding Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <div className="absolute bottom-4 left-4 text-white">
+              <h3 className="text-sm font-semibold">Onboarding</h3>
+              <p className="text-xs opacity-90">Work Essentials</p>
             </div>
           </Link>
         </div>
