@@ -109,28 +109,6 @@ const collageProducts = [
     category: "tennis"
   },
   {
-    id: 10,
-    name: "Company Leather Bag Tag",
-    price: 250,
-    image: welcomeTag,
-    category: "onboarding",
-    description: "Onboarding welcome message embossed on Luggage tag"
-  },
-  {
-    id: 12,
-    name: "Laptop Sleeves",
-    price: 999,
-    image: "/placeholder-onboarding-accessories.jpg",
-    category: "onboarding"
-  },
-  {
-    id: 15,
-    name: "Desk Mats",
-    price: 899,
-    image: "/placeholder-desk-mats.jpg",
-    category: "onboarding"
-  },
-  {
     id: 27,
     name: "Grounded Tan Backpack",
     price: 1999,
@@ -157,6 +135,28 @@ const collageProducts = [
     price: 1899,
     image: whiteBackpack,
     category: "onboarding"
+  },
+  {
+    id: 12,
+    name: "Laptop Sleeves",
+    price: 999,
+    image: "/placeholder-onboarding-accessories.jpg",
+    category: "onboarding"
+  },
+  {
+    id: 15,
+    name: "Desk Mats",
+    price: 899,
+    image: "/placeholder-desk-mats.jpg",
+    category: "onboarding"
+  },
+  {
+    id: 10,
+    name: "Company Leather Bag Tag",
+    price: 250,
+    image: welcomeTag,
+    category: "onboarding",
+    description: "Onboarding welcome message embossed on Luggage tag"
   },
   {
     id: 13,
