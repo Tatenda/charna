@@ -542,6 +542,7 @@ const Hero = () => {
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
                       handleOpenColorModal("retro");
                     }}
@@ -581,6 +582,7 @@ const Hero = () => {
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
                       handleOpenColorModal("leisure");
                     }}
@@ -617,6 +619,7 @@ const Hero = () => {
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
                       handleOpenColorModal("sports");
                     }}
@@ -653,6 +656,7 @@ const Hero = () => {
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
                       handleOpenColorModal("classic");
                     }}
@@ -692,6 +696,7 @@ const Hero = () => {
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
                       handleOpenColorModal("grounded");
                     }}
@@ -731,6 +736,7 @@ const Hero = () => {
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
                       handleOpenColorModal("timeless");
                     }}
