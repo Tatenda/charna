@@ -861,13 +861,24 @@ const Hero = () => {
           </Link>
           
           {/* Accessories Collection */}
-          <Link href="/browse?category=accessories" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-accessories-mobile">
-            <div className="w-full h-full bg-gradient-to-br from-stone-600 to-stone-700 flex items-center justify-center">
-              <div className="text-center text-white">
-                <div className="text-4xl mb-2">👜</div>
-                <p className="text-sm font-medium">Accessories</p>
-              </div>
-            </div>
+          <Link 
+            href="/browse?category=accessories" 
+            className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" 
+            data-testid="tile-accessories-mobile"
+            onMouseEnter={handleSleevedHover}
+            onMouseLeave={handleSleevedLeave}
+          >
+            {sleevedLaptopBags.map((bag, index) => (
+              <img 
+                key={index}
+                src={bag.src}
+                alt={bag.alt}
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentSleevedBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                }`}
+                style={{ imageRendering: 'auto' }}
+              />
+            ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Accessories</h3>
