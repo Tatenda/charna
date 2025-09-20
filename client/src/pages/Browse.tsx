@@ -3,6 +3,12 @@ import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import Seo from "@/components/layout/Seo";
 import johannesburgSkyline from "@assets/ChatGPT Image Sep 18, 2025, 10_43_30 PM_1758254550927.png";
 import welcomeTag from "@assets/Welcome message - Christopher_1758261765918.png";
@@ -289,6 +295,14 @@ export default function Browse() {
     const searchParams = new URLSearchParams(window.location.search);
     return searchParams.get('category') || 'work';
   });
+
+  // Package customization modal state
+  const [showCustomizationModal, setShowCustomizationModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [selectedColor, setSelectedColor] = useState('tan');
+  const [includeEmbossing, setIncludeEmbossing] = useState(false);
+  
+  const { toast } = useToast();
 
   // Update category when URL changes (for browser back/forward navigation)
   useEffect(() => {
@@ -593,6 +607,15 @@ export default function Browse() {
   };
 
   const handleAddToCart = (product: any) => {
+    // Check if this is the package that needs customization
+    if (product.isPackage && product.id === 13) {
+      setSelectedProduct(product);
+      setSelectedColor('tan');
+      setIncludeEmbossing(false);
+      setShowCustomizationModal(true);
+      return;
+    }
+
     // Convert collage product to proper Product schema format
     const fullProduct: Product = {
       id: product.id,
@@ -616,6 +639,51 @@ export default function Browse() {
       createdAt: new Date()
     };
     addToCart(fullProduct, 1);
+  };
+
+  // Handle customized package add to cart
+  const handleCustomizedAddToCart = () => {
+    if (!selectedProduct) return;
+
+    const embossingPrice = includeEmbossing ? 80 : 0;
+    const customizations = {
+      color: selectedColor,
+      embossing: includeEmbossing,
+      embossingPrice: embossingPrice
+    };
+
+    // Convert to full Product schema format with customizations
+    const fullProduct: Product = {
+      id: selectedProduct.id,
+      name: `${selectedProduct.name} - ${selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1)}${includeEmbossing ? ' + Embossing' : ''}`,
+      description: selectedProduct.description || `Premium handcrafted ${selectedProduct.category} package from Johannesburg`,
+      longDescription: `Meticulously crafted in our Johannesburg workshop, this ${selectedProduct.name.toLowerCase()} represents the perfect blend of South African craftsmanship and modern design.`,
+      price: selectedProduct.price,
+      originalPrice: null,
+      rating: 5,
+      reviewCount: 12,
+      inStock: true,
+      badge: "Signature",
+      category: selectedProduct.category,
+      colors: ["natural", "cognac"],
+      features: ["Premium leather", "Handcrafted", "Made in Johannesburg"],
+      images: selectedProduct.images ?? [selectedProduct.image],
+      materials: "Premium Italian leather",
+      dimensions: "40cm x 30cm x 15cm",
+      careInstructions: "Clean with leather conditioner, avoid water",
+      featured: true,
+      createdAt: new Date()
+    };
+
+    addToCart(fullProduct, 1, customizations);
+    
+    toast({
+      title: "Added to Cart",
+      description: `${fullProduct.name} has been added to your cart.`,
+    });
+
+    setShowCustomizationModal(false);
+    setSelectedProduct(null);
   };
 
   const seoContent = getSEOContent();
@@ -778,6 +846,101 @@ export default function Browse() {
           </div>
         </div>
       </div>
+
+      {/* Package Customization Modal */}
+      <Dialog open={showCustomizationModal} onOpenChange={setShowCustomizationModal}>
+        <DialogContent className="sm:max-w-md bg-white text-gray-900">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-gray-900">
+              Customize Your Perfect Onboarding Package
+            </DialogTitle>
+            <DialogDescription className="text-gray-600">
+              Choose your laptop bag color and add optional embossing to personalize your package.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-6 py-4">
+            {/* Color Selection */}
+            <div>
+              <Label className="text-base font-semibold text-gray-900 mb-3 block">
+                Laptop Bag Color
+              </Label>
+              <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="tan" id="tan" />
+                  <Label htmlFor="tan" className="text-gray-700 cursor-pointer">
+                    Tan Leather
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="navy" id="navy" />
+                  <Label htmlFor="navy" className="text-gray-700 cursor-pointer">
+                    Navy Leather
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            {/* Embossing Option */}
+            <div>
+              <Label className="text-base font-semibold text-gray-900 mb-3 block">
+                Additional Options
+              </Label>
+              <div className="flex items-center space-x-2">
+                <Checkbox 
+                  id="embossing" 
+                  checked={includeEmbossing}
+                  onCheckedChange={(checked) => setIncludeEmbossing(!!checked)}
+                />
+                <Label htmlFor="embossing" className="text-gray-700 cursor-pointer">
+                  Add Custom Embossing (+R80.00)
+                </Label>
+              </div>
+              <p className="text-sm text-gray-500 mt-1 ml-6">
+                Personalize your package with custom embossing on the leather goods
+              </p>
+            </div>
+
+            {/* Price Summary */}
+            <div className="border-t pt-4">
+              <div className="flex justify-between text-base">
+                <span className="text-gray-700">Package Price:</span>
+                <span className="text-gray-900">R3,499</span>
+              </div>
+              {includeEmbossing && (
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>Embossing:</span>
+                  <span>+R80</span>
+                </div>
+              )}
+              <div className="flex justify-between text-lg font-bold mt-2 border-t pt-2">
+                <span className="text-gray-900">Total:</span>
+                <span className="text-gray-900">
+                  R{3499 + (includeEmbossing ? 80 : 0)}
+                </span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3 pt-4">
+              <Button 
+                variant="outline" 
+                onClick={() => setShowCustomizationModal(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleCustomizedAddToCart}
+                className="flex-1 bg-[#8B4513] hover:bg-[#7A3A0F] text-white"
+                data-testid="button-add-customized-package"
+              >
+                Add to Cart
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
