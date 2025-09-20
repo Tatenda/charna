@@ -206,8 +206,31 @@ const collageProducts = [
     id: 14,
     name: "The Perfect Onboarding Package 2",
     price: 4399,
-    image: "/placeholder-full-package-2.jpg",
-    category: "onboarding"
+    image: navyModernBackpack,
+    category: "onboarding",
+    isPackage: true,
+    packageItems: [
+      {
+        name: "Retro Range Bag",
+        image: navyModernBackpack,
+        size: "medium"
+      },
+      {
+        name: "Laptop Sleeve",
+        images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
+        size: "medium"
+      },
+      {
+        name: "Desk Mat",
+        image: "/placeholder-desk-mat.jpg",
+        size: "medium"
+      },
+      {
+        name: "Company Leather Bag Tag",
+        image: welcomeTag,
+        size: "medium"
+      }
+    ]
   },
   {
     id: 17,
@@ -302,6 +325,10 @@ export default function Browse() {
   const [selectedColor, setSelectedColor] = useState('tan');
   const [includeEmbossing, setIncludeEmbossing] = useState(false);
   
+  // Package 2 specific customization state
+  const [selectedBagColor, setSelectedBagColor] = useState('navy'); // navy or olive
+  const [selectedSleeveColor, setSelectedSleeveColor] = useState('tan'); // tan or navy
+  
   const { toast } = useToast();
 
   // Update category when URL changes (for browser back/forward navigation)
@@ -329,7 +356,7 @@ export default function Browse() {
 
   // Generate dynamic SEO content based on category
   // Package Item Component for cycling images within package
-  const PackageItem = ({ item }: { item: any }) => {
+  const PackageItem = ({ item, isPackage2 = false }: { item: any, isPackage2?: boolean }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const timerRef = useRef<number | null>(null);
     
@@ -371,7 +398,7 @@ export default function Browse() {
     
     return (
       <div 
-        className={`relative overflow-hidden rounded-lg ${item.size === 'large' ? 'row-span-2' : ''}`}
+        className={`relative overflow-hidden rounded-lg ${item.size === 'large' && !isPackage2 ? 'row-span-2' : ''}`}
         onMouseEnter={startCycling}
         onMouseLeave={stopCycling}
       >
@@ -444,6 +471,10 @@ export default function Browse() {
     
     // Special package layout
     if (product.isPackage && product.packageItems) {
+      // Package 1 (3 items): large + 2 small in 2x2 grid with span
+      // Package 2 (4 items): 4 medium in 2x2 grid  
+      const isPackage2 = product.packageItems.length === 4;
+      
       return (
         <div
           data-testid={`tile-product-${product.id}`}
@@ -452,7 +483,7 @@ export default function Browse() {
           <div className="aspect-square relative w-full p-2">
             <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
               {product.packageItems.map((item: any, index: number) => (
-                <PackageItem key={index} item={item} />
+                <PackageItem key={index} item={item} isPackage2={isPackage2} />
               ))}
             </div>
           </div>
@@ -607,11 +638,22 @@ export default function Browse() {
   };
 
   const handleAddToCart = (product: any) => {
-    // Check if this is the package that needs customization
-    if (product.isPackage && product.id === 13) {
+    // Check if this is a package that needs customization
+    if (product.isPackage && (product.id === 13 || product.id === 14)) {
       setSelectedProduct(product);
-      setSelectedColor('tan');
-      setIncludeEmbossing(false);
+      
+      // Reset customization state based on package
+      if (product.id === 13) {
+        // Package 1: laptop bag color choice
+        setSelectedColor('tan');
+        setIncludeEmbossing(false);
+      } else if (product.id === 14) {
+        // Package 2: bag color and sleeve color choices
+        setSelectedBagColor('navy');
+        setSelectedSleeveColor('tan');
+        setIncludeEmbossing(false);
+      }
+      
       setShowCustomizationModal(true);
       return;
     }
@@ -646,16 +688,32 @@ export default function Browse() {
     if (!selectedProduct) return;
 
     const embossingPrice = includeEmbossing ? 80 : 0;
-    const customizations = {
-      color: selectedColor,
-      embossing: includeEmbossing,
-      embossingPrice: embossingPrice
-    };
+    let customizations;
+    let productName;
+
+    if (selectedProduct.id === 13) {
+      // Package 1 customizations
+      customizations = {
+        color: selectedColor,
+        embossing: includeEmbossing,
+        embossingPrice: embossingPrice
+      };
+      productName = `${selectedProduct.name} - ${selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1)}${includeEmbossing ? ' + Embossing' : ''}`;
+    } else if (selectedProduct.id === 14) {
+      // Package 2 customizations
+      customizations = {
+        bagColor: selectedBagColor,
+        sleeveColor: selectedSleeveColor,
+        embossing: includeEmbossing,
+        embossingPrice: embossingPrice
+      };
+      productName = `${selectedProduct.name} - ${selectedBagColor.charAt(0).toUpperCase() + selectedBagColor.slice(1)} Bag / ${selectedSleeveColor.charAt(0).toUpperCase() + selectedSleeveColor.slice(1)} Sleeve${includeEmbossing ? ' + Embossing' : ''}`;
+    }
 
     // Convert to full Product schema format with customizations
     const fullProduct: Product = {
       id: selectedProduct.id,
-      name: `${selectedProduct.name} - ${selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1)}${includeEmbossing ? ' + Embossing' : ''}`,
+      name: productName || selectedProduct.name,
       description: selectedProduct.description || `Premium handcrafted ${selectedProduct.category} package from Johannesburg`,
       longDescription: `Meticulously crafted in our Johannesburg workshop, this ${selectedProduct.name.toLowerCase()} represents the perfect blend of South African craftsmanship and modern design.`,
       price: selectedProduct.price,
@@ -852,34 +910,84 @@ export default function Browse() {
         <DialogContent className="sm:max-w-md bg-white text-gray-900">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-gray-900">
-              Customize Your Perfect Onboarding Package
+              Customize Your {selectedProduct?.name}
             </DialogTitle>
             <DialogDescription className="text-gray-600">
-              Choose your laptop bag color and add optional embossing to personalize your package.
+              {selectedProduct?.id === 13 
+                ? "Choose your laptop bag color and add optional embossing to personalize your package."
+                : "Choose your bag and sleeve colors, plus add optional embossing to personalize your package."
+              }
             </DialogDescription>
           </DialogHeader>
           
           <div className="space-y-6 py-4">
-            {/* Color Selection */}
-            <div>
-              <Label className="text-base font-semibold text-gray-900 mb-3 block">
-                Laptop Bag Color
-              </Label>
-              <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="tan" id="tan" />
-                  <Label htmlFor="tan" className="text-gray-700 cursor-pointer">
-                    Tan Leather
+            {/* Package 1 Color Selection */}
+            {selectedProduct?.id === 13 && (
+              <div>
+                <Label className="text-base font-semibold text-gray-900 mb-3 block">
+                  Laptop Bag Color
+                </Label>
+                <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="tan" id="tan" />
+                    <Label htmlFor="tan" className="text-gray-700 cursor-pointer">
+                      Tan Leather
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="navy" id="navy" />
+                    <Label htmlFor="navy" className="text-gray-700 cursor-pointer">
+                      Navy Leather
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </div>
+            )}
+
+            {/* Package 2 Color Selections */}
+            {selectedProduct?.id === 14 && (
+              <>
+                <div>
+                  <Label className="text-base font-semibold text-gray-900 mb-3 block">
+                    Retro Bag Color
                   </Label>
+                  <RadioGroup value={selectedBagColor} onValueChange={setSelectedBagColor}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="navy" id="bag-navy" />
+                      <Label htmlFor="bag-navy" className="text-gray-700 cursor-pointer">
+                        Navy Blue
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="olive" id="bag-olive" />
+                      <Label htmlFor="bag-olive" className="text-gray-700 cursor-pointer">
+                        Olive Green
+                      </Label>
+                    </div>
+                  </RadioGroup>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="navy" id="navy" />
-                  <Label htmlFor="navy" className="text-gray-700 cursor-pointer">
-                    Navy Leather
+
+                <div>
+                  <Label className="text-base font-semibold text-gray-900 mb-3 block">
+                    Laptop Sleeve Color
                   </Label>
+                  <RadioGroup value={selectedSleeveColor} onValueChange={setSelectedSleeveColor}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="tan" id="sleeve-tan" />
+                      <Label htmlFor="sleeve-tan" className="text-gray-700 cursor-pointer">
+                        Tan Leather
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="navy" id="sleeve-navy" />
+                      <Label htmlFor="sleeve-navy" className="text-gray-700 cursor-pointer">
+                        Navy Leather
+                      </Label>
+                    </div>
+                  </RadioGroup>
                 </div>
-              </RadioGroup>
-            </div>
+              </>
+            )}
 
             {/* Embossing Option */}
             <div>
@@ -905,7 +1013,7 @@ export default function Browse() {
             <div className="border-t pt-4">
               <div className="flex justify-between text-base">
                 <span className="text-gray-700">Package Price:</span>
-                <span className="text-gray-900">R3,499</span>
+                <span className="text-gray-900">R{selectedProduct?.price?.toLocaleString()}</span>
               </div>
               {includeEmbossing && (
                 <div className="flex justify-between text-sm text-gray-600">
@@ -916,7 +1024,7 @@ export default function Browse() {
               <div className="flex justify-between text-lg font-bold mt-2 border-t pt-2">
                 <span className="text-gray-900">Total:</span>
                 <span className="text-gray-900">
-                  R{3499 + (includeEmbossing ? 80 : 0)}
+                  R{((selectedProduct?.price || 0) + (includeEmbossing ? 80 : 0)).toLocaleString()}
                 </span>
               </div>
             </div>

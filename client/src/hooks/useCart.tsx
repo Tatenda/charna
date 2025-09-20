@@ -6,6 +6,8 @@ export interface CartItem {
   quantity: number;
   customizations?: {
     color?: string;
+    bagColor?: string;
+    sleeveColor?: string;
     embossing?: boolean;
     embossingPrice?: number;
   };
