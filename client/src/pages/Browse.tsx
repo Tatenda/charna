@@ -819,6 +819,15 @@ export default function Browse() {
       setShowCustomizationModal(true);
       return;
     }
+    
+    // Check if this product has color variations
+    if (product.colors && product.colors.length > 0) {
+      setSelectedProduct(product);
+      setSelectedColor(product.colors[0]); // Default to first color
+      setIncludeEmbossing(false);
+      setShowCustomizationModal(true);
+      return;
+    }
 
     // Convert collage product to proper Product schema format
     const fullProduct: Product = {
@@ -877,6 +886,14 @@ export default function Browse() {
         embossingPrice: embossingPrice
       };
       productName = `${selectedProduct.name}${includeEmbossing ? ' + Embossing' : ''}`;
+    } else if (selectedProduct.colors && selectedProduct.colors.length > 0) {
+      // Individual product with color variations
+      customizations = {
+        color: selectedColor,
+        embossing: includeEmbossing,
+        embossingPrice: embossingPrice
+      };
+      productName = `${selectedProduct.name}${selectedColor ? ' - ' + selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1) : ''}${includeEmbossing ? ' + Embossing' : ''}`;
     }
 
     // Convert to full Product schema format with customizations
@@ -1086,6 +1103,8 @@ export default function Browse() {
                 ? "Choose your laptop bag color and add optional embossing to personalize your package."
                 : selectedProduct?.id === 14
                 ? "Choose your bag and sleeve colors, plus add optional embossing to personalize your package."
+                : selectedProduct?.colors && selectedProduct.colors.length > 0
+                ? "Choose your color and add optional embossing to personalize your product."
                 : "Add optional embossing to personalize your product."
               }
             </DialogDescription>
@@ -1160,6 +1179,25 @@ export default function Browse() {
               </>
             )}
 
+            {/* Individual Product Color Selection */}
+            {selectedProduct?.colors && selectedProduct.colors.length > 0 && selectedProduct.id !== 13 && selectedProduct.id !== 14 && (
+              <div>
+                <Label className="text-base font-semibold text-gray-900 mb-3 block">
+                  Color Options
+                </Label>
+                <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
+                  {selectedProduct.colors.map((color: string) => (
+                    <div key={color} className="flex items-center space-x-2">
+                      <RadioGroupItem value={color} id={`color-${color}`} />
+                      <Label htmlFor={`color-${color}`} className="text-gray-700 cursor-pointer">
+                        {color.charAt(0).toUpperCase() + color.slice(1)}
+                      </Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </div>
+            )}
+
             {/* Embossing Option */}
             <div>
               <Label className="text-base font-semibold text-gray-900 mb-3 block">
@@ -1183,7 +1221,9 @@ export default function Browse() {
             {/* Price Summary */}
             <div className="border-t pt-4">
               <div className="flex justify-between text-base">
-                <span className="text-gray-700">Package Price:</span>
+                <span className="text-gray-700">
+                  {selectedProduct?.isPackage ? 'Package Price:' : 'Product Price:'}
+                </span>
                 <span className="text-gray-900">R{selectedProduct?.price?.toLocaleString()}</span>
               </div>
               {includeEmbossing && (
