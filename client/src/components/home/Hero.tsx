@@ -384,10 +384,19 @@ const Hero = () => {
               className="group cursor-pointer block"
             >
               <div className="relative overflow-hidden rounded-xl mb-4">
+                {/* White hip bag (default) */}
                 <img 
-                  src={hipBagSolo}
-                  alt="Leisure Range - Hip Bag Solo"
-                  className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                  src={creamHipBag}
+                  alt="Leisure Range - White Hip Bag"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                  style={{ imageRendering: 'auto' }}
+                />
+                
+                {/* Blue crossbody bag (on hover) */}
+                <img 
+                  src={blueCrossbodyBag}
+                  alt="Leisure Range - Blue Crossbody Bag"
+                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ imageRendering: 'auto' }}
                 />
 
@@ -396,7 +405,7 @@ const Hero = () => {
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart("Hip Bag", 799, hipBagSolo, "leisure", 202);
+                      handleAddToCart("Hip Bag", 799, creamHipBag, "leisure", 202);
                     }}
                     data-testid="button-add-to-cart-hip-bag"
                   >
