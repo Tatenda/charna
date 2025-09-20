@@ -38,7 +38,7 @@ const collageProducts = [
   },
   {
     id: 31,
-    name: "Grounded Tab Backpack - Gold Zip",
+    name: "Grounded Tan Backpack - Gold Zip",
     price: 1999,
     image: groundedGoldZip,
     category: "business"
