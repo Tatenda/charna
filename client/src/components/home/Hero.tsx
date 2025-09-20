@@ -850,20 +850,7 @@ const Hero = () => {
                 </div>
               </div>
               
-              {/* Middle right - Welcome Tag */}
-              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-welcome-tag">
-                <img 
-                  src={embossCompanyTag} 
-                  alt="Welcome tag example" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute bottom-2 left-2 text-white">
-                  <p className="text-xs font-medium">Welcome Tag</p>
-                </div>
-              </div>
-              
-              {/* Bottom right - Named */}
+              {/* Middle right - Named */}
               <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-named">
                 <img 
                   src={embossInitials} 
@@ -884,6 +871,19 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-2 left-2 text-white">
                   <p className="text-xs font-medium">Desk Mat</p>
+                </div>
+              </div>
+              
+              {/* Bottom right - Welcome Tag */}
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-welcome-tag">
+                <img 
+                  src={embossCompanyTag} 
+                  alt="Welcome tag example" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-2 left-2 text-white">
+                  <p className="text-xs font-medium">Welcome Tag</p>
                 </div>
               </div>
             </div>
