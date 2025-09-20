@@ -45,6 +45,7 @@ import tanLaptopSleeve from '@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_175835
 import tanLaptopSleeveSide from '@assets/1FCA156B-07B9-4EB4-B6CB-90243D3F1240_1758358612678.png';
 import navyLaptopSleeveSide from '@assets/73877EA7-4681-4580-9B27-19C20A7D3A10_1758358612678.png';
 import navyLaptopSleeveFront from '@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758358612678.png';
+import ladyWithSideBag from '@assets/Lady with side bag - navy_1758383464073.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -154,6 +155,7 @@ const Hero = () => {
   ];
 
   const leisureBags = [
+    { src: ladyWithSideBag, alt: "Leisure Collection - Lady with Navy Side Bag" },
     { src: creamHipBag, alt: "Leisure Collection - White Hip Bag" },
     { src: blueCrossbodyBag, alt: "Leisure Collection - Blue Crossbody Bag" }
   ];
@@ -235,17 +237,22 @@ const Hero = () => {
 
   useEffect(() => {
     let leisureInterval: NodeJS.Timeout | null = null;
+    let resetTimeout: NodeJS.Timeout | null = null;
     
     if (isLeisureHovered) {
       leisureInterval = setInterval(() => {
         setCurrentLeisureBag((prev) => (prev + 1) % leisureBags.length);
       }, 1500);
     } else {
-      setCurrentLeisureBag(0); // Reset to first image when not hovering
+      // Add small delay to ensure smooth transition completion
+      resetTimeout = setTimeout(() => {
+        setCurrentLeisureBag(0);
+      }, 50);
     }
 
     return () => {
       if (leisureInterval) clearInterval(leisureInterval);
+      if (resetTimeout) clearTimeout(resetTimeout);
     };
   }, [isLeisureHovered, leisureBags.length]);
 
