@@ -569,28 +569,30 @@ const Hero = () => {
             <Link 
               href="/browse?category=accessories" 
               className="group cursor-pointer block"
-              onMouseEnter={handleSleevedHover}
-              onMouseLeave={handleSleevedLeave}
             >
               <div className="relative overflow-hidden rounded-xl mb-4">
-                {sleevedLaptopBags.map((bag, index) => (
-                  <img 
-                    key={index}
-                    src={bag.src}
-                    alt={bag.alt}
-                    className={`w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 ${
-                      index === currentSleevedBag ? 'opacity-100' : 'opacity-0'
-                    } ${index === 0 ? 'relative' : 'absolute inset-0'}`}
-                    style={{ imageRendering: 'auto' }}
-                  />
-                ))}
+                {/* Tan laptop sleeve front (default) */}
+                <img 
+                  src={tanLaptopSleeve}
+                  alt="Laptop Sleeve - Tan Front"
+                  className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                  style={{ imageRendering: 'auto' }}
+                />
+                
+                {/* Navy laptop sleeve front (on hover) */}
+                <img 
+                  src={navyLaptopSleeveFront}
+                  alt="Laptop Sleeve - Navy Front"
+                  className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
+                  style={{ imageRendering: 'auto' }}
+                />
 
                 <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button 
                     className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAddToCart("Laptop Sleeve", 999, sleevedLaptopBags[currentSleevedBag].src, "accessories", 206);
+                      handleAddToCart("Laptop Sleeve", 999, tanLaptopSleeve, "accessories", 206);
                     }}
                     data-testid="button-add-to-cart-laptop-sleeve"
                   >
