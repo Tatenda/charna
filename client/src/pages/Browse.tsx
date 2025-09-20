@@ -283,6 +283,151 @@ const collageProducts = [
     price: 150,
     image: welcomeTag,
     category: "accessories"
+  },
+  // Gifting category products (duplicates from other categories)
+  // Laptop bags for gifting
+  {
+    id: 1006,
+    name: "Grounded Tan Backpack",
+    price: 1999,
+    image: brownBackpack,
+    category: "gifting",
+    colors: ["tan"]
+  },
+  {
+    id: 1031,
+    name: "Grounded Tan Backpack - Gold Zip",
+    price: 1999,
+    image: groundedGoldZip,
+    category: "gifting",
+    colors: ["tan"]
+  },
+  {
+    id: 1032,
+    name: "Timeless White BackPack - Rosegold Zip",
+    price: 1899,
+    image: timelessWhiteRoseGold,
+    category: "gifting",
+    colors: ["white"]
+  },
+  {
+    id: 1003,
+    name: "Timeless White Backpack",
+    price: 1899,
+    image: whiteBackpack,
+    category: "gifting",
+    colors: ["white"]
+  },
+  {
+    id: 1007,
+    name: "Retro Navy Backpack",
+    price: 2399,
+    image: navyModernBackpack,
+    category: "gifting",
+    colors: ["navy"]
+  },
+  {
+    id: 1008,
+    name: "Retro Olive Backpack",
+    price: 2399,
+    image: oliveBackpack,
+    category: "gifting",
+    colors: ["olive"]
+  },
+  // Travel bags for gifting
+  {
+    id: 1004,
+    name: "Classic Travel Bag - Navy",
+    price: 2499,
+    image: navyRoseGoldBackpack,
+    category: "gifting",
+    colors: ["navy"]
+  },
+  {
+    id: 1005,
+    name: "Classic Travel Bag - Tan",
+    price: 2499,
+    image: tanBackpack,
+    category: "gifting",
+    colors: ["tan"]
+  },
+  // Laptop sleeves for gifting
+  {
+    id: 1017,
+    name: "Laptop Sleeve - Tan",
+    price: 999,
+    image: tanLaptopSleeve,
+    images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
+    category: "gifting",
+    colors: ["tan"]
+  },
+  {
+    id: 1018,
+    name: "Laptop Sleeve - Navy",
+    price: 999,
+    image: navyLaptopSleeve,
+    images: [navyLaptopSleeve, navyLaptopSleeve2, navyLaptopSleeve3],
+    category: "gifting",
+    colors: ["navy"]
+  },
+  // Crossover bags for gifting
+  {
+    id: 1002,
+    name: "Cream Crossbody",
+    price: 799,
+    image: creamCrossbody,
+    category: "gifting",
+    colors: ["cream"]
+  },
+  {
+    id: 1033,
+    name: "Navy Crossbody",
+    price: 799,
+    image: navySideBag,
+    category: "gifting",
+    colors: ["navy"]
+  },
+  // Desk mats for gifting
+  {
+    id: 1020,
+    name: "Desk Mat - Tan",
+    price: 899,
+    image: "/placeholder-desk-mat-tan.jpg",
+    category: "gifting",
+    colors: ["tan"]
+  },
+  {
+    id: 1021,
+    name: "Desk Mat - Olive",
+    price: 899,
+    image: "/placeholder-desk-mat-olive.jpg",
+    category: "gifting",
+    colors: ["olive"]
+  },
+  {
+    id: 1022,
+    name: "Desk Mat - Navy",
+    price: 899,
+    image: "/placeholder-desk-mat-navy.jpg",
+    category: "gifting",
+    colors: ["navy"]
+  },
+  // Leather luggage tags for gifting
+  {
+    id: 1023,
+    name: "Leather Luggage Tags",
+    price: 150,
+    image: welcomeTag,
+    category: "gifting"
+  },
+  // Company leather bag tag (named picture option) for gifting
+  {
+    id: 1010,
+    name: "Company Leather Bag Tag",
+    price: 250,
+    image: welcomeTag,
+    category: "gifting",
+    description: "Onboarding welcome message embossed on Luggage tag"
   }
 ];
 
