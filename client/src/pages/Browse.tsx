@@ -142,9 +142,18 @@ const collageProducts = [
   },
   {
     id: 12,
-    name: "Laptop Sleeves",
+    name: "Laptop Sleeve - Tan",
     price: 999,
-    image: "/placeholder-onboarding-accessories.jpg",
+    image: tanLaptopSleeve,
+    images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
+    category: "onboarding"
+  },
+  {
+    id: 38,
+    name: "Laptop Sleeve - Navy",
+    price: 999,
+    image: navyLaptopSleeve,
+    images: [navyLaptopSleeve, navyLaptopSleeve2, navyLaptopSleeve3],
     category: "onboarding"
   },
   {
