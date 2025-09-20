@@ -20,6 +20,7 @@ import tanLaptopSleeve from "@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_175834
 import navyLaptopSleeve from "@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758348677472.png";
 import groundedGoldZip from "@assets/ChatGPT Image Sep 17, 2025, 03_09_28 PM_1758392791511.png";
 import timelessWhiteRoseGold from "@assets/Timeless Range - Rose Gold zip_1758117345340.png";
+import navySideBag from "@assets/Navy side bag - neutral background_1758388433671.png";
 
 // Product data for collage display
 const collageProducts = [
@@ -56,6 +57,13 @@ const collageProducts = [
     name: "Cream Crossbody",
     price: 799,
     image: creamCrossbody,
+    category: "leisure"
+  },
+  {
+    id: 33,
+    name: "Label Crossbody",
+    price: 799,
+    image: navySideBag,
     category: "leisure"
   },
   {
