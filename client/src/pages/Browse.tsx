@@ -16,6 +16,8 @@ import navyModernBackpack from "@assets/Retro Range - Navy Blue_1757403284003.pn
 import oliveBackpack from "@assets/Retro Range - Olive_1757403284004.png";
 import whiteTennisBag from "@assets/Tennis bag - White - neutral background_1757403947038.png";
 import newNavyTennisBag from "@assets/Navy sports back - neutral background_1758112268197.png";
+import tanLaptopSleeve from "@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758343502287.png";
+import navyLaptopSleeve from "@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758348677472.png";
 
 // Product data for collage display
 const collageProducts = [
@@ -150,21 +152,21 @@ const collageProducts = [
     id: 17,
     name: "Laptop Sleeve - Tan",
     price: 999,
-    image: "/placeholder-laptop-sleeve-tan.jpg",
+    image: tanLaptopSleeve,
     category: "accessories"
   },
   {
     id: 18,
     name: "Laptop Sleeve - Navy",
     price: 999,
-    image: "/placeholder-laptop-sleeve-navy.jpg",
+    image: navyLaptopSleeve,
     category: "accessories"
   },
   {
     id: 19,
     name: "Laptop Sleeve - Olive",
     price: 999,
-    image: "/placeholder-laptop-sleeve-olive.jpg",
+    image: tanLaptopSleeve, // Using tan image as placeholder for olive
     category: "accessories"
   },
   {
