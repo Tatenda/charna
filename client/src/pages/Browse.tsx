@@ -31,6 +31,7 @@ import tanLaptopSleeve2 from "@assets/Laptop sleeve - Tan_1758299564397.png";
 import tanLaptopSleeve3 from "@assets/Laptop sleeve - Tan_1758299666358.png";
 import navyLaptopSleeve2 from "@assets/Laptop sleeve - Navy_1758299564401.png";
 import navyLaptopSleeve3 from "@assets/Laptop sleeve - Navy_1758299666356.png";
+import wineBagWithBottles from "@assets/Wine bag - wine bottles_1758387116266.png";
 
 // Product data for collage display
 const collageProducts = [
@@ -270,6 +271,13 @@ const collageProducts = [
     category: "accessories"
   },
   {
+    id: 24,
+    name: "Wine Bottle Bag",
+    price: 900,
+    image: wineBagWithBottles,
+    category: "gifting"
+  },
+  {
     id: 23,
     name: "Leather Luggage Tags",
     price: 150,
@@ -284,6 +292,7 @@ const categoryTabs = [
   { id: 'sport', label: 'Sport' },
   { id: 'travel', label: 'Travel' },
   { id: 'accessories', label: 'Accessories' },
+  { id: 'gifting', label: 'Gifting' },
   { id: 'onboarding', label: 'Onboarding' }
 ];
 
@@ -305,7 +314,7 @@ const categoryMapping: Record<string, string> = {
   'travel': 'travel',
   'accessories': 'accessories',
   'onboarding': 'onboarding',
-  'gifting': 'onboarding' // Map gifting to onboarding products for now
+  'gifting': 'gifting'
 };
 
 export default function Browse() {
@@ -657,6 +666,14 @@ export default function Browse() {
       setShowCustomizationModal(true);
       return;
     }
+    
+    // Check if this is an individual product that supports embossing
+    if (product.id === 24) { // Wine Bottle Bag
+      setSelectedProduct(product);
+      setIncludeEmbossing(false);
+      setShowCustomizationModal(true);
+      return;
+    }
 
     // Convert collage product to proper Product schema format
     const fullProduct: Product = {
@@ -708,6 +725,13 @@ export default function Browse() {
         embossingPrice: embossingPrice
       };
       productName = `${selectedProduct.name} - ${selectedBagColor.charAt(0).toUpperCase() + selectedBagColor.slice(1)} Bag / ${selectedSleeveColor.charAt(0).toUpperCase() + selectedSleeveColor.slice(1)} Sleeve${includeEmbossing ? ' + Embossing' : ''}`;
+    } else if (selectedProduct.id === 24) {
+      // Wine Bottle Bag (individual product with embossing)
+      customizations = {
+        embossing: includeEmbossing,
+        embossingPrice: embossingPrice
+      };
+      productName = `${selectedProduct.name}${includeEmbossing ? ' + Embossing' : ''}`;
     }
 
     // Convert to full Product schema format with customizations
@@ -915,7 +939,9 @@ export default function Browse() {
             <DialogDescription className="text-gray-600">
               {selectedProduct?.id === 13 
                 ? "Choose your laptop bag color and add optional embossing to personalize your package."
-                : "Choose your bag and sleeve colors, plus add optional embossing to personalize your package."
+                : selectedProduct?.id === 14
+                ? "Choose your bag and sleeve colors, plus add optional embossing to personalize your package."
+                : "Add optional embossing to personalize your product."
               }
             </DialogDescription>
           </DialogHeader>
