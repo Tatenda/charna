@@ -722,7 +722,7 @@ const Hero = () => {
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
-              <h3 className="text-lg text-white mb-1 leading-tight">Business</h3>
+              <h3 className="text-lg font-semibold text-white mb-1 leading-tight">Business</h3>
               <p className="text-sm opacity-90 text-white leading-tight">Professional Excellence</p>
             </div>
           </Link>
@@ -745,9 +745,9 @@ const Hero = () => {
               />
             ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-lg text-white mb-2">Sports</h3>
-              <p className="text-base opacity-90 text-white">Athletic Performance</p>
+            <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
+              <h3 className="text-lg font-semibold text-white mb-1 leading-tight">Sports</h3>
+              <p className="text-sm opacity-90 text-white leading-tight">Athletic Performance</p>
             </div>
           </Link>
           
@@ -769,9 +769,9 @@ const Hero = () => {
               />
             ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-lg text-white mb-2">Leisure</h3>
-              <p className="text-base opacity-90 text-white">Elegant Comfort</p>
+            <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
+              <h3 className="text-lg font-semibold text-white mb-1 leading-tight">Leisure</h3>
+              <p className="text-sm opacity-90 text-white leading-tight">Elegant Comfort</p>
             </div>
           </Link>
           
@@ -793,9 +793,9 @@ const Hero = () => {
               />
             ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div className="absolute bottom-6 left-6 text-white">
-              <h3 className="text-lg text-white mb-2">Travel</h3>
-              <p className="text-base opacity-90 text-white">Adventure Awaits</p>
+            <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
+              <h3 className="text-lg font-semibold text-white mb-1 leading-tight">Travel</h3>
+              <p className="text-sm opacity-90 text-white leading-tight">Adventure Awaits</p>
             </div>
           </Link>
           
@@ -818,7 +818,7 @@ const Hero = () => {
             ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
-              <h3 className="text-lg text-white mb-1 leading-tight">Accessories</h3>
+              <h3 className="text-lg font-semibold text-white mb-1 leading-tight">Accessories</h3>
               <p className="text-sm opacity-90 text-white leading-tight">Complete Your Look</p>
             </div>
           </Link>
@@ -842,7 +842,7 @@ const Hero = () => {
             ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
-              <h3 className="text-lg text-white mb-1 leading-tight">Gifts</h3>
+              <h3 className="text-lg font-semibold text-white mb-1 leading-tight">Gifts</h3>
               <p className="text-sm opacity-90 text-white leading-tight">Perfect for Every Occasion</p>
             </div>
           </Link>
@@ -868,9 +868,9 @@ const Hero = () => {
                   />
                 ))}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-lg text-white font-semibold mb-2">Onboarding</h3>
-                  <p className="text-base opacity-90 text-white">Work Laptop Bags</p>
+                <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
+                  <h3 className="text-lg font-semibold text-white mb-1 leading-tight">Onboarding</h3>
+                  <p className="text-sm opacity-90 text-white leading-tight">Work Laptop Bags</p>
                 </div>
               </div>
               
