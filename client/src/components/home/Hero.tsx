@@ -743,26 +743,19 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Bottom right - Onboarding (5-block nested layout) */}
+          {/* Bottom right - Onboarding (4-tile layout) */}
           <Link 
             href="/browse?category=onboarding"
             className="col-span-2 row-span-1 group relative overflow-hidden shadow-xl bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg"
-            onMouseEnter={() => setIsWorkHovered(true)}
-            onMouseLeave={() => setIsWorkHovered(false)}
           >
-            <div className="grid grid-cols-4 grid-rows-2 gap-2 h-full p-4">
-              {/* Large rotating work laptop bags block (left 2x2) */}
+            <div className="grid grid-cols-3 grid-rows-2 gap-2 h-full p-4">
+              {/* Large laptop bag block (left 2x2) */}
               <div className="col-span-2 row-span-2 relative overflow-hidden rounded-lg" data-testid="card-onboard-bags">
-                {workLaptopBags.map((bag, index) => (
-                  <img 
-                    key={index}
-                    src={bag.src}
-                    alt={bag.alt}
-                    className={`w-full h-full object-cover transition-opacity duration-500 ${
-                      index === currentWorkBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
-                    }`}
-                  />
-                ))}
+                <img 
+                  src={navyWorkBackpack}
+                  alt="Work laptop bag" 
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 text-white">
                   <h3 className="text-lg text-white font-semibold mb-2">Onboarding</h3>
@@ -783,7 +776,20 @@ const Hero = () => {
                 </div>
               </div>
               
-              {/* Top right 2 - Desk Mat */}
+              {/* Middle right - Welcome Tag */}
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-laptop-tag">
+                <img 
+                  src={embossCompanyTag} 
+                  alt="Welcome tag example" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-2 left-2 text-white">
+                  <p className="text-xs font-medium">Welcome Tag</p>
+                </div>
+              </div>
+              
+              {/* Bottom right - Desk Mat */}
               <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg bg-gradient-to-br from-amber-800 to-amber-900" data-testid="card-deskmat">
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="w-16 h-12 bg-amber-700 rounded-sm shadow-lg border-2 border-amber-600"></div>
@@ -791,32 +797,6 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 <div className="absolute bottom-2 left-2 text-white">
                   <p className="text-xs font-medium">Desk Mat</p>
-                </div>
-              </div>
-              
-              {/* Bottom right - Embossed Initials */}
-              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="img-emboss-initials">
-                <img 
-                  src={embossInitials} 
-                  alt="Embossed initials example" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute bottom-2 left-2 text-white">
-                  <p className="text-xs font-medium">Embossed Initials</p>
-                </div>
-              </div>
-              
-              {/* Bottom right 2 - Embossed Company Tag */}
-              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="img-emboss-company">
-                <img 
-                  src={embossCompanyTag} 
-                  alt="Embossed company tag example" 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute bottom-2 left-2 text-white">
-                  <p className="text-xs font-medium">Welcome Tag</p>
                 </div>
               </div>
             </div>
