@@ -92,12 +92,14 @@ const Hero = () => {
   const [currentLeisureBag, setCurrentLeisureBag] = useState(0);
   const [currentWorkBag, setCurrentWorkBag] = useState(0);
   const [currentSleevedBag, setCurrentSleevedBag] = useState(0);
+  const [currentAccessoriesBag, setCurrentAccessoriesBag] = useState(0);
   const [isBusinessHovered, setIsBusinessHovered] = useState(false);
   const [isSportsHovered, setIsSportsHovered] = useState(false);
   const [isTravelHovered, setIsTravelHovered] = useState(false);
   const [isLeisureHovered, setIsLeisureHovered] = useState(false);
   const [isWorkHovered, setIsWorkHovered] = useState(false);
   const [isSleevedHovered, setIsSleevedHovered] = useState(false);
+  const [isAccessoriesHovered, setIsAccessoriesHovered] = useState(false);
 
   // Helper function to create Product objects that match the schema
   const createProduct = (id: number, name: string, price: number, image: string, category: string): Product => ({
@@ -172,6 +174,15 @@ const Hero = () => {
     { src: tanLaptopSleeveSide, alt: "Laptop Sleeve - Tan Side" },
     { src: navyLaptopSleeveFront, alt: "Laptop Sleeve - Navy Front" },
     { src: navyLaptopSleeveSide, alt: "Laptop Sleeve - Navy Side" }
+  ];
+
+  const accessoriesBags = [
+    { src: tanLaptopSleeve, alt: "Laptop Sleeve - Tan Front" },
+    { src: tanLaptopSleeveSide, alt: "Laptop Sleeve - Tan Side" },
+    { src: navyLaptopSleeveFront, alt: "Laptop Sleeve - Navy Front" },
+    { src: navyLaptopSleeveSide, alt: "Laptop Sleeve - Navy Side" },
+    { src: embossCompanyTag, alt: "Laptop Tag - Welcome Message" },
+    { src: embossInitials, alt: "Embossing - Custom Initials" }
   ];
 
   useEffect(() => {
@@ -269,6 +280,22 @@ const Hero = () => {
       if (sleevedInterval) clearInterval(sleevedInterval);
     };
   }, [isSleevedHovered, sleevedLaptopBags.length]);
+
+  useEffect(() => {
+    let accessoriesInterval: NodeJS.Timeout | null = null;
+    
+    if (isAccessoriesHovered) {
+      accessoriesInterval = setInterval(() => {
+        setCurrentAccessoriesBag((prev) => (prev + 1) % accessoriesBags.length);
+      }, 1500);
+    } else {
+      setCurrentAccessoriesBag(0); // Reset to first image when not hovering
+    }
+
+    return () => {
+      if (accessoriesInterval) clearInterval(accessoriesInterval);
+    };
+  }, [isAccessoriesHovered, accessoriesBags.length]);
 
   return (
     <div className="relative">
@@ -716,16 +743,16 @@ const Hero = () => {
           <Link 
             href="/browse?category=accessories" 
             className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl"
-            onMouseEnter={() => setIsSleevedHovered(true)}
-            onMouseLeave={() => setIsSleevedHovered(false)}
+            onMouseEnter={() => setIsAccessoriesHovered(true)}
+            onMouseLeave={() => setIsAccessoriesHovered(false)}
           >
-            {sleevedLaptopBags.map((bag, index) => (
+            {accessoriesBags.map((bag, index) => (
               <img 
                 key={index}
                 src={bag.src}
                 alt={bag.alt}
                 className={`w-full h-full object-cover transition-opacity duration-500 ${
-                  index === currentSleevedBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                  index === currentAccessoriesBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
                 }`}
               />
             ))}
