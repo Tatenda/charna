@@ -49,6 +49,8 @@ import ladyWithSideBag from '@assets/Lady with side bag - navy_1758383464073.png
 import gentWithTennisBag from '@assets/Gent wih tennis bag - navy _1758386562325.png';
 import whiteTennisBagNew from '@assets/Tennis bag - White - neutral background_1758386577764.png';
 import navyTennisBagNew2 from '@assets/Navy Tennis bag_1758386586336.png';
+import wineBagWithBottles from '@assets/Wine bag - wine bottles_1758387116266.png';
+import wineBagEmpty from '@assets/Wine bag_1758387116268.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -98,6 +100,7 @@ const Hero = () => {
   const [currentSleevedBag, setCurrentSleevedBag] = useState(0);
   const [currentAccessoriesBag, setCurrentAccessoriesBag] = useState(0);
   const [currentOnboardingBag, setCurrentOnboardingBag] = useState(0);
+  const [currentGiftsBag, setCurrentGiftsBag] = useState(0);
   const [isBusinessHovered, setIsBusinessHovered] = useState(false);
   const [isSportsHovered, setIsSportsHovered] = useState(false);
   const [isTravelHovered, setIsTravelHovered] = useState(false);
@@ -106,6 +109,7 @@ const Hero = () => {
   const [isSleevedHovered, setIsSleevedHovered] = useState(false);
   const [isAccessoriesHovered, setIsAccessoriesHovered] = useState(false);
   const [isOnboardingHovered, setIsOnboardingHovered] = useState(false);
+  const [isGiftsHovered, setIsGiftsHovered] = useState(false);
 
   // Helper function to create Product objects that match the schema
   const createProduct = (id: number, name: string, price: number, image: string, category: string): Product => ({
@@ -197,6 +201,11 @@ const Hero = () => {
     { src: navyWorkBackpack, alt: "Navy Work Laptop Bag" },
     { src: brownWorkBackpack, alt: "Grounded Tan Work Laptop Bag" },
     { src: oliveWorkBackpack, alt: "Olive Work Laptop Bag" }
+  ];
+
+  const giftsBags = [
+    { src: wineBagWithBottles, alt: "Wine Bag with Bottles" },
+    { src: wineBagEmpty, alt: "Wine Bag - Empty" }
   ];
 
   useEffect(() => {
@@ -331,6 +340,22 @@ const Hero = () => {
       if (onboardingInterval) clearInterval(onboardingInterval);
     };
   }, [isOnboardingHovered, onboardingBags.length]);
+
+  useEffect(() => {
+    let giftsInterval: NodeJS.Timeout | null = null;
+    
+    if (isGiftsHovered) {
+      giftsInterval = setInterval(() => {
+        setCurrentGiftsBag((prev) => (prev + 1) % giftsBags.length);
+      }, 1500);
+    } else {
+      setCurrentGiftsBag(0); // Reset to first image when not hovering
+    }
+
+    return () => {
+      if (giftsInterval) clearInterval(giftsInterval);
+    };
+  }, [isGiftsHovered, giftsBags.length]);
 
   return (
     <div className="relative">
@@ -799,14 +824,22 @@ const Hero = () => {
           </Link>
           
           {/* Bottom - Gifts */}
-          <Link href="/browse?category=gifting" className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl">
-            <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-              <div className="text-center text-white">
-                <div className="text-4xl mb-2">🎁</div>
-                <p className="text-sm">Gifts</p>
-                <p className="text-xs opacity-70">Image coming soon</p>
-              </div>
-            </div>
+          <Link 
+            href="/browse?category=gifting" 
+            className="col-span-1 row-span-1 group relative overflow-hidden shadow-xl"
+            onMouseEnter={() => setIsGiftsHovered(true)}
+            onMouseLeave={() => setIsGiftsHovered(false)}
+          >
+            {giftsBags.map((bag, index) => (
+              <img 
+                key={index}
+                src={bag.src}
+                alt={bag.alt}
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentGiftsBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                }`}
+              />
+            ))}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-6 left-6 text-white">
               <h3 className="text-lg text-white mb-2">Gifts</h3>
