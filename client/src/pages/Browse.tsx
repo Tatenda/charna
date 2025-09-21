@@ -66,14 +66,14 @@ const collageProducts = [
   {
     id: 2,
     name: "Cream Crossbody",
-    price: 799,
+    price: 1100,
     image: creamCrossbody,
     category: "leisure"
   },
   {
     id: 33,
     name: "Navy Crossbody",
-    price: 799,
+    price: 1100,
     image: navySideBag,
     category: "leisure"
   },
@@ -374,7 +374,7 @@ const collageProducts = [
   {
     id: 1002,
     name: "Cream Crossbody",
-    price: 799,
+    price: 1100,
     image: creamCrossbody,
     category: "gifting",
     colors: ["cream"]

@@ -603,7 +603,7 @@ const Hero = () => {
               </div>
               <h3 className="text-lg text-botanical mb-2">Leisure Range</h3>
               <p className="text-gray-600 text-sm mb-2">Elegant everyday bag</p>
-              <p className="font-bold text-black">Price R799</p>
+              <p className="font-bold text-black">Price R1100</p>
             </Link>
             
             <Link href="/browse?category=sport" className="group cursor-pointer block">
