@@ -70,9 +70,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       console.log('Creating Yoco checkout:', checkoutData);
-      console.log('Using test secret key:', process.env.YOCO_TEST_SECRET_KEY ? 'Present' : 'Missing');
+      console.log('Using test secret key:', process.env.YOCO_LIVE_SECRET_KEY ? 'Present' : 'Missing');
       console.log('Test public key available:', process.env.YOCO_TEST_PUBLIC_KEY ? 'Yes' : 'No');
-      console.log('Test secret key starts with:', process.env.YOCO_TEST_SECRET_KEY ? process.env.YOCO_TEST_SECRET_KEY.substring(0, 10) + '...' : 'N/A');
+      console.log('Test secret key starts with:', process.env.YOCO_LIVE_SECRET_KEY ? process.env.YOCO_LIVE_SECRET_KEY.substring(0, 10) + '...' : 'N/A');
 
       // Use the correct Yoco API endpoint for checkouts  
       const endpoint = 'https://api.yoco.com/v1/checkouts';
@@ -80,7 +80,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('Using Yoco endpoint:', endpoint);
       
       const headers = {
-        'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`,
+        'Authorization': `Bearer ${process.env.YOCO_LIVE_SECRET_KEY}`,
         'Content-Type': 'application/json'
       };
       
@@ -133,7 +133,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const response = await fetch(`https://api.yoco.com/v1/charges/${id}`, {
         headers: {
-          'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`
+          'Authorization': `Bearer ${process.env.YOCO_LIVE_SECRET_KEY}`
         }
       });
 
@@ -164,7 +164,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Check if this is a demo token (for development/demo purposes)
       // OR if we're in test mode with test keys (handle test tokens specially)
-      if (token.startsWith('demo_token_') || process.env.YOCO_TEST_SECRET_KEY) {
+      if (token.startsWith('demo_token_') || process.env.YOCO_LIVE_SECRET_KEY) {
         console.log('Processing test payment token:', token);
         
         // For test mode, simulate successful payment without calling Yoco API
@@ -211,7 +211,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const response = await fetch('https://api.yoco.com/v1/charges', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`,
+          'Authorization': `Bearer ${process.env.YOCO_LIVE_SECRET_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(chargeData)
@@ -267,7 +267,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           // For real payments, verify against Yoco API
           const paymentResponse = await fetch(`https://api.yoco.com/v1/charges/${orderData.paymentId}`, {
             headers: {
-              'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`
+              'Authorization': `Bearer ${process.env.YOCO_LIVE_SECRET_KEY}`
             }
           });
           
