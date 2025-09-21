@@ -77,9 +77,9 @@ export class MemStorage implements IStorage {
     // Executive Business Tote - Ivory (with lifestyle shots)
     this.products.set(2, {
       id: 2,
-      name: "LIGREMO Executive Tote - Ivory",
+      name: "Charna Executive Tote - Ivory",
       description: "An elegant compact leather tote in pristine ivory, designed for the sophisticated professional. Perfect for daily essentials with refined South African craftsmanship.",
-      longDescription: "The LIGREMO Executive Tote in Ivory represents understated luxury at its finest. Crafted from the most exquisite full-grain leather in our Johannesburg workshop, this compact yet functional tote is designed for the discerning professional who values both style and substance.\n\nThe pristine ivory finish exudes sophistication while the structured silhouette maintains its elegant form throughout daily use. Each piece is meticulously handcrafted with attention to every detail, from the precise stitching to the signature brass hardware that bears the LIGREMO mark of excellence.\n\nThis versatile tote seamlessly transitions from boardroom to social events, making it an essential accessory for the modern executive who appreciates timeless design and uncompromising quality.",
+      longDescription: "The Charna Executive Tote in Ivory represents understated luxury at its finest. Crafted from the most exquisite full-grain leather in our Johannesburg workshop, this compact yet functional tote is designed for the discerning professional who values both style and substance.\n\nThe pristine ivory finish exudes sophistication while the structured silhouette maintains its elegant form throughout daily use. Each piece is meticulously handcrafted with attention to every detail, from the precise stitching to the signature brass hardware that bears the Charna mark of excellence.\n\nThis versatile tote seamlessly transitions from boardroom to social events, making it an essential accessory for the modern executive who appreciates timeless design and uncompromising quality.",
       price: 2799,
       originalPrice: 3299,
       rating: 48, // 4.8
@@ -95,7 +95,7 @@ export class MemStorage implements IStorage {
         "Structured top handles",
         "Magnetic closure",
         "Multiple organization pockets",
-        "Signature LIGREMO hardware"
+        "Signature Charna hardware"
       ],
       images: [
         "/images/green-backpack-lifestyle.jpg",
@@ -111,9 +111,9 @@ export class MemStorage implements IStorage {
     // Compact Executive Backpack - Ivory
     this.products.set(3, {
       id: 3,
-      name: "LIGREMO Compact Backpack - Ivory",
+      name: "Charna Compact Backpack - Ivory",
       description: "An exquisite compact backpack in pristine ivory leather. Perfect for the sophisticated professional who values both elegance and functionality in a refined silhouette.",
-      longDescription: "The LIGREMO Compact Backpack in Ivory represents the pinnacle of understated luxury. This beautifully proportioned piece is crafted from the finest leather in our Johannesburg workshop in a timeless ivory finish that exudes sophistication and grace.\n\nDesigned for the discerning individual who appreciates refined aesthetics, this compact backpack offers the perfect balance of form and function. The clean lines and minimalist design speak to contemporary sensibilities while the premium craftsmanship honors traditional leather artistry.\n\nEvery detail has been meticulously considered, from the precision stitching to the carefully selected hardware. This is more than a backpack – it's a statement of refined taste and appreciation for the finer things in life.",
+      longDescription: "The Charna Compact Backpack in Ivory represents the pinnacle of understated luxury. This beautifully proportioned piece is crafted from the finest leather in our Johannesburg workshop in a timeless ivory finish that exudes sophistication and grace.\n\nDesigned for the discerning individual who appreciates refined aesthetics, this compact backpack offers the perfect balance of form and function. The clean lines and minimalist design speak to contemporary sensibilities while the premium craftsmanship honors traditional leather artistry.\n\nEvery detail has been meticulously considered, from the precision stitching to the carefully selected hardware. This is more than a backpack – it's a statement of refined taste and appreciation for the finer things in life.",
       price: 3299,
       originalPrice: 3799,
       rating: 49, // 4.9
@@ -145,9 +145,9 @@ export class MemStorage implements IStorage {
     // Tanned Leather Work Tote
     this.products.set(4, {
       id: 4,
-      name: "LIGREMO Tanned Leather Work Tote",
+      name: "Charna Tanned Leather Work Tote",
       description: "A sophisticated tanned leather backpack designed for the modern professional. Features premium hardware and versatile design for work or travel.",
-      longDescription: "The LIGREMO Tanned Leather Work Tote represents the perfect fusion of professional functionality and timeless elegance. Crafted from richly tanned leather in our Johannesburg workshop, this backpack develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the contemporary professional who values both style and substance, this versatile tote features multiple compartments for optimal organization. The rich tanned leather finish exudes warmth and sophistication, while the premium hardware adds refined details that speak to exceptional craftsmanship.\n\nWhether you're heading to the office or embarking on a business trip, this work tote seamlessly combines thoughtful design with practical functionality for today's demanding lifestyle.",
+      longDescription: "The Charna Tanned Leather Work Tote represents the perfect fusion of professional functionality and timeless elegance. Crafted from richly tanned leather in our Johannesburg workshop, this backpack develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the contemporary professional who values both style and substance, this versatile tote features multiple compartments for optimal organization. The rich tanned leather finish exudes warmth and sophistication, while the premium hardware adds refined details that speak to exceptional craftsmanship.\n\nWhether you're heading to the office or embarking on a business trip, this work tote seamlessly combines thoughtful design with practical functionality for today's demanding lifestyle.",
       price: 3599,
       originalPrice: 4199,
       rating: 50, // 5.0
@@ -163,7 +163,7 @@ export class MemStorage implements IStorage {
         "Laptop compartment (15\")",
         "Convertible carry options",
         "Premium metal hardware",
-        "Signature LIGREMO craftsmanship"
+        "Signature Charna craftsmanship"
       ],
       images: [
         "/attached_assets/IMG_1420_1751996515357.PNG",
@@ -179,9 +179,9 @@ export class MemStorage implements IStorage {
     // Travel Bag
     this.products.set(5, {
       id: 5,
-      name: "LIGREMO Explorer Travel Bag",
+      name: "Charna Explorer Travel Bag",
       description: "A spacious travel companion with retro 70's styling. Perfect for weekend getaways and extended adventures with authentic South African craftsmanship.",
-      longDescription: "The LIGREMO Explorer Travel Bag embodies the adventurous spirit of the 70's with modern functionality. Crafted in our Johannesburg workshop, this groovy travel companion features ample storage and retro styling that makes every journey far out.",
+      longDescription: "The Charna Explorer Travel Bag embodies the adventurous spirit of the 70's with modern functionality. Crafted in our Johannesburg workshop, this groovy travel companion features ample storage and retro styling that makes every journey far out.",
       price: 4299,
       originalPrice: 4899,
       rating: 47,
@@ -212,9 +212,9 @@ export class MemStorage implements IStorage {
     // Sport Bag
     this.products.set(6, {
       id: 6,
-      name: "LIGREMO Retro Sport Duffel",
+      name: "Charna Retro Sport Duffel",
       description: "A groovy sport bag with 70's flair for the active lifestyle. Combines retro aesthetics with modern sports functionality.",
-      longDescription: "The LIGREMO Retro Sport Duffel brings that authentic 70's vibe to your workout routine. This far-out bag combines vintage styling with practical sports features for the active individual who digs both style and performance.",
+      longDescription: "The Charna Retro Sport Duffel brings that authentic 70's vibe to your workout routine. This far-out bag combines vintage styling with practical sports features for the active individual who digs both style and performance.",
       price: 3199,
       originalPrice: 3699,
       rating: 45,
@@ -245,9 +245,9 @@ export class MemStorage implements IStorage {
     // Leisure Bag  
     this.products.set(7, {
       id: 7,
-      name: "LIGREMO Groovy Leisure Tote",
+      name: "Charna Groovy Leisure Tote",
       description: "A totally chill leisure bag perfect for casual outings. Features 70's retro styling with South African craftsmanship for the laid-back lifestyle.",
-      longDescription: "The LIGREMO Groovy Leisure Tote is all about that relaxed 70's vibe. Perfect for farmers markets, beach trips, or just hanging out with friends, this bag brings together retro cool and practical functionality.",
+      longDescription: "The Charna Groovy Leisure Tote is all about that relaxed 70's vibe. Perfect for farmers markets, beach trips, or just hanging out with friends, this bag brings together retro cool and practical functionality.",
       price: 2599,
       originalPrice: 2999,
       rating: 46,
@@ -278,9 +278,9 @@ export class MemStorage implements IStorage {
     // Custom Bag
     this.products.set(8, {
       id: 8,
-      name: "LIGREMO Custom Creation",
+      name: "Charna Custom Creation",
       description: "Design your own groovy bag with our custom service. Choose colors, features, and styling to create your perfect 70's inspired leather companion.",
-      longDescription: "The LIGREMO Custom Creation service lets you design the bag of your dreams. Work with our Johannesburg artisans to create a one-of-a-kind piece that reflects your personal style and groovy 70's aesthetic preferences.",
+      longDescription: "The Charna Custom Creation service lets you design the bag of your dreams. Work with our Johannesburg artisans to create a one-of-a-kind piece that reflects your personal style and groovy 70's aesthetic preferences.",
       price: 5999,
       originalPrice: 6999,
       rating: 50,
