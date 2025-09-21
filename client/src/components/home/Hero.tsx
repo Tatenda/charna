@@ -153,7 +153,7 @@ const Hero = () => {
     },
     leisure: {
       name: "Hip Bag",
-      price: 799,
+      price: 1100,
       category: "leisure",
       colors: [
         { name: "Cream", image: creamHipBag, value: "cream" },

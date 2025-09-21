@@ -382,7 +382,7 @@ const collageProducts = [
   {
     id: 1033,
     name: "Navy Crossbody",
-    price: 799,
+    price: 1100,
     image: navySideBag,
     category: "gifting",
     colors: ["navy"]
