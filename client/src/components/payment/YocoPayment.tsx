@@ -165,7 +165,7 @@ const YocoPayment = ({
               <h4 className="font-semibold text-green-800 mb-2">Secure Payment System</h4>
               <p className="text-sm text-green-700 leading-relaxed">
                 Your payment will be processed securely through Yoco's encrypted payment system. 
-                Use test card numbers (like 4242 4242 4242 4242) for testing - no real charges will be made.
+                Use test card number 4111 1111 1111 1111 for testing - no real charges will be made.
               </p>
             </div>
             
