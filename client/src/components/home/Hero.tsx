@@ -198,7 +198,7 @@ const Hero = () => {
     },
     sleeved: {
       name: "Laptop Sleeve",
-      price: 999,
+      price: 1100,
       category: "accessories",
       colors: [
         { name: "Tan", image: tanLaptopSleeve, value: "tan" },
