@@ -105,6 +105,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Process payment with token (PCI compliant)
+  app.post("/api/payments/charge", async (req, res) => {
+    try {
+      const { token, amount, currency = 'ZAR', customerInfo, metadata } = req.body;
+      
+      if (!token || !amount || !customerInfo) {
+        return res.status(400).json({ message: 'Missing required payment information' });
+      }
+
+      // Create charge with token from frontend
+      const chargeData = {
+        token: token,
+        amountInCents: Math.round(amount * 100),
+        currency,
+        metadata: {
+          customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
+          customer_email: customerInfo.email,
+          customer_phone: customerInfo.phone,
+          ...metadata
+        }
+      };
+
+      const response = await fetch('https://online.yoco.com/v1/charges', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.YOCO_SECRET_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(chargeData)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.error('Yoco charge failed:', result);
+        return res.status(400).json({ 
+          message: result.message || 'Payment failed', 
+          status: 'failed',
+          error: result 
+        });
+      }
+
+      // Return success response
+      res.json({
+        id: result.id,
+        status: result.status,
+        amount: result.amountInCents,
+        currency: result.currency,
+        message: 'Payment processed successfully'
+      });
+
+    } catch (error) {
+      console.error('Error processing charge:', error);
+      res.status(500).json({ message: 'Payment processing failed' });
+    }
+  });
+
   // Create order (updated to work with payment)
   app.post("/api/orders", async (req, res) => {
     try {

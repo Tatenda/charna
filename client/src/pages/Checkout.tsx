@@ -4,6 +4,7 @@ import { useLocation } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCart } from "@/hooks/useCart";
 import CartSummary from "@/components/cart/CartSummary";
+import YocoPayment from "@/components/payment/YocoPayment";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -47,6 +48,8 @@ const Checkout = () => {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
+  const [customerInfo, setCustomerInfo] = useState<CheckoutFormValues | null>(null);
 
   // Redirect if cart is empty
   useEffect(() => {
@@ -73,19 +76,40 @@ const Checkout = () => {
     },
   });
 
+  const shippingCost = cartTotal >= 1000 ? 0 : 150;
+  const totalAmount = cartTotal + shippingCost;
+
   const onSubmit = async (values: CheckoutFormValues) => {
+    if (!values.acceptTerms) {
+      toast({
+        title: "Terms Required",
+        description: "Please accept the terms and conditions to continue.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Store customer info and proceed to payment
+    setCustomerInfo(values);
+    setShowPayment(true);
+  };
+
+  const handlePaymentSuccess = async (paymentId: string) => {
+    if (!customerInfo) return;
+
     setIsSubmitting(true);
     
     try {
-      // Create order on the backend
+      // Create order with payment ID
       const response = await apiRequest("POST", "/api/orders", {
-        customerInfo: values,
+        customerInfo,
         items: cart.map(item => ({
           productId: item.product.id,
           quantity: item.quantity,
           price: item.product.price
         })),
-        totalAmount: cartTotal
+        totalAmount: totalAmount,
+        paymentId: paymentId
       });
       
       const order = await response.json();
@@ -94,20 +118,34 @@ const Checkout = () => {
       clearCart();
       
       toast({
-        title: "Order Placed Successfully!",
-        description: `Your order #${order.id} has been received.`,
+        title: "Order Completed Successfully!",
+        description: `Your order #${order.id} has been confirmed and paid.`,
       });
       
       setLocation('/');
     } catch (error) {
       toast({
-        title: "Failed to place order",
-        description: "Please try again or contact customer support.",
+        title: "Order Creation Failed",
+        description: "Payment successful but order creation failed. Please contact support.",
         variant: "destructive"
       });
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handlePaymentError = (error: string) => {
+    toast({
+      title: "Payment Failed",
+      description: error,
+      variant: "destructive"
+    });
+    setShowPayment(false); // Allow user to try again
+  };
+
+  const handleBackToForm = () => {
+    setShowPayment(false);
+    setCustomerInfo(null);
   };
 
   return (
@@ -124,11 +162,12 @@ const Checkout = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <h2 className="font-heading text-xl font-semibold">Contact Information</h2>
-                  <Separator className="my-4" />
+            {!showPayment ? (
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <h2 className="font-heading text-xl font-semibold">Contact Information</h2>
+                    <Separator className="my-4" />
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
@@ -334,6 +373,7 @@ const Checkout = () => {
                     type="submit" 
                     className="btn-primary w-full" 
                     disabled={isSubmitting}
+                    data-testid="button-proceed-payment"
                   >
                     {isSubmitting ? (
                       <>
@@ -341,12 +381,43 @@ const Checkout = () => {
                         Processing...
                       </>
                     ) : (
-                      'Complete Order'
+                      <>
+                        <FontAwesomeIcon icon="arrow-right" className="mr-2" />
+                        Proceed to Payment
+                      </>
                     )}
                   </Button>
-                </form>
-              </Form>
-            </div>
+                  </form>
+                </Form>
+              </div>
+            ) : (
+              <div className="bg-white rounded-lg shadow-md p-6">
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="font-heading text-xl font-semibold">Payment</h2>
+                    <Button
+                      variant="ghost"
+                      onClick={handleBackToForm}
+                      className="text-primary hover:text-accent"
+                      data-testid="button-back-to-form"
+                    >
+                      <FontAwesomeIcon icon="arrow-left" className="mr-2" />
+                      Back to Details
+                    </Button>
+                  </div>
+                  <Separator className="my-4" />
+                </div>
+                
+                <YocoPayment
+                  amount={totalAmount}
+                  customerInfo={customerInfo}
+                  cartItems={cart}
+                  onSuccess={handlePaymentSuccess}
+                  onError={handlePaymentError}
+                  disabled={isSubmitting}
+                />
+              </div>
+            )}
           </div>
           
           <div>
@@ -355,11 +426,15 @@ const Checkout = () => {
             {/* Secure Checkout */}
             <div className="mt-6 bg-white rounded-lg shadow-md p-6">
               <h3 className="font-accent text-sm uppercase tracking-wider font-semibold mb-3">We Accept</h3>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 items-center">
                 <FontAwesomeIcon icon={['fab', 'cc-visa']} className="text-2xl text-blue-700" />
                 <FontAwesomeIcon icon={['fab', 'cc-mastercard']} className="text-2xl text-red-600" />
                 <FontAwesomeIcon icon={['fab', 'cc-amex']} className="text-2xl text-blue-500" />
-                <img src="https://www.payfast.co.za/assets/images/logos/payfast-logo.svg" alt="PayFast" className="h-6" />
+                <div className="flex items-center">
+                  <span className="text-sm font-semibold text-green-600 bg-green-50 px-2 py-1 rounded border">
+                    Powered by Yoco
+                  </span>
+                </div>
               </div>
             </div>
             
@@ -369,7 +444,7 @@ const Checkout = () => {
                 <h3 className="font-accent font-semibold">100% Secure Checkout</h3>
               </div>
               <p className="text-sm text-neutral-light">
-                Your payment information is processed securely. We do not store credit card details nor have access to your credit card information.
+                Your payment information is processed securely using Yoco's encrypted payment gateway. We do not store credit card details nor have access to your credit card information.
               </p>
             </div>
           </div>
