@@ -27,8 +27,8 @@ const YocoPayment = ({
   const [paymentId, setPaymentId] = useState<string | null>(null);
   const { toast } = useToast();
   
-  // Initialize Yoco SDK with live public key
-  const [showPopup, isYocoReady] = usePopup(import.meta.env.VITE_YOCO_LIVE_PUBLIC_KEY);
+  // Initialize Yoco SDK with test public key for safe testing
+  const [showPopup, isYocoReady] = usePopup(import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY);
   
   // Set up payment system as ready when Yoco SDK is initialized
   useEffect(() => {
@@ -165,7 +165,7 @@ const YocoPayment = ({
               <h4 className="font-semibold text-green-800 mb-2">Secure Payment System</h4>
               <p className="text-sm text-green-700 leading-relaxed">
                 Your payment will be processed securely through Yoco's encrypted payment system. 
-                Use test card number 4111 1111 1111 1111 for testing - no real charges will be made.
+                Use Yoco test card: 4000 0566 5566 5556 for testing - no real charges will be made.
               </p>
             </div>
             
