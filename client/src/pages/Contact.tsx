@@ -113,8 +113,8 @@ const Contact = () => {
                 info@charna.co.com
               </a>
               <p className="text-neutral mt-3 mb-2">For wholesale queries:</p>
-              <a href="mailto:wholesale@charna.co" className="text-primary hover:text-accent">
-                wholesale@charna.co
+              <a href="mailto:info@charna.co.com" className="text-primary hover:text-accent">
+                info@charna.co.com
               </a>
             </div>
             
