@@ -3,8 +3,12 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 import { insertContactSchema } from "@shared/schema";
+import { EmailService } from "./emailService";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize email service
+  const emailService = new EmailService();
+  
   // API Routes
   
   // Get all products
@@ -192,7 +196,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     } catch (error) {
       console.error('Error processing charge:', error);
-      res.status(500).json({ message: 'Payment processing failed', error: error.message });
+      res.status(500).json({ message: 'Payment processing failed', error: error instanceof Error ? error.message : 'Unknown error' });
     }
   });
 
@@ -251,6 +255,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
         paymentId: orderData.paymentId || null,
         status: orderData.paymentId ? "paid" : "pending",
       });
+      
+      // Send email receipt for paid orders
+      if (orderData.paymentId && order) {
+        try {
+          const shippingCost = orderData.totalAmount >= 1000 ? 0 : 150;
+          
+          await emailService.sendOrderReceipt({
+            customerInfo: orderData.customerInfo,
+            items: orderData.items,
+            orderId: order.id.toString(),
+            totalAmount: orderData.totalAmount,
+            shippingCost: shippingCost,
+            paymentId: orderData.paymentId
+          });
+          
+          console.log(`Email receipt sent for order #${order.id}`);
+        } catch (emailError) {
+          console.error('Failed to send receipt email:', emailError);
+          // Don't fail the order if email fails - order was successful
+        }
+      }
       
       res.status(201).json(order);
     } catch (error) {

@@ -105,8 +105,10 @@ const Checkout = () => {
         customerInfo,
         items: cart.map(item => ({
           productId: item.product.id,
+          productName: item.product.name,
           quantity: item.quantity,
-          price: item.product.price
+          price: item.product.price,
+          customizations: item.customizations
         })),
         totalAmount: totalAmount,
         paymentId: paymentId
