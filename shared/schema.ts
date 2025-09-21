@@ -32,7 +32,6 @@ export const orders = pgTable("orders", {
   items: jsonb("items").notNull().$type<OrderItem[]>(),
   totalAmount: integer("total_amount").notNull(),
   paymentId: text("payment_id"), // Yoco payment ID for successful payments
-  embossingText: text("embossing_text"), // Custom embossing text requested by customer
   status: text("status").notNull().default("pending"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

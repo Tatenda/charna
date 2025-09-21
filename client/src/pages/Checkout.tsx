@@ -34,9 +34,6 @@ const formSchema = z.object({
   province: z.string().min(2, { message: "Province is required" }),
   postalCode: z.string().min(4, { message: "Postal code is required" }),
   notes: z.string().optional(),
-  embossingText: z.string().optional().refine(val => !val || val.length <= 30, {
-    message: "Embossing text must be 30 characters or less"
-  }),
   sameAsBilling: z.boolean().default(true),
   createAccount: z.boolean().default(false),
   acceptTerms: z.boolean().refine(val => val === true, {
@@ -73,7 +70,6 @@ const Checkout = () => {
       province: "",
       postalCode: "",
       notes: "",
-      embossingText: "",
       sameAsBilling: true,
       createAccount: false,
       acceptTerms: false,
@@ -113,8 +109,7 @@ const Checkout = () => {
           price: item.product.price
         })),
         totalAmount: totalAmount,
-        paymentId: paymentId,
-        embossingText: customerInfo.embossingText || null
+        paymentId: paymentId
       });
       
       const order = await response.json();
@@ -311,40 +306,6 @@ const Checkout = () => {
                       </FormItem>
                     )}
                   />
-                  
-                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
-                    <div className="flex items-center mb-3">
-                      <FontAwesomeIcon icon="star" className="text-amber-600 mr-2" />
-                      <h3 className="font-heading text-lg font-semibold text-amber-800">
-                        Custom Embossing
-                      </h3>
-                    </div>
-                    <p className="text-amber-700 text-sm mb-4">
-                      Personalize your bag with custom embossing. Add your initials, name, or special message (up to 30 characters).
-                    </p>
-                    <FormField
-                      control={form.control}
-                      name="embossingText"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Embossing Text (Optional)</FormLabel>
-                          <FormControl>
-                            <Input 
-                              placeholder="e.g., J.M.S., Sarah's Bag, or Adventure Awaits"
-                              maxLength={30}
-                              {...field}
-                              data-testid="input-embossing-text"
-                            />
-                          </FormControl>
-                          <div className="flex justify-between text-xs text-amber-600 mt-1">
-                            <span>Leave blank for no embossing</span>
-                            <span>{(field.value || "").length}/30 characters</span>
-                          </div>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
                   
                   <div className="space-y-3">
                     <FormField
