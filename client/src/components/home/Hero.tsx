@@ -1052,7 +1052,7 @@ const Hero = () => {
           
           {/* Sports Collection */}
           <Link href="/browse?category=sport" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-sports-mobile">
-            <img src={whiteTennisBag} alt="Sports Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+            <img src={gentWithTennisBag} alt="Sports Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Sports</h3>
@@ -1065,20 +1065,8 @@ const Hero = () => {
             href="/browse?category=leisure" 
             className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" 
             data-testid="tile-leisure-mobile"
-            onMouseEnter={() => setIsLeisureHovered(true)}
-            onMouseLeave={() => setIsLeisureHovered(false)}
           >
-            {leisureBags.map((bag, index) => (
-              <img 
-                key={index}
-                src={bag.src}
-                alt={bag.alt}
-                className={`w-full h-full object-cover transition-opacity duration-500 ${
-                  index === currentLeisureBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
-                }`}
-                style={{ imageRendering: 'auto' }}
-              />
-            ))}
+            <img src={ladyWithSideBag} alt="Leisure Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Leisure</h3>
@@ -1122,13 +1110,93 @@ const Hero = () => {
             </div>
           </Link>
           
-          {/* Onboarding Collection */}
-          <Link href="/browse?category=onboarding" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-onboarding-mobile">
-            <img src={navyWorkBackpack} alt="Onboarding Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+          {/* Gifting Collection */}
+          <Link href="/browse?category=gifting" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-gifting-mobile">
+            <img src={wineBagWithBottles} alt="Gifting Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
-              <h3 className="text-sm font-semibold">Onboarding</h3>
-              <p className="text-xs opacity-90">Work Essentials</p>
+              <h3 className="text-sm font-semibold">Gifts</h3>
+              <p className="text-xs opacity-90">Perfect for Every Occasion</p>
+            </div>
+          </Link>
+          
+          {/* Onboarding Collection - 5 Tiles Layout */}
+          <Link 
+            href="/browse?category=onboarding"
+            className="col-span-2 aspect-square group relative overflow-hidden shadow-xl bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg"
+            data-testid="tile-onboarding-mobile"
+            onMouseEnter={() => setIsOnboardingHovered(true)}
+            onMouseLeave={() => setIsOnboardingHovered(false)}
+          >
+            <div className="grid grid-cols-3 grid-rows-3 gap-2 h-full p-4">
+              {/* Large laptop bag block (left 2x2) */}
+              <div className="col-span-2 row-span-2 relative overflow-hidden rounded-lg">
+                {onboardingBags.map((bag, index) => (
+                  <img 
+                    key={index}
+                    src={bag.src}
+                    alt={bag.alt}
+                    className={`w-full h-full object-cover transition-opacity duration-500 ${
+                      index === currentOnboardingBag ? 'opacity-100' : 'opacity-0 absolute inset-0'
+                    }`}
+                  />
+                ))}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-2 left-2 text-white">
+                  <h3 className="text-xs font-semibold">Onboarding</h3>
+                  <p className="text-xs opacity-90">Work Laptop Bags</p>
+                </div>
+              </div>
+              
+              {/* Top right - Laptop Sleeves */}
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg">
+                <img 
+                  src={tanLaptopSleeve} 
+                  alt="Laptop sleeve example" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-1 left-1 text-white">
+                  <p className="text-xs font-medium">Laptop Sleeves</p>
+                </div>
+              </div>
+              
+              {/* Middle right - Named */}
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg">
+                <img 
+                  src={embossInitials} 
+                  alt="Named embossing example" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-1 left-1 text-white">
+                  <p className="text-xs font-medium">Named</p>
+                </div>
+              </div>
+              
+              {/* Bottom left - Desk Mat */}
+              <div className="col-span-2 row-span-1 relative overflow-hidden rounded-lg bg-gradient-to-br from-amber-800 to-amber-900">
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-8 h-6 bg-amber-700 rounded-sm shadow-lg border border-amber-600"></div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-1 left-1 text-white">
+                  <p className="text-xs font-medium">Desk Mat</p>
+                </div>
+              </div>
+              
+              {/* Bottom right - Welcome Tag */}
+              <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg">
+                <img 
+                  src={embossCompanyTag} 
+                  alt="Welcome tag example" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute bottom-1 left-1 text-white">
+                  <p className="text-xs font-medium">Welcome Tag</p>
+                </div>
+              </div>
             </div>
           </Link>
         </div>
