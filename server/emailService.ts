@@ -51,7 +51,7 @@ export class EmailService {
       const emailText = this.generateReceiptText(orderData);
 
       const mailOptions = {
-        from: `"Charna Leather Goods" <${process.env.GMAIL_USER}>`,
+        from: `"Charna." <${process.env.GMAIL_USER}>`,
         to: orderData.customerInfo.email,
         subject: `Order Confirmation #${orderData.orderId} - Thank You for Your Purchase!`,
         text: emailText,
@@ -81,9 +81,9 @@ export class EmailService {
     <style>
         body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f5f5f5; }
         .container { max-width: 600px; margin: 0 auto; background: white; padding: 0; }
-        .header { background: #000; color: white; padding: 30px; text-align: center; }
+        .header { background: #B67E5A; color: white; padding: 30px; text-align: center; }
         .brand { font-size: 32px; font-weight: bold; margin: 0; }
-        .brand-dot { color: #8B4513; font-size: 48px; }
+        .brand-dot { color: #D4A574; font-size: 48px; }
         .content { padding: 30px; }
         .order-info { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
         .item-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
@@ -110,9 +110,9 @@ export class EmailService {
         </div>
         
         <div class="content">
-            <h2 style="color: #8B4513; margin-bottom: 10px;">Thank You for Your Order!</h2>
+            <h2 style="color: #B67E5A; margin-bottom: 10px;">Thank You for Your Order!</h2>
             <p>Hi ${customerInfo.firstName},</p>
-            <p>Your order has been confirmed and payment has been successfully processed. We're excited to craft your premium leather goods in our Johannesburg workshop.</p>
+            <p>Your order has been confirmed and payment has been successfully processed. We're excited to craft your premium leather goods.</p>
             
             <div class="order-info">
                 <h3 style="margin-top: 0; color: #000;">Order Details</h3>
@@ -181,16 +181,15 @@ export class EmailService {
             </div>
 
             <h3 style="color: #000;">What's Next?</h3>
-            <p>🛠️ <strong>Crafting:</strong> Your order will be handcrafted in our Johannesburg workshop within 3-5 business days.</p>
+            <p>🛠️ <strong>Crafting:</strong> Your order will be handcrafted within 3-5 business days.</p>
             <p>📦 <strong>Shipping:</strong> We'll send you tracking information once your order ships (usually within 2-5 business days after crafting).</p>
             <p>🎯 <strong>Delivery:</strong> Estimated delivery within ${shippingCost === 0 ? '2-3' : '3-5'} business days after shipping.</p>
         </div>
 
         <div class="footer">
             <div class="contact-info">
-                <p><strong>Charna Leather Goods</strong></p>
-                <p>Johannesburg, South Africa</p>
-                <p>Email: hello@charna.co.za | WhatsApp: +27 12 345 6789</p>
+                <p><strong>Charna.</strong></p>
+                <p>Email: info@charna.co.com | WhatsApp: +27 723560321</p>
             </div>
             <p style="font-size: 12px; color: #999; margin-top: 20px;">
                 This is an automated receipt. Please save this email for your records.
@@ -207,7 +206,7 @@ export class EmailService {
     const subtotal = totalAmount - shippingCost;
 
     return `
-CHARNA LEATHER GOODS
+CHARNA.
 Order Confirmation #${orderId}
 
 Hi ${customerInfo.firstName},
@@ -246,11 +245,10 @@ ${customerInfo.city}, ${customerInfo.province} ${customerInfo.postalCode}
 Phone: ${customerInfo.phone}
 
 WHAT'S NEXT?
-Your order will be handcrafted in our Johannesburg workshop within 3-5 business days. We'll send tracking information once it ships.
+Your order will be handcrafted within 3-5 business days. We'll send tracking information once it ships.
 
-Charna Leather Goods
-Johannesburg, South Africa
-hello@charna.co.za | +27 12 345 6789
+Charna.
+info@charna.co.com | +27 723560321
     `;
   }
 }
