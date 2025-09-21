@@ -150,7 +150,7 @@ const collageProducts = [
   {
     id: 12,
     name: "Laptop Sleeve - Tan",
-    price: 999,
+    price: 1100,
     image: tanLaptopSleeve,
     images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
     category: "onboarding"
@@ -158,7 +158,7 @@ const collageProducts = [
   {
     id: 38,
     name: "Laptop Sleeve - Navy",
-    price: 999,
+    price: 1100,
     image: navyLaptopSleeve,
     images: [navyLaptopSleeve, navyLaptopSleeve2, navyLaptopSleeve3],
     category: "onboarding"
@@ -236,7 +236,7 @@ const collageProducts = [
   {
     id: 17,
     name: "Laptop Sleeve - Tan",
-    price: 999,
+    price: 1100,
     image: tanLaptopSleeve,
     images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
     category: "accessories"
@@ -244,7 +244,7 @@ const collageProducts = [
   {
     id: 18,
     name: "Laptop Sleeve - Navy",
-    price: 999,
+    price: 1100,
     image: navyLaptopSleeve,
     images: [navyLaptopSleeve, navyLaptopSleeve2, navyLaptopSleeve3],
     category: "accessories"
@@ -355,7 +355,7 @@ const collageProducts = [
   {
     id: 1017,
     name: "Laptop Sleeve - Tan",
-    price: 999,
+    price: 1100,
     image: tanLaptopSleeve,
     images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
     category: "gifting",
@@ -364,7 +364,7 @@ const collageProducts = [
   {
     id: 1018,
     name: "Laptop Sleeve - Navy",
-    price: 999,
+    price: 1100,
     image: navyLaptopSleeve,
     images: [navyLaptopSleeve, navyLaptopSleeve2, navyLaptopSleeve3],
     category: "gifting",

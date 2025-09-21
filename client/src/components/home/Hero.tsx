@@ -796,7 +796,7 @@ const Hero = () => {
               </div>
               <h3 className="text-lg text-botanical mb-2">Sleeved Range</h3>
               <p className="text-gray-600 text-sm mb-2">Switch up your laptop sleeves with these different options</p>
-              <p className="font-bold text-black">Price R999</p>
+              <p className="font-bold text-black">Price R1100</p>
             </Link>
           </div>
         </div>
