@@ -20,7 +20,7 @@ const NewArrivals = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {newProducts.map((product) => (
             <div key={product.id} className="group">
-              <Link href={`/products/${product.id}`}>
+              <Link href={`/browse?category=${product.category}`}>
                 <div className="relative overflow-hidden rounded-lg mb-4">
                   {product.originalPrice && (
                     <span className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded z-10">

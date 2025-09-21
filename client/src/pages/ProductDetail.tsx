@@ -47,7 +47,7 @@ const ProductDetail = () => {
           Sorry, we couldn't find the product you're looking for.
         </p>
         <button 
-          onClick={() => setLocation('/products')}
+          onClick={() => setLocation('/browse')}
           className="btn-secondary"
         >
           Back to Products
@@ -62,7 +62,7 @@ const ProductDetail = () => {
         title={product ? `${product.name} | Charna Leather Bags` : 'Product | Charna'}
         description={product ? `${product.description} Handcrafted in Johannesburg, South Africa. Premium leather with ${product.materials || 'premium materials'}.` : 'Premium handcrafted leather bag from Charna.'}
         keywords={product ? `${product.name}, ${product.category} bag, leather goods, handcrafted bags, South African craftsmanship` : 'leather bags, handcrafted bags'}
-        url={`/products/${id}`}
+        url={`/browse/${id}`}
         image={product?.images?.[0] || '/images/hero-background.png'}
         type="product"
       />
@@ -73,8 +73,8 @@ const ProductDetail = () => {
             Home
           </button>
           <FontAwesomeIcon icon="chevron-right" className="mx-2 text-xs text-neutral-light" />
-          <button onClick={() => setLocation('/products')} className="text-neutral-light hover:text-primary">
-            Products
+          <button onClick={() => setLocation('/browse')} className="text-neutral-light hover:text-primary">
+            Browse
           </button>
           <FontAwesomeIcon icon="chevron-right" className="mx-2 text-xs text-neutral-light" />
           <span className="text-primary font-medium">{product.name}</span>

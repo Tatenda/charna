@@ -14,7 +14,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
-      <Link href={`/products/${product.id}`}>
+      <Link href={`/browse?category=${product.category}`}>
         <div className="relative">
           <img 
             src={getImagePath(product.images[0])} 

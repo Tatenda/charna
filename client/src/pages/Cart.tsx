@@ -10,7 +10,7 @@ const Cart = () => {
   const [, setLocation] = useLocation();
 
   const handleContinueShopping = () => {
-    setLocation('/products');
+    setLocation('/browse');
   };
 
   const handleCheckout = () => {
