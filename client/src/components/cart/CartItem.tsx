@@ -8,7 +8,12 @@ interface CartItemProps {
 }
 
 const CartItem = ({ item, updateQuantity, removeFromCart }: CartItemProps) => {
-  const { product, quantity } = item;
+  const { product, quantity, customizations } = item;
+  
+  const basePrice = product.price;
+  const embossingPrice = customizations?.embossingPrice || 0;
+  const itemPrice = basePrice + embossingPrice;
+  const totalPrice = itemPrice * quantity;
   
   const handleQuantityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     updateQuantity(product.id, parseInt(e.target.value));
@@ -19,7 +24,7 @@ const CartItem = ({ item, updateQuantity, removeFromCart }: CartItemProps) => {
   };
 
   return (
-    <div className="flex items-start border-b pb-4">
+    <div className="flex items-start border-b pb-4" data-testid={`cart-item-${product.id}`}>
       <div className="h-20 w-20 rounded-md overflow-hidden flex-shrink-0">
         <img 
           src={product.images[0]} 
@@ -35,11 +40,25 @@ const CartItem = ({ item, updateQuantity, removeFromCart }: CartItemProps) => {
             className="text-neutral-light hover:text-accent"
             onClick={handleRemove}
             aria-label="Remove item"
+            data-testid={`button-remove-${product.id}`}
           >
             <FontAwesomeIcon icon="times" />
           </button>
         </div>
-        <p className="text-sm text-neutral-light mb-2">R{product.price.toLocaleString()}</p>
+        
+        <div className="text-sm text-neutral-light mb-2">
+          <div>Base price: R{basePrice.toLocaleString()}</div>
+          {customizations?.embossing && customizations.embossingText && (
+            <div className="mt-1">
+              <span className="text-primary font-medium">+ Custom Embossing:</span>
+              <span className="ml-2 font-mono font-bold text-amber-700">
+                "{customizations.embossingText}"
+              </span>
+              <span className="ml-2">+R{embossingPrice}</span>
+            </div>
+          )}
+        </div>
+        
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <label htmlFor={`quantity-${product.id}`} className="mr-2 text-sm text-neutral">
@@ -50,6 +69,7 @@ const CartItem = ({ item, updateQuantity, removeFromCart }: CartItemProps) => {
               value={quantity}
               onChange={handleQuantityChange}
               className="bg-white border border-gray-200 text-neutral rounded-md text-sm px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary"
+              data-testid={`select-quantity-${product.id}`}
             >
               {[...Array(10)].map((_, i) => (
                 <option key={i + 1} value={i + 1}>
@@ -58,9 +78,16 @@ const CartItem = ({ item, updateQuantity, removeFromCart }: CartItemProps) => {
               ))}
             </select>
           </div>
-          <span className="font-medium text-primary">
-            R{(product.price * quantity).toLocaleString()}
-          </span>
+          <div className="text-right">
+            <div className="font-medium text-primary">
+              R{totalPrice.toLocaleString()}
+            </div>
+            {embossingPrice > 0 && (
+              <div className="text-xs text-neutral-light">
+                (R{itemPrice.toLocaleString()} × {quantity})
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

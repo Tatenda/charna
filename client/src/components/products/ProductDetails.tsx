@@ -12,12 +12,26 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
+  const [hasEmbossing, setHasEmbossing] = useState(false);
+  const [embossingText, setEmbossingText] = useState("");
+  
+  const embossingPrice = 80; // R80.00 for embossing
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    const customizations = hasEmbossing ? {
+      embossing: true,
+      embossingText: embossingText.trim(),
+      embossingPrice: embossingPrice
+    } : undefined;
+
+    addToCart(product, quantity, customizations);
+    
+    const totalPrice = product.price + (hasEmbossing ? embossingPrice : 0);
+    const embossingNote = hasEmbossing ? ` with embossing "${embossingText.trim()}"` : '';
+    
     toast({
       title: "Added to Cart",
-      description: `${quantity} × ${product.name} added to your cart.`,
+      description: `${quantity} × ${product.name}${embossingNote} added to your cart. (R${totalPrice.toLocaleString()})`,
     });
   };
 
@@ -68,7 +82,14 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       <div className="mb-6">
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-2xl font-semibold text-primary">R{product.price.toLocaleString()}</span>
+            <span className="text-2xl font-semibold text-primary">
+              R{(product.price + (hasEmbossing ? embossingPrice : 0)).toLocaleString()}
+            </span>
+            {hasEmbossing && (
+              <span className="block text-sm text-neutral-light mt-1">
+                Base price: R{product.price.toLocaleString()} + Embossing: R{embossingPrice}
+              </span>
+            )}
             {product.originalPrice && (
               <span className="ml-2 text-neutral-light line-through">
                 R{product.originalPrice.toLocaleString()}
@@ -81,6 +102,70 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         </div>
       </div>
       
+      <div className="mb-6">
+        <h4 className="font-accent font-semibold mb-3 text-sm uppercase">Additional Options</h4>
+        
+        <div className="space-y-4">
+          <div className="flex items-start">
+            <input
+              type="checkbox"
+              id="embossing"
+              checked={hasEmbossing}
+              onChange={(e) => {
+                setHasEmbossing(e.target.checked);
+                if (!e.target.checked) setEmbossingText("");
+              }}
+              className="mt-1 mr-3 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+              data-testid="checkbox-embossing"
+            />
+            <div className="flex-1">
+              <label htmlFor="embossing" className="font-medium text-neutral cursor-pointer">
+                Add Custom Embossing (+R{embossingPrice}.00)
+              </label>
+              <p className="text-sm text-neutral-light mt-1">
+                Personalize your package with custom embossing on the leather goods
+              </p>
+              
+              {hasEmbossing && (
+                <div className="mt-3 space-y-3">
+                  <div>
+                    <label htmlFor="embossing-text" className="block text-sm font-medium text-neutral mb-2">
+                      Embossing Text (max 10 characters)
+                    </label>
+                    <input
+                      type="text"
+                      id="embossing-text"
+                      value={embossingText}
+                      onChange={(e) => setEmbossingText(e.target.value.slice(0, 10))}
+                      placeholder="Enter text to emboss"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      data-testid="input-embossing-text"
+                    />
+                  </div>
+                  
+                  {embossingText.trim() && (
+                    <div className="bg-amber-50 p-4 rounded-lg border">
+                      <p className="text-sm text-neutral-light mb-2">Preview:</p>
+                      <div 
+                        className="text-2xl font-bold text-amber-900 tracking-wider"
+                        style={{ 
+                          fontFamily: 'serif',
+                          textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                          letterSpacing: '2px'
+                        }}
+                        data-testid="preview-embossing"
+                      >
+                        {embossingText.trim()}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="mb-4">
         <label htmlFor="quantity" className="block text-sm font-medium text-neutral mb-2">
           Quantity
@@ -91,6 +176,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           onChange={handleQuantityChange}
           className="bg-white border border-gray-300 text-neutral rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
           disabled={!product.inStock}
+          data-testid="select-quantity"
         >
           {[...Array(10)].map((_, i) => (
             <option key={i + 1} value={i + 1}>
@@ -102,11 +188,13 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       
       <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
         <button 
-          className={`btn-primary flex-1 flex items-center justify-center ${!product.inStock ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`btn-primary flex-1 flex items-center justify-center ${!product.inStock || (hasEmbossing && !embossingText.trim()) ? 'opacity-50 cursor-not-allowed' : ''}`}
           onClick={handleAddToCart}
-          disabled={!product.inStock}
+          disabled={!product.inStock || (hasEmbossing && !embossingText.trim())}
+          data-testid="button-add-to-cart"
         >
-          <FontAwesomeIcon icon="shopping-bag" className="mr-2" /> Add to Cart
+          <FontAwesomeIcon icon="shopping-bag" className="mr-2" /> 
+          Add to Cart {hasEmbossing && embossingText.trim() && `(+R${embossingPrice})`}
         </button>
         <button 
           className="btn-secondary flex items-center justify-center"
