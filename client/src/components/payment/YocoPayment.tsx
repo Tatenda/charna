@@ -27,8 +27,8 @@ const YocoPayment = ({
   const [paymentId, setPaymentId] = useState<string | null>(null);
   const { toast } = useToast();
   
-  // Initialize Yoco SDK with live public key and payment ID
-  const [showPopup, isYocoReady] = usePopup(import.meta.env.VITE_YOCO_LIVE_PUBLIC_KEY, paymentId || '');
+  // Initialize Yoco SDK with test public key and checkout ID
+  const [showPopup, isYocoReady] = usePopup(import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY, paymentId || '');
   
   // Create payment object on backend when component mounts
   useEffect(() => {

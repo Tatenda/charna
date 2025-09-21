@@ -57,9 +57,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const checkoutData = {
         amount: amountInCents,
-        currency,
+        currency: currency,
         successUrl: `${req.protocol}://${req.get('host')}/payment/success`,
         failureUrl: `${req.protocol}://${req.get('host')}/payment/failure`,
+        cancelUrl: `${req.protocol}://${req.get('host')}/checkout`,
         metadata: {
           customerName: `${customerInfo.firstName} ${customerInfo.lastName}`,
           customerEmail: customerInfo.email,
@@ -69,20 +70,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       console.log('Creating Yoco checkout:', checkoutData);
-      console.log('Using live secret key:', process.env.YOCO_LIVE_SECRET_KEY ? 'Present' : 'Missing');
-      console.log('Live public key available:', process.env.YOCO_LIVE_PUBLIC_KEY ? 'Yes' : 'No');
+      console.log('Using test secret key:', process.env.YOCO_TEST_SECRET_KEY ? 'Present' : 'Missing');
+      console.log('Test public key available:', process.env.YOCO_TEST_PUBLIC_KEY ? 'Yes' : 'No');
+      console.log('Test secret key starts with:', process.env.YOCO_TEST_SECRET_KEY ? process.env.YOCO_TEST_SECRET_KEY.substring(0, 10) + '...' : 'N/A');
 
-      // Use the correct Yoco API endpoint for checkouts
-      const endpoint = 'https://online.yoco.com/v1/checkouts';
+      // Use the correct Yoco API endpoint for checkouts  
+      const endpoint = 'https://api.yoco.com/v1/checkouts';
       
       console.log('Using Yoco endpoint:', endpoint);
       
+      const headers = {
+        'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`,
+        'Content-Type': 'application/json'
+      };
+      
+      console.log('Request headers:', headers);
+      console.log('Request body:', JSON.stringify(checkoutData, null, 2));
+      
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.YOCO_LIVE_SECRET_KEY}`,
-          'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify(checkoutData)
       });
 
@@ -200,7 +207,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const response = await fetch('https://online.yoco.com/v1/charges', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.YOCO_LIVE_SECRET_KEY}`,
+          'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(checkoutData)
