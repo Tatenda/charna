@@ -245,7 +245,7 @@ const Hero = () => {
   
   const businessBags = [
     { src: manCarryingOliveBag, alt: "Business Collection - Man with Olive Bag" },
-    { src: "/images/green-backpack.jpg", alt: "Business Collection - Olive" },
+    { src: oliveWorkBackpack, alt: "Business Collection - Olive" },
     { src: tanBusinessBag, alt: "Business Collection - Tan" },
     { src: newNavyBusinessBag, alt: "Business Collection - Navy" },
     { src: whiteBusinessBag, alt: "Business Collection - White" }
