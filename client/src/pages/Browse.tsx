@@ -478,6 +478,7 @@ export default function Browse() {
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [selectedColor, setSelectedColor] = useState('tan');
   const [includeEmbossing, setIncludeEmbossing] = useState(false);
+  const [embossingText, setEmbossingText] = useState("");
   
   // Package 2 specific customization state
   const [selectedBagColor, setSelectedBagColor] = useState('navy'); // navy or olive
@@ -801,11 +802,13 @@ export default function Browse() {
         // Package 1: laptop bag color choice
         setSelectedColor('tan');
         setIncludeEmbossing(false);
+        setEmbossingText("");
       } else if (product.id === 14) {
         // Package 2: bag color and sleeve color choices
         setSelectedBagColor('navy');
         setSelectedSleeveColor('tan');
         setIncludeEmbossing(false);
+        setEmbossingText("");
       }
       
       setShowCustomizationModal(true);
@@ -816,6 +819,7 @@ export default function Browse() {
     if (product.id === 24) { // Wine Bottle Bag
       setSelectedProduct(product);
       setIncludeEmbossing(false);
+      setEmbossingText("");
       setShowCustomizationModal(true);
       return;
     }
@@ -825,11 +829,19 @@ export default function Browse() {
       setSelectedProduct(product);
       setSelectedColor(product.colors[0]); // Default to first color
       setIncludeEmbossing(false);
+      setEmbossingText("");
       setShowCustomizationModal(true);
       return;
     }
 
-    // Convert collage product to proper Product schema format
+    // All other products - show customization modal for embossing
+    setSelectedProduct(product);
+    setIncludeEmbossing(false);
+    setEmbossingText("");
+    setShowCustomizationModal(true);
+    return;
+
+    // Convert collage product to proper Product schema format (this code now unreachable)
     const fullProduct: Product = {
       id: product.id,
       name: product.name,
@@ -867,6 +879,7 @@ export default function Browse() {
       customizations = {
         color: selectedColor,
         embossing: includeEmbossing,
+        embossingText: includeEmbossing ? embossingText.trim() : undefined,
         embossingPrice: embossingPrice
       };
       productName = `${selectedProduct.name} - ${selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1)}${includeEmbossing ? ' + Embossing' : ''}`;
@@ -876,6 +889,7 @@ export default function Browse() {
         bagColor: selectedBagColor,
         sleeveColor: selectedSleeveColor,
         embossing: includeEmbossing,
+        embossingText: includeEmbossing ? embossingText.trim() : undefined,
         embossingPrice: embossingPrice
       };
       productName = `${selectedProduct.name} - ${selectedBagColor.charAt(0).toUpperCase() + selectedBagColor.slice(1)} Bag / ${selectedSleeveColor.charAt(0).toUpperCase() + selectedSleeveColor.slice(1)} Sleeve${includeEmbossing ? ' + Embossing' : ''}`;
@@ -883,6 +897,7 @@ export default function Browse() {
       // Wine Bottle Bag (individual product with embossing)
       customizations = {
         embossing: includeEmbossing,
+        embossingText: includeEmbossing ? embossingText.trim() : undefined,
         embossingPrice: embossingPrice
       };
       productName = `${selectedProduct.name}${includeEmbossing ? ' + Embossing' : ''}`;
@@ -891,9 +906,18 @@ export default function Browse() {
       customizations = {
         color: selectedColor,
         embossing: includeEmbossing,
+        embossingText: includeEmbossing ? embossingText.trim() : undefined,
         embossingPrice: embossingPrice
       };
       productName = `${selectedProduct.name}${selectedColor ? ' - ' + selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1) : ''}${includeEmbossing ? ' + Embossing' : ''}`;
+    } else {
+      // Default case for all other products (includes embossing)
+      customizations = {
+        embossing: includeEmbossing,
+        embossingText: includeEmbossing ? embossingText.trim() : undefined,
+        embossingPrice: embossingPrice
+      };
+      productName = `${selectedProduct.name}${includeEmbossing ? ' + Embossing' : ''}`;
     }
 
     // Convert to full Product schema format with customizations
@@ -1207,7 +1231,10 @@ export default function Browse() {
                 <Checkbox 
                   id="embossing" 
                   checked={includeEmbossing}
-                  onCheckedChange={(checked) => setIncludeEmbossing(!!checked)}
+                  onCheckedChange={(checked) => {
+                    setIncludeEmbossing(!!checked);
+                    if (!checked) setEmbossingText("");
+                  }}
                 />
                 <Label htmlFor="embossing" className="text-gray-700 cursor-pointer">
                   Add Custom Embossing (+R80.00)
@@ -1216,6 +1243,42 @@ export default function Browse() {
               <p className="text-sm text-gray-500 mt-1 ml-6">
                 Personalize your package with custom embossing on the leather goods
               </p>
+              
+              {includeEmbossing && (
+                <div className="mt-3 ml-6 space-y-3">
+                  <div>
+                    <Label htmlFor="embossing-text" className="block text-sm font-medium text-gray-700 mb-2">
+                      Embossing Text (max 10 characters)
+                    </Label>
+                    <input
+                      type="text"
+                      id="embossing-text"
+                      value={embossingText}
+                      onChange={(e) => setEmbossingText(e.target.value.slice(0, 10))}
+                      placeholder="Enter text to emboss"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      data-testid="input-embossing-text"
+                    />
+                  </div>
+                  
+                  {embossingText.trim() && (
+                    <div className="bg-amber-50 p-4 rounded-lg border">
+                      <p className="text-sm text-gray-600 mb-2">Preview:</p>
+                      <div 
+                        className="text-2xl font-bold text-amber-900 tracking-wider"
+                        style={{ 
+                          fontFamily: 'serif',
+                          textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                          letterSpacing: '2px'
+                        }}
+                        data-testid="preview-embossing"
+                      >
+                        {embossingText.trim()}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Price Summary */}
