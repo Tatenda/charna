@@ -46,7 +46,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Create checkout session for payment processing
+  // Create payment intent for popup SDK integration
   app.post("/api/payments/create", async (req, res) => {
     try {
       const { amountInCents, currency = 'ZAR', customerInfo, metadata } = req.body;
@@ -55,27 +55,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Valid amount and customer info are required" });
       }
 
-      const checkoutData = {
-        amount: amountInCents,
+      const paymentData = {
+        amount: amountInCents, // Yoco expects "amount" not "amountInCents"
         currency: currency,
-        successUrl: `${req.protocol}://${req.get('host')}/payment/success`,
-        failureUrl: `${req.protocol}://${req.get('host')}/payment/failure`,
-        cancelUrl: `${req.protocol}://${req.get('host')}/checkout`,
         metadata: {
-          customerName: `${customerInfo.firstName} ${customerInfo.lastName}`,
-          customerEmail: customerInfo.email,
-          customerPhone: customerInfo.phone,
+          customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
+          customer_email: customerInfo.email,
+          customer_phone: customerInfo.phone,
           ...metadata
         }
       };
 
-      console.log('Creating Yoco checkout:', checkoutData);
+      console.log('Creating Yoco payment intent:', paymentData);
       console.log('Using test secret key:', process.env.YOCO_TEST_SECRET_KEY ? 'Present' : 'Missing');
       console.log('Test public key available:', process.env.YOCO_TEST_PUBLIC_KEY ? 'Yes' : 'No');
-      console.log('Test secret key starts with:', process.env.YOCO_TEST_SECRET_KEY ? process.env.YOCO_TEST_SECRET_KEY.substring(0, 10) + '...' : 'N/A');
+      console.log('Test secret key masked:', process.env.YOCO_TEST_SECRET_KEY ? 'sk_test_****' + process.env.YOCO_TEST_SECRET_KEY.slice(-4) : 'N/A');
 
-      // Use the correct Yoco API endpoint for checkouts  
-      const endpoint = 'https://api.yoco.com/v1/checkouts';
+      // Use the correct Yoco API endpoint for payment creation
+      const endpoint = 'https://payments.yoco.com/api/checkouts';
       
       console.log('Using Yoco endpoint:', endpoint);
       
@@ -84,26 +81,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'Content-Type': 'application/json'
       };
       
-      console.log('Request headers:', headers);
-      console.log('Request body:', JSON.stringify(checkoutData, null, 2));
+      console.log('Request headers ready (Authorization masked for security)');
+      console.log('Request body:', JSON.stringify(paymentData, null, 2));
       
       const response = await fetch(endpoint, {
         method: 'POST',
         headers,
-        body: JSON.stringify(checkoutData)
+        body: JSON.stringify(paymentData)
       });
 
-      console.log('Yoco API response status:', response.status);
-      console.log('Yoco API response headers:', Object.fromEntries(response.headers.entries()));
+      console.log('=== YOCO API CALL ===');
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
 
       const responseText = await response.text();
-      console.log('Yoco API raw response:', responseText.substring(0, 500));
+      console.log('Full response body:', responseText);
 
       if (!response.ok) {
-        console.error('Yoco checkout creation failed with status:', response.status);
+        console.error('=== YOCO CHECKOUT CREATION FAILED ===');
+        console.error('Status:', response.status);
+        console.error('Response body:', responseText);
         try {
           const errorData = JSON.parse(responseText);
-          console.error('Yoco error data:', errorData);
+          console.error('Parsed error data:', JSON.stringify(errorData, null, 2));
           return res.status(400).json({ message: 'Payment session creation failed', error: errorData });
         } catch (parseError) {
           console.error('Failed to parse Yoco error response:', parseError);
@@ -114,11 +115,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let checkout;
       try {
         checkout = JSON.parse(responseText);
+        console.log('=== YOCO CHECKOUT SUCCESS ===');
+        console.log('Checkout ID:', checkout.id);
+        console.log('Full checkout object:', JSON.stringify(checkout, null, 2));
       } catch (parseError) {
         console.error('Failed to parse Yoco success response:', parseError);
         return res.status(500).json({ message: 'Payment creation failed - invalid response format' });
       }
-      console.log('Yoco checkout created successfully:', checkout.id);
+      
       res.json(checkout);
     } catch (error) {
       console.error('Error creating payment session:', error);
@@ -281,9 +285,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
             return res.status(400).json({ message: "Payment not successful" });
           }
           
-          // Verify amount matches
+          // Verify amount matches (Yoco returns amountInCents)
           const expectedAmount = Math.round(orderData.totalAmount * 100);
-          if (payment.amount !== expectedAmount) {
+          const paymentAmount = payment.amountInCents ?? payment.amount;
+          if (paymentAmount !== expectedAmount) {
             return res.status(400).json({ message: "Payment amount mismatch" });
           }
         }
