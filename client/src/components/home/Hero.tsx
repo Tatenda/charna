@@ -4,6 +4,9 @@ import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
 import { Product } from "@shared/schema";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import newHeroBg from '@assets/image_1757230274214.png';
 import groundedBag from '@assets/LGM_Grounded (1)_1757318142201.png';
 import styledLaptopBag from '@assets/LGM_Styled_1757318531199.png';
@@ -116,6 +119,11 @@ const Hero = () => {
   // Color selection modal state
   const [colorModalOpen, setColorModalOpen] = useState(false);
   const [selectedRange, setSelectedRange] = useState<string | null>(null);
+  
+  // Embossing state
+  const [includeEmbossing, setIncludeEmbossing] = useState(false);
+  const [embossingText, setEmbossingText] = useState("");
+  const embossingPrice = 80; // R80.00 for embossing
 
   // Helper function to create Product objects that match the schema
   const createProduct = (id: number, name: string, price: number, image: string, category: string): Product => ({
@@ -210,10 +218,12 @@ const Hero = () => {
   // Handle opening color selection modal
   const handleOpenColorModal = (rangeName: string) => {
     setSelectedRange(rangeName);
+    setIncludeEmbossing(false);
+    setEmbossingText("");
     setColorModalOpen(true);
   };
 
-  // Handle color selection and add to cart
+  // Handle color selection and add to cart with embossing
   const handleColorSelection = (colorOption: any) => {
     if (!selectedRange) return;
     
@@ -221,16 +231,27 @@ const Hero = () => {
     const productName = `${range.name} - ${colorOption.name}`;
     const productId = Date.now() + Math.random(); // Ensure unique ID
     
+    const customizations = includeEmbossing ? {
+      embossing: true,
+      embossingText: embossingText.trim(),
+      embossingPrice: embossingPrice
+    } : undefined;
+    
     const product = createProduct(productId, productName, range.price, colorOption.image, range.category);
-    addToCart(product, 1);
+    addToCart(product, 1, customizations);
+    
+    const totalPrice = range.price + (includeEmbossing ? embossingPrice : 0);
+    const embossingNote = includeEmbossing ? ` with embossing "${embossingText.trim()}"` : '';
     
     toast({
       title: "Added to Cart",
-      description: `${productName} has been added to your cart.`,
+      description: `${productName}${embossingNote} has been added to your cart. (R${totalPrice.toLocaleString()})`,
     });
     
     setColorModalOpen(false);
     setSelectedRange(null);
+    setIncludeEmbossing(false);
+    setEmbossingText("");
   };
 
   // Handle Add to Cart with toast notification (legacy function for non-range items)
@@ -1345,49 +1366,99 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Color Selection Modal */}
+      {/* Color Selection Modal with Embossing */}
       <Dialog open={colorModalOpen} onOpenChange={setColorModalOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Choose Your Color</DialogTitle>
+            <DialogTitle>Customize Your {selectedRange && rangeColorOptions[selectedRange as keyof typeof rangeColorOptions] && rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].name}</DialogTitle>
             <DialogDescription>
               {selectedRange && rangeColorOptions[selectedRange as keyof typeof rangeColorOptions] && 
-                `Select a color for your ${rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].name}`
+                `Select a color and add optional embossing to personalize your ${rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].name.toLowerCase()}.`
               }
             </DialogDescription>
           </DialogHeader>
           
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            {selectedRange && rangeColorOptions[selectedRange as keyof typeof rangeColorOptions] && 
-              rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].colors.map((color) => (
-                <button
-                  key={color.value}
-                  onClick={() => handleColorSelection(color)}
-                  className="group relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-botanical transition-colors"
-                  data-testid={`button-color-${color.value}`}
-                >
-                  <div className="aspect-square">
-                    <img 
-                      src={color.image} 
-                      alt={color.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-center py-2">
-                    <p className="text-sm font-medium">{color.name}</p>
-                  </div>
-                </button>
-              ))
-            }
-          </div>
-          
-          {selectedRange && rangeColorOptions[selectedRange as keyof typeof rangeColorOptions] && (
-            <div className="text-center mt-4 pt-4 border-t">
-              <p className="text-lg font-semibold text-botanical">
-                R{rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].price}
-              </p>
+          <div className="space-y-6">
+            {/* Color Selection */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Choose Your Color</Label>
+              <div className="grid grid-cols-2 gap-4">
+                {selectedRange && rangeColorOptions[selectedRange as keyof typeof rangeColorOptions] && 
+                  rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].colors.map((color) => (
+                    <button
+                      key={color.value}
+                      onClick={() => handleColorSelection(color)}
+                      className="group relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-botanical transition-colors"
+                      data-testid={`button-color-${color.value}`}
+                    >
+                      <div className="aspect-square">
+                        <img 
+                          src={color.image} 
+                          alt={color.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-center py-2">
+                        <p className="text-sm font-medium">{color.name}</p>
+                      </div>
+                    </button>
+                  ))
+                }
+              </div>
             </div>
-          )}
+            
+            {/* Embossing Options */}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <Checkbox 
+                  id="embossing" 
+                  checked={includeEmbossing} 
+                  onCheckedChange={(checked) => {
+                    setIncludeEmbossing(!!checked);
+                    if (!checked) setEmbossingText("");
+                  }}
+                  data-testid="checkbox-embossing"
+                />
+                <Label htmlFor="embossing" className="text-sm font-medium">
+                  Add embossing (+R{embossingPrice})
+                </Label>
+              </div>
+              
+              {includeEmbossing && (
+                <div className="space-y-2">
+                  <Label htmlFor="embossing-text" className="text-sm">
+                    Embossing text (max 15 characters)
+                  </Label>
+                  <Input
+                    id="embossing-text"
+                    value={embossingText}
+                    onChange={(e) => setEmbossingText(e.target.value)}
+                    maxLength={15}
+                    placeholder="Enter text for embossing"
+                    className="w-full"
+                    data-testid="input-embossing-text"
+                  />
+                  <p className="text-xs text-gray-500">
+                    {embossingText.length}/15 characters
+                  </p>
+                </div>
+              )}
+            </div>
+            
+            {/* Price Display */}
+            {selectedRange && rangeColorOptions[selectedRange as keyof typeof rangeColorOptions] && (
+              <div className="text-center pt-4 border-t">
+                <p className="text-lg font-semibold text-botanical">
+                  R{(rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].price + (includeEmbossing ? embossingPrice : 0)).toLocaleString()}
+                  {includeEmbossing && (
+                    <span className="block text-sm text-gray-600 mt-1">
+                      Base: R{rangeColorOptions[selectedRange as keyof typeof rangeColorOptions].price.toLocaleString()} + Embossing: R{embossingPrice}
+                    </span>
+                  )}
+                </p>
+              </div>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
     </div>
