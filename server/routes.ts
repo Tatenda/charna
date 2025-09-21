@@ -69,7 +69,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       console.log('Creating Yoco checkout:', checkoutData);
-      console.log('Using secret key:', process.env.YOCO_SECRET_KEY ? 'Present' : 'Missing');
+      console.log('Using test secret key:', process.env.YOCO_TEST_SECRET_KEY ? 'Present' : 'Missing');
+      console.log('Test secret key starts with:', process.env.YOCO_TEST_SECRET_KEY ? process.env.YOCO_TEST_SECRET_KEY.substring(0, 10) + '...' : 'None');
 
       // Try the v1 checkouts endpoint with correct domain
       const endpoint = 'https://api.yoco.com/v1/checkouts';
