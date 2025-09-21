@@ -27,8 +27,8 @@ const YocoPayment = ({
   const [paymentId, setPaymentId] = useState<string | null>(null);
   const { toast } = useToast();
   
-  // Initialize Yoco SDK with test public key and payment ID
-  const [showPopup, isYocoReady] = usePopup(import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY, paymentId || '');
+  // Initialize Yoco SDK with live public key and payment ID
+  const [showPopup, isYocoReady] = usePopup(import.meta.env.VITE_YOCO_LIVE_PUBLIC_KEY, paymentId || '');
   
   // Create payment object on backend when component mounts
   useEffect(() => {
@@ -155,12 +155,12 @@ const YocoPayment = ({
         
         {isYocoReady && paymentId && (
           <div className="text-center py-8">
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-              <FontAwesomeIcon icon="shield-check" className="text-blue-600 text-xl mb-2" />
-              <h4 className="font-semibold text-blue-800 mb-2">Test Payment System</h4>
-              <p className="text-sm text-blue-700 leading-relaxed">
-                This is a secure test environment. Use test card numbers (like 4242 4242 4242 4242) 
-                to safely test the payment flow. No real charges will be made.
+            <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
+              <FontAwesomeIcon icon="shield-check" className="text-green-600 text-xl mb-2" />
+              <h4 className="font-semibold text-green-800 mb-2">Secure Payment System</h4>
+              <p className="text-sm text-green-700 leading-relaxed">
+                Your payment will be processed securely through Yoco's encrypted payment system. 
+                Use test card numbers (like 4242 4242 4242 4242) for testing - no real charges will be made.
               </p>
             </div>
             
@@ -193,7 +193,7 @@ const YocoPayment = ({
         ) : (
           <>
             <FontAwesomeIcon icon="credit-card" className="mr-2" />
-            Test Pay R{amount.toLocaleString()}
+            Pay R{amount.toLocaleString()} Now
           </>
         )}
       </Button>
