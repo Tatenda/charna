@@ -42,7 +42,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Create order
+  // Create payment with Yoco
+  app.post("/api/payments/create", async (req, res) => {
+    try {
+      const { amount, currency = 'ZAR', metadata } = req.body;
+      
+      if (!amount || amount <= 0) {
+        return res.status(400).json({ message: "Valid amount is required" });
+      }
+
+      const response = await fetch('https://online.yoco.com/v1/charges', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.YOCO_SECRET_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          amount: Math.round(amount * 100), // Convert to cents
+          currency,
+          metadata: metadata || {}
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Yoco payment creation failed:', errorData);
+        return res.status(400).json({ message: 'Payment creation failed', error: errorData });
+      }
+
+      const payment = await response.json();
+      res.json({ 
+        paymentId: payment.id,
+        status: payment.status,
+        amount: payment.amount
+      });
+    } catch (error) {
+      console.error('Error creating Yoco payment:', error);
+      res.status(500).json({ message: 'Payment creation failed' });
+    }
+  });
+
+  // Verify payment status
+  app.get("/api/payments/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const response = await fetch(`https://online.yoco.com/v1/charges/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${process.env.YOCO_SECRET_KEY}`
+        }
+      });
+
+      if (!response.ok) {
+        return res.status(404).json({ message: 'Payment not found' });
+      }
+
+      const payment = await response.json();
+      res.json(payment);
+    } catch (error) {
+      console.error('Error verifying payment:', error);
+      res.status(500).json({ message: 'Payment verification failed' });
+    }
+  });
+
+  // Create order (updated to work with payment)
   app.post("/api/orders", async (req, res) => {
     try {
       const orderData = req.body;
@@ -52,12 +115,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Missing required order information" });
       }
       
+      // If payment ID is provided, verify payment first
+      if (orderData.paymentId) {
+        const paymentResponse = await fetch(`https://online.yoco.com/v1/charges/${orderData.paymentId}`, {
+          headers: {
+            'Authorization': `Bearer ${process.env.YOCO_SECRET_KEY}`
+          }
+        });
+        
+        if (!paymentResponse.ok) {
+          return res.status(400).json({ message: "Invalid payment ID" });
+        }
+        
+        const payment = await paymentResponse.json();
+        
+        if (payment.status !== 'successful') {
+          return res.status(400).json({ message: "Payment not successful" });
+        }
+        
+        // Verify amount matches
+        const expectedAmount = Math.round(orderData.totalAmount * 100);
+        if (payment.amount !== expectedAmount) {
+          return res.status(400).json({ message: "Payment amount mismatch" });
+        }
+      }
+      
       // Create order
       const order = await storage.createOrder({
         customerInfo: orderData.customerInfo,
         items: orderData.items,
         totalAmount: orderData.totalAmount,
-        status: "pending",
+        paymentId: orderData.paymentId || null,
+        status: orderData.paymentId ? "paid" : "pending",
       });
       
       res.status(201).json(order);
