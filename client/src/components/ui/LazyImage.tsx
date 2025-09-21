@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { createIntersectionObserver, getOptimizedImageProps, ImageLoadState } from '@/lib/imageOptimization';
+import { createIntersectionObserver, ImageLoadState } from '@/lib/imageOptimization';
 
 interface LazyImageProps {
   src: string;
