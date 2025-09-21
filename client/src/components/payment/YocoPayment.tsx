@@ -24,23 +24,62 @@ const YocoPayment = ({
   disabled = false 
 }: YocoPaymentProps) => {
   const [isProcessing, setIsProcessing] = useState(false);
-  const [paymentId, setPaymentId] = useState<string | null>(null);
+  const [checkoutId, setCheckoutId] = useState<string | null>(null);
+  const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
   const { toast } = useToast();
   
-  // Initialize Yoco SDK with test public key and payment ID
-  // Note: Payment ID should be created server-side first, using temporary ID for now
-  const [showPopup, isYocoReady] = usePopup(import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY, paymentId || 'temp_payment_id');
+  // Initialize Yoco SDK with test public key and checkout ID (only when we have a valid checkout)
+  const [showPopup, isYocoReady] = usePopup(
+    import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY, 
+    checkoutId || 'temp_checkout_id'
+  );
   
-  // Set up payment system as ready when Yoco SDK is initialized
+  // Create checkout session when component mounts
   useEffect(() => {
-    if (isYocoReady) {
-      setPaymentId('yoco_ready');
-      console.log('Yoco SDK ready for payment processing');
+    const createCheckoutSession = async () => {
+      if (checkoutId || isCreatingCheckout) return; // Already created or in progress
+      
+      setIsCreatingCheckout(true);
+      try {
+        console.log('Creating checkout session...');
+        const response = await apiRequest('POST', '/api/payments/create', {
+          amountInCents: Math.round(amount * 100),
+          currency: 'ZAR',
+          customerInfo,
+          metadata: {
+            itemCount: cartItems.length,
+            items: cartItems.map(item => ({
+              name: item.product.name,
+              quantity: item.quantity,
+              price: item.product.price,
+              customizations: item.customizations
+            }))
+          }
+        });
+        
+        const checkout = await response.json();
+        console.log('Checkout session created:', checkout.id);
+        setCheckoutId(checkout.id);
+      } catch (error) {
+        console.error('Failed to create checkout session:', error);
+        onError('Failed to initialize payment system. Please try again.');
+      } finally {
+        setIsCreatingCheckout(false);
+      }
+    };
+    
+    createCheckoutSession();
+  }, [amount, customerInfo, cartItems, onError]);
+  
+  // Log when Yoco SDK is ready
+  useEffect(() => {
+    if (isYocoReady && checkoutId && checkoutId !== 'temp_checkout_id') {
+      console.log('Yoco SDK ready for payment processing with checkout ID:', checkoutId);
     }
-  }, [isYocoReady]);
+  }, [isYocoReady, checkoutId]);
 
   const handlePayment = async () => {
-    if (!isYocoReady || !paymentId) {
+    if (!isYocoReady || !checkoutId || checkoutId === 'temp_checkout_id') {
       onError('Payment system not ready. Please wait and try again.');
       return;
     }
@@ -48,7 +87,7 @@ const YocoPayment = ({
     setIsProcessing(true);
 
     try {
-      // Use Yoco SDK popup for secure payment processing
+      // Use Yoco SDK popup for secure payment processing with the checkout ID
       showPopup({
         amountInCents: Math.round(amount * 100),
         currency: 'ZAR',
@@ -61,44 +100,35 @@ const YocoPayment = ({
             return;
           }
           
-          if (result.id && result.status === 'created') {
-            // Process the payment token on our backend
+          // Check if payment was successful
+          if (result.id && (result.status === 'successful' || result.status === 'created')) {
+            console.log('Payment successful, verifying...');
+            
             try {
-              const response = await apiRequest('POST', '/api/payments/charge', {
-                token: result.id,
-                amountInCents: Math.round(amount * 100),
-                currency: 'ZAR',
-                customerInfo,
-                metadata: {
-                  itemCount: cartItems.length,
-                  items: cartItems.map(item => ({
-                    name: item.product.name,
-                    quantity: item.quantity,
-                    price: item.product.price,
-                    customizations: item.customizations
-                  }))
-                }
-              });
+              // Verify the payment on our backend
+              const verifyResponse = await apiRequest('GET', `/api/payments/${result.id}`);
+              const verifiedPayment = await verifyResponse.json();
               
-              const payment = await response.json();
-              console.log('Payment processed:', payment);
+              console.log('Payment verified:', verifiedPayment);
               
               toast({
                 title: "Payment Successful!",
                 description: "Your payment has been processed successfully.",
               });
-              onSuccess(payment.id || result.id);
+              onSuccess(result.id);
             } catch (error) {
-              console.error('Failed to process payment:', error);
-              onError('Payment processing failed. Please try again.');
+              console.error('Failed to verify payment:', error);
+              onError('Payment verification failed. Please contact support.');
               setIsProcessing(false);
               return;
             }
           } else if (result.status === 'cancelled') {
             // User cancelled - don't show error, just reset
+            console.log('Payment cancelled by user');
             setIsProcessing(false);
             return;
           } else {
+            console.log('Payment failed with status:', result.status);
             onError('Payment failed. Please try again.');
             setIsProcessing(false);
           }
@@ -152,14 +182,19 @@ const YocoPayment = ({
           </div>
         </div>
         
-        {(!isYocoReady || !paymentId) && (
+        {(isCreatingCheckout || !isYocoReady || !checkoutId || checkoutId === 'temp_checkout_id') && (
           <div className="text-center py-4">
             <FontAwesomeIcon icon="spinner" className="animate-spin text-2xl text-primary mb-2" />
-            <p className="text-sm text-neutral">Loading secure payment system...</p>
+            <p className="text-sm text-neutral">
+              {isCreatingCheckout 
+                ? 'Initializing secure payment...' 
+                : 'Loading secure payment system...'
+              }
+            </p>
           </div>
         )}
         
-        {isYocoReady && paymentId && (
+        {isYocoReady && checkoutId && checkoutId !== 'temp_checkout_id' && (
           <div className="text-center py-8">
             <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
               <FontAwesomeIcon icon="shield-check" className="text-green-600 text-xl mb-2" />
@@ -182,7 +217,7 @@ const YocoPayment = ({
 
       <Button
         onClick={handlePayment}
-        disabled={disabled || isProcessing || !isYocoReady || !paymentId}
+        disabled={disabled || isProcessing || isCreatingCheckout || !isYocoReady || !checkoutId || checkoutId === 'temp_checkout_id'}
         className="w-full btn-primary text-lg py-6"
         data-testid="button-pay-now"
       >
@@ -191,10 +226,10 @@ const YocoPayment = ({
             <FontAwesomeIcon icon="spinner" className="animate-spin mr-2" />
             Processing Payment...
           </>
-        ) : (!isYocoReady || !paymentId) ? (
+        ) : (isCreatingCheckout || !isYocoReady || !checkoutId || checkoutId === 'temp_checkout_id') ? (
           <>
             <FontAwesomeIcon icon="spinner" className="animate-spin mr-2" />
-            Loading Payment System...
+            {isCreatingCheckout ? 'Initializing Payment...' : 'Loading Payment System...'}
           </>
         ) : (
           <>
