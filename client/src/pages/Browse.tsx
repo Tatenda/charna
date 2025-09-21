@@ -181,7 +181,7 @@ const collageProducts = [
   {
     id: 13,
     name: "The Perfect Onboarding Package",
-    price: 3499,
+    price: 3180,
     image: brownBackpack,
     category: "onboarding",
     isPackage: true,
