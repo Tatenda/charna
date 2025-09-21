@@ -46,42 +46,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Create payment with Yoco
+  // Create checkout session for payment processing
   app.post("/api/payments/create", async (req, res) => {
     try {
-      const { amount, currency = 'ZAR', metadata } = req.body;
+      const { amountInCents, currency = 'ZAR', customerInfo, metadata } = req.body;
       
-      if (!amount || amount <= 0) {
-        return res.status(400).json({ message: "Valid amount is required" });
+      if (!amountInCents || amountInCents <= 0 || !customerInfo) {
+        return res.status(400).json({ message: "Valid amount and customer info are required" });
       }
 
-      const response = await fetch('https://online.yoco.com/v1/charges', {
+      const checkoutData = {
+        amount: amountInCents,
+        currency,
+        successUrl: `${req.protocol}://${req.get('host')}/payment/success`,
+        cancelUrl: `${req.protocol}://${req.get('host')}/payment/cancel`,
+        failureUrl: `${req.protocol}://${req.get('host')}/payment/failure`,
+        metadata: {
+          customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
+          customer_email: customerInfo.email,
+          customer_phone: customerInfo.phone,
+          ...metadata
+        }
+      };
+
+      console.log('Creating Yoco checkout:', checkoutData);
+
+      const response = await fetch('https://online.yoco.com/v1/checkouts', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${process.env.YOCO_SECRET_KEY}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          amount: Math.round(amount * 100), // Convert to cents
-          currency,
-          metadata: metadata || {}
-        })
+        body: JSON.stringify(checkoutData)
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Yoco payment creation failed:', errorData);
-        return res.status(400).json({ message: 'Payment creation failed', error: errorData });
+        console.error('Yoco checkout creation failed:', errorData);
+        return res.status(400).json({ message: 'Payment session creation failed', error: errorData });
       }
 
-      const payment = await response.json();
-      res.json({ 
-        paymentId: payment.id,
-        status: payment.status,
-        amount: payment.amount
-      });
+      const checkout = await response.json();
+      console.log('Yoco checkout created successfully:', checkout.id);
+      res.json(checkout);
     } catch (error) {
-      console.error('Error creating Yoco payment:', error);
+      console.error('Error creating payment session:', error);
       res.status(500).json({ message: 'Payment creation failed' });
     }
   });
