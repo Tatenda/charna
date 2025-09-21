@@ -27,38 +27,16 @@ const YocoPayment = ({
   const [paymentId, setPaymentId] = useState<string | null>(null);
   const { toast } = useToast();
   
-  // Initialize Yoco SDK with test public key and checkout ID
-  const [showPopup, isYocoReady] = usePopup(import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY, paymentId || '');
+  // Initialize Yoco SDK with test public key
+  const [showPopup, isYocoReady] = usePopup(import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY);
   
-  // Create payment object on backend when component mounts
+  // Set up payment system as ready when Yoco SDK is initialized
   useEffect(() => {
-    const createPayment = async () => {
-      try {
-        const response = await apiRequest('POST', '/api/payments/create', {
-          amountInCents: Math.round(amount * 100),
-          currency: 'ZAR',
-          customerInfo,
-          metadata: {
-            itemCount: cartItems.length,
-            items: cartItems.map(item => ({
-              name: item.product.name,
-              quantity: item.quantity,
-              price: item.product.price,
-              customizations: item.customizations
-            }))
-          }
-        });
-        
-        const payment = await response.json();
-        setPaymentId(payment.id);
-      } catch (error) {
-        console.error('Failed to create payment:', error);
-        onError('Failed to initialize payment system. Please try again.');
-      }
-    };
-    
-    createPayment();
-  }, [amount, customerInfo, cartItems]);
+    if (isYocoReady) {
+      setPaymentId('yoco_ready');
+      console.log('Yoco SDK ready for payment processing');
+    }
+  }, [isYocoReady]);
 
   const handlePayment = async () => {
     if (!isYocoReady || !paymentId) {
@@ -82,12 +60,39 @@ const YocoPayment = ({
             return;
           }
           
-          if (result.status === 'succeeded') {
-            toast({
-              title: "Payment Successful!",
-              description: "Your payment has been processed successfully.",
-            });
-            onSuccess(result.id || 'unknown_payment_id');
+          if (result.id && result.status === 'created') {
+            // Process the payment token on our backend
+            try {
+              const response = await apiRequest('POST', '/api/payments/charge', {
+                token: result.id,
+                amountInCents: Math.round(amount * 100),
+                currency: 'ZAR',
+                customerInfo,
+                metadata: {
+                  itemCount: cartItems.length,
+                  items: cartItems.map(item => ({
+                    name: item.product.name,
+                    quantity: item.quantity,
+                    price: item.product.price,
+                    customizations: item.customizations
+                  }))
+                }
+              });
+              
+              const payment = await response.json();
+              console.log('Payment processed:', payment);
+              
+              toast({
+                title: "Payment Successful!",
+                description: "Your payment has been processed successfully.",
+              });
+              onSuccess(payment.id || result.id);
+            } catch (error) {
+              console.error('Failed to process payment:', error);
+              onError('Payment processing failed. Please try again.');
+              setIsProcessing(false);
+              return;
+            }
           } else if (result.status === 'cancelled') {
             // User cancelled - don't show error, just reset
             setIsProcessing(false);

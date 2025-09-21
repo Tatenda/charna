@@ -131,9 +131,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       
-      const response = await fetch(`https://online.yoco.com/v1/charges/${id}`, {
+      const response = await fetch(`https://api.yoco.com/v1/charges/${id}`, {
         headers: {
-          'Authorization': `Bearer ${process.env.YOCO_SECRET_KEY}`
+          'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`
         }
       });
 
@@ -152,14 +152,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Process payment with token (PCI compliant)
   app.post("/api/payments/charge", async (req, res) => {
     try {
-      const { token, amount, currency = 'ZAR', customerInfo, metadata } = req.body;
+      const { token, amountInCents, currency = 'ZAR', customerInfo, metadata } = req.body;
       
-      console.log('Payment charge request:', { token, amount, currency, customerInfo, metadata });
+      console.log('Payment charge request:', { token, amountInCents, currency, customerInfo, metadata });
       
-      if (!token || !amount || !customerInfo) {
+      if (!token || !amountInCents || !customerInfo) {
         return res.status(400).json({ message: 'Missing required payment information' });
       }
 
+      console.log('Processing payment charge with token:', token.substring(0, 20) + '...');
+      
       // Check if this is a demo token (for development/demo purposes)
       if (token.startsWith('demo_token_')) {
         console.log('Processing demo payment token:', token);
@@ -168,7 +170,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const demoResult = {
           id: `demo_charge_${Date.now()}`,
           status: 'successful',
-          amountInCents: Math.round(amount * 100),
+          amountInCents: amountInCents,
           currency: currency,
           metadata: {
             customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
@@ -192,7 +194,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // For real tokens, process with Yoco API
       const chargeData = {
         token: token,
-        amountInCents: Math.round(amount * 100),
+        amountInCents: amountInCents,
         currency,
         metadata: {
           customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
@@ -204,13 +206,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       console.log('Sending charge to Yoco API:', chargeData);
 
-      const response = await fetch('https://online.yoco.com/v1/charges', {
+      const response = await fetch('https://api.yoco.com/v1/charges', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(checkoutData)
+        body: JSON.stringify(chargeData)
       });
 
       const result = await response.json();
@@ -261,9 +263,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           // In production, this would be verified against the real Yoco API
         } else {
           // For real payments, verify against Yoco API
-          const paymentResponse = await fetch(`https://online.yoco.com/v1/charges/${orderData.paymentId}`, {
+          const paymentResponse = await fetch(`https://api.yoco.com/v1/charges/${orderData.paymentId}`, {
             headers: {
-              'Authorization': `Bearer ${process.env.YOCO_SECRET_KEY}`
+              'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`
             }
           });
           
