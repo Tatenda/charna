@@ -9,7 +9,6 @@ export interface CartItem {
     bagColor?: string;
     sleeveColor?: string;
     embossing?: boolean;
-    embossingText?: string;
     embossingPrice?: number;
   };
 }
