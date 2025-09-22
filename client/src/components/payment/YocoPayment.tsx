@@ -27,9 +27,12 @@ const YocoPaymentInner = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
   
-  // Initialize Yoco SDK with valid checkout ID
+  // Initialize Yoco SDK with appropriate public key based on environment
+  const isProduction = import.meta.env.PROD;
+  const publicKey = isProduction ? import.meta.env.VITE_YOCO_LIVE_PUBLIC_KEY : import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY;
+  
   const [showPopup, isYocoReady] = usePopup(
-    import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY, 
+    publicKey, 
     checkoutId
   );
   

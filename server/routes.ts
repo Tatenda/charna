@@ -66,10 +66,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       };
 
+      // Determine which keys to use based on environment
+      const isProduction = process.env.NODE_ENV === 'production';
+      const secretKey = isProduction ? process.env.YOCO_LIVE_SECRET_KEY : process.env.YOCO_TEST_SECRET_KEY;
+      const keyType = isProduction ? 'live' : 'test';
+      
       console.log('Creating Yoco payment intent:', paymentData);
-      console.log('Using test secret key:', process.env.YOCO_TEST_SECRET_KEY ? 'Present' : 'Missing');
-      console.log('Test public key available:', process.env.YOCO_TEST_PUBLIC_KEY ? 'Yes' : 'No');
-      console.log('Test secret key masked:', process.env.YOCO_TEST_SECRET_KEY ? 'sk_test_****' + process.env.YOCO_TEST_SECRET_KEY.slice(-4) : 'N/A');
+      console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`Using ${keyType} secret key:`, secretKey ? 'Present' : 'Missing');
+      console.log(`${keyType} secret key masked:`, secretKey ? `sk_${keyType}_****` + secretKey.slice(-4) : 'N/A');
 
       // Use the correct Yoco API endpoint for payment creation
       const endpoint = 'https://payments.yoco.com/api/checkouts';
@@ -77,7 +82,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('Using Yoco endpoint:', endpoint);
       
       const headers = {
-        'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`,
+        'Authorization': `Bearer ${secretKey}`,
         'Content-Type': 'application/json'
       };
       
@@ -135,9 +140,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       
+      // Use appropriate secret key based on environment
+      const isProduction = process.env.NODE_ENV === 'production';
+      const secretKey = isProduction ? process.env.YOCO_LIVE_SECRET_KEY : process.env.YOCO_TEST_SECRET_KEY;
+      
       const response = await fetch(`https://api.yoco.com/v1/charges/${id}`, {
         headers: {
-          'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`
+          'Authorization': `Bearer ${secretKey}`
         }
       });
 
