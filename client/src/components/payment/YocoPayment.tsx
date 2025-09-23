@@ -52,12 +52,10 @@ const YocoPaymentInner = ({
     setIsProcessing(true);
 
     try {
-      // Use Yoco SDK popup for secure payment processing 
-      // Note: SDK requires amount parameters even though checkout was created with amount
+      // Use Yoco SDK popup for checkout session flow
+      // When using checkout sessions, only pass callback - amount/currency are in the session
       showPopup({
-        amountInCents: Math.round(amount * 100),
-        currency: 'ZAR',
-        callback: async (result) => {
+        callback: async (result: any) => {
           console.log('Yoco payment result:', result);
           
           if (result.error) {
@@ -104,7 +102,7 @@ const YocoPaymentInner = ({
           console.log('Payment popup closed');
           setIsProcessing(false);
         },
-      });
+      } as any); // Type cast to bypass YocoPopupConfig requirements for checkout session flow
 
     } catch (error: any) {
       console.error('Payment processing error:', error);
