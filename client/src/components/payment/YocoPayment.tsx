@@ -68,14 +68,15 @@ const YocoPaymentInner = ({
           
           // Check if payment was successful (only accept 'successful' status)
           if (result.id && result.status === 'successful') {
-            console.log('Payment successful, verifying...');
+            console.log('Payment successful! Charge ID:', result.id, 'Status:', result.status);
             
             try {
-              // Verify the payment on our backend
+              // Verify the payment charge on our backend
+              console.log('Verifying charge ID:', result.id);
               const verifyResponse = await apiRequest('GET', `/api/payments/${result.id}`);
               const verifiedPayment = await verifyResponse.json();
               
-              console.log('Payment verified:', verifiedPayment);
+              console.log('Payment verified successfully:', verifiedPayment);
               
               toast({
                 title: "Payment Successful!",
@@ -83,7 +84,7 @@ const YocoPaymentInner = ({
               });
               onSuccess(result.id);
             } catch (error) {
-              console.error('Failed to verify payment:', error);
+              console.error('Failed to verify payment charge:', error);
               onError('Payment verification failed. Please contact support.');
               setIsProcessing(false);
               return;
@@ -222,15 +223,16 @@ const YocoPayment = ({
   const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
-  // Create checkout session when component mounts
+  // Create checkout session when component mounts (only once)
   useEffect(() => {
     const createCheckoutSession = async () => {
       if (checkoutId || isCreatingCheckout) return; // Already created or in progress
       
       setIsCreatingCheckout(true);
       setCheckoutError(null);
+      
       try {
-        console.log('Creating checkout session...');
+        console.log('Creating checkout session for amount:', Math.round(amount * 100), 'cents');
         const response = await apiRequest('POST', '/api/payments/create', {
           amountInCents: Math.round(amount * 100),
           currency: 'ZAR',
@@ -247,7 +249,7 @@ const YocoPayment = ({
         });
         
         const checkout = await response.json();
-        console.log('Checkout session created:', checkout.id);
+        console.log('Checkout session created successfully:', checkout.id);
         setCheckoutId(checkout.id);
       } catch (error) {
         console.error('Failed to create checkout session:', error);
@@ -260,7 +262,8 @@ const YocoPayment = ({
     };
     
     createCheckoutSession();
-  }, [amount, customerInfo, cartItems, onError]);
+    // Only create checkout session once - removing dynamic dependencies that cause re-creation
+  }, []);
 
   if (isCreatingCheckout) {
     return (
