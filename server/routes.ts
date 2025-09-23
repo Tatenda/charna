@@ -8,17 +8,17 @@ import { EmailService } from "./emailService";
 export async function registerRoutes(app: Express): Promise<Server> {
   // Initialize email service
   const emailService = new EmailService();
-  
+
   // API Routes
-  
+
   // Get all products
   app.get("/api/products", async (req, res) => {
     try {
       const featured = req.query.featured === "true";
-      const products = featured 
+      const products = featured
         ? await storage.getFeaturedProducts()
         : await storage.getAllProducts();
-      
+
       res.json(products);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -33,12 +33,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isNaN(id)) {
         return res.status(400).json({ message: "Invalid product ID" });
       }
-      
+
       const product = await storage.getProductById(id);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
-      
+
       res.json(product);
     } catch (error) {
       console.error("Error fetching product:", error);
@@ -49,10 +49,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create payment intent for popup SDK integration
   app.post("/api/payments/create", async (req, res) => {
     try {
-      const { amountInCents, currency = 'ZAR', customerInfo, metadata } = req.body;
-      
+      const {
+        amountInCents,
+        currency = "ZAR",
+        customerInfo,
+        metadata,
+      } = req.body;
+
       if (!amountInCents || amountInCents <= 0 || !customerInfo) {
-        return res.status(400).json({ message: "Valid amount and customer info are required" });
+        return res
+          .status(400)
+          .json({ message: "Valid amount and customer info are required" });
       }
 
       const paymentData = {
@@ -62,76 +69,104 @@ export async function registerRoutes(app: Express): Promise<Server> {
           customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
           customer_email: customerInfo.email,
           customer_phone: customerInfo.phone,
-          ...metadata
-        }
+          ...metadata,
+        },
       };
 
       // Determine which keys to use based on environment
-      const isProduction = process.env.NODE_ENV === 'production';
-      const secretKey = isProduction ? process.env.YOCO_LIVE_SECRET_KEY : process.env.YOCO_TEST_SECRET_KEY;
-      const keyType = isProduction ? 'live' : 'test';
-      
-      console.log('Creating Yoco payment intent:', paymentData);
-      console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`Using ${keyType} secret key:`, secretKey ? 'Present' : 'Missing');
-      console.log(`${keyType} secret key masked:`, secretKey ? `sk_${keyType}_****` + secretKey.slice(-4) : 'N/A');
+      const isProduction = process.env.NODE_ENV === "production";
+      const secretKey = isProduction
+        ? process.env.YOCO_LIVE_SECRET_KEY
+        : process.env.YOCO_TEST_SECRET_KEY;
+      const keyType = isProduction ? "live" : "test";
+
+      console.log("Creating Yoco payment intent:", paymentData);
+      console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+      console.log(
+        `Using ${keyType} secret key:`,
+        secretKey ? "Present" : "Missing",
+      );
+      console.log(
+        `${keyType} secret key masked:`,
+        secretKey ? `sk_${keyType}_****` + secretKey.slice(-4) : "N/A",
+      );
 
       // Use the correct Yoco API endpoint for payment creation
-      const endpoint = 'https://payments.yoco.com/api/checkouts';
-      
-      console.log('Using Yoco endpoint:', endpoint);
-      
+      const endpoint = "https://payments.yoco.com/api/checkouts";
+
+      console.log("Using Yoco endpoint:", endpoint);
+
       const headers = {
-        'Authorization': `Bearer ${secretKey}`,
-        'Content-Type': 'application/json'
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/json",
       };
-      
-      console.log('Request headers ready (Authorization masked for security)');
-      console.log('Request body:', JSON.stringify(paymentData, null, 2));
-      
+
+      console.log("Request headers ready (Authorization masked for security)");
+      console.log("Request body:", JSON.stringify(paymentData, null, 2));
+
       const response = await fetch(endpoint, {
-        method: 'POST',
+        method: "POST",
         headers,
-        body: JSON.stringify(paymentData)
+        body: JSON.stringify(paymentData),
       });
 
-      console.log('=== YOCO API CALL ===');
-      console.log('Response status:', response.status);
-      console.log('Response ok:', response.ok);
-      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      console.log("=== YOCO API CALL ===");
+      console.log("Response status:", response.status);
+      console.log("Response ok:", response.ok);
+      console.log(
+        "Response headers:",
+        Object.fromEntries(response.headers.entries()),
+      );
 
       const responseText = await response.text();
-      console.log('Full response body:', responseText);
+      console.log("Full response body:", responseText);
 
       if (!response.ok) {
-        console.error('=== YOCO CHECKOUT CREATION FAILED ===');
-        console.error('Status:', response.status);
-        console.error('Response body:', responseText);
+        console.error("=== YOCO CHECKOUT CREATION FAILED ===");
+        console.error("Status:", response.status);
+        console.error("Response body:", responseText);
         try {
           const errorData = JSON.parse(responseText);
-          console.error('Parsed error data:', JSON.stringify(errorData, null, 2));
-          return res.status(400).json({ message: 'Payment session creation failed', error: errorData });
+          console.error(
+            "Parsed error data:",
+            JSON.stringify(errorData, null, 2),
+          );
+          return res
+            .status(400)
+            .json({
+              message: "Payment session creation failed",
+              error: errorData,
+            });
         } catch (parseError) {
-          console.error('Failed to parse Yoco error response:', parseError);
-          return res.status(400).json({ message: 'Payment session creation failed', error: 'Invalid response from payment provider' });
+          console.error("Failed to parse Yoco error response:", parseError);
+          return res
+            .status(400)
+            .json({
+              message: "Payment session creation failed",
+              error: "Invalid response from payment provider",
+            });
         }
       }
 
       let checkout;
       try {
         checkout = JSON.parse(responseText);
-        console.log('=== YOCO CHECKOUT SUCCESS ===');
-        console.log('Checkout ID:', checkout.id);
-        console.log('Full checkout object:', JSON.stringify(checkout, null, 2));
+        console.log("=== YOCO CHECKOUT SUCCESS ===");
+        console.log("Checkout ID:", checkout.id);
+        console.log("Full checkout object:", JSON.stringify(checkout, null, 2));
       } catch (parseError) {
-        console.error('Failed to parse Yoco success response:', parseError);
-        return res.status(500).json({ message: 'Payment creation failed - invalid response format' });
+        console.error("Failed to parse Yoco success response:", parseError);
+        return res
+          .status(500)
+          .json({
+            message: "Payment creation failed - invalid response format",
+          });
       }
-      
+
       res.json(checkout);
     } catch (error) {
-      console.error('Error creating payment session:', error);
-      res.status(500).json({ message: 'Payment creation failed' });
+      console.error("Error creating payment session:", error);
+      res.status(500).json({ message: "Payment creation failed" });
     }
   });
 
@@ -139,87 +174,113 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/payments/:id", async (req, res) => {
     try {
       const { id } = req.params;
-      console.log('=== PAYMENT VERIFICATION REQUEST ===');
-      console.log('Payment ID to verify:', id);
-      console.log('ID type:', id.startsWith('ch_') ? 'CHECKOUT_SESSION' : id.startsWith('py_') ? 'CHARGE' : 'UNKNOWN');
-      
+      console.log("=== PAYMENT VERIFICATION REQUEST ===");
+      console.log("Payment ID to verify:", id);
+      console.log(
+        "ID type:",
+        id.startsWith("ch_")
+          ? "CHECKOUT_SESSION"
+          : id.startsWith("py_")
+            ? "CHARGE"
+            : "UNKNOWN",
+      );
+
       // Use appropriate secret key based on environment
-      const isProduction = process.env.NODE_ENV === 'production';
-      const secretKey = isProduction ? process.env.YOCO_LIVE_SECRET_KEY : process.env.YOCO_TEST_SECRET_KEY;
-      const keyType = isProduction ? 'live' : 'test';
-      
+      const isProduction = process.env.NODE_ENV === "production";
+      const secretKey = isProduction
+        ? process.env.YOCO_LIVE_SECRET_KEY
+        : process.env.YOCO_TEST_SECRET_KEY;
+      const keyType = isProduction ? "live" : "test";
+
       console.log(`Using ${keyType} secret key for verification`);
-      
+
       const verifyUrl = `https://api.yoco.com/v1/charges/${id}`;
-      console.log('Verification URL:', verifyUrl);
-      
+      console.log("Verification URL:", verifyUrl);
+
       const response = await fetch(verifyUrl, {
         headers: {
-          'Authorization': `Bearer ${secretKey}`
-        }
+          Authorization: `Bearer ${secretKey}`,
+        },
       });
 
-      console.log('Yoco verification response status:', response.status);
-      console.log('Yoco verification response ok:', response.ok);
+      console.log("Yoco verification response status:", response.status);
+      console.log("Yoco verification response ok:", response.ok);
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.log('Yoco verification error response:', errorText);
-        return res.status(404).json({ 
-          message: 'Payment not found',
+        console.log("Yoco verification error response:", errorText);
+        return res.status(404).json({
+          message: "Payment not found",
           yocoError: errorText,
-          paymentId: id
+          paymentId: id,
         });
       }
 
       const payment = await response.json();
-      console.log('Payment verification successful:', payment);
+      console.log("Payment verification successful:", payment);
       res.json(payment);
     } catch (error) {
-      console.error('Error verifying payment:', error);
-      res.status(500).json({ message: 'Payment verification failed' });
+      console.error("Error verifying payment:", error);
+      res.status(500).json({ message: "Payment verification failed" });
     }
   });
 
   // Process payment with token (PCI compliant)
   app.post("/api/payments/charge", async (req, res) => {
     try {
-      const { token, amountInCents, currency = 'ZAR', customerInfo, metadata } = req.body;
-      
-      console.log('Payment charge request:', { token, amountInCents, currency, customerInfo, metadata });
-      
+      const {
+        token,
+        amountInCents,
+        currency = "ZAR",
+        customerInfo,
+        metadata,
+      } = req.body;
+
+      console.log("Payment charge request:", {
+        token,
+        amountInCents,
+        currency,
+        customerInfo,
+        metadata,
+      });
+
       if (!token || !amountInCents || !customerInfo) {
-        return res.status(400).json({ message: 'Missing required payment information' });
+        return res
+          .status(400)
+          .json({ message: "Missing required payment information" });
       }
 
-      console.log('Processing payment charge with token:', token.substring(0, 20) + '...');
-      
+      console.log(
+        "Processing payment charge with token:",
+        token.substring(0, 20) + "...",
+      );
+
       // Check if this is a demo token (for development/demo purposes)
-      if (token.startsWith('demo_token_')) {
-        console.log('Processing demo payment token:', token);
-        
+      if (token.startsWith("demo_token_")) {
+        console.log("Processing demo payment token:", token);
+
         // Simulate successful demo payment
         const demoResult = {
           id: `demo_charge_${Date.now()}`,
-          status: 'successful',
+          status: "successful",
           amountInCents: amountInCents,
           currency: currency,
           metadata: {
             customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
             customer_email: customerInfo.email,
             customer_phone: customerInfo.phone,
-            ...metadata
-          }
+            ...metadata,
+          },
         };
-        
-        console.log('Demo payment successful:', demoResult);
-        
+
+        console.log("Demo payment successful:", demoResult);
+
         return res.json({
           id: demoResult.id,
           status: demoResult.status,
           amount: demoResult.amountInCents,
           currency: demoResult.currency,
-          message: 'Demo payment processed successfully'
+          message: "Demo payment processed successfully",
         });
       }
 
@@ -232,34 +293,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
           customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
           customer_email: customerInfo.email,
           customer_phone: customerInfo.phone,
-          ...metadata
-        }
+          ...metadata,
+        },
       };
 
-      console.log('Sending charge to Yoco API:', chargeData);
+      console.log("Sending charge to Yoco API:", chargeData);
 
       // Use appropriate secret key based on environment
-      const isProduction = process.env.NODE_ENV === 'production';
-      const secretKey = isProduction ? process.env.YOCO_LIVE_SECRET_KEY : process.env.YOCO_TEST_SECRET_KEY;
-      
-      const response = await fetch('https://api.yoco.com/v1/charges', {
-        method: 'POST',
+      const isProduction = process.env.NODE_ENV === "production";
+      const secretKey = isProduction
+        ? process.env.YOCO_LIVE_SECRET_KEY
+        : process.env.YOCO_TEST_SECRET_KEY;
+
+      const response = await fetch("https://api.yoco.com/v1/charges", {
+        method: "POST",
         headers: {
-          'Authorization': `Bearer ${secretKey}`,
-          'Content-Type': 'application/json'
+          Authorization: `Bearer ${secretKey}`,
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(chargeData)
+        body: JSON.stringify(chargeData),
       });
 
       const result = await response.json();
-      console.log('Yoco API response:', { status: response.status, result });
+      console.log("Yoco API response:", { status: response.status, result });
 
       if (!response.ok) {
-        console.error('Yoco charge failed:', result);
-        return res.status(400).json({ 
-          message: result.message || 'Payment failed', 
-          status: 'failed',
-          error: result 
+        console.error("Yoco charge failed:", result);
+        return res.status(400).json({
+          message: result.message || "Payment failed",
+          status: "failed",
+          error: result,
         });
       }
 
@@ -269,12 +332,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status: result.status,
         amount: result.amountInCents,
         currency: result.currency,
-        message: 'Payment processed successfully'
+        message: "Payment processed successfully",
       });
-
     } catch (error) {
-      console.error('Error processing charge:', error);
-      res.status(500).json({ message: 'Payment processing failed', error: error instanceof Error ? error.message : 'Unknown error' });
+      console.error("Error processing charge:", error);
+      res
+        .status(500)
+        .json({
+          message: "Payment processing failed",
+          error: error instanceof Error ? error.message : "Unknown error",
+        });
     }
   });
 
@@ -282,45 +349,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/orders", async (req, res) => {
     try {
       const orderData = req.body;
-      
+
       // Basic validation
-      if (!orderData.customerInfo || !orderData.items || !orderData.totalAmount) {
-        return res.status(400).json({ message: "Missing required order information" });
+      if (
+        !orderData.customerInfo ||
+        !orderData.items ||
+        !orderData.totalAmount
+      ) {
+        return res
+          .status(400)
+          .json({ message: "Missing required order information" });
       }
-      
+
       // If payment ID is provided, verify payment first
       if (orderData.paymentId) {
-        console.log('Verifying payment ID:', orderData.paymentId);
-        
+        console.log("Verifying payment ID:", orderData.paymentId);
+
         // Handle demo payments (don't verify against real API)
-        if (orderData.paymentId.startsWith('demo_charge_')) {
-          console.log('Processing demo payment for order creation');
+        if (orderData.paymentId.startsWith("demo_charge_")) {
+          console.log("Processing demo payment for order creation");
           // For demo payments, we trust they were successful since they were created by our backend
           // In production, this would be verified against the real Yoco API
         } else {
           // For real payments, verify against Yoco API
           // Use appropriate secret key based on environment
-          const isProduction = process.env.NODE_ENV === 'production';
-          const secretKey = isProduction ? process.env.YOCO_LIVE_SECRET_KEY : process.env.YOCO_TEST_SECRET_KEY;
-          
-          const paymentResponse = await fetch(`https://api.yoco.com/v1/charges/${orderData.paymentId}`, {
-            headers: {
-              'Authorization': `Bearer ${secretKey}`
-            }
-          });
-          
+          const isProduction = process.env.NODE_ENV === "production";
+          const secretKey = isProduction
+            ? process.env.YOCO_LIVE_SECRET_KEY
+            : process.env.YOCO_TEST_SECRET_KEY;
+
+          const paymentResponse = await fetch(
+            `https://api.yoco.com/v1/charges/${orderData.paymentId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${secretKey}`,
+              },
+            },
+          );
+
           if (!paymentResponse.ok) {
-            console.log('Payment verification failed:', paymentResponse.status);
+            console.log("Payment verification failed:", paymentResponse.status);
             return res.status(400).json({ message: "Invalid payment ID" });
           }
-          
+
           const payment = await paymentResponse.json();
-          console.log('Payment verification result:', payment);
-          
-          if (payment.status !== 'successful') {
+          console.log("Payment verification result:", payment);
+
+          if (payment.status !== "successful") {
             return res.status(400).json({ message: "Payment not successful" });
           }
-          
+
           // Verify amount matches (Yoco returns amountInCents)
           const expectedAmount = Math.round(orderData.totalAmount * 100);
           const paymentAmount = payment.amountInCents ?? payment.amount;
@@ -329,7 +407,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         }
       }
-      
+
       // Create order
       const order = await storage.createOrder({
         customerInfo: orderData.customerInfo,
@@ -338,28 +416,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
         paymentId: orderData.paymentId || null,
         status: orderData.paymentId ? "paid" : "pending",
       });
-      
+
       // Send email receipt for paid orders
       if (orderData.paymentId && order) {
         try {
           const shippingCost = orderData.totalAmount >= 1000 ? 0 : 150;
-          
+
           await emailService.sendOrderReceipt({
             customerInfo: orderData.customerInfo,
             items: orderData.items,
             orderId: order.id.toString(),
             totalAmount: orderData.totalAmount,
             shippingCost: shippingCost,
-            paymentId: orderData.paymentId
+            paymentId: orderData.paymentId,
           });
-          
+
           console.log(`Email receipt sent for order #${order.id}`);
         } catch (emailError) {
-          console.error('Failed to send receipt email:', emailError);
+          console.error("Failed to send receipt email:", emailError);
           // Don't fail the order if email fails - order was successful
         }
       }
-      
+
       res.status(201).json(order);
     } catch (error) {
       console.error("Error creating order:", error);
@@ -372,24 +450,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // Validate contact form data
       const contactData = insertContactSchema.parse(req.body);
-      
+
       // Store contact submission
       const contact = await storage.createContact(contactData);
-      
-      res.status(201).json({ 
-        success: true, 
-        message: "Contact form submitted successfully" 
+
+      res.status(201).json({
+        success: true,
+        message: "Contact form submitted successfully",
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
+        return res.status(400).json({
           message: "Invalid form data",
-          errors: error.errors 
+          errors: error.errors,
         });
       }
-      
+
       console.error("Error submitting contact form:", error);
       res.status(500).json({ message: "Failed to submit contact form" });
+    }
+  });
+
+  app.get("/api/checkouts/:id", async (req, res) => {
+    try {
+      const isProduction = process.env.NODE_ENV === "production";
+      const secretKey = isProduction
+        ? process.env.YOCO_LIVE_SECRET_KEY
+        : process.env.YOCO_TEST_SECRET_KEY;
+
+      const r = await fetch(
+        `https://payments.yoco.com/api/checkouts/${req.params.id}`,
+        {
+          headers: { Authorization: `Bearer ${secretKey}` },
+        },
+      );
+
+      const body = await r.json();
+      if (!r.ok) return res.status(r.status).json(body);
+      // Expect a Checkout object; when completed, it includes a paymentId
+      return res.json(body);
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ message: "Failed to fetch checkout" });
     }
   });
 
