@@ -15,99 +15,179 @@ interface YocoPaymentProps {
 }
 
 // Live Yoco payment integration using official SDK
-const YocoPaymentInner = ({ 
-  amount, 
-  customerInfo, 
-  cartItems, 
-  onSuccess, 
-  onError, 
+const YocoPaymentInner = ({
+  amount,
+  customerInfo,
+  cartItems,
+  onSuccess,
+  onError,
   disabled = false,
-  checkoutId 
+  checkoutId,
 }: YocoPaymentProps & { checkoutId: string }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
-  
+
   // Initialize Yoco SDK with appropriate public key based on environment
   const isProduction = import.meta.env.PROD;
-  const publicKey = isProduction ? import.meta.env.VITE_YOCO_LIVE_PUBLIC_KEY : import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY;
+  const publicKey = isProduction
+    ? import.meta.env.VITE_YOCO_LIVE_PUBLIC_KEY
+    : import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY;
   
-  const [showPopup, isYocoReady] = usePopup(
-    publicKey, 
-    checkoutId
-  );
+  // Debug logging to identify environment variable issues
+  console.log("Environment debug:", {
+    isProduction,
+    viteTestKey: import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY,
+    viteLiveKey: import.meta.env.VITE_YOCO_LIVE_PUBLIC_KEY,
+    publicKeySelected: publicKey,
+    allViteEnvs: Object.keys(import.meta.env).filter(k => k.includes('YOCO'))
+  });
   
+  // Fallback check for missing environment variables
+  if (!publicKey) {
+    console.error("CRITICAL: No Yoco public key found! Check environment variables.");
+    console.log("Available env keys:", Object.keys(import.meta.env).filter(k => k.includes('YOCO')));
+  }
+
+  const [showPopup, isYocoReady] = usePopup(publicKey, checkoutId);
+
   // Log when Yoco SDK is ready
   useEffect(() => {
     if (isYocoReady && checkoutId) {
-      console.log('Yoco SDK ready for payment processing with checkout ID:', checkoutId);
+      console.log(
+        "Yoco SDK ready for payment processing with checkout ID:",
+        checkoutId,
+      );
     }
   }, [isYocoReady, checkoutId]);
 
+  // Small helper to wait for Yoco to populate paymentId on the checkout
+  async function pollCheckoutForPaymentId(
+    checkoutId: string,
+    tries = 6,
+    delayMs = 1200,
+  ): Promise<string | null> {
+    for (let i = 0; i < tries; i++) {
+      const r = await apiRequest("GET", `/api/checkouts/${checkoutId}`);
+      const co = await r.json();
+      if (co?.paymentId) return co.paymentId;
+      await new Promise((res) => setTimeout(res, delayMs));
+    }
+    return null;
+  }
+
   const handlePayment = async () => {
     if (!isYocoReady || !checkoutId) {
-      onError('Payment system not ready. Please wait and try again.');
+      onError("Payment system not ready. Please wait and try again.");
       return;
     }
 
     setIsProcessing(true);
 
     try {
-      // Use Yoco SDK popup for checkout session flow
-      // When using checkout sessions, only pass callback - amount/currency are in the session
+      // Open the Yoco popup for this checkout session
       showPopup({
         callback: async (result: any) => {
-          console.log('Yoco payment result:', result);
-          
-          if (result.error) {
-            onError(result.error.message || 'Payment failed. Please try again.');
+          console.log("Yoco payment result:", result);
+
+          if (result?.error) {
+            onError(
+              result.error.message || "Payment failed. Please try again.",
+            );
             setIsProcessing(false);
             return;
           }
-          
-          // Check if payment was successful (only accept 'successful' status)
-          if (result.id && result.status === 'successful') {
-            console.log('Payment successful! Charge ID:', result.id, 'Status:', result.status);
-            
-            try {
-              // Verify the payment charge on our backend
-              console.log('Verifying charge ID:', result.id);
-              const verifyResponse = await apiRequest('GET', `/api/payments/${result.id}`);
-              const verifiedPayment = await verifyResponse.json();
-              
-              console.log('Payment verified successfully:', verifiedPayment);
-              
-              toast({
-                title: "Payment Successful!",
-                description: "Your payment has been processed successfully.",
-              });
-              onSuccess(result.id);
-            } catch (error) {
-              console.error('Failed to verify payment charge:', error);
-              onError('Payment verification failed. Please contact support.');
+
+          // Accept common success spellings
+          const ok =
+            result?.status === "succeeded" ||
+            result?.status === "successful" ||
+            result?.status === "completed";
+
+          if (!ok) {
+            if (result?.status === "cancelled") {
               setIsProcessing(false);
               return;
             }
-          } else if (result.status === 'cancelled') {
-            // User cancelled - don't show error, just reset
-            console.log('Payment cancelled by user');
+            onError(`Payment failed (status: ${result?.status || "unknown"}).`);
             setIsProcessing(false);
             return;
-          } else {
-            console.log('Payment failed with status:', result.status);
-            onError('Payment failed. Please try again.');
+          }
+
+          try {
+            // Prefer paymentId from the popup if present
+            let paymentId: string | null = result?.paymentId ?? null;
+
+            // Otherwise resolve from the checkout (with a tiny poll if needed)
+            if (!paymentId && result?.id) {
+              const coResp = await apiRequest(
+                "GET",
+                `/api/checkouts/${result.id}`,
+              );
+              const checkout = await coResp.json();
+              paymentId = checkout?.paymentId ?? null;
+
+              if (!paymentId) {
+                paymentId = await pollCheckoutForPaymentId(result.id);
+              }
+            }
+
+            if (!paymentId) {
+              throw new Error("Missing paymentId from checkout result.");
+            }
+
+            // Verify the actual payment (server also auto-bridges ch_ -> paymentId if needed)
+            console.log("Verifying payment ID:", paymentId);
+            let verifyResp = await apiRequest(
+              "GET",
+              `/api/payments/${paymentId}`,
+            );
+
+            // If the server says the checkout is completed but paymentId not ready yet, it may return 409 — wait & retry once
+            if ((verifyResp as any).status === 409) {
+              console.log("Payment not ready yet, waiting and retrying...");
+              await new Promise((res) => setTimeout(res, 1500));
+              verifyResp = await apiRequest(
+                "GET",
+                `/api/payments/${paymentId}`,
+              );
+              
+              // If still 409 after retry, try polling checkout for paymentId
+              if ((verifyResp as any).status === 409) {
+                console.log("Still not ready, polling checkout for paymentId...");
+                const resolvedPaymentId = await pollCheckoutForPaymentId(result.id);
+                if (resolvedPaymentId && resolvedPaymentId !== paymentId) {
+                  paymentId = resolvedPaymentId;
+                  verifyResp = await apiRequest(
+                    "GET",
+                    `/api/payments/${paymentId}`,
+                  );
+                }
+              }
+            }
+
+            const verifiedPayment = await verifyResp.json();
+            console.log("Payment verified successfully:", verifiedPayment);
+
+            toast({
+              title: "Payment Approved",
+              description: `Ref: ${verifiedPayment?.id ?? paymentId}`,
+            });
+            onSuccess(paymentId);
+          } catch (e) {
+            console.error("Payment verification failed:", e);
+            onError("Payment verification failed. Please contact support.");
+          } finally {
             setIsProcessing(false);
           }
         },
         onClose: () => {
-          console.log('Payment popup closed');
+          console.log("Payment popup closed");
           setIsProcessing(false);
         },
-      } as any); // Type cast to bypass YocoPopupConfig requirements for checkout session flow
-
+      } as any);
     } catch (error: any) {
-      console.error('Payment processing error:', error);
-      const errorMessage = error.message || 'Payment processing failed. Please try again.';
-      onError(errorMessage);
+      console.error("Payment processing error:", error);
+      onError(error?.message || "Payment processing failed. Please try again.");
       setIsProcessing(false);
     }
   };
@@ -116,7 +196,9 @@ const YocoPaymentInner = ({
     <div className="space-y-6">
       <div className="bg-white rounded-lg border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-heading text-lg font-semibold">Payment Details</h3>
+          <h3 className="font-heading text-lg font-semibold">
+            Payment Details
+          </h3>
           <div className="flex items-center text-green-600">
             <FontAwesomeIcon icon="shield-alt" className="mr-2" />
             <span className="text-sm font-medium">Secure Payment</span>
@@ -126,7 +208,9 @@ const YocoPaymentInner = ({
         <div className="space-y-3 text-sm mb-6">
           <div className="flex justify-between">
             <span className="text-neutral">Amount to Pay:</span>
-            <span className="font-semibold text-lg">R{amount.toLocaleString()}</span>
+            <span className="font-semibold text-lg">
+              R{amount.toLocaleString()}
+            </span>
           </div>
           <div className="flex justify-between">
             <span className="text-neutral">Payment Method:</span>
@@ -140,31 +224,53 @@ const YocoPaymentInner = ({
 
         <div className="pt-4 border-t border-gray-100 mb-6">
           <div className="flex flex-wrap gap-2 items-center">
-            <FontAwesomeIcon icon={['fab', 'cc-visa']} className="text-xl text-blue-700" />
-            <FontAwesomeIcon icon={['fab', 'cc-mastercard']} className="text-xl text-red-600" />
-            <FontAwesomeIcon icon={['fab', 'cc-amex']} className="text-xl text-blue-500" />
-            <span className="text-xs text-neutral-light">Secure payments powered by Yoco</span>
+            <FontAwesomeIcon
+              icon={["fab", "cc-visa"]}
+              className="text-xl text-blue-700"
+            />
+            <FontAwesomeIcon
+              icon={["fab", "cc-mastercard"]}
+              className="text-xl text-red-600"
+            />
+            <FontAwesomeIcon
+              icon={["fab", "cc-amex"]}
+              className="text-xl text-blue-500"
+            />
+            <span className="text-xs text-neutral-light">
+              Secure payments powered by Yoco
+            </span>
           </div>
         </div>
-        
+
         {!isYocoReady && (
           <div className="text-center py-4">
-            <FontAwesomeIcon icon="spinner" className="animate-spin text-2xl text-primary mb-2" />
-            <p className="text-sm text-neutral">Loading secure payment system...</p>
+            <FontAwesomeIcon
+              icon="spinner"
+              className="animate-spin text-2xl text-primary mb-2"
+            />
+            <p className="text-sm text-neutral">
+              Loading secure payment system...
+            </p>
           </div>
         )}
-        
+
         {isYocoReady && (
           <div className="text-center py-8">
             <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
-              <FontAwesomeIcon icon="shield-check" className="text-green-600 text-xl mb-2" />
-              <h4 className="font-semibold text-green-800 mb-2">Secure Payment System</h4>
+              <FontAwesomeIcon
+                icon="shield-check"
+                className="text-green-600 text-xl mb-2"
+              />
+              <h4 className="font-semibold text-green-800 mb-2">
+                Secure Payment System
+              </h4>
               <p className="text-sm text-green-700 leading-relaxed">
-                Your payment will be processed securely through Yoco's encrypted payment system. 
-                Use Yoco test card: 4000 0566 5566 5556 for testing - no real charges will be made.
+                Your payment will be processed securely through Yoco's encrypted
+                payment system. Use Yoco test card: 4000 0566 5566 5556 for
+                testing - no real charges will be made.
               </p>
             </div>
-            
+
             <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-green-700">
                 <FontAwesomeIcon icon="check-circle" className="mr-2" />
@@ -201,21 +307,21 @@ const YocoPaymentInner = ({
 
       <div className="text-xs text-neutral-light text-center">
         <FontAwesomeIcon icon="lock" className="mr-1" />
-        Your payment information is encrypted and secure. 
-        Powered by Yoco - South Africa's trusted payment provider.
+        Your payment information is encrypted and secure. Powered by Yoco -
+        South Africa's trusted payment provider.
       </div>
     </div>
   );
 };
 
 // Wrapper component that handles checkout creation
-const YocoPayment = ({ 
-  amount, 
-  customerInfo, 
-  cartItems, 
-  onSuccess, 
-  onError, 
-  disabled = false 
+const YocoPayment = ({
+  amount,
+  customerInfo,
+  cartItems,
+  onSuccess,
+  onError,
+  disabled = false,
 }: YocoPaymentProps) => {
   const [checkoutId, setCheckoutId] = useState<string | null>(null);
   const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
@@ -225,40 +331,45 @@ const YocoPayment = ({
   useEffect(() => {
     const createCheckoutSession = async () => {
       if (checkoutId || isCreatingCheckout) return; // Already created or in progress
-      
+
       setIsCreatingCheckout(true);
       setCheckoutError(null);
-      
+
       try {
-        console.log('Creating checkout session for amount:', Math.round(amount * 100), 'cents');
-        const response = await apiRequest('POST', '/api/payments/create', {
+        console.log(
+          "Creating checkout session for amount:",
+          Math.round(amount * 100),
+          "cents",
+        );
+        const response = await apiRequest("POST", "/api/payments/create", {
           amountInCents: Math.round(amount * 100),
-          currency: 'ZAR',
+          currency: "ZAR",
           customerInfo,
           metadata: {
             itemCount: cartItems.length,
-            items: cartItems.map(item => ({
+            items: cartItems.map((item) => ({
               name: item.product.name,
               quantity: item.quantity,
               price: item.product.price,
-              customizations: item.customizations
-            }))
-          }
+              customizations: item.customizations,
+            })),
+          },
         });
-        
+
         const checkout = await response.json();
-        console.log('Checkout session created successfully:', checkout.id);
+        console.log("Checkout session created successfully:", checkout.id);
         setCheckoutId(checkout.id);
       } catch (error) {
-        console.error('Failed to create checkout session:', error);
-        const errorMessage = 'Failed to initialize payment system. Please try again.';
+        console.error("Failed to create checkout session:", error);
+        const errorMessage =
+          "Failed to initialize payment system. Please try again.";
         setCheckoutError(errorMessage);
         onError(errorMessage);
       } finally {
         setIsCreatingCheckout(false);
       }
     };
-    
+
     createCheckoutSession();
     // Only create checkout session once - removing dynamic dependencies that cause re-creation
   }, []);
@@ -268,8 +379,13 @@ const YocoPayment = ({
       <div className="space-y-6">
         <div className="bg-white rounded-lg border border-gray-200 p-6">
           <div className="text-center py-8">
-            <FontAwesomeIcon icon="spinner" className="animate-spin text-2xl text-primary mb-2" />
-            <p className="text-sm text-neutral">Initializing secure payment...</p>
+            <FontAwesomeIcon
+              icon="spinner"
+              className="animate-spin text-2xl text-primary mb-2"
+            />
+            <p className="text-sm text-neutral">
+              Initializing secure payment...
+            </p>
           </div>
         </div>
       </div>
@@ -281,10 +397,13 @@ const YocoPayment = ({
       <div className="space-y-6">
         <div className="bg-white rounded-lg border border-gray-200 p-6">
           <div className="text-center py-8">
-            <FontAwesomeIcon icon="exclamation-triangle" className="text-red-500 text-2xl mb-2" />
+            <FontAwesomeIcon
+              icon="exclamation-triangle"
+              className="text-red-500 text-2xl mb-2"
+            />
             <p className="text-sm text-red-600">{checkoutError}</p>
-            <Button 
-              onClick={() => window.location.reload()} 
+            <Button
+              onClick={() => window.location.reload()}
               className="mt-4"
               data-testid="button-retry"
             >
@@ -301,7 +420,10 @@ const YocoPayment = ({
       <div className="space-y-6">
         <div className="bg-white rounded-lg border border-gray-200 p-6">
           <div className="text-center py-8">
-            <FontAwesomeIcon icon="spinner" className="animate-spin text-2xl text-primary mb-2" />
+            <FontAwesomeIcon
+              icon="spinner"
+              className="animate-spin text-2xl text-primary mb-2"
+            />
             <p className="text-sm text-neutral">Loading payment system...</p>
           </div>
         </div>

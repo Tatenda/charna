@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <footer className="bg-white text-gray-800 pt-16 pb-8 relative overflow-hidden border-t border-gray-200">
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div>
             <img 

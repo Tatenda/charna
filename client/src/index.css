@@ -122,6 +122,23 @@
     background: linear-gradient(to bottom, #ffffff 0%, #f8fffe 100%);
   }
 
+  /* Ensure Yoco payment modals appear above all content */
+  .yoco-popup-container,
+  .yoco-popup,
+  .yoco-iframe-container,
+  iframe[src*="yoco.com"],
+  iframe[src*="checkout"],
+  div[role="dialog"]:has(iframe[src*="yoco"]) {
+    z-index: 999999 !important;
+    position: relative !important;
+  }
+  
+  /* Ensure Yoco modal overlays work correctly */
+  .yoco-modal-overlay {
+    z-index: 999998 !important;
+    position: fixed !important;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading text-primary;
   }
