@@ -379,7 +379,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             : process.env.YOCO_TEST_SECRET_KEY;
 
           const paymentResponse = await fetch(
-            `https://api.yoco.com/v1/payments/${orderData.paymentId}`,
+            `https://api.yoco.com/v1/charges/${orderData.paymentId}`,
             {
               headers: {
                 Authorization: `Bearer ${secretKey}`,
