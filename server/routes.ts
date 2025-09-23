@@ -194,7 +194,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       console.log(`Using ${keyType} secret key for verification`);
 
-      const verifyUrl = `https://api.yoco.com/v1/charges/${id}`;
+      const verifyUrl = `https://api.yoco.com/v1/payments/${id}`;
       console.log("Verification URL:", verifyUrl);
 
       const response = await fetch(verifyUrl, {
@@ -379,7 +379,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             : process.env.YOCO_TEST_SECRET_KEY;
 
           const paymentResponse = await fetch(
-            `https://api.yoco.com/v1/charges/${orderData.paymentId}`,
+            `https://api.yoco.com/v1/payments/${orderData.paymentId}`,
             {
               headers: {
                 Authorization: `Bearer ${secretKey}`,
