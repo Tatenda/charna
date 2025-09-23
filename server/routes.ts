@@ -219,10 +219,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       console.log('Sending charge to Yoco API:', chargeData);
 
+      // Use appropriate secret key based on environment
+      const isProduction = process.env.NODE_ENV === 'production';
+      const secretKey = isProduction ? process.env.YOCO_LIVE_SECRET_KEY : process.env.YOCO_TEST_SECRET_KEY;
+      
       const response = await fetch('https://api.yoco.com/v1/charges', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`,
+          'Authorization': `Bearer ${secretKey}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(chargeData)
@@ -276,9 +280,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
           // In production, this would be verified against the real Yoco API
         } else {
           // For real payments, verify against Yoco API
+          // Use appropriate secret key based on environment
+          const isProduction = process.env.NODE_ENV === 'production';
+          const secretKey = isProduction ? process.env.YOCO_LIVE_SECRET_KEY : process.env.YOCO_TEST_SECRET_KEY;
+          
           const paymentResponse = await fetch(`https://api.yoco.com/v1/charges/${orderData.paymentId}`, {
             headers: {
-              'Authorization': `Bearer ${process.env.YOCO_TEST_SECRET_KEY}`
+              'Authorization': `Bearer ${secretKey}`
             }
           });
           
