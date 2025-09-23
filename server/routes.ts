@@ -139,22 +139,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/payments/:id", async (req, res) => {
     try {
       const { id } = req.params;
+      console.log('=== PAYMENT VERIFICATION REQUEST ===');
+      console.log('Payment ID to verify:', id);
+      console.log('ID type:', id.startsWith('ch_') ? 'CHECKOUT_SESSION' : id.startsWith('py_') ? 'CHARGE' : 'UNKNOWN');
       
       // Use appropriate secret key based on environment
       const isProduction = process.env.NODE_ENV === 'production';
       const secretKey = isProduction ? process.env.YOCO_LIVE_SECRET_KEY : process.env.YOCO_TEST_SECRET_KEY;
+      const keyType = isProduction ? 'live' : 'test';
       
-      const response = await fetch(`https://api.yoco.com/v1/charges/${id}`, {
+      console.log(`Using ${keyType} secret key for verification`);
+      
+      const verifyUrl = `https://api.yoco.com/v1/charges/${id}`;
+      console.log('Verification URL:', verifyUrl);
+      
+      const response = await fetch(verifyUrl, {
         headers: {
           'Authorization': `Bearer ${secretKey}`
         }
       });
 
+      console.log('Yoco verification response status:', response.status);
+      console.log('Yoco verification response ok:', response.ok);
+
       if (!response.ok) {
-        return res.status(404).json({ message: 'Payment not found' });
+        const errorText = await response.text();
+        console.log('Yoco verification error response:', errorText);
+        return res.status(404).json({ 
+          message: 'Payment not found',
+          yocoError: errorText,
+          paymentId: id
+        });
       }
 
       const payment = await response.json();
+      console.log('Payment verification successful:', payment);
       res.json(payment);
     } catch (error) {
       console.error('Error verifying payment:', error);
