@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { usePopup } from "@lekkercommerce/yoco-react";
 
 interface YocoPaymentProps {
   amount: number;
@@ -27,169 +26,50 @@ const YocoPaymentInner = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
 
-  // Initialize Yoco SDK with appropriate public key based on environment
-  const isProduction = import.meta.env.PROD;
-  const publicKey = isProduction
-    ? import.meta.env.VITE_YOCO_LIVE_PUBLIC_KEY
-    : import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY;
-  
-  // Debug logging to identify environment variable issues
-  console.log("Environment debug:", {
-    isProduction,
-    viteTestKey: import.meta.env.VITE_YOCO_TEST_PUBLIC_KEY,
-    viteLiveKey: import.meta.env.VITE_YOCO_LIVE_PUBLIC_KEY,
-    publicKeySelected: publicKey,
-    allViteEnvs: Object.keys(import.meta.env).filter(k => k.includes('YOCO'))
-  });
-  
-  // Fallback check for missing environment variables
-  if (!publicKey) {
-    console.error("CRITICAL: No Yoco public key found! Check environment variables.");
-    console.log("Available env keys:", Object.keys(import.meta.env).filter(k => k.includes('YOCO')));
-  }
+  // Get the redirect URL for this checkout
+  const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
+  const [isLoadingRedirect, setIsLoadingRedirect] = useState(false);
 
-  const [showPopup, isYocoReady] = usePopup(publicKey, checkoutId);
-
-  // Log when Yoco SDK is ready
+  // Fetch the checkout details to get the redirect URL
   useEffect(() => {
-    if (isYocoReady && checkoutId) {
-      console.log(
-        "Yoco SDK ready for payment processing with checkout ID:",
-        checkoutId,
-      );
-    }
-  }, [isYocoReady, checkoutId]);
+    if (!checkoutId) return;
 
-  // Small helper to wait for Yoco to populate paymentId on the checkout
-  async function pollCheckoutForPaymentId(
-    checkoutId: string,
-    tries = 6,
-    delayMs = 1200,
-  ): Promise<string | null> {
-    for (let i = 0; i < tries; i++) {
-      const r = await apiRequest("GET", `/api/checkouts/${checkoutId}`);
-      const co = await r.json();
-      if (co?.paymentId) return co.paymentId;
-      await new Promise((res) => setTimeout(res, delayMs));
-    }
-    return null;
-  }
+    const fetchCheckoutDetails = async () => {
+      try {
+        setIsLoadingRedirect(true);
+        const response = await apiRequest(
+          "GET",
+          `/api/checkouts/${checkoutId}`,
+        );
+        const checkout = await response.json();
 
-  const handlePayment = async () => {
-    if (!isYocoReady || !checkoutId) {
-      onError("Payment system not ready. Please wait and try again.");
+        if (checkout?.redirectUrl) {
+          setRedirectUrl(checkout.redirectUrl);
+          console.log("Checkout redirect URL:", checkout.redirectUrl);
+        } else {
+          onError("Failed to get payment URL. Please try again.");
+        }
+      } catch (error) {
+        console.error("Failed to fetch checkout details:", error);
+        onError("Failed to initialize payment. Please try again.");
+      } finally {
+        setIsLoadingRedirect(false);
+      }
+    };
+
+    fetchCheckoutDetails();
+  }, [checkoutId, onError]);
+
+  const handlePayment = () => {
+    if (!redirectUrl) {
+      onError("Payment URL not ready. Please wait and try again.");
       return;
     }
 
     setIsProcessing(true);
 
-    try {
-      // Open the Yoco popup for this checkout session
-      showPopup({
-        callback: async (result: any) => {
-          console.log("Yoco payment result:", result);
-
-          if (result?.error) {
-            onError(
-              result.error.message || "Payment failed. Please try again.",
-            );
-            setIsProcessing(false);
-            return;
-          }
-
-          // Accept common success spellings
-          const ok =
-            result?.status === "succeeded" ||
-            result?.status === "successful" ||
-            result?.status === "completed";
-
-          if (!ok) {
-            if (result?.status === "cancelled") {
-              setIsProcessing(false);
-              return;
-            }
-            onError(`Payment failed (status: ${result?.status || "unknown"}).`);
-            setIsProcessing(false);
-            return;
-          }
-
-          try {
-            // Prefer paymentId from the popup if present
-            let paymentId: string | null = result?.paymentId ?? null;
-
-            // Otherwise resolve from the checkout (with a tiny poll if needed)
-            if (!paymentId && result?.id) {
-              const coResp = await apiRequest(
-                "GET",
-                `/api/checkouts/${result.id}`,
-              );
-              const checkout = await coResp.json();
-              paymentId = checkout?.paymentId ?? null;
-
-              if (!paymentId) {
-                paymentId = await pollCheckoutForPaymentId(result.id);
-              }
-            }
-
-            if (!paymentId) {
-              throw new Error("Missing paymentId from checkout result.");
-            }
-
-            // Verify the actual payment (server also auto-bridges ch_ -> paymentId if needed)
-            console.log("Verifying payment ID:", paymentId);
-            let verifyResp = await apiRequest(
-              "GET",
-              `/api/payments/${paymentId}`,
-            );
-
-            // If the server says the checkout is completed but paymentId not ready yet, it may return 409 — wait & retry once
-            if ((verifyResp as any).status === 409) {
-              console.log("Payment not ready yet, waiting and retrying...");
-              await new Promise((res) => setTimeout(res, 1500));
-              verifyResp = await apiRequest(
-                "GET",
-                `/api/payments/${paymentId}`,
-              );
-              
-              // If still 409 after retry, try polling checkout for paymentId
-              if ((verifyResp as any).status === 409) {
-                console.log("Still not ready, polling checkout for paymentId...");
-                const resolvedPaymentId = await pollCheckoutForPaymentId(result.id);
-                if (resolvedPaymentId && resolvedPaymentId !== paymentId) {
-                  paymentId = resolvedPaymentId;
-                  verifyResp = await apiRequest(
-                    "GET",
-                    `/api/payments/${paymentId}`,
-                  );
-                }
-              }
-            }
-
-            const verifiedPayment = await verifyResp.json();
-            console.log("Payment verified successfully:", verifiedPayment);
-
-            toast({
-              title: "Payment Approved",
-              description: `Ref: ${verifiedPayment?.id ?? paymentId}`,
-            });
-            onSuccess(paymentId);
-          } catch (e) {
-            console.error("Payment verification failed:", e);
-            onError("Payment verification failed. Please contact support.");
-          } finally {
-            setIsProcessing(false);
-          }
-        },
-        onClose: () => {
-          console.log("Payment popup closed");
-          setIsProcessing(false);
-        },
-      } as any);
-    } catch (error: any) {
-      console.error("Payment processing error:", error);
-      onError(error?.message || "Payment processing failed. Please try again.");
-      setIsProcessing(false);
-    }
+    // Redirect to Yoco checkout page
+    window.location.href = redirectUrl;
   };
 
   return (
@@ -242,7 +122,7 @@ const YocoPaymentInner = ({
           </div>
         </div>
 
-        {!isYocoReady && (
+        {isLoadingRedirect && (
           <div className="text-center py-4">
             <FontAwesomeIcon
               icon="spinner"
@@ -254,7 +134,7 @@ const YocoPaymentInner = ({
           </div>
         )}
 
-        {isYocoReady && (
+        {!isLoadingRedirect && redirectUrl && (
           <div className="text-center py-8">
             <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
               <FontAwesomeIcon
@@ -266,15 +146,15 @@ const YocoPaymentInner = ({
               </h4>
               <p className="text-sm text-green-700 leading-relaxed">
                 Your payment will be processed securely through Yoco's encrypted
-                payment system. Use Yoco test card: 4000 0566 5566 5556 for
-                testing - no real charges will be made.
+                payment system. Use test card: 4111 1111 1111 1111 (Exp: 12/25,
+                CVV: 123) for testing - no real charges will be made.
               </p>
             </div>
 
             <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-green-700">
                 <FontAwesomeIcon icon="check-circle" className="mr-2" />
-                PCI Compliant tokenization would happen here
+                You will be redirected to Yoco's secure payment page
               </p>
             </div>
           </div>
@@ -283,16 +163,16 @@ const YocoPaymentInner = ({
 
       <Button
         onClick={handlePayment}
-        disabled={disabled || isProcessing || !isYocoReady}
+        disabled={disabled || isProcessing || isLoadingRedirect || !redirectUrl}
         className="w-full btn-primary text-lg py-6"
         data-testid="button-pay-now"
       >
         {isProcessing ? (
           <>
             <FontAwesomeIcon icon="spinner" className="animate-spin mr-2" />
-            Processing Payment...
+            Redirecting to Payment...
           </>
-        ) : !isYocoReady ? (
+        ) : isLoadingRedirect ? (
           <>
             <FontAwesomeIcon icon="spinner" className="animate-spin mr-2" />
             Loading Payment System...

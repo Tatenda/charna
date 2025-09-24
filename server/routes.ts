@@ -8,6 +8,14 @@ import { EmailService } from "./emailService";
 export async function registerRoutes(app: Express): Promise<Server> {
   // Initialize email service
   const emailService = new EmailService();
+  // In-memory recent checkout IDs for dev dashboard
+  const recentCheckouts: Array<{ id: string; createdAt: string }> = [];
+  const pushRecentCheckout = (id: string) => {
+    if (!id) return;
+    recentCheckouts.unshift({ id, createdAt: new Date().toISOString() });
+    // keep latest 50
+    if (recentCheckouts.length > 50) recentCheckouts.length = 50;
+  };
 
   // API Routes
 
@@ -65,6 +73,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const paymentData = {
         amount: amountInCents, // Yoco expects "amount" not "amountInCents"
         currency: currency,
+        successUrl: `${req.protocol}://${req.get("host")}/checkout/success`,
+        cancelUrl: `${req.protocol}://${req.get("host")}/checkout/cancel`,
+        failureUrl: `${req.protocol}://${req.get("host")}/checkout/failure`,
         metadata: {
           customer_name: `${customerInfo.firstName} ${customerInfo.lastName}`,
           customer_email: customerInfo.email,
@@ -85,10 +96,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log(
         `Using ${keyType} secret key:`,
         secretKey ? "Present" : "Missing",
-      );
-      console.log(
-        `${keyType} secret key masked:`,
-        secretKey ? `sk_${keyType}_****` + secretKey.slice(-4) : "N/A",
       );
 
       // Use the correct Yoco API endpoint for payment creation
@@ -150,6 +157,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log("=== YOCO CHECKOUT SUCCESS ===");
         console.log("Checkout ID:", checkout.id);
         console.log("Full checkout object:", JSON.stringify(checkout, null, 2));
+        // Track checkout id for dev Test Payments dashboard
+        if (checkout?.id) {
+          pushRecentCheckout(checkout.id);
+        }
       } catch (parseError) {
         console.error("Failed to parse Yoco success response:", parseError);
         return res.status(500).json({
@@ -501,6 +512,76 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (e) {
       console.error("Failed to fetch checkout:", e);
       res.status(500).json({ message: "Failed to fetch checkout" });
+    }
+  });
+
+  // Dev/Test: List recent checkouts and resolve to full objects
+  app.get("/api/test-payments/checkouts", async (req, res) => {
+    try {
+      const isProduction = process.env.NODE_ENV === "production";
+      const secretKey = isProduction
+        ? process.env.YOCO_LIVE_SECRET_KEY
+        : process.env.YOCO_TEST_SECRET_KEY;
+      if (!secretKey) {
+        return res
+          .status(500)
+          .json({ message: "Yoco secret key not configured" });
+      }
+
+      const ids = Array.from(new Set(recentCheckouts.map((c) => c.id)));
+      const checkouts = (
+        await Promise.all(
+          ids.map(async (id) => {
+            try {
+              const r = await fetch(
+                `https://payments.yoco.com/api/checkouts/${id}`,
+                { headers: { Authorization: `Bearer ${secretKey}` } },
+              );
+              const body = await r.json();
+              if (!r.ok) return null;
+              return body;
+            } catch (e) {
+              return null;
+            }
+          }),
+        )
+      ).filter(Boolean);
+
+      res.json({ checkouts });
+    } catch (e) {
+      console.error("Failed to fetch test checkouts:", e);
+      res.status(500).json({ message: "Failed to fetch test checkouts" });
+    }
+  });
+
+  // Dev/Test: Fetch payment details by paymentId via Payments API
+  app.get("/api/test-payments/payments/:paymentId", async (req, res) => {
+    try {
+      const { paymentId } = req.params;
+      const isProduction = process.env.NODE_ENV === "production";
+      const secretKey = isProduction
+        ? process.env.YOCO_LIVE_SECRET_KEY
+        : process.env.YOCO_TEST_SECRET_KEY;
+      if (!secretKey) {
+        return res
+          .status(500)
+          .json({ message: "Yoco secret key not configured" });
+      }
+
+      const yocoResponse = await fetch(
+        `https://api.yoco.com/v1/payments/${paymentId}`,
+        { headers: { Authorization: `Bearer ${secretKey}` } },
+      );
+      const data = await yocoResponse.json();
+      if (!yocoResponse.ok) {
+        return res
+          .status(yocoResponse.status)
+          .json({ message: "Failed to fetch payment", error: data });
+      }
+      res.json({ payment: data });
+    } catch (e) {
+      console.error("Failed to fetch payment:", e);
+      res.status(500).json({ message: "Failed to fetch payment" });
     }
   });
 

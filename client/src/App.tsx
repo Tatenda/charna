@@ -7,6 +7,10 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
+import CheckoutSuccess from "@/pages/CheckoutSuccess";
+import CheckoutCancel from "@/pages/CheckoutCancel";
+import CheckoutFailure from "@/pages/CheckoutFailure";
+import TestPayments from "@/pages/TestPayments";
 import Story from "@/pages/Story";
 import Contact from "@/pages/Contact";
 import ShippingReturns from "@/pages/ShippingReturns";
@@ -26,6 +30,10 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/cart" component={Cart} />
       <Route path="/checkout" component={Checkout} />
+      <Route path="/checkout/success" component={CheckoutSuccess} />
+      <Route path="/checkout/cancel" component={CheckoutCancel} />
+      <Route path="/checkout/failure" component={CheckoutFailure} />
+      <Route path="/test-payments" component={TestPayments} />
       <Route path="/story" component={Story} />
       <Route path="/contact" component={Contact} />
       <Route path="/shipping-returns" component={ShippingReturns} />
