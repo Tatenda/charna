@@ -248,7 +248,7 @@ export class MemStorage implements IStorage {
       name: "Charna Groovy Leisure Tote",
       description: "A totally chill leisure bag perfect for casual outings. Features 70's retro styling with South African craftsmanship for the laid-back lifestyle.",
       longDescription: "The Charna Groovy Leisure Tote is all about that relaxed 70's vibe. Perfect for farmers markets, beach trips, or just hanging out with friends, this bag brings together retro cool and practical functionality.",
-      price: 2599,
+      price: 99900,
       originalPrice: 2999,
       rating: 46,
       reviewCount: 27,

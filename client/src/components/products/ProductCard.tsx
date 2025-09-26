@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Product } from "@shared/schema";
 import { getImagePath } from "@/lib/imageUtils";
+import { formatPrice } from "@/lib/utils";
 
 interface ProductCardProps {
   product: Product;
@@ -52,10 +53,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <p className="text-sm text-neutral mb-4 line-clamp-2">{product.description}</p>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-lg font-semibold text-primary">R{product.price.toLocaleString()}</span>
+              <span className="text-lg font-semibold text-primary">R{formatPrice(product.price)}</span>
               {product.originalPrice && (
                 <span className="ml-2 text-sm text-neutral-light line-through">
-                  R{product.originalPrice.toLocaleString()}
+                  R{formatPrice(product.originalPrice)}
                 </span>
               )}
             </div>

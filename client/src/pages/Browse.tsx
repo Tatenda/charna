@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import Seo from "@/components/layout/Seo";
+import { formatPrice } from "@/lib/utils";
 import johannesburgSkyline from "@assets/ChatGPT Image Sep 18, 2025, 10_43_30 PM_1758254550927.png";
 import welcomeTag from "@assets/Welcome message - Christopher_1758261765918.png";
 import navyTennisBag from "@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1757403283994.png";
@@ -100,10 +101,10 @@ const collageProducts = [
   },
   {
     id: 7,
-    name: "Retro Navy Backpack",
-    price: 2399,
+    name: "Charna Groovy Leisure Tote",
+    price: 99900,
     image: navyModernBackpack,
-    category: "business"
+    category: "leisure"
   },
   {
     id: 8,
@@ -464,7 +465,7 @@ const categoryMapping: Record<string, string> = {
 
 export default function Browse() {
   const [location, setLocation] = useLocation();
-  const [priceRange, setPriceRange] = useState([0, 6000]);
+  const [priceRange, setPriceRange] = useState([0, 600000]); // Price range in cents
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   // State that tracks current category from URL
@@ -664,7 +665,7 @@ export default function Browse() {
             
             <div>
               <span className="text-gray-900 font-semibold text-xs sm:text-sm">
-                R{product.price}
+                R{formatPrice(product.price)}
               </span>
             </div>
           </div>
@@ -729,7 +730,7 @@ export default function Browse() {
           
           <div>
             <span className="text-gray-900 font-semibold text-xs sm:text-sm">
-              R{product.price}
+              R{formatPrice(product.price)}
             </span>
           </div>
         </div>
@@ -1287,7 +1288,7 @@ export default function Browse() {
                 <span className="text-gray-700">
                   {selectedProduct?.isPackage ? 'Package Price:' : 'Product Price:'}
                 </span>
-                <span className="text-gray-900">R{selectedProduct?.price?.toLocaleString()}</span>
+                <span className="text-gray-900">R{selectedProduct?.price ? formatPrice(selectedProduct.price) : '0.00'}</span>
               </div>
               {includeEmbossing && (
                 <div className="flex justify-between text-sm text-gray-600">
@@ -1298,7 +1299,7 @@ export default function Browse() {
               <div className="flex justify-between text-lg font-bold mt-2 border-t pt-2">
                 <span className="text-gray-900">Total:</span>
                 <span className="text-gray-900">
-                  R{((selectedProduct?.price || 0) + (includeEmbossing ? 80 : 0)).toLocaleString()}
+                  R{formatPrice((selectedProduct?.price || 0) + (includeEmbossing ? 8000 : 0))}
                 </span>
               </div>
             </div>
