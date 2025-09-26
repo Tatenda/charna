@@ -45,7 +45,6 @@ const YocoPaymentInner = ({
 
         if (checkout?.redirectUrl) {
           setRedirectUrl(checkout.redirectUrl);
-          console.log("Checkout redirect URL:", checkout.redirectUrl);
         } else {
           onError("Failed to get payment URL. Please try again.");
         }
@@ -216,11 +215,6 @@ const YocoPayment = ({
       setCheckoutError(null);
 
       try {
-        console.log(
-          "Creating checkout session for amount:",
-          Math.round(amount * 100),
-          "cents",
-        );
         const response = await apiRequest("POST", "/api/payments/create", {
           amountInCents: Math.round(amount * 100),
           currency: "ZAR",
@@ -237,8 +231,8 @@ const YocoPayment = ({
         });
 
         const checkout = await response.json();
-        console.log("Checkout session created successfully:", checkout.id);
         setCheckoutId(checkout.id);
+        localStorage.setItem('lastCheckoutId', checkout.id);
       } catch (error) {
         console.error("Failed to create checkout session:", error);
         const errorMessage =

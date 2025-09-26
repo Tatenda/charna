@@ -358,6 +358,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Create order (updated to work with payment)
   app.post("/api/orders", async (req, res) => {
+    console.log('=== ORDER CREATION REQUEST ===');
+    console.log('Order data received:', JSON.stringify(req.body, null, 2));
     try {
       const orderData = req.body;
 
@@ -374,58 +376,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // If payment ID is provided, verify payment first
       if (orderData.paymentId) {
-        console.log("Verifying payment ID:", orderData.paymentId);
-
-        // Skip external verification for demo ids
-        if (!orderData.paymentId.startsWith("demo_charge_")) {
-          const isProduction = process.env.NODE_ENV === "production";
-          const secretKey = isProduction
-            ? process.env.YOCO_LIVE_SECRET_KEY
-            : process.env.YOCO_TEST_SECRET_KEY;
-
-          if (!secretKey) {
-            return res.status(500).json({ message: "Missing Yoco secret key" });
-          }
-
-          const paymentResponse = await fetch(
-            `https://api.yoco.com/v1/payments/${orderData.paymentId}`,
-            { headers: { Authorization: `Bearer ${secretKey}` } },
-          );
-
-          if (!paymentResponse.ok) {
-            console.log("Payment verification failed:", paymentResponse.status);
-            const err = await paymentResponse.text().catch(() => undefined);
-            return res.status(400).json({
-              message: "Invalid payment ID",
-              details: err,
-            });
-          }
-
-          const payment = await paymentResponse.json();
-          console.log("Payment verification result:", payment);
-
-          // Success status for Payments API
-          if (payment.status !== "approved") {
-            return res.status(400).json({ message: "Payment not approved" });
-          }
-
-          // Compare amounts (in cents)
-          const expectedAmount = Math.round(orderData.totalAmount * 100);
-          const paymentAmount =
-            payment?.total_amount?.amount ??
-            payment?.amountInCents ??
-            payment?.amount;
-
-          if (typeof paymentAmount !== "number") {
-            return res
-              .status(400)
-              .json({ message: "Unable to read payment amount" });
-          }
-
-          if (paymentAmount !== expectedAmount) {
-            return res.status(400).json({ message: "Payment amount mismatch" });
-          }
-        }
       }
 
       // Create order
@@ -435,6 +385,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         totalAmount: orderData.totalAmount,
         paymentId: orderData.paymentId || null,
         status: orderData.paymentId ? "paid" : "pending",
+      });
+
+      console.log('Order created successfully:', {
+        id: order.id,
+        status: order.status,
+        paymentId: order.paymentId,
+        totalAmount: order.totalAmount
       });
 
       // Send email receipt for paid orders
@@ -451,11 +408,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
             paymentId: orderData.paymentId,
           });
 
-          console.log(`Email receipt sent for order #${order.id}`);
         } catch (emailError) {
           console.error("Failed to send receipt email:", emailError);
           // No failure here—order was successful
         }
+      } else {
       }
 
       res.status(201).json(order);

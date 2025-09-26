@@ -307,6 +307,36 @@ export class MemStorage implements IStorage {
       featured: true,
       createdAt: new Date("2025-07-22T00:00:00Z")
     });
+
+    // Test Bag - For testing purposes
+    this.products.set(9, {
+      id: 9,
+      name: "Test Bag",
+      description: "A simple test bag for testing the payment and email functionality. Perfect for development and testing purposes.",
+      longDescription: "This is a test product designed specifically for testing the payment flow and email sending functionality. It's a simple bag that costs only R1 to make testing quick and easy.",
+      price: 1, // R1 in cents
+      originalPrice: null,
+      rating: 50, // 5.0
+      reviewCount: 0,
+      inStock: true,
+      badge: "Test",
+      category: "business",
+      colors: ["black"],
+      features: [
+        "Test product",
+        "Minimal cost",
+        "Quick testing",
+        "Email verification"
+      ],
+      images: [
+        "/images/test-bag.jpg"
+      ],
+      materials: "Test materials for development purposes.",
+      dimensions: "Test dimensions - 10cm x 10cm x 10cm.",
+      careInstructions: "No special care required for test product.",
+      featured: true,
+      createdAt: new Date()
+    });
   }
 
   // Product Methods

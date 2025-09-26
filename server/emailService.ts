@@ -59,7 +59,6 @@ export class EmailService {
       };
 
       await this.transporter.sendMail(mailOptions);
-      console.log(`Receipt email sent successfully to ${orderData.customerInfo.email}`);
       return true;
     } catch (error) {
       console.error('Failed to send receipt email:', error);

@@ -35,7 +35,6 @@ const formSchema = z.object({
   postalCode: z.string().min(4, { message: "Postal code is required" }),
   notes: z.string().optional(),
   sameAsBilling: z.boolean().default(true),
-  createAccount: z.boolean().default(false),
   acceptTerms: z.boolean().refine(val => val === true, {
     message: "You must accept the terms and conditions"
   }),
@@ -71,15 +70,27 @@ const Checkout = () => {
       postalCode: "",
       notes: "",
       sameAsBilling: true,
-      createAccount: false,
       acceptTerms: false,
     },
   });
+
+  // Debug form state changes
+  useEffect(() => {
+    const subscription = form.watch((value, { name, type }) => {
+      if (name === 'acceptTerms') {
+        console.log('Form state changed - acceptTerms:', value.acceptTerms);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   const shippingCost = cartTotal >= 1000 ? 0 : 150;
   const totalAmount = cartTotal + shippingCost;
 
   const onSubmit = async (values: CheckoutFormValues) => {
+    console.log('Form submitted with values:', values);
+    console.log('acceptTerms value:', values.acceptTerms);
+    
     if (!values.acceptTerms) {
       toast({
         title: "Terms Required",
@@ -91,6 +102,8 @@ const Checkout = () => {
 
     // Store customer info and proceed to payment
     setCustomerInfo(values);
+    
+    localStorage.setItem('checkoutCustomerInfo', JSON.stringify(values));
     setShowPayment(true);
   };
 
@@ -330,31 +343,18 @@ const Checkout = () => {
                     
                     <FormField
                       control={form.control}
-                      name="createAccount"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                          <FormControl>
-                            <Checkbox 
-                              checked={field.value} 
-                              onCheckedChange={field.onChange} 
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel>Create an account for future purchases</FormLabel>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
                       name="acceptTerms"
                       render={({ field }) => (
                         <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                           <FormControl>
                             <Checkbox 
-                              checked={field.value} 
-                              onCheckedChange={field.onChange} 
+                              checked={!!field.value} 
+                              onCheckedChange={(checked) => {
+                                console.log('Terms checkbox clicked, new value:', checked);
+                                console.log('Current field.value before change:', field.value);
+                                field.onChange(!!checked);
+                                console.log('Field onChange called with:', !!checked);
+                              }} 
                             />
                           </FormControl>
                           <div className="space-y-1 leading-none">

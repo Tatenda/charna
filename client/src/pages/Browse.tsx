@@ -92,6 +92,13 @@ const collageProducts = [
     category: "travel"
   },
   {
+    id: 9,
+    name: "Test Bag",
+    price: 1,
+    image: navyRoseGoldBackpack,
+    category: "business"
+  },
+  {
     id: 3,
     name: "Timeless White Backpack",
     price: 1899,
@@ -841,29 +848,6 @@ export default function Browse() {
     setShowCustomizationModal(true);
     return;
 
-    // Convert collage product to proper Product schema format (this code now unreachable)
-    const fullProduct: Product = {
-      id: product.id,
-      name: product.name,
-      description: product.description || `Premium handcrafted ${product.category} bag from Johannesburg`,
-      longDescription: `Meticulously crafted in our Johannesburg workshop, this ${product.name.toLowerCase()} represents the perfect blend of South African craftsmanship and modern design.`,
-      price: product.price,
-      originalPrice: null,
-      rating: 5,
-      reviewCount: 12,
-      inStock: true,
-      badge: "Signature",
-      category: product.category,
-      colors: ["natural", "cognac"],
-      features: ["Premium leather", "Handcrafted", "Made in Johannesburg"],
-      images: product.images ?? [product.image], // Use images array if available, fallback to single image
-      materials: "Premium Italian leather",
-      dimensions: "40cm x 30cm x 15cm",
-      careInstructions: "Clean with leather conditioner, avoid water",
-      featured: true,
-      createdAt: new Date()
-    };
-    addToCart(fullProduct, 1);
   };
 
   // Handle customized package add to cart

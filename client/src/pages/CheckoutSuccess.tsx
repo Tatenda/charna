@@ -3,21 +3,134 @@ import { useLocation } from "wouter";
 import Seo from "@/components/layout/Seo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/hooks/useCart";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 export default function CheckoutSuccess() {
   const [, setLocation] = useLocation();
   const [paymentDetails, setPaymentDetails] = useState<any>(null);
+  const [orderCreated, setOrderCreated] = useState(false);
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const [hasAttemptedOrderCreation, setHasAttemptedOrderCreation] = useState(false);
+  const { cart, cartTotal, clearCart } = useCart();
+  const { toast } = useToast();
 
   useEffect(() => {
+    
     // Get payment details from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const checkoutId = urlParams.get("checkoutId");
     const paymentId = urlParams.get("paymentId");
 
+
     if (checkoutId || paymentId) {
       setPaymentDetails({ checkoutId, paymentId });
+      
+      // Create order if we have payment details and cart items
+      if (paymentId && cart.length > 0 && !orderCreated && !isCreatingOrder && !hasAttemptedOrderCreation) {
+        setHasAttemptedOrderCreation(true);
+        createOrderFromSuccess(paymentId);
+      } else {
+      }
+    } else {
+      
+      // Fallback: If we have cart items but no payment ID, try to get checkout ID from localStorage
+      if (cart.length > 0) {
+        const storedCheckoutId = localStorage.getItem('lastCheckoutId');
+        
+        if (storedCheckoutId && !hasAttemptedOrderCreation) {
+          setHasAttemptedOrderCreation(true);
+          verifyPaymentFromCheckoutId(storedCheckoutId);
+        } else {
+        }
+      }
     }
-  }, []);
+  }, [cart, orderCreated, isCreatingOrder]);
+
+  const verifyPaymentFromCheckoutId = async (checkoutId: string) => {
+    
+    try {
+      // First, check the checkout status to see if it has a paymentId
+      const checkoutResponse = await apiRequest("GET", `/api/checkouts/${checkoutId}`);
+      const checkout = await checkoutResponse.json();
+      
+      
+      if (checkout && checkout.paymentId) {
+        
+        // Skip verification and create order directly with the paymentId
+        await createOrderFromSuccess(checkout.paymentId);
+      } else {
+        
+      }
+    } catch (error) {
+    }
+    
+  };
+
+  const createOrderFromSuccess = async (paymentId: string) => {
+    setIsCreatingOrder(true);
+    
+    try {
+      // Get customer info from localStorage (stored during checkout)
+      const storedCustomerInfo = localStorage.getItem('checkoutCustomerInfo');
+      
+      if (!storedCustomerInfo) {
+        toast({
+          title: "Order Creation Failed",
+          description: "Customer information not found. Please contact support.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      const customerInfo = JSON.parse(storedCustomerInfo);
+      const shippingCost = cartTotal >= 1000 ? 0 : 150;
+      const totalAmount = cartTotal + shippingCost;
+
+
+      const orderData = {
+        customerInfo,
+        items: cart.map(item => ({
+          productId: item.product.id,
+          productName: item.product.name,
+          quantity: item.quantity,
+          price: item.product.price,
+          customizations: item.customizations
+        })),
+        totalAmount: totalAmount,
+        paymentId: paymentId
+      };
+
+
+      // Create order with payment ID
+      const response = await apiRequest("POST", "/api/orders", orderData);
+      
+      const order = await response.json();
+      
+      setOrderCreated(true);
+      
+      // Clear cart and stored customer info
+      clearCart();
+      localStorage.removeItem('checkoutCustomerInfo');
+      
+      
+      toast({
+        title: "Order Completed Successfully!",
+        description: `Your order #${order.id} has been confirmed and paid.`,
+      });
+      
+    } catch (error) {
+      toast({
+        title: "Order Creation Failed",
+        description: "Payment successful but order creation failed. Please contact support.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsCreatingOrder(false);
+    }
+  };
 
   return (
     <div className="bg-secondary-light min-h-screen">
