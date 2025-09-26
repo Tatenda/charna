@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Product } from "@shared/schema";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
-import { formatPrice } from "@/lib/utils";
 
 interface ProductDetailsProps {
   product: Product;
@@ -27,12 +26,12 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
     addToCart(product, quantity, customizations);
     
-    const totalPrice = product.price + (hasEmbossing ? embossingPrice * 100 : 0); // Convert embossing to cents
+    const totalPrice = product.price + (hasEmbossing ? embossingPrice : 0);
     const embossingNote = hasEmbossing ? ` with embossing "${embossingText.trim()}"` : '';
     
     toast({
       title: "Added to Cart",
-      description: `${quantity} × ${product.name}${embossingNote} added to your cart. (R${formatPrice(totalPrice)})`,
+      description: `${quantity} × ${product.name}${embossingNote} added to your cart. (R${totalPrice.toLocaleString()})`,
     });
   };
 
@@ -84,16 +83,16 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         <div className="flex items-center justify-between">
           <div>
             <span className="text-2xl font-semibold text-primary">
-              R{formatPrice(product.price + (hasEmbossing ? embossingPrice * 100 : 0))}
+              R{(product.price + (hasEmbossing ? embossingPrice : 0)).toLocaleString()}
             </span>
             {hasEmbossing && (
               <span className="block text-sm text-neutral-light mt-1">
-                Base price: R{formatPrice(product.price)} + Embossing: R{embossingPrice}.00
+                Base price: R{product.price.toLocaleString()} + Embossing: R{embossingPrice}
               </span>
             )}
             {product.originalPrice && (
               <span className="ml-2 text-neutral-light line-through">
-                R{formatPrice(product.originalPrice)}
+                R{product.originalPrice.toLocaleString()}
               </span>
             )}
           </div>
