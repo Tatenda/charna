@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "client/dist/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/**/*.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/dist/$1"
+    }
+  ],
+  "env": {
+    "GMAIL_USER": "@gmail_user",
+    "GMAIL_APP_PASSWORD": "@gmail_app_password",
+    "YOCO_SECRET_KEY": "@yoco_secret_key"
+  }
+}
