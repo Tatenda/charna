@@ -1,28 +1,11 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "client/dist/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "api/**/*.ts",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/dist/$1"
-    }
-  ],
-  "env": {
-    "GMAIL_USER": "@gmail_user",
-    "GMAIL_APP_PASSWORD": "@gmail_app_password",
-    "YOCO_SECRET_KEY": "@yoco_secret_key"
-  }
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "client/dist",
+  "functions": {
+    "api/**/*.ts": { "runtime": "nodejs20.x" }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
