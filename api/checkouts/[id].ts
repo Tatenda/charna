@@ -1,6 +1,11 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  console.log('=== CHECKOUT API FUNCTION CALLED ===');
+  console.log('Method:', req.method);
+  console.log('URL:', req.url);
+  console.log('Query:', req.query);
+  
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -22,29 +27,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ message: 'Checkout ID is required' });
     }
 
-    // Fetch checkout details from Yoco
-    const response = await fetch(
-      `https://payments.yoco.com/api/checkouts/${id}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.YOCO_SECRET_KEY}`,
-        },
-      }
-    );
+    // Temporary test response to verify function is working
+    console.log('Function is working, checkout ID:', id);
+    return res.status(200).json({ 
+      message: 'Function is working', 
+      checkoutId: id,
+      timestamp: new Date().toISOString()
+    });
 
-    if (!response.ok) {
-      const errorData = await response.text();
-      console.error('Yoco API error:', errorData);
-      return res.status(response.status).json({
-        message: 'Failed to fetch checkout details',
-        error: errorData,
-      });
-    }
-
-    const checkoutData = await response.json();
-    return res.status(200).json(checkoutData);
   } catch (error) {
     console.error('Error fetching checkout:', error);
     return res.status(500).json({
