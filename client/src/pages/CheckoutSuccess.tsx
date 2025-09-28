@@ -18,11 +18,17 @@ export default function CheckoutSuccess() {
   const { toast } = useToast();
 
   useEffect(() => {
+    console.log('=== CHECKOUT SUCCESS PAGE LOADED ===');
+    console.log('Current cart:', cart);
+    console.log('Order created:', orderCreated);
+    console.log('Is creating order:', isCreatingOrder);
     
     // Get payment details from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const checkoutId = urlParams.get("checkoutId");
     const paymentId = urlParams.get("paymentId");
+    
+    console.log('URL params - checkoutId:', checkoutId, 'paymentId:', paymentId);
 
 
     if (checkoutId || paymentId) {
@@ -70,6 +76,10 @@ export default function CheckoutSuccess() {
   };
 
   const createOrderFromSuccess = async (paymentId: string) => {
+    console.log('=== CREATE ORDER FROM SUCCESS ===');
+    console.log('Payment ID:', paymentId);
+    console.log('Cart items before order:', cart);
+    
     setIsCreatingOrder(true);
     
     try {
@@ -111,9 +121,14 @@ export default function CheckoutSuccess() {
       
       setOrderCreated(true);
       
+      console.log('Order created successfully, clearing cart...');
+      console.log('Cart before clearing:', cart);
+      
       // Clear cart and stored customer info
       clearCart();
       localStorage.removeItem('checkoutCustomerInfo');
+      
+      console.log('Cart cleared and customer info removed from localStorage');
       
       
       toast({
@@ -122,6 +137,7 @@ export default function CheckoutSuccess() {
       });
       
     } catch (error) {
+      console.error('Order creation failed:', error);
       toast({
         title: "Order Creation Failed",
         description: "Payment successful but order creation failed. Please contact support.",
