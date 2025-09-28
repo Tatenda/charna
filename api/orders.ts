@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { MemStorage } from '../server/storage';
-import { EmailService } from '../server/emailService';
+import { MemStorage } from '../server/storage.js';
+import { EmailService } from '../server/emailService.js';
 
 const storage = new MemStorage();
 const emailService = new EmailService();

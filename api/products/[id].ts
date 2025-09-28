@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { MemStorage } from '../../server/storage';
+import { MemStorage } from '../../server/storage.js';
 
 const storage = new MemStorage();
 
