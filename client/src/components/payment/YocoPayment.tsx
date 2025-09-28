@@ -30,34 +30,8 @@ const YocoPaymentInner = ({
   const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
   const [isLoadingRedirect, setIsLoadingRedirect] = useState(false);
 
-  // Fetch the checkout details to get the redirect URL
-  useEffect(() => {
-    if (!checkoutId) return;
-
-    const fetchCheckoutDetails = async () => {
-      try {
-        setIsLoadingRedirect(true);
-        const response = await apiRequest(
-          "GET",
-          `/api/checkouts/${checkoutId}`,
-        );
-        const checkout = await response.json();
-
-        if (checkout?.redirectUrl) {
-          setRedirectUrl(checkout.redirectUrl);
-        } else {
-          onError("Failed to get payment URL. Please try again.");
-        }
-      } catch (error) {
-        console.error("Failed to fetch checkout details:", error);
-        onError("Failed to initialize payment. Please try again.");
-      } finally {
-        setIsLoadingRedirect(false);
-      }
-    };
-
-    fetchCheckoutDetails();
-  }, [checkoutId, onError]);
+  // Note: redirectUrl is now set directly from checkout creation response
+  // No need for separate API call to fetch checkout details
 
   const handlePayment = () => {
     if (!redirectUrl) {
@@ -233,6 +207,11 @@ const YocoPayment = ({
         const checkout = await response.json();
         setCheckoutId(checkout.id);
         localStorage.setItem('lastCheckoutId', checkout.id);
+        
+        // Use redirectUrl directly from checkout creation response
+        if (checkout.redirectUrl) {
+          setRedirectUrl(checkout.redirectUrl);
+        }
       } catch (error) {
         console.error("Failed to create checkout session:", error);
         const errorMessage =
