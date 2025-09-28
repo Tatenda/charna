@@ -92,7 +92,7 @@ const YocoPaymentInner = ({
           </div>
         </div>
 
-        {isLoadingRedirect && (
+        {!redirectUrl && (
           <div className="text-center py-4">
             <FontAwesomeIcon
               icon="spinner"
@@ -104,7 +104,7 @@ const YocoPaymentInner = ({
           </div>
         )}
 
-        {!isLoadingRedirect && redirectUrl && (
+        {redirectUrl && (
           <div className="text-center py-8">
             <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
               <FontAwesomeIcon
@@ -133,7 +133,7 @@ const YocoPaymentInner = ({
 
       <Button
         onClick={handlePayment}
-        disabled={disabled || isProcessing || isLoadingRedirect || !redirectUrl}
+        disabled={disabled || isProcessing || !redirectUrl}
         className="w-full btn-primary text-lg py-6"
         data-testid="button-pay-now"
       >
