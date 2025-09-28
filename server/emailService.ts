@@ -37,11 +37,16 @@ export class EmailService {
   constructor() {
     // Gmail SMTP configuration
     this.transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // true for 465, false for other ports
       auth: {
         user: process.env.GMAIL_USER, // Your business email
         pass: process.env.GMAIL_APP_PASSWORD, // Gmail app password
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
   }
 
@@ -58,7 +63,9 @@ export class EmailService {
         html: emailHtml,
       };
 
+      console.log('Sending email receipt to:', orderData.customerInfo.email);
       await this.transporter.sendMail(mailOptions);
+      console.log('Email receipt sent successfully');
       return true;
     } catch (error) {
       console.error('Failed to send receipt email:', error);
