@@ -12,7 +12,6 @@ export default function CheckoutSuccess() {
   const [paymentDetails, setPaymentDetails] = useState<any>(null);
   const [orderCreated, setOrderCreated] = useState(false);
   const [isCreatingOrder, setIsCreatingOrder] = useState(false);
-  const [retryCount, setRetryCount] = useState(0);
   const [hasAttemptedOrderCreation, setHasAttemptedOrderCreation] = useState(false);
   const { cart, cartTotal, clearCart } = useCart();
   const { toast } = useToast();
@@ -41,26 +40,37 @@ export default function CheckoutSuccess() {
       } else {
       }
     } else {
+      console.log('No URL parameters found, using fallback mechanism...');
       
       // Fallback: If we have cart items but no payment ID, try to get checkout ID from localStorage
       if (cart.length > 0) {
         const storedCheckoutId = localStorage.getItem('lastCheckoutId');
+        console.log('Stored checkout ID from localStorage:', storedCheckoutId);
+        console.log('Has attempted order creation:', hasAttemptedOrderCreation);
         
         if (storedCheckoutId && !hasAttemptedOrderCreation) {
+          console.log('Calling verifyPaymentFromCheckoutId with checkout ID:', storedCheckoutId);
           setHasAttemptedOrderCreation(true);
           verifyPaymentFromCheckoutId(storedCheckoutId);
         } else {
+          console.log('Skipping fallback - no checkout ID or already attempted');
         }
+      } else {
+        console.log('No cart items, skipping fallback');
       }
     }
   }, [cart, orderCreated, isCreatingOrder]);
 
   const verifyPaymentFromCheckoutId = async (checkoutId: string) => {
+    console.log('=== VERIFY PAYMENT FROM CHECKOUT ID ===');
+    console.log('Checkout ID:', checkoutId);
     
     try {
       // First, check the checkout status to see if it has a paymentId
       const checkoutResponse = await apiRequest("GET", `/api/checkouts/${checkoutId}`);
       const checkout = await checkoutResponse.json();
+      
+      console.log('Checkout response:', checkout);
       
       
       if (checkout && checkout.paymentId) {
