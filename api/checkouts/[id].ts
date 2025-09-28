@@ -1,11 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  console.log('=== CHECKOUT API FUNCTION CALLED ===');
-  console.log('Method:', req.method);
-  console.log('URL:', req.url);
-  console.log('Query:', req.query);
-  
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -27,11 +22,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ message: 'Checkout ID is required' });
     }
 
-    console.log('YOCO_SECRET_KEY available:', !!process.env.YOCO_SECRET_KEY);
+    const isProduction = process.env.NODE_ENV === "production";
+    const secretKey = isProduction
+      ? process.env.YOCO_LIVE_SECRET_KEY
+      : process.env.YOCO_TEST_SECRET_KEY;
     
-    if (!process.env.YOCO_SECRET_KEY) {
-      console.error('YOCO_SECRET_KEY environment variable not set');
-      return res.status(500).json({ message: 'Payment service configuration error' });
+    if (!secretKey) {
+      return res.status(500).json({ message: 'Missing Yoco secret key' });
     }
 
     // Fetch checkout details from Yoco
@@ -41,14 +38,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.YOCO_SECRET_KEY}`,
+          Authorization: `Bearer ${secretKey}`,
         },
       }
     );
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error('Yoco API error:', errorData);
       return res.status(response.status).json({
         message: 'Failed to fetch checkout details',
         error: errorData,
@@ -59,7 +55,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json(checkoutData);
 
   } catch (error) {
-    console.error('Error fetching checkout:', error);
     return res.status(500).json({
       message: 'Internal server error',
       error: error instanceof Error ? error.message : 'Unknown error',
