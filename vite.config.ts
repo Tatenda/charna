@@ -1,31 +1,28 @@
+// vite.config.ts  (at the repo root)
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  plugins: [
-    react(),
-    runtimeErrorOverlay(),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
-      ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer(),
-          ),
-        ]
-      : []),
-  ],
+  // point Vite to the React app folder
+  root: resolve(__dirname, "client"),
+
+  plugins: [react()],
+
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "client", "src"),
-      "@shared": path.resolve(import.meta.dirname, "shared"),
-      "@assets": path.resolve(import.meta.dirname, "attached_assets"),
-    },
+      "@": resolve(__dirname, "client", "src"),
+      "@shared": resolve(__dirname, "shared"),
+      "@assets": resolve(__dirname, "attached_assets")
+    }
   },
-  root: path.resolve(import.meta.dirname, "client"),
+
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
-    emptyOutDir: true,
-  },
+    // output to client/dist so Vercel can serve it
+    outDir: resolve(__dirname, "client", "dist"),
+    emptyOutDir: true
+  }
 });
