@@ -59,17 +59,21 @@ export default function CheckoutSuccess() {
         console.log('No cart items, skipping fallback');
       }
     }
-  }, [cart, orderCreated, isCreatingOrder]);
+  }, [cart, orderCreated, isCreatingOrder, hasAttemptedOrderCreation]);
 
   const verifyPaymentFromCheckoutId = async (checkoutId: string) => {
     console.log('=== VERIFY PAYMENT FROM CHECKOUT ID ===');
     console.log('Checkout ID:', checkoutId);
     
     try {
+      console.log('Making API request to:', `/api/checkouts/${checkoutId}`);
+      
       // First, check the checkout status to see if it has a paymentId
       const checkoutResponse = await apiRequest("GET", `/api/checkouts/${checkoutId}`);
-      const checkout = await checkoutResponse.json();
+      console.log('API response status:', checkoutResponse.status);
+      console.log('API response ok:', checkoutResponse.ok);
       
+      const checkout = await checkoutResponse.json();
       console.log('Checkout response:', checkout);
       
       
@@ -81,6 +85,12 @@ export default function CheckoutSuccess() {
         
       }
     } catch (error) {
+      console.error('Error in verifyPaymentFromCheckoutId:', error);
+      toast({
+        title: "Payment Verification Failed",
+        description: "Could not verify payment status. Please contact support.",
+        variant: "destructive"
+      });
     }
     
   };
