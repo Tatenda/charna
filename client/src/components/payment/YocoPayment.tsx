@@ -22,13 +22,10 @@ const YocoPaymentInner = ({
   onError,
   disabled = false,
   checkoutId,
-}: YocoPaymentProps & { checkoutId: string }) => {
+  redirectUrl,
+}: YocoPaymentProps & { checkoutId: string; redirectUrl: string | null }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
-
-  // Get the redirect URL for this checkout
-  const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
-  const [isLoadingRedirect, setIsLoadingRedirect] = useState(false);
 
   // Note: redirectUrl is now set directly from checkout creation response
   // No need for separate API call to fetch checkout details
@@ -145,7 +142,7 @@ const YocoPaymentInner = ({
             <FontAwesomeIcon icon="spinner" className="animate-spin mr-2" />
             Redirecting to Payment...
           </>
-        ) : isLoadingRedirect ? (
+        ) : !redirectUrl ? (
           <>
             <FontAwesomeIcon icon="spinner" className="animate-spin mr-2" />
             Loading Payment System...
@@ -177,6 +174,7 @@ const YocoPayment = ({
   disabled = false,
 }: YocoPaymentProps) => {
   const [checkoutId, setCheckoutId] = useState<string | null>(null);
+  const [redirectUrl, setRedirectUrl] = useState<string | null>(null);
   const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
@@ -208,7 +206,7 @@ const YocoPayment = ({
         setCheckoutId(checkout.id);
         localStorage.setItem('lastCheckoutId', checkout.id);
         
-        // Use redirectUrl directly from checkout creation response
+        // Store redirectUrl for the child component to use
         if (checkout.redirectUrl) {
           setRedirectUrl(checkout.redirectUrl);
         }
@@ -294,6 +292,7 @@ const YocoPayment = ({
       onError={onError}
       disabled={disabled}
       checkoutId={checkoutId}
+      redirectUrl={redirectUrl}
     />
   );
 };
