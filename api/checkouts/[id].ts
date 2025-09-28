@@ -27,6 +27,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ message: 'Checkout ID is required' });
     }
 
+    console.log('YOCO_SECRET_KEY available:', !!process.env.YOCO_SECRET_KEY);
+    
+    if (!process.env.YOCO_SECRET_KEY) {
+      console.error('YOCO_SECRET_KEY environment variable not set');
+      return res.status(500).json({ message: 'Payment service configuration error' });
+    }
+
     // Fetch checkout details from Yoco
     const response = await fetch(
       `https://payments.yoco.com/api/checkouts/${id}`,
