@@ -16,31 +16,36 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    // Fetch test checkouts from Yoco (this is a test endpoint)
-    const response = await fetch('https://payments.yoco.com/api/checkouts', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.YOCO_SECRET_KEY}`,
-      },
-    });
-
-    if (!response.ok) {
-      const errorData = await response.text();
-      console.error('Yoco API error:', errorData);
-      return res.status(response.status).json({
-        message: 'Failed to fetch test checkouts',
-        error: errorData,
-      });
+    const isProduction = process.env.NODE_ENV === "production";
+    const secretKey = isProduction
+      ? process.env.YOCO_LIVE_SECRET_KEY
+      : process.env.YOCO_TEST_SECRET_KEY;
+      
+    if (!secretKey) {
+      return res
+        .status(500)
+        .json({ message: "Yoco secret key not configured" });
     }
 
-    const checkoutsData = await response.json();
-    return res.status(200).json(checkoutsData);
+    // Note: In the Express version, this would use recentCheckouts array
+    // For Vercel Functions, we don't have persistent memory, so we return empty
+    // In a real implementation, you'd store checkout IDs in a database
+    
+    console.log('YOCO_SECRET_KEY available:', !!secretKey);
+    console.log('Environment:', isProduction ? 'production' : 'development');
+    
+    // Return empty array since we don't have persistent storage for checkout IDs
+    // In production, you'd want to store checkout IDs in a database
+    return res.status(200).json({ 
+      checkouts: [],
+      message: "No recent checkouts found. Checkout IDs are not persisted in Vercel Functions."
+    });
   } catch (error) {
-    console.error('Error fetching test checkouts:', error);
+    console.error('Error in test checkouts:', error);
     return res.status(500).json({
       message: 'Internal server error',
       error: error instanceof Error ? error.message : 'Unknown error',
+      checkouts: []
     });
   }
 }
