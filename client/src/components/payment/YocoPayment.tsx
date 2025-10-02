@@ -116,8 +116,10 @@ const YocoPaymentInner = ({
               </h4>
               <p className="text-sm text-green-700 leading-relaxed">
                 Your payment will be processed securely through Yoco's encrypted
-                payment system. Use test card: 4111 1111 1111 1111 (Exp: 12/25,
-                CVV: 123) for testing - no real charges will be made.
+                payment system.
+                {import.meta.env.DEV && (
+                  <> Use test card: 4111 1111 1111 1111 (Exp: 12/25, CVV: 123) for testing - no real charges will be made.</>
+                )}
               </p>
             </div>
 
