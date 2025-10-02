@@ -313,8 +313,8 @@ export class MemStorage implements IStorage {
       id: 9,
       name: "Test Bag",
       description: "A simple test bag for testing the payment and email functionality. Perfect for development and testing purposes.",
-      longDescription: "This is a test product designed specifically for testing the payment flow and email sending functionality. It's a simple bag that costs only R1 to make testing quick and easy.",
-      price: 1, // R1 in cents
+      longDescription: "This is a test product designed specifically for testing the payment flow and email sending functionality. It's a simple bag that costs only R2 to make testing quick and easy.",
+      price: 200, // R2 in cents (minimum for Yoco)
       originalPrice: null,
       rating: 50, // 5.0
       reviewCount: 0,

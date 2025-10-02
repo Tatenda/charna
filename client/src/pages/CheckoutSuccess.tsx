@@ -116,7 +116,14 @@ export default function CheckoutSuccess() {
       }
 
       const customerInfo = JSON.parse(storedCustomerInfo);
-      const shippingCost = cartTotal >= 1000 ? 0 : 150;
+      
+      // Check if any item in cart is a test product
+      const hasTestProduct = cart.some(item => 
+        item.product.badge === "Test" || 
+        item.product.name.toLowerCase().includes("test")
+      );
+      
+      const shippingCost = hasTestProduct ? 0 : (cartTotal >= 1000 ? 0 : 150);
       const totalAmount = cartTotal + shippingCost;
 
 

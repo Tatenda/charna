@@ -10,7 +10,13 @@ interface CartSummaryProps {
 const CartSummary = ({ showCheckoutButton = true, onCheckout }: CartSummaryProps) => {
   const { cart, cartTotal } = useCart();
   
-  const shippingCost = cartTotal >= 1000 ? 0 : 150;
+  // Check if any item in cart is a test product
+  const hasTestProduct = cart.some(item => 
+    item.product.badge === "Test" || 
+    item.product.name.toLowerCase().includes("test")
+  );
+  
+  const shippingCost = hasTestProduct ? 0 : (cartTotal >= 1000 ? 0 : 150);
   const total = cartTotal + shippingCost;
 
   const handleCheckout = () => {
@@ -38,10 +44,16 @@ const CartSummary = ({ showCheckoutButton = true, onCheckout }: CartSummaryProps
             )}
           </span>
         </div>
-        {cartTotal < 1000 && (
+        {cartTotal < 1000 && !hasTestProduct && (
           <div className="text-sm text-neutral-light">
             <FontAwesomeIcon icon="info-circle" className="mr-1" />
             Free shipping on orders over R1000
+          </div>
+        )}
+        {hasTestProduct && (
+          <div className="text-sm text-green-600">
+            <FontAwesomeIcon icon="check-circle" className="mr-1" />
+            Free shipping for test products
           </div>
         )}
       </div>

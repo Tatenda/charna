@@ -84,7 +84,13 @@ const Checkout = () => {
     return () => subscription.unsubscribe();
   }, [form]);
 
-  const shippingCost = cartTotal >= 1000 ? 0 : 150;
+  // Check if any item in cart is a test product
+  const hasTestProduct = cart.some(item => 
+    item.product.badge === "Test" || 
+    item.product.name.toLowerCase().includes("test")
+  );
+  
+  const shippingCost = hasTestProduct ? 0 : (cartTotal >= 1000 ? 0 : 150);
   const totalAmount = cartTotal + shippingCost;
 
   const onSubmit = async (values: CheckoutFormValues) => {

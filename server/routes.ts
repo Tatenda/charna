@@ -397,7 +397,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Send email receipt for paid orders
       if (orderData.paymentId && order) {
         try {
-          const shippingCost = orderData.totalAmount >= 1000 ? 0 : 150;
+          // Check if any item in the order is a test product
+          const hasTestProduct = orderData.items.some((item: any) => 
+            item.badge === "Test" || 
+            item.productName?.toLowerCase().includes("test")
+          );
+          
+          const shippingCost = hasTestProduct ? 0 : (orderData.totalAmount >= 1000 ? 0 : 150);
 
           await emailService.sendOrderReceipt({
             customerInfo: orderData.customerInfo,

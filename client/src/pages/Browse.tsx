@@ -94,7 +94,7 @@ const collageProducts = [
   {
     id: 9,
     name: "Test Bag",
-    price: 1,
+    price: 2, // R2.00 (minimum for Yoco)
     image: navyRoseGoldBackpack,
     category: "business"
   },
