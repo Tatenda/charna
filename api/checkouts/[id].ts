@@ -22,10 +22,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ message: 'Checkout ID is required' });
     }
 
-    const isProduction = process.env.NODE_ENV === "production";
-    const secretKey = isProduction
-      ? process.env.YOCO_LIVE_SECRET_KEY
-      : process.env.YOCO_TEST_SECRET_KEY;
+    const secretKey = process.env.YOCO_SECRET_KEY;
     
     if (!secretKey) {
       return res.status(500).json({ message: 'Missing Yoco secret key' });

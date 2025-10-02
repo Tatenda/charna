@@ -16,26 +16,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const isProduction = process.env.NODE_ENV === "production";
-    const secretKey = isProduction
-      ? process.env.YOCO_LIVE_SECRET_KEY
-      : process.env.YOCO_TEST_SECRET_KEY;
+    const secretKey = process.env.YOCO_SECRET_KEY;
       
     if (!secretKey) {
       return res
         .status(500)
         .json({ message: "Yoco secret key not configured" });
     }
-
-    // Note: In the Express version, this would use recentCheckouts array
-    // For Vercel Functions, we don't have persistent memory, so we return empty
-    // In a real implementation, you'd store checkout IDs in a database
-    
-    console.log('YOCO_SECRET_KEY available:', !!secretKey);
-    console.log('Environment:', isProduction ? 'production' : 'development');
-    
-    // Return empty array since we don't have persistent storage for checkout IDs
-    // In production, you'd want to store checkout IDs in a database
     return res.status(200).json({ 
       checkouts: [],
       message: "No recent checkouts found. Checkout IDs are not persisted in Vercel Functions."
