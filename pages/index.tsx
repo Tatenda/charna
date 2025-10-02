@@ -1,5 +1,5 @@
-import Hero from "../components/home/Hero";
-import Seo from "../components/layout/Seo";
+import Hero from "@/components/home/Hero";
+import Seo from "@/components/layout/Seo";
 
 const Home = () => {
   return (

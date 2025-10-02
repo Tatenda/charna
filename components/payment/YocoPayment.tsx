@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShieldAlt, faCheckCircle, faSpinner, faCreditCard, faLock } from "@fortawesome/free-solid-svg-icons";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
@@ -50,7 +51,7 @@ const YocoPaymentInner = ({
             Payment Details
           </h3>
           <div className="flex items-center text-green-600">
-            <FontAwesomeIcon icon="shield-alt" className="mr-2" />
+            <FontAwesomeIcon icon={faShieldAlt} className="mr-2" />
             <span className="text-sm font-medium">Secure Payment</span>
           </div>
         </div>
@@ -128,7 +129,7 @@ const YocoPaymentInner = ({
 
             <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-green-700">
-                <FontAwesomeIcon icon="check-circle" className="mr-2" />
+                <FontAwesomeIcon icon={faCheckCircle} className="mr-2" />
                 You will be redirected to Yoco's secure payment page
               </p>
             </div>
@@ -144,24 +145,24 @@ const YocoPaymentInner = ({
       >
         {isProcessing ? (
           <>
-            <FontAwesomeIcon icon="spinner" className="animate-spin mr-2" />
+            <FontAwesomeIcon icon={faSpinner} className="animate-spin mr-2" />
             Redirecting to Payment...
           </>
         ) : !redirectUrl ? (
           <>
-            <FontAwesomeIcon icon="spinner" className="animate-spin mr-2" />
+            <FontAwesomeIcon icon={faSpinner} className="animate-spin mr-2" />
             Loading Payment System...
           </>
         ) : (
           <>
-            <FontAwesomeIcon icon="credit-card" className="mr-2" />
+            <FontAwesomeIcon icon={faCreditCard} className="mr-2" />
             Pay R{amount.toLocaleString()} Now
           </>
         )}
       </Button>
 
       <div className="text-xs text-neutral-light text-center">
-        <FontAwesomeIcon icon="lock" className="mr-1" />
+        <FontAwesomeIcon icon={faLock} className="mr-1" />
         Your payment information is encrypted and secure. Powered by Yoco -
         South Africa's trusted payment provider.
       </div>

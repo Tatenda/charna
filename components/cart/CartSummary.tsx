@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle, faLock, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "@/hooks/useCart";
 import { Button } from "@/components/ui/button";
 
@@ -10,7 +11,13 @@ interface CartSummaryProps {
 const CartSummary = ({ showCheckoutButton = true, onCheckout }: CartSummaryProps) => {
   const { cart, cartTotal } = useCart();
   
-  const shippingCost = cartTotal >= 1000 ? 0 : 150;
+  // Check if cart contains any test products
+  const hasTestProduct = cart.some(item => 
+    item.product.id === 9 || item.product.name === "Test Bag"
+  );
+  
+  // No shipping cost for test products, otherwise apply normal logic
+  const shippingCost = hasTestProduct ? 0 : (cartTotal >= 1000 ? 0 : 150);
   const total = cartTotal + shippingCost;
 
   const handleCheckout = () => {
@@ -40,7 +47,7 @@ const CartSummary = ({ showCheckoutButton = true, onCheckout }: CartSummaryProps
         </div>
         {cartTotal < 1000 && (
           <div className="text-sm text-neutral-light">
-            <FontAwesomeIcon icon="info-circle" className="mr-1" />
+            <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
             Free shipping on orders over R1000
           </div>
         )}
@@ -65,11 +72,11 @@ const CartSummary = ({ showCheckoutButton = true, onCheckout }: CartSummaryProps
       
       <div className="mt-4 text-sm text-neutral-light">
         <div className="flex items-center mb-2">
-          <FontAwesomeIcon icon="lock" className="mr-2" />
+          <FontAwesomeIcon icon={faLock} className="mr-2" />
           <span>Secure Checkout</span>
         </div>
         <div className="flex items-center">
-          <FontAwesomeIcon icon="truck" className="mr-2" />
+          <FontAwesomeIcon icon={faTruck} className="mr-2" />
           <span>Fast Delivery Within 2-5 Business Days</span>
         </div>
       </div>

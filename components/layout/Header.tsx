@@ -2,6 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import CartButton from "@/components/cart/CartButton";
 
 const Header = () => {
@@ -27,7 +28,7 @@ const Header = () => {
               aria-label="Toggle menu"
               data-testid="mobile-menu-toggle"
             >
-              <FontAwesomeIcon icon="bars" className="text-xl" />
+              <FontAwesomeIcon icon={faBars} className="text-xl" />
             </button>
             <Link href="/" className="flex items-center">
               <span className="text-2xl sm:text-3xl md:text-4xl font-georgia-bold text-terracotta">
@@ -78,7 +79,7 @@ const Header = () => {
               href="/browse"
               className="text-forest hover:text-botanical transition duration-200 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
-              <FontAwesomeIcon icon="search" className="text-lg" />
+              <FontAwesomeIcon icon={faSearch} className="text-lg" />
             </Link>
             <CartButton />
             <Link

@@ -4,8 +4,7 @@
 
 Your application uses **Yoco** for payment processing with environment-based configuration:
 
-- **Test Mode**: Uses `YOCO_TEST_SECRET_KEY` when `NODE_ENV !== "production"`
-- **Live Mode**: Uses `YOCO_LIVE_SECRET_KEY` when `NODE_ENV === "production"`
+- **All Environments**: Uses `YOCO_SECRET_KEY` for both test and live modes
 
 ## Switching to Live Payments
 
@@ -20,12 +19,12 @@ Your application uses **Yoco** for payment processing with environment-based con
 1. Go to your project in [Vercel Dashboard](https://vercel.com/dashboard)
 2. Click on your project → **Settings** → **Environment Variables**
 3. Add these variables:
-   - `YOCO_LIVE_SECRET_KEY` = `your_live_secret_key_here`
+   - `YOCO_SECRET_KEY` = `your_secret_key_here`
    - `NODE_ENV` = `production` (if not already set)
 
 #### Option B: Via Vercel CLI
 ```bash
-vercel env add YOCO_LIVE_SECRET_KEY
+vercel env add YOCO_SECRET_KEY
 # Enter your live secret key when prompted
 
 vercel env add NODE_ENV
@@ -42,8 +41,7 @@ vercel --prod
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `YOCO_TEST_SECRET_KEY` | Test/development secret key | `sk_test_...` |
-| `YOCO_LIVE_SECRET_KEY` | Live/production secret key | `sk_live_...` |
+| `YOCO_SECRET_KEY` | Secret key for current environment | `sk_test_...` or `sk_live_...` |
 | `NODE_ENV` | Environment mode | `production` for live payments |
 
 ## Testing Live Payments

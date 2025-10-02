@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "@/hooks/useCart";
 import CartItem from "@/components/cart/CartItem";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -18,7 +19,7 @@ const CartButton = () => {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <button className="text-primary hover:text-accent transition duration-200 relative">
-          <FontAwesomeIcon icon="shopping-bag" className="text-xl" />
+          <FontAwesomeIcon icon={faShoppingBag} className="text-xl" />
           {cartCount > 0 && (
             <span className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
               {cartCount}
@@ -34,7 +35,7 @@ const CartButton = () => {
         <div className="flex-grow overflow-auto py-4">
           {cart.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
-              <FontAwesomeIcon icon="shopping-bag" className="text-4xl text-neutral-light mb-4" />
+              <FontAwesomeIcon icon={faShoppingBag} className="text-4xl text-neutral-light mb-4" />
               <p className="text-neutral mb-4">Your cart is empty</p>
               <Button onClick={() => setOpen(false)} className="btn-primary">
                 Continue Shopping

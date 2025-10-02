@@ -23,10 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Determine which keys to use based on environment
-    const isProduction = process.env.NODE_ENV === "production";
-    const secretKey = isProduction
-      ? process.env.YOCO_LIVE_SECRET_KEY
-      : process.env.YOCO_TEST_SECRET_KEY;
+    const secretKey = process.env.YOCO_SECRET_KEY;
     
     if (!secretKey) {
       return res.status(500).json({ message: 'Missing Yoco secret key' });

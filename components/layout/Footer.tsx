@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF, faInstagram, faPinterestP, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { WHATSAPP_NUMBER } from '@/lib/constants';
 
 const Footer = () => {
@@ -30,7 +31,7 @@ const Footer = () => {
                 className="w-10 h-10 bg-gray-100 hover:bg-herbal-tonic hover:text-white rounded-lg flex items-center justify-center transition duration-200 text-gray-600"
                 aria-label="Facebook"
               >
-                <FontAwesomeIcon icon={['fab', 'facebook-f']} />
+                <FontAwesomeIcon icon={faFacebookF} />
               </a>
               <a 
                 href="https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr" 
@@ -39,7 +40,7 @@ const Footer = () => {
                 className="w-10 h-10 bg-gray-100 hover:bg-herbal-tonic hover:text-white rounded-lg flex items-center justify-center transition duration-200 text-gray-600"
                 aria-label="Instagram"
               >
-                <FontAwesomeIcon icon={['fab', 'instagram']} />
+                <FontAwesomeIcon icon={faInstagram} />
               </a>
               <a 
                 href="https://pinterest.com" 
@@ -48,7 +49,7 @@ const Footer = () => {
                 className="w-10 h-10 bg-gray-100 hover:bg-herbal-tonic hover:text-white rounded-lg flex items-center justify-center transition duration-200 text-gray-600"
                 aria-label="Pinterest"
               >
-                <FontAwesomeIcon icon={['fab', 'pinterest-p']} />
+                <FontAwesomeIcon icon={faPinterestP} />
               </a>
             </div>
           </div>
@@ -145,7 +146,7 @@ const Footer = () => {
                   rel="noopener noreferrer" 
                   className="text-gray-600 hover:text-herbal-tonic transition duration-200 flex items-center gap-2"
                 >
-                  <FontAwesomeIcon icon={['fab', 'whatsapp']} />
+                  <FontAwesomeIcon icon={faWhatsapp} />
                   WhatsApp Support
                 </a>
               </li>

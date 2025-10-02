@@ -84,7 +84,13 @@ const Checkout = () => {
     return () => subscription.unsubscribe();
   }, [form]);
 
-  const shippingCost = cartTotal >= 1000 ? 0 : 150;
+  // Check if cart contains any test products
+  const hasTestProduct = cart.some(item => 
+    item.product.id === 9 || item.product.name === "Test Bag"
+  );
+  
+  // No shipping cost for test products, otherwise apply normal logic
+  const shippingCost = hasTestProduct ? 0 : (cartTotal >= 1000 ? 0 : 150);
   const totalAmount = cartTotal + shippingCost;
 
   const onSubmit = async (values: CheckoutFormValues) => {

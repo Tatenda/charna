@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 
 const testimonials = [
   {
@@ -38,10 +39,10 @@ const Testimonials = () => {
             <div key={index} className="bg-white p-6 rounded-lg shadow-md">
               <div className="flex mb-4">
                 {[...Array(Math.floor(testimonial.rating))].map((_, i) => (
-                  <FontAwesomeIcon key={i} icon="star" className="text-yellow-500" />
+                  <FontAwesomeIcon key={i} icon={faStar} className="text-yellow-500" />
                 ))}
                 {testimonial.rating % 1 === 0.5 && (
-                  <FontAwesomeIcon icon="star-half-alt" className="text-yellow-500" />
+                  <FontAwesomeIcon icon={faStarHalfAlt} className="text-yellow-500" />
                 )}
               </div>
               <p className="text-neutral italic mb-4">"{testimonial.text}"</p>

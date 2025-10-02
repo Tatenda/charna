@@ -1,13 +1,20 @@
 import type { AppProps } from 'next/app';
-import { queryClient } from "../lib/queryClient";
+import { queryClient } from "@/lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "../components/ui/toaster";
-import { TooltipProvider } from "../components/ui/tooltip";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-import WhatsAppButton from "../components/layout/WhatsAppButton";
-import { CartProvider } from "../hooks/useCart";
-import "../styles/globals.css";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import { CartProvider } from "@/hooks/useCart";
+import "@/styles/globals.css";
+
+// FontAwesome configuration - disable SSR to prevent hydration issues
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
+// Tell Font Awesome to skip adding the CSS automatically since it's already imported above
+config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

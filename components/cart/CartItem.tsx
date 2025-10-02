@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { CartItem as CartItemType } from "@/hooks/useCart";
 
 interface CartItemProps {
@@ -42,7 +43,7 @@ const CartItem = ({ item, updateQuantity, removeFromCart }: CartItemProps) => {
             aria-label="Remove item"
             data-testid={`button-remove-${product.id}`}
           >
-            <FontAwesomeIcon icon="times" />
+            <FontAwesomeIcon icon={faTimes} />
           </button>
         </div>
         

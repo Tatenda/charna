@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faShoppingBag, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Product } from "@shared/schema";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
@@ -73,7 +74,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {product.features.map((feature, index) => (
             <li key={index} className="flex items-center">
-              <FontAwesomeIcon icon="check" className="text-primary mr-2" /> {feature}
+              <FontAwesomeIcon icon={faCheck} className="text-primary mr-2" /> {feature}
             </li>
           ))}
         </ul>
@@ -193,7 +194,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           disabled={!product.inStock || (hasEmbossing && !embossingText.trim())}
           data-testid="button-add-to-cart"
         >
-          <FontAwesomeIcon icon="shopping-bag" className="mr-2" /> 
+          <FontAwesomeIcon icon={faShoppingBag} className="mr-2" /> 
           Add to Cart {hasEmbossing && embossingText.trim() && `(+R${embossingPrice})`}
         </button>
         <button 
@@ -205,7 +206,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       </div>
       
       <div className="mt-6 text-sm text-neutral-light flex items-center">
-        <FontAwesomeIcon icon="truck" className="mr-2" /> Free shipping on orders over R1000
+        <FontAwesomeIcon icon={faTruck} className="mr-2" /> Free shipping on orders over R1000
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { WHATSAPP_NUMBER } from '@/lib/constants';
 
 const WhatsAppButton = () => {
@@ -12,7 +13,7 @@ const WhatsAppButton = () => {
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
     >
-      <FontAwesomeIcon icon={['fab', 'whatsapp']} className="text-2xl" />
+      <FontAwesomeIcon icon={faWhatsapp} className="text-2xl" />
     </a>
   );
 };

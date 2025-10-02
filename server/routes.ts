@@ -84,12 +84,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         },
       };
 
-      // Determine which keys to use based on environment
-      const isProduction = process.env.NODE_ENV === "production";
-      const secretKey = isProduction
-        ? process.env.YOCO_LIVE_SECRET_KEY
-        : process.env.YOCO_TEST_SECRET_KEY;
-      const keyType = isProduction ? "live" : "test";
+      // Use single YOCO_SECRET_KEY environment variable
+      const secretKey = process.env.YOCO_SECRET_KEY;
+      const keyType = process.env.NODE_ENV === "production" ? "live" : "test";
 
       console.log("Creating Yoco payment intent:", paymentData);
       console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
@@ -180,10 +177,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
 
-      const isProduction = process.env.NODE_ENV === "production";
-      const secretKey = isProduction
-        ? process.env.YOCO_LIVE_SECRET_KEY
-        : process.env.YOCO_TEST_SECRET_KEY;
+      const secretKey = process.env.YOCO_SECRET_KEY;
 
       if (!secretKey) {
         return res.status(500).json({ message: "Missing Yoco secret key" });
@@ -313,10 +307,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log("Sending charge to Yoco API:", chargeData);
 
       // Use appropriate secret key based on environment
-      const isProduction = process.env.NODE_ENV === "production";
-      const secretKey = isProduction
-        ? process.env.YOCO_LIVE_SECRET_KEY
-        : process.env.YOCO_TEST_SECRET_KEY;
+      const secretKey = process.env.YOCO_SECRET_KEY;
 
       const response = await fetch("https://api.yoco.com/v1/charges", {
         method: "POST",
@@ -397,7 +388,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Send email receipt for paid orders
       if (orderData.paymentId && order) {
         try {
-          const shippingCost = orderData.totalAmount >= 1000 ? 0 : 150;
+          // Check if order contains any test products
+          const hasTestProduct = orderData.items.some(item => 
+            item.productId === 9 || item.productName === "Test Bag"
+          );
+          
+          // No shipping cost for test products, otherwise apply normal logic
+          const shippingCost = hasTestProduct ? 0 : (orderData.totalAmount >= 1000 ? 0 : 150);
 
           await emailService.sendOrderReceipt({
             customerInfo: orderData.customerInfo,
@@ -450,10 +447,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/checkouts/:id", async (req, res) => {
     try {
-      const isProduction = process.env.NODE_ENV === "production";
-      const secretKey = isProduction
-        ? process.env.YOCO_LIVE_SECRET_KEY
-        : process.env.YOCO_TEST_SECRET_KEY;
+      const secretKey = process.env.YOCO_SECRET_KEY;
 
       if (!secretKey) {
         return res.status(500).json({ message: "Missing Yoco secret key" });
@@ -475,10 +469,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Dev/Test: List recent checkouts and resolve to full objects
   app.get("/api/test-payments/checkouts", async (req, res) => {
     try {
-      const isProduction = process.env.NODE_ENV === "production";
-      const secretKey = isProduction
-        ? process.env.YOCO_LIVE_SECRET_KEY
-        : process.env.YOCO_TEST_SECRET_KEY;
+      const secretKey = process.env.YOCO_SECRET_KEY;
       if (!secretKey) {
         return res
           .status(500)
@@ -515,10 +506,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/test-payments/payments/:paymentId", async (req, res) => {
     try {
       const { paymentId } = req.params;
-      const isProduction = process.env.NODE_ENV === "production";
-      const secretKey = isProduction
-        ? process.env.YOCO_LIVE_SECRET_KEY
-        : process.env.YOCO_TEST_SECRET_KEY;
+      const secretKey = process.env.YOCO_SECRET_KEY;
       if (!secretKey) {
         return res
           .status(500)

@@ -11,7 +11,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import Seo from "@/components/layout/Seo";
-import johannesburgSkyline from "../attached_assets/ChatGPT Image Sep 18, 2025, 10_43_30 PM_1758254550927.png";
+// Background image for browse page
+const johannesburgSkyline = "/ChatGPT Image Sep 18, 2025, 10_43_30 PM_1758254550927.png";
 import welcomeTag from "../attached_assets/Welcome message - Christopher_1758261765918.png";
 import navyTennisBag from "../attached_assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1757403283994.png";
 import creamCrossbody from "../attached_assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png";
@@ -95,7 +96,7 @@ const collageProducts = [
   {
     id: 9,
     name: "Test Bag",
-    price: 1,
+    price: 2,
     image: navyRoseGoldBackpack.src,
     category: "business"
   },
@@ -476,10 +477,14 @@ export default function Browse() {
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   // State that tracks current category from URL
-  const [selectedCategory, setSelectedCategory] = useState(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    return searchParams.get('category') || 'work';
-  });
+  const [selectedCategory, setSelectedCategory] = useState('work');
+  
+  // Update category when router query changes
+  useEffect(() => {
+    if (router.query.category && typeof router.query.category === 'string') {
+      setSelectedCategory(router.query.category);
+    }
+  }, [router.query.category]);
 
   // Package customization modal state
   const [showCustomizationModal, setShowCustomizationModal] = useState(false);
@@ -497,25 +502,25 @@ export default function Browse() {
   // Update category when URL changes (for browser back/forward navigation)
   useEffect(() => {
     const updateCategoryFromURL = () => {
-      const searchParams = new URLSearchParams(window.location.search);
-      const category = searchParams.get('category') || 'work';
-      setSelectedCategory(category);
+      if (router.query.category && typeof router.query.category === 'string') {
+        setSelectedCategory(router.query.category);
+      }
     };
 
     // Update immediately
     updateCategoryFromURL();
 
-    // Listen for browser back/forward navigation
-    const handleLocationChange = () => {
+    // Listen for route changes
+    const handleRouteChange = () => {
       updateCategoryFromURL();
     };
 
-    window.addEventListener('popstate', handleLocationChange);
+    router.events.on('routeChangeComplete', handleRouteChange);
     
     return () => {
-      window.removeEventListener('popstate', handleLocationChange);
+      router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [location]);
+  }, [router.query.category, router.events]);
 
   // Generate dynamic SEO content based on category
   // Package Item Component for cycling images within package
@@ -770,7 +775,7 @@ export default function Browse() {
   // Scroll to top when navigating to browse page
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location]);
+  }, [router.asPath]);
 
   const { addToCart } = useCart();
 
@@ -944,11 +949,16 @@ export default function Browse() {
   return (
     <div className="min-h-screen bg-browse text-white pt-16 md:pt-20 overflow-x-hidden relative">
       {/* Johannesburg Skyline Background - Full Page */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div 
-          className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20 pointer-events-none mix-blend-multiply"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: `url(${johannesburgSkyline.src})`
+            backgroundImage: `url(${johannesburgSkyline})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            opacity: 1,
+            zIndex: 0
           }}
         ></div>
       </div>
@@ -960,7 +970,7 @@ export default function Browse() {
         image=""
       />
       {/* Breadcrumb Navigation */}
-      <div className="px-4 md:px-6 py-4 text-sm text-white/70 max-w-full">
+      <div className="px-4 md:px-6 py-4 text-sm text-white/70 max-w-full relative z-10">
         <div className="flex items-center flex-wrap">
           <Link href="/" className="hover:text-white flex-shrink-0">Home</Link>
           <span className="mx-2 flex-shrink-0">&gt;</span>
@@ -969,7 +979,7 @@ export default function Browse() {
       </div>
 
       {/* Top Category Navigation Tabs - Mobile Friendly */}
-      <div className="px-4 md:px-6 mb-8">
+      <div className="px-4 md:px-6 mb-8 relative z-10">
         <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-2">
           <div className="flex overflow-x-auto scrollbar-hide gap-2 pb-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
             {categoryTabs.map((tab) => (

@@ -16,10 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const isProduction = process.env.NODE_ENV === "production";
-    const secretKey = isProduction
-      ? process.env.YOCO_LIVE_SECRET_KEY
-      : process.env.YOCO_TEST_SECRET_KEY;
+    const secretKey = process.env.YOCO_SECRET_KEY;
       
     if (!secretKey) {
       return res
@@ -32,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // In a real implementation, you'd store checkout IDs in a database
     
     console.log('YOCO_SECRET_KEY available:', !!secretKey);
-    console.log('Environment:', isProduction ? 'production' : 'development');
+    console.log('Environment:', process.env.NODE_ENV || 'development');
     
     // Return empty array since we don't have persistent storage for checkout IDs
     // In production, you'd want to store checkout IDs in a database

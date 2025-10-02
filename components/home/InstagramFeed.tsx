@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const instagramPosts = [
   {
@@ -100,7 +101,7 @@ const InstagramFeed = () => {
                   <div className="text-white">
                     <p className="text-sm mb-2 line-clamp-2">{post.caption}</p>
                     <div className="flex items-center gap-2">
-                      <FontAwesomeIcon icon="heart" className="text-red-400" />
+                      <FontAwesomeIcon icon={faHeart} className="text-red-400" />
                       <span className="text-sm font-medium">{post.likes}</span>
                     </div>
                   </div>
