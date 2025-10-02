@@ -28,11 +28,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       currency,
     };
 
+    // Determine which keys to use based on environment
+    const isProduction = process.env.NODE_ENV === "production";
+    const secretKey = isProduction
+      ? process.env.YOCO_LIVE_SECRET_KEY
+      : process.env.YOCO_TEST_SECRET_KEY;
+    
+    if (!secretKey) {
+      return res.status(500).json({ message: 'Missing Yoco secret key' });
+    }
+
     const response = await fetch('https://api.yoco.com/v1/charges', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.YOCO_SECRET_KEY}`,
+        Authorization: `Bearer ${secretKey}`,
       },
       body: JSON.stringify(chargeData),
     });

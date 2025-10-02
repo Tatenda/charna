@@ -1,6 +1,6 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -16,9 +16,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { paymentId } = req.query;
+    const { id } = req.query;
 
-    if (!paymentId || typeof paymentId !== 'string') {
+    if (!id || typeof id !== 'string') {
       return res.status(400).json({ message: 'Payment ID is required' });
     }
 
@@ -32,9 +32,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ message: 'Missing Yoco secret key' });
     }
 
-    // Fetch payment details from Yoco API
+    // Fetch payment details from Yoco
     const response = await fetch(
-      `https://api.yoco.com/v1/payments/${paymentId}`,
+      `https://api.yoco.com/v1/payments/${id}`,
       {
         method: 'GET',
         headers: {

@@ -1,6 +1,6 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -16,13 +16,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { paymentId } = req.query;
+    const { id } = req.query;
 
-    if (!paymentId || typeof paymentId !== 'string') {
-      return res.status(400).json({ message: 'Payment ID is required' });
+    if (!id || typeof id !== 'string') {
+      return res.status(400).json({ message: 'Checkout ID is required' });
     }
 
-    // Determine which keys to use based on environment
     const isProduction = process.env.NODE_ENV === "production";
     const secretKey = isProduction
       ? process.env.YOCO_LIVE_SECRET_KEY
@@ -32,9 +31,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ message: 'Missing Yoco secret key' });
     }
 
-    // Fetch payment details from Yoco API
+    // Fetch checkout details from Yoco
     const response = await fetch(
-      `https://api.yoco.com/v1/payments/${paymentId}`,
+      `https://payments.yoco.com/api/checkouts/${id}`,
       {
         method: 'GET',
         headers: {
@@ -46,17 +45,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error('Yoco API error:', errorData);
       return res.status(response.status).json({
-        message: 'Failed to fetch payment details',
+        message: 'Failed to fetch checkout details',
         error: errorData,
       });
     }
 
-    const paymentData = await response.json();
-    return res.status(200).json(paymentData);
+    const checkoutData = await response.json();
+    return res.status(200).json(checkoutData);
+
   } catch (error) {
-    console.error('Error fetching payment:', error);
     return res.status(500).json({
       message: 'Internal server error',
       error: error instanceof Error ? error.message : 'Unknown error',
