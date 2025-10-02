@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Receipt - Charna</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 0; }
+        .header { background: #B67E5A; color: white; padding: 30px; text-align: center; }
+        .brand { font-size: 32px; font-weight: bold; margin: 0; }
+        .brand-dot { color: #D4A574; font-size: 48px; }
+        .content { padding: 30px; }
+        .order-info { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .item-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .item-table th, .item-table td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        .item-table th { background: #f8f9fa; font-weight: bold; }
+        .total-section { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .total-row { display: flex; justify-content: space-between; margin: 8px 0; }
+        .total-final { font-weight: bold; font-size: 18px; border-top: 2px solid #000; padding-top: 10px; }
+        .embossing-detail { background: #fff3cd; padding: 8px; border-radius: 4px; margin: 4px 0; font-style: italic; }
+        .footer { background: #f8f9fa; padding: 20px; text-align: center; color: #666; }
+        .contact-info { margin: 15px 0; }
+        @media (max-width: 600px) {
+            .container { margin: 0; }
+            .content { padding: 15px; }
+            .item-table { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="brand">Charna<span class="brand-dot">.</span></h1>
+            <p style="margin: 10px 0 0; font-size: 16px;">Premium Handcrafted Leather Goods</p>
+        </div>
+        
+        <div class="content">
+            <h2 style="color: #B67E5A; margin-bottom: 10px;">Thank You for Your Order!</h2>
+            <p>Hi Sarah,</p>
+            <p>Your order has been confirmed and payment has been successfully processed. We're excited to craft your premium leather goods.</p>
+            
+            <div class="order-info">
+                <h3 style="margin-top: 0; color: #000;">Order Details</h3>
+                <p><strong>Order Number:</strong> #12345</p>
+                <p><strong>Payment ID:</strong> demo_charge_1758469549746</p>
+                <p><strong>Order Date:</strong> September 21, 2025</p>
+            </div>
+
+            <h3 style="color: #000;">Items Ordered</h3>
+            <table class="item-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>Classic Professional Backpack</strong>
+                            <br><small>Color: Black</small>
+                            <div class="embossing-detail">+ Custom Embossing: "SARAH"</div>
+                        </td>
+                        <td>1</td>
+                        <td>R2,579</td>
+                        <td>R2,579</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="total-section">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span>R2,579</span>
+                </div>
+                <div class="total-row">
+                    <span>Shipping:</span>
+                    <span>Free</span>
+                </div>
+                <div class="total-row total-final">
+                    <span>Total Paid:</span>
+                    <span>R2,579</span>
+                </div>
+            </div>
+
+            <h3 style="color: #000;">Shipping Address</h3>
+            <div class="order-info">
+                <p>Sarah Johnson<br>
+                123 Main Street<br>
+                Cape Town, Western Cape 8001<br>
+                Phone: +27 21 123 4567</p>
+            </div>
+
+            <h3 style="color: #000;">What's Next?</h3>
+            <p>🛠️ <strong>Crafting:</strong> Your order will be handcrafted within 3-5 business days.</p>
+            <p>📦 <strong>Shipping:</strong> We'll send you tracking information once your order ships (usually within 2-5 business days after crafting).</p>
+            <p>🎯 <strong>Delivery:</strong> Estimated delivery within 2-3 business days after shipping.</p>
+        </div>
+
+        <div class="footer">
+            <div class="contact-info">
+                <p><strong>Charna.</strong></p>
+                <p>Email: info@charna.co.com | WhatsApp: +27 723560321</p>
+            </div>
+            <p style="font-size: 12px; color: #999; margin-top: 20px;">
+                This is an automated receipt. Please save this email for your records.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
