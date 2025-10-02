@@ -18,75 +18,7 @@ export interface IStorage {
   getAllContacts(): Promise<Contact[]>;
 }
 
-// Prisma-based Storage Implementation
-export class PrismaStorage implements IStorage {
-  // Products
-  async getAllProducts(): Promise<Product[]> {
-    return await prisma.product.findMany({
-      orderBy: { createdAt: 'desc' }
-    });
-  }
-
-  async getFeaturedProducts(): Promise<Product[]> {
-    return await prisma.product.findMany({
-      where: { featured: true },
-      orderBy: { createdAt: 'desc' }
-    });
-  }
-
-  async getProductById(id: number): Promise<Product | undefined> {
-    const product = await prisma.product.findUnique({
-      where: { id }
-    });
-    return product || undefined;
-  }
-
-  async getProductsByCategory(category: string): Promise<Product[]> {
-    return await prisma.product.findMany({
-      where: { category },
-      orderBy: { createdAt: 'desc' }
-    });
-  }
-
-  // Orders
-  async createOrder(orderData: Omit<Order, 'id' | 'createdAt'>): Promise<Order> {
-    return await prisma.order.create({
-      data: orderData
-    });
-  }
-
-  async getOrderById(id: number): Promise<Order | undefined> {
-    const order = await prisma.order.findUnique({
-      where: { id }
-    });
-    return order || undefined;
-  }
-
-  async getAllOrders(): Promise<Order[]> {
-    return await prisma.order.findMany({
-      orderBy: { createdAt: 'desc' }
-    });
-  }
-
-  // Contacts
-  async createContact(contactData: Omit<Contact, 'id' | 'createdAt'>): Promise<Contact> {
-    return await prisma.contact.create({
-      data: contactData
-    });
-  }
-
-  async getAllContacts(): Promise<Contact[]> {
-    return await prisma.contact.findMany({
-      orderBy: { createdAt: 'desc' }
-    });
-  }
-}
-
-// Export the Prisma storage instance
-export const storage = new PrismaStorage();
-
-// Legacy in-memory storage for backward compatibility during migration
-// This will be removed once we fully migrate to Prisma
+// In-memory storage implementation
 export class MemStorage implements IStorage {
   private products: Product[] = [
     {
