@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Product } from "@shared/schema";
+import { Product } from "@shared/types";
 import { getImagePath } from "@/lib/imageUtils";
 
 interface ProductCardProps {

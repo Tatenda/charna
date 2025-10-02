@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import type { Product } from "@shared/schema";
+import type { Product } from "@shared/types";
 
 const ProductTabs = () => {
   const [activeTab, setActiveTab] = useState("featured");
@@ -133,7 +133,7 @@ const ProductTabs = () => {
                 {/* Color Swatches */}
                 {product.colors && product.colors.length > 0 && (
                   <div className="flex justify-center gap-1 mt-2">
-                    {product.colors.slice(0, 3).map((color, index) => (
+                    {product.colors.slice(0, 3).map((color: string, index: number) => (
                       <div
                         key={index}
                         className="w-4 h-4 rounded-full border border-gray-300"

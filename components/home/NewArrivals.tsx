@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import type { Product } from "@shared/schema";
+import type { Product } from "@shared/types";
 
 const NewArrivals = () => {
   const { data: products = [] } = useQuery<Product[]>({

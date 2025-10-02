@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { MemStorage } from '@/server/storage';
+import { memStorage } from '@/server/storage';
 
-const storage = new MemStorage();
+const storage = memStorage;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Set CORS headers
@@ -33,8 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       email,
       phone: '', // Default empty phone
       subject: 'Contact Form Submission', // Default subject
-      message,
-      createdAt: new Date()
+      message
     });
 
     return res.status(201).json({

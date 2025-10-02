@@ -8,3 +8,5 @@ vite.config.ts.*
 .vercel
 .env*.local
 .next
+
+/generated/prisma

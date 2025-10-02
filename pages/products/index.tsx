@@ -3,7 +3,7 @@ import Seo from "@/components/layout/Seo";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Product } from "@shared/schema";
+import { Product } from "@shared/types";
 import ProductCard from "@/components/products/ProductCard";
 import { Separator } from "@/components/ui/separator";
 import {

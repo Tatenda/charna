@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faShoppingBag, faTruck } from "@fortawesome/free-solid-svg-icons";
-import { Product } from "@shared/schema";
+import { Product } from "@shared/types";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
 
@@ -72,7 +72,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       <div className="mb-6">
         <h4 className="font-accent font-semibold mb-2 text-sm uppercase">Features</h4>
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {product.features.map((feature, index) => (
+          {product.features.map((feature: string, index: number) => (
             <li key={index} className="flex items-center">
               <FontAwesomeIcon icon={faCheck} className="text-primary mr-2" /> {feature}
             </li>

@@ -1,6 +1,4 @@
-import { products, type Product, type InsertProduct } from "../shared/schema";
-import { orders, type Order, type InsertOrder } from "../shared/schema";
-import { contacts, type Contact, type InsertContact } from "../shared/schema";
+import { Product, Order, Contact, OrderWithItems, OrderWithCustomerInfo, CustomerInfo } from '@/shared/types'
 
 // Storage Interface
 export interface IStorage {
@@ -8,380 +6,415 @@ export interface IStorage {
   getAllProducts(): Promise<Product[]>;
   getFeaturedProducts(): Promise<Product[]>;
   getProductById(id: number): Promise<Product | undefined>;
+  getProductsByCategory(category: string): Promise<Product[]>;
   
   // Orders
-  createOrder(order: InsertOrder): Promise<Order>;
+  createOrder(orderData: Omit<Order, 'id' | 'createdAt'>): Promise<Order>;
   getOrderById(id: number): Promise<Order | undefined>;
+  getAllOrders(): Promise<Order[]>;
   
   // Contacts
-  createContact(contact: InsertContact): Promise<Contact>;
+  createContact(contactData: Omit<Contact, 'id' | 'createdAt'>): Promise<Contact>;
+  getAllContacts(): Promise<Contact[]>;
 }
 
-// Memory Storage Implementation
-export class MemStorage implements IStorage {
-  private products: Map<number, Product>;
-  private orders: Map<number, Order>;
-  private contacts: Map<number, Contact>;
-  private nextProductId: number;
-  private nextOrderId: number;
-  private nextContactId: number;
-
-  constructor() {
-    this.products = new Map();
-    this.orders = new Map();
-    this.contacts = new Map();
-    this.nextProductId = 1;
-    this.nextOrderId = 1;
-    this.nextContactId = 1;
-    
-    // Initialize with sample products
-    this.initializeProducts();
-  }
-
-  // Initialize sample products
-  private initializeProducts() {
-    // Tennis Bag Tote
-    this.products.set(1, {
-      id: 1,
-      name: "Charna Tennis Tote",
-      description: "An exquisite cognac leather tennis bag that embodies sophistication and functionality. Crafted with meticulous attention to detail for the discerning athlete.",
-      longDescription: "The Charna Tennis Tote represents the pinnacle of luxury sporting accessories. Each bag is meticulously handcrafted from the finest full-grain leather, showcasing our commitment to uncompromising quality and timeless design. The rich cognac finish develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the sophisticated athlete who appreciates craftsmanship, this tote seamlessly transitions from court to club. The thoughtfully designed interior accommodates all your tennis essentials while maintaining an elegant silhouette that speaks to your refined taste.",
-      price: 3299,
-      originalPrice: 3899,
-      rating: 50, // 5.0
-      reviewCount: 42,
-      inStock: true,
-      badge: "Signature",
-      category: "tennis",
-      colors: ["cognac"],
-      features: [
-        "Premium full-grain leather",
-        "Hand-stitched construction",
-        "Signature brass hardware",
-        "Multiple interior compartments",
-        "Racket-specific organization",
-        "Luxurious suede lining"
-      ],
-      images: [
-        "/images/tennis-bag-lifestyle.jpg",
-        "/images/tennis-bag-action.jpg",
-        "/images/tennis-bag-court.jpg"
-      ],
-      materials: "Handcrafted from premium full-grain leather, made in South Africa. Signature brass hardware with antique finish. Interior lined with luxurious suede.",
-      dimensions: "L 52cm x W 22cm x H 36cm. Handle drop: 26cm.",
-      careInstructions: "Clean with premium leather care products only. Store in provided dust bag. Professional conditioning recommended every 6 months.",
-      featured: true,
-      createdAt: new Date("2024-01-15T00:00:00Z")
-    });
-
-    // Executive Business Tote - Ivory (with lifestyle shots)
-    this.products.set(2, {
-      id: 2,
-      name: "Charna Executive Tote - Ivory",
-      description: "An elegant compact leather tote in pristine ivory, designed for the sophisticated professional. Perfect for daily essentials with refined South African craftsmanship.",
-      longDescription: "The Charna Executive Tote in Ivory represents understated luxury at its finest. Crafted from the most exquisite full-grain leather in our Johannesburg workshop, this compact yet functional tote is designed for the discerning professional who values both style and substance.\n\nThe pristine ivory finish exudes sophistication while the structured silhouette maintains its elegant form throughout daily use. Each piece is meticulously handcrafted with attention to every detail, from the precise stitching to the signature brass hardware that bears the Charna mark of excellence.\n\nThis versatile tote seamlessly transitions from boardroom to social events, making it an essential accessory for the modern executive who appreciates timeless design and uncompromising quality.",
-      price: 2799,
-      originalPrice: 3299,
-      rating: 48, // 4.8
-      reviewCount: 31,
-      inStock: true,
-      badge: "Limited Edition",
-      category: "business",
-      colors: ["ivory"],
-      features: [
-        "Premium ivory leather",
-        "Compact professional design",
-        "Interior laptop sleeve (13\")",
-        "Structured top handles",
-        "Magnetic closure",
-        "Multiple organization pockets",
-        "Signature Charna hardware"
-      ],
-      images: [
-        "/images/green-backpack-lifestyle.jpg",
-        "/images/tennis-bag-lifestyle.jpg"
-      ],
-      materials: "Crafted from finest full-grain leather, handmade in South Africa. Signature brass hardware with gold finish. Lined with premium cotton canvas.",
-      dimensions: "L 38cm x W 12cm x H 28cm. Handle drop: 22cm.",
-      careInstructions: "Handle with care due to light color. Use specialized ivory leather cleaner. Store in provided dust bag. Professional cleaning recommended.",
-      featured: true,
-      createdAt: new Date("2024-02-01T00:00:00Z")
-    });
-
-    // Compact Executive Backpack - Ivory
-    this.products.set(3, {
-      id: 3,
-      name: "Charna Compact Backpack - Ivory",
-      description: "An exquisite compact backpack in pristine ivory leather. Perfect for the sophisticated professional who values both elegance and functionality in a refined silhouette.",
-      longDescription: "The Charna Compact Backpack in Ivory represents the pinnacle of understated luxury. This beautifully proportioned piece is crafted from the finest leather in our Johannesburg workshop in a timeless ivory finish that exudes sophistication and grace.\n\nDesigned for the discerning individual who appreciates refined aesthetics, this compact backpack offers the perfect balance of form and function. The clean lines and minimalist design speak to contemporary sensibilities while the premium craftsmanship honors traditional leather artistry.\n\nEvery detail has been meticulously considered, from the precision stitching to the carefully selected hardware. This is more than a backpack – it's a statement of refined taste and appreciation for the finer things in life.",
-      price: 3299,
-      originalPrice: 3799,
-      rating: 49, // 4.9
-      reviewCount: 24,
-      inStock: true,
-      badge: "Signature",
-      category: "business",
-      colors: ["ivory"],
-      features: [
-        "Premium ivory leather",
-        "Compact sophisticated design",
-        "Laptop compartment (13\")",
-        "Refined minimalist aesthetic",
-        "Premium leather straps",
-        "Interior organization pockets",
-        "Signature brass hardware"
-      ],
-      images: [
-        "/images/ivory-backpack-studio.jpg",
-        "/images/work-backpack-studio.jpg"
-      ],
-      materials: "Handcrafted from finest full-grain leather, made in South Africa. Premium brass hardware with polished finish. Interior lined with luxurious cotton canvas.",
-      dimensions: "L 28cm x W 14cm x H 38cm. Adjustable straps: 65-80cm.",
-      careInstructions: "Handle with care due to light color. Use specialized ivory leather cleaner. Store in provided dust bag. Professional conditioning recommended every 6 months.",
-      featured: true,
-      createdAt: new Date("2024-02-15T00:00:00Z")
-    });
-
-    // Tanned Leather Work Tote
-    this.products.set(4, {
-      id: 4,
-      name: "Charna Tanned Leather Work Tote",
-      description: "A sophisticated tanned leather backpack designed for the modern professional. Features premium hardware and versatile design for work or travel.",
-      longDescription: "The Charna Tanned Leather Work Tote represents the perfect fusion of professional functionality and timeless elegance. Crafted from richly tanned leather in our Johannesburg workshop, this backpack develops a beautiful patina over time, making each piece uniquely yours.\n\nDesigned for the contemporary professional who values both style and substance, this versatile tote features multiple compartments for optimal organization. The rich tanned leather finish exudes warmth and sophistication, while the premium hardware adds refined details that speak to exceptional craftsmanship.\n\nWhether you're heading to the office or embarking on a business trip, this work tote seamlessly combines thoughtful design with practical functionality for today's demanding lifestyle.",
-      price: 3599,
-      originalPrice: 4199,
-      rating: 50, // 5.0
-      reviewCount: 18,
-      inStock: true,
-      badge: "Professional",
-      category: "business",
-      colors: ["tan"],
-      features: [
-        "Premium tanned leather",
-        "Professional work design",
-        "Multiple organization compartments",
-        "Laptop compartment (15\")",
-        "Convertible carry options",
-        "Premium metal hardware",
-        "Signature Charna craftsmanship"
-      ],
-      images: [
-        "/attached_assets/IMG_1420_1751996515357.PNG",
-        "/attached_assets/IMG_1421_1751996519606.PNG"
-      ],
-      materials: "Crafted from finest tanned leather, handmade in Johannesburg. Premium metal hardware with antique brass finish. Interior lined with durable cotton canvas.",
-      dimensions: "L 32cm x W 16cm x H 42cm. Adjustable straps: 70-85cm.",
-      careInstructions: "Clean with premium leather care products. The tanned leather will develop a beautiful patina over time. Store in provided dust bag. Professional conditioning recommended every 6 months.",
-      featured: true,
-      createdAt: new Date("2025-01-08T00:00:00Z")
-    });
-
-    // Travel Bag
-    this.products.set(5, {
-      id: 5,
-      name: "Charna Explorer Travel Bag",
-      description: "A spacious travel companion with retro 70's styling. Perfect for weekend getaways and extended adventures with authentic South African craftsmanship.",
-      longDescription: "The Charna Explorer Travel Bag embodies the adventurous spirit of the 70's with modern functionality. Crafted in our Johannesburg workshop, this groovy travel companion features ample storage and retro styling that makes every journey far out.",
-      price: 4299,
-      originalPrice: 4899,
-      rating: 47,
-      reviewCount: 22,
-      inStock: true,
-      badge: "Adventure Ready",
-      category: "travel",
-      colors: ["brown", "tan"],
-      features: [
-        "Large capacity design",
-        "Multiple compartments",
-        "Durable travel construction",
-        "Retro 70's styling",
-        "Premium leather handles",
-        "Adjustable shoulder strap"
-      ],
-      images: [
-        "/images/travel-bag-lifestyle.jpg",
-        "/images/travel-bag-studio.jpg"
-      ],
-      materials: "Premium travel-grade leather, handcrafted in Johannesburg. Heavy-duty hardware with vintage brass finish.",
-      dimensions: "L 45cm x W 25cm x H 30cm. Handle drop: 15cm.",
-      careInstructions: "Built for adventure. Clean with leather care products and condition regularly for optimal durability.",
-      featured: false,
-      createdAt: new Date("2025-07-22T00:00:00Z")
-    });
-
-    // Sport Bag
-    this.products.set(6, {
-      id: 6,
-      name: "Charna Retro Sport Duffel",
-      description: "A groovy sport bag with 70's flair for the active lifestyle. Combines retro aesthetics with modern sports functionality.",
-      longDescription: "The Charna Retro Sport Duffel brings that authentic 70's vibe to your workout routine. This far-out bag combines vintage styling with practical sports features for the active individual who digs both style and performance.",
-      price: 3199,
-      originalPrice: 3699,
-      rating: 45,
-      reviewCount: 19,
-      inStock: true,
-      badge: "Retro Active",
-      category: "sport", 
-      colors: ["green", "black"],
-      features: [
-        "Ventilated shoe compartment",
-        "Water-resistant lining",
-        "Adjustable shoulder strap",
-        "70's inspired design",
-        "Multiple pockets",
-        "Premium sport hardware"
-      ],
-      images: [
-        "/images/sport-bag-lifestyle.jpg",
-        "/images/sport-bag-studio.jpg"
-      ],
-      materials: "Durable sport leather with water-resistant treatment, made in Johannesburg.",
-      dimensions: "L 50cm x W 25cm x H 25cm. Strap length: 130cm.",
-      careInstructions: "Wipe clean after use. Air dry thoroughly. Condition leather monthly for longevity.",
-      featured: false,
-      createdAt: new Date("2025-07-22T00:00:00Z")
-    });
-
-    // Leisure Bag  
-    this.products.set(7, {
-      id: 7,
-      name: "Charna Groovy Leisure Tote",
-      description: "A totally chill leisure bag perfect for casual outings. Features 70's retro styling with South African craftsmanship for the laid-back lifestyle.",
-      longDescription: "The Charna Groovy Leisure Tote is all about that relaxed 70's vibe. Perfect for farmers markets, beach trips, or just hanging out with friends, this bag brings together retro cool and practical functionality.",
-      price: 2599,
-      originalPrice: 2999,
-      rating: 46,
-      reviewCount: 27,
-      inStock: true,
-      badge: "Chill Vibes",
-      category: "leisure",
-      colors: ["mustard", "brown"],
-      features: [
-        "Relaxed casual design",
-        "Spacious main compartment",
-        "Interior zip pocket",
-        "Comfortable handles",
-        "70's retro styling",
-        "Lightweight construction"
-      ],
-      images: [
-        "/images/leisure-bag-lifestyle.jpg",
-        "/images/leisure-bag-studio.jpg"
-      ],
-      materials: "Soft leisure leather with natural grain, handcrafted in Johannesburg.",
-      dimensions: "L 35cm x W 15cm x H 25cm. Handle drop: 20cm.",
-      careInstructions: "Perfect for everyday use. Clean gently and condition as needed.",
-      featured: false,
-      createdAt: new Date("2025-07-22T00:00:00Z")
-    });
-
-    // Custom Bag
-    this.products.set(8, {
-      id: 8,
-      name: "Charna Custom Creation",
-      description: "Design your own groovy bag with our custom service. Choose colors, features, and styling to create your perfect 70's inspired leather companion.",
-      longDescription: "The Charna Custom Creation service lets you design the bag of your dreams. Work with our Johannesburg artisans to create a one-of-a-kind piece that reflects your personal style and groovy 70's aesthetic preferences.",
-      price: 5999,
-      originalPrice: 6999,
-      rating: 50,
-      reviewCount: 8,
-      inStock: true,
-      badge: "Made to Order",
-      category: "custom",
-      colors: ["custom"],
-      features: [
-        "Completely customizable",
-        "Personal design consultation",
-        "Choice of colors and materials",
-        "Unique hardware options",
-        "Personalized details",
-        "4-6 week creation time"
-      ],
-      images: [
-        "/images/custom-bag-examples.jpg",
-        "/images/custom-process.jpg"
-      ],
-      materials: "Your choice of premium leathers and hardware, all handcrafted in Johannesburg.",
-      dimensions: "Customizable to your specifications.",
-      careInstructions: "Care instructions provided based on your chosen materials and design.",
-      featured: true,
-      createdAt: new Date("2025-07-22T00:00:00Z")
-    });
-
-    // Test Bag - For testing purposes
-    this.products.set(9, {
-      id: 9,
-      name: "Test Bag",
-      description: "A simple test bag for testing the payment and email functionality. Perfect for development and testing purposes.",
-      longDescription: "This is a test product designed specifically for testing the payment flow and email sending functionality. It's a simple bag that costs only R1 to make testing quick and easy.",
-      price: 1, // R1 in cents
-      originalPrice: null,
-      rating: 50, // 5.0
-      reviewCount: 0,
-      inStock: true,
-      badge: "Test",
-      category: "business",
-      colors: ["black"],
-      features: [
-        "Test product",
-        "Minimal cost",
-        "Quick testing",
-        "Email verification"
-      ],
-      images: [
-        "/images/test-bag.jpg"
-      ],
-      materials: "Test materials for development purposes.",
-      dimensions: "Test dimensions - 10cm x 10cm x 10cm.",
-      careInstructions: "No special care required for test product.",
-      featured: true,
-      createdAt: new Date()
-    });
-  }
-
-  // Product Methods
+// Prisma-based Storage Implementation
+export class PrismaStorage implements IStorage {
+  // Products
   async getAllProducts(): Promise<Product[]> {
-    return Array.from(this.products.values());
+    return await prisma.product.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
   }
 
   async getFeaturedProducts(): Promise<Product[]> {
-    return Array.from(this.products.values()).filter(product => product.featured);
+    return await prisma.product.findMany({
+      where: { featured: true },
+      orderBy: { createdAt: 'desc' }
+    });
   }
 
   async getProductById(id: number): Promise<Product | undefined> {
-    return this.products.get(id);
+    const product = await prisma.product.findUnique({
+      where: { id }
+    });
+    return product || undefined;
   }
 
-  // Order Methods
-  async createOrder(order: InsertOrder): Promise<Order> {
-    const id = this.nextOrderId++;
+  async getProductsByCategory(category: string): Promise<Product[]> {
+    return await prisma.product.findMany({
+      where: { category },
+      orderBy: { createdAt: 'desc' }
+    });
+  }
+
+  // Orders
+  async createOrder(orderData: Omit<Order, 'id' | 'createdAt'>): Promise<Order> {
+    return await prisma.order.create({
+      data: orderData
+    });
+  }
+
+  async getOrderById(id: number): Promise<Order | undefined> {
+    const order = await prisma.order.findUnique({
+      where: { id }
+    });
+    return order || undefined;
+  }
+
+  async getAllOrders(): Promise<Order[]> {
+    return await prisma.order.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+  }
+
+  // Contacts
+  async createContact(contactData: Omit<Contact, 'id' | 'createdAt'>): Promise<Contact> {
+    return await prisma.contact.create({
+      data: contactData
+    });
+  }
+
+  async getAllContacts(): Promise<Contact[]> {
+    return await prisma.contact.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+  }
+}
+
+// Export the Prisma storage instance
+export const storage = new PrismaStorage();
+
+// Legacy in-memory storage for backward compatibility during migration
+// This will be removed once we fully migrate to Prisma
+export class MemStorage implements IStorage {
+  private products: Product[] = [
+    {
+      id: 1,
+      name: "Retro Range - Navy Blue",
+      description: "A timeless design that combines vintage aesthetics with modern functionality.",
+      longDescription: "The Retro Range Navy Blue bag is crafted from premium materials and features a classic design that never goes out of style. Perfect for both work and leisure, this bag offers ample storage space and comfortable carrying options.",
+      price: 2500,
+      originalPrice: 3000,
+      rating: 5,
+      reviewCount: 12,
+      inStock: true,
+      badge: "Best Seller",
+      category: "business",
+      colors: ["#1e3a8a", "#3b82f6", "#60a5fa"],
+      features: [
+        "Premium leather construction",
+        "Multiple compartments",
+        "Adjustable shoulder strap",
+        "Laptop compartment",
+        "Water-resistant material"
+      ],
+      images: [
+        "/Retro Range - Navy Blue_1757319569359.png",
+        "/Retro Range - Navy Blue_1757319569359.png"
+      ],
+      materials: "Premium leather and canvas",
+      dimensions: "40cm x 30cm x 15cm",
+      careInstructions: "Clean with damp cloth, avoid direct sunlight",
+      featured: true,
+      createdAt: new Date()
+    },
+    {
+      id: 2,
+      name: "Retro Range - Rose Gold",
+      description: "Elegant rose gold accents make this bag a perfect accessory for any occasion.",
+      longDescription: "The Retro Range Rose Gold bag features sophisticated rose gold hardware and premium materials. Its elegant design makes it perfect for both professional and social settings.",
+      price: 2800,
+      originalPrice: 3200,
+      rating: 5,
+      reviewCount: 8,
+      inStock: true,
+      badge: "New",
+      category: "business",
+      colors: ["#f59e0b", "#fbbf24", "#fcd34d"],
+      features: [
+        "Rose gold hardware",
+        "Premium materials",
+        "Multiple compartments",
+        "Adjustable straps",
+        "Laptop protection"
+      ],
+      images: [
+        "/Retro Range - Rose Gold_1757319569359.png",
+        "/Retro Range - Rose Gold_1757319569359.png"
+      ],
+      materials: "Premium leather with rose gold hardware",
+      dimensions: "38cm x 28cm x 12cm",
+      careInstructions: "Clean with soft cloth, store in cool dry place",
+      featured: true,
+      createdAt: new Date()
+    },
+    {
+      id: 3,
+      name: "Retro Range - Black",
+      description: "Classic black design that never goes out of style.",
+      longDescription: "The Retro Range Black bag is a timeless classic that offers both style and functionality. Perfect for any professional setting.",
+      price: 2400,
+      originalPrice: 2800,
+      rating: 5,
+      reviewCount: 15,
+      inStock: true,
+      badge: "Popular",
+      category: "business",
+      colors: ["#000000", "#374151", "#6b7280"],
+      features: [
+        "Classic black design",
+        "Durable construction",
+        "Multiple pockets",
+        "Comfortable carrying",
+        "Professional look"
+      ],
+      images: [
+        "/Retro Range - Black_1757319569359.png",
+        "/Retro Range - Black_1757319569359.png"
+      ],
+      materials: "Premium black leather",
+      dimensions: "42cm x 32cm x 16cm",
+      careInstructions: "Clean with leather cleaner, condition monthly",
+      featured: true,
+      createdAt: new Date()
+    },
+    {
+      id: 4,
+      name: "Sports Range - Navy Tennis Bag",
+      description: "Perfect for tennis players and sports enthusiasts.",
+      longDescription: "The Sports Range Navy Tennis Bag is designed specifically for tennis players. It features specialized compartments for racquets, balls, and other tennis equipment.",
+      price: 1800,
+      originalPrice: 2200,
+      rating: 4,
+      reviewCount: 6,
+      inStock: true,
+      badge: "Sports",
+      category: "sports",
+      colors: ["#1e3a8a", "#3b82f6"],
+      features: [
+        "Racquet compartment",
+        "Ball pockets",
+        "Water bottle holder",
+        "Durable material",
+        "Comfortable straps"
+      ],
+      images: [
+        "/Sports Range - Navy Tennis Bag_1757319569359.png",
+        "/Sports Range - Navy Tennis Bag_1757319569359.png"
+      ],
+      materials: "Heavy-duty canvas and nylon",
+      dimensions: "50cm x 25cm x 20cm",
+      careInstructions: "Machine washable, air dry",
+      featured: false,
+      createdAt: new Date()
+    },
+    {
+      id: 5,
+      name: "Leisure Range - Weekend Getaway",
+      description: "Perfect for weekend trips and short getaways.",
+      longDescription: "The Leisure Range Weekend Getaway bag is designed for short trips and weekend adventures. It offers plenty of space while remaining compact and easy to carry.",
+      price: 1600,
+      originalPrice: 2000,
+      rating: 4,
+      reviewCount: 4,
+      inStock: true,
+      badge: "Travel",
+      category: "leisure",
+      colors: ["#059669", "#10b981", "#34d399"],
+      features: [
+        "Weekend capacity",
+        "Multiple compartments",
+        "Easy access pockets",
+        "Lightweight design",
+        "Travel-friendly"
+      ],
+      images: [
+        "/Leisure Range - Weekend Getaway_1757319569359.png",
+        "/Leisure Range - Weekend Getaway_1757319569359.png"
+      ],
+      materials: "Lightweight nylon and polyester",
+      dimensions: "45cm x 30cm x 18cm",
+      careInstructions: "Spot clean, air dry",
+      featured: false,
+      createdAt: new Date()
+    },
+    {
+      id: 6,
+      name: "Business Range - Executive Briefcase",
+      description: "Professional briefcase for business executives.",
+      longDescription: "The Business Range Executive Briefcase is designed for professionals who need to carry important documents and electronics. It features a sophisticated design and premium materials.",
+      price: 3200,
+      originalPrice: 3800,
+      rating: 5,
+      reviewCount: 10,
+      inStock: true,
+      badge: "Executive",
+      category: "business",
+      colors: ["#1f2937", "#374151", "#4b5563"],
+      features: [
+        "Document compartments",
+        "Laptop protection",
+        "Premium materials",
+        "Professional design",
+        "Secure closures"
+      ],
+      images: [
+        "/Business Range - Executive Briefcase_1757319569359.png",
+        "/Business Range - Executive Briefcase_1757319569359.png"
+      ],
+      materials: "Premium leather and metal hardware",
+      dimensions: "44cm x 34cm x 8cm",
+      careInstructions: "Professional leather care, avoid moisture",
+      featured: true,
+      createdAt: new Date()
+    },
+    {
+      id: 7,
+      name: "Onboarding Range - Starter Pack",
+      description: "Perfect starter bag for new professionals.",
+      longDescription: "The Onboarding Range Starter Pack is designed for new professionals entering the workforce. It offers all the essential features at an affordable price.",
+      price: 1200,
+      originalPrice: 1500,
+      rating: 4,
+      reviewCount: 7,
+      inStock: true,
+      badge: "Starter",
+      category: "onboarding",
+      colors: ["#7c3aed", "#8b5cf6", "#a78bfa"],
+      features: [
+        "Essential compartments",
+        "Affordable price",
+        "Professional look",
+        "Durable construction",
+        "Easy to use"
+      ],
+      images: [
+        "/Onboarding Range - Starter Pack_1757319569359.png",
+        "/Onboarding Range - Starter Pack_1757319569359.png"
+      ],
+      materials: "Quality synthetic leather",
+      dimensions: "38cm x 28cm x 12cm",
+      careInstructions: "Clean with damp cloth, avoid harsh chemicals",
+      featured: false,
+      createdAt: new Date()
+    },
+    {
+      id: 8,
+      name: "Accessories Range - Desk Mat",
+      description: "Premium desk mat for your workspace.",
+      longDescription: "The Accessories Range Desk Mat provides a comfortable and stylish surface for your workspace. Made from premium materials, it protects your desk while adding elegance to your office.",
+      price: 800,
+      originalPrice: 1000,
+      rating: 5,
+      reviewCount: 3,
+      inStock: true,
+      badge: "Accessory",
+      category: "accessories",
+      colors: ["#92400e", "#d97706", "#f59e0b"],
+      features: [
+        "Premium materials",
+        "Desk protection",
+        "Elegant design",
+        "Easy to clean",
+        "Non-slip base"
+      ],
+      images: [
+        "/Accessories Range - Desk Mat_1757319569359.png",
+        "/Accessories Range - Desk Mat_1757319569359.png"
+      ],
+      materials: "Premium leather and rubber base",
+      dimensions: "60cm x 40cm x 0.5cm",
+      careInstructions: "Clean with damp cloth, air dry",
+      featured: false,
+      createdAt: new Date()
+    },
+    {
+      id: 9,
+      name: "Test Bag",
+      description: "Test product for development and testing purposes.",
+      longDescription: "This is a test product used for development and testing. It has a low price to test payment processing and shipping calculations.",
+      price: 200, // R2.00 in cents
+      originalPrice: 300,
+      rating: 5,
+      reviewCount: 1,
+      inStock: true,
+      badge: "Test",
+      category: "business",
+      colors: ["#ef4444", "#f87171"],
+      features: [
+        "Test product",
+        "Low price",
+        "Development use",
+        "Payment testing",
+        "Shipping testing"
+      ],
+      images: [
+        "/Test Bag_1757319569359.png",
+        "/Test Bag_1757319569359.png"
+      ],
+      materials: "Test materials",
+      dimensions: "30cm x 20cm x 10cm",
+      careInstructions: "Test care instructions",
+      featured: false,
+      createdAt: new Date()
+    }
+  ];
+
+  private orders: Order[] = [];
+  private contacts: Contact[] = [];
+
+  // Products
+  async getAllProducts(): Promise<Product[]> {
+    return [...this.products];
+  }
+
+  async getFeaturedProducts(): Promise<Product[]> {
+    return this.products.filter(product => product.featured);
+  }
+
+  async getProductById(id: number): Promise<Product | undefined> {
+    return this.products.find(product => product.id === id);
+  }
+
+  async getProductsByCategory(category: string): Promise<Product[]> {
+    return this.products.filter(product => product.category === category);
+  }
+
+  // Orders
+  async createOrder(orderData: Omit<Order, 'id' | 'createdAt'>): Promise<Order> {
     const newOrder: Order = {
-      ...order,
-      id,
-      createdAt: new Date(),
-      status: order.status || "pending",
-      paymentId: order.paymentId || null
+      id: this.orders.length + 1,
+      ...orderData,
+      createdAt: new Date()
     };
-    this.orders.set(id, newOrder);
+    this.orders.push(newOrder);
     return newOrder;
   }
 
   async getOrderById(id: number): Promise<Order | undefined> {
-    return this.orders.get(id);
+    return this.orders.find(order => order.id === id);
   }
 
-  // Contact Methods
-  async createContact(contact: InsertContact): Promise<Contact> {
-    const id = this.nextContactId++;
-    const newContact = {
-      ...contact,
-      id,
+  async getAllOrders(): Promise<Order[]> {
+    return [...this.orders];
+  }
+
+  // Contacts
+  async createContact(contactData: Omit<Contact, 'id' | 'createdAt'>): Promise<Contact> {
+    const newContact: Contact = {
+      id: this.contacts.length + 1,
+      ...contactData,
       createdAt: new Date()
     };
-    this.contacts.set(id, newContact);
+    this.contacts.push(newContact);
     return newContact;
+  }
+
+  async getAllContacts(): Promise<Contact[]> {
+    return [...this.contacts];
   }
 }
 
-// Export a singleton instance
-export const storage = new MemStorage();
+// Export the in-memory storage for now (will be replaced with Prisma)
+export const memStorage = new MemStorage();

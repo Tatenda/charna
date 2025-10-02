@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { Product } from "@shared/schema";
+import { Product } from "@shared/types";
 
 export interface CartItem {
   product: Product;

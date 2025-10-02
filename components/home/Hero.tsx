@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
-import { Product } from "@shared/schema";
+import { Product } from "@shared/types";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -83,7 +83,7 @@ const Hero = () => {
     description: `Premium handcrafted ${category} bag from Johannesburg`,
     longDescription: `Meticulously crafted in our Johannesburg workshop, this ${name.toLowerCase()} represents the perfect blend of South African craftsmanship and modern design. Each piece is made with premium materials and attention to detail.`,
     price,
-    originalPrice: null,
+    originalPrice: undefined,
     rating: 5,
     reviewCount: 12,
     inStock: true,

@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id               Int      @id @default(autoincrement())
+  name             String
+  description      String
+  longDescription  String   @map("long_description")
+  price            Int
+  originalPrice    Int?     @map("original_price")
+  rating           Int      @default(5) // For simplicity, storing as an integer * 10 (e.g., 4.5 => 45)
+  reviewCount      Int      @default(0) @map("review_count")
+  inStock          Boolean  @default(true) @map("in_stock")
+  badge            String?
+  category         String
+  colors           String[] // JSON array of strings
+  features         String[] // JSON array of strings
+  images           String[] // JSON array of strings
+  materials        String
+  dimensions       String
+  careInstructions String  @map("care_instructions")
+  featured         Boolean  @default(false)
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  @@map("products")
+}
+
+model Order {
+  id           Int      @id @default(autoincrement())
+  customerInfo Json     @map("customer_info")
+  items        Json     // Array of OrderItem objects
+  totalAmount  Int      @map("total_amount")
+  paymentId    String?  @map("payment_id") // Yoco payment ID for successful payments
+  status       String   @default("pending")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("orders")
+}
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("contacts")
+}

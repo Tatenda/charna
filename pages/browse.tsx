@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import type { Product } from "@shared/schema";
+import type { Product } from "@shared/types";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -917,7 +917,7 @@ export default function Browse() {
       description: selectedProduct.description || `Premium handcrafted ${selectedProduct.category} package from Johannesburg`,
       longDescription: `Meticulously crafted in our Johannesburg workshop, this ${selectedProduct.name.toLowerCase()} represents the perfect blend of South African craftsmanship and modern design.`,
       price: selectedProduct.price,
-      originalPrice: null,
+      originalPrice: undefined,
       rating: 5,
       reviewCount: 12,
       inStock: true,
