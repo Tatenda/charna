@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
+import { useRouter } from "next/router";
 import Seo from "@/components/layout/Seo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 export default function CheckoutSuccess() {
-  const [, setLocation] = useLocation();
+  const router = useRouter();
   const [paymentDetails, setPaymentDetails] = useState<any>(null);
   const [orderCreated, setOrderCreated] = useState(false);
   const [isCreatingOrder, setIsCreatingOrder] = useState(false);
@@ -258,14 +258,14 @@ export default function CheckoutSuccess() {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={() => setLocation("/")}
+              onClick={() => router.push("/")}
               className="btn-primary px-8 py-3"
             >
               <FontAwesomeIcon icon="home" className="mr-2" />
               Back to Home
             </Button>
             <Button
-              onClick={() => setLocation("/products")}
+              onClick={() => router.push("/products")}
               variant="outline"
               className="px-8 py-3"
             >

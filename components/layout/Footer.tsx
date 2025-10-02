@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import charnaLogo from '@assets/image_1757323855942.png';
 import { WHATSAPP_NUMBER } from '@/lib/constants';
 
 const Footer = () => {
@@ -18,7 +17,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div>
             <img 
-              src={charnaLogo} 
+              src="/image_1757323855942.png" 
               alt="Charna" 
               className="h-16 w-auto mb-4"
             />

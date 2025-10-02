@@ -18,8 +18,8 @@ const Hero = () => {
 
   const retroImages = [
     { src: "/images/green-backpack.jpg", alt: "Retro Backpack - Olive" },
-    { src: navyRetroBag, alt: "Retro Backpack - Navy" },
-    { src: navyGoldZipBag, alt: "Retro Backpack - Navy with Gold Zip" }
+    { src: "/Retro Range - Navy Blue_1757319569359.png", alt: "Retro Backpack - Navy" },
+    { src: "/Retro range - Navy with gold zip_1758113011142.png", alt: "Retro Backpack - Navy with Gold Zip" }
   ];
 
   const handleRetroHover = () => {
@@ -106,8 +106,8 @@ const Hero = () => {
       price: 2399,
       category: "business",
       colors: [
-        { name: "Navy", image: navyWorkBackpack, value: "navy" },
-        { name: "Olive", image: oliveWorkBackpack, value: "olive" }
+        { name: "Navy", image: "/Retro Range - Navy Blue_1758225069385.png", value: "navy" },
+        { name: "Olive", image: "/Retro Range - Olive_1758362124136.png", value: "olive" }
       ]
     },
     leisure: {
@@ -115,8 +115,8 @@ const Hero = () => {
       price: 1100,
       category: "leisure",
       colors: [
-        { name: "Cream", image: creamHipBag, value: "cream" },
-        { name: "Blue", image: blueCrossbodyBag, value: "blue" }
+        { name: "Cream", image: "/LGM_hip_1757356807770.png", value: "cream" },
+        { name: "Blue", image: "/913E8FCD-4943-44D3-A3EF-645778762B43_1758357180594.png", value: "blue" }
       ]
     },
     sports: {
@@ -124,8 +124,8 @@ const Hero = () => {
       price: 3299,
       category: "sport",
       colors: [
-        { name: "Navy", image: newNavyTennisBag, value: "navy" },
-        { name: "White", image: newWhiteTennisBag, value: "white" }
+        { name: "Navy", image: "/Navy sports back - neutral background_1758112268197.png", value: "navy" },
+        { name: "White", image: "/Tennis bag - White - neutral background_1758110253206.png", value: "white" }
       ]
     },
     classic: {
@@ -133,8 +133,8 @@ const Hero = () => {
       price: 2499,
       category: "travel",
       colors: [
-        { name: "Navy", image: newClassicNavyBag, value: "navy" },
-        { name: "Tan", image: newClassicTanBag, value: "tan" }
+        { name: "Navy", image: "/Copy of Classic range - Rose Gold_1758112410766.png", value: "navy" },
+        { name: "Tan", image: "/LGM_Classic_me (1)_1758112410768.png", value: "tan" }
       ]
     },
     grounded: {
@@ -142,8 +142,8 @@ const Hero = () => {
       price: 1999,
       category: "work",
       colors: [
-        { name: "Original", image: groundedBag, value: "original" },
-        { name: "Gold Zip", image: newGroundedBag, value: "gold-zip" }
+        { name: "Original", image: "/LGM_Grounded (1)_1757318142201.png", value: "original" },
+        { name: "Gold Zip", image: "/ChatGPT Image Sep 17, 2025, 03_24_36 PM_1758115521218.png", value: "gold-zip" }
       ]
     },
     timeless: {
@@ -151,8 +151,8 @@ const Hero = () => {
       price: 1899,
       category: "work",
       colors: [
-        { name: "Original", image: styledLaptopBag, value: "original" },
-        { name: "Rose Gold Zip", image: timelessRoseGoldBag, value: "rose-gold" }
+        { name: "Original", image: "/LGM_Styled_1757318531199.png", value: "original" },
+        { name: "Rose Gold Zip", image: "/Timeless Range - Rose Gold zip_1758117345340.png", value: "rose-gold" }
       ]
     },
     sleeved: {
@@ -160,8 +160,8 @@ const Hero = () => {
       price: 1100,
       category: "accessories",
       colors: [
-        { name: "Tan", image: tanLaptopSleeve, value: "tan" },
-        { name: "Navy", image: navyLaptopSleeveFront, value: "navy" }
+        { name: "Tan", image: "/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png", value: "tan" },
+        { name: "Navy", image: "/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758358612678.png", value: "navy" }
       ]
     }
   };
@@ -216,67 +216,67 @@ const Hero = () => {
   };
   
   const businessBags = [
-    { src: manCarryingOliveBag, alt: "Business Collection - Man with Olive Bag" },
-    { src: oliveWorkBackpack, alt: "Business Collection - Olive" },
-    { src: tanBusinessBag, alt: "Business Collection - Tan" },
-    { src: newNavyBusinessBag, alt: "Business Collection - Navy" },
-    { src: whiteBusinessBag, alt: "Business Collection - White" }
+    { src: "/ChatGPT Image Sep 17, 2025, 04_11_01 PM_1758118389040.png", alt: "Business Collection - Man with Olive Bag" },
+    { src: "/Retro Range - Olive_1758362124136.png", alt: "Business Collection - Olive" },
+    { src: "/LGM_Grounded (1) (1)_1757354457354.png", alt: "Business Collection - Tan" },
+    { src: "/ChatGPT Image Sep 17, 2025, 01_42_26 PM_1758118389041.png", alt: "Business Collection - Navy" },
+    { src: "/ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757354752545.png", alt: "Business Collection - White" }
   ];
 
   const sportsBags = [
-    { src: gentWithTennisBag, alt: "Gentleman with Tennis Bag - Navy" },
-    { src: whiteTennisBagNew, alt: "Tennis Bag - White" },
-    { src: navyTennisBagNew2, alt: "Tennis Bag - Navy" }
+    { src: "/Gent wih tennis bag - navy _1758386562325.png", alt: "Gentleman with Tennis Bag - Navy" },
+    { src: "/Tennis bag - White - neutral background_1758386577764.png", alt: "Tennis Bag - White" },
+    { src: "/Navy Tennis bag_1758386586336.png", alt: "Tennis Bag - Navy" }
   ];
 
   const travelBags = [
-    { src: travelBackpackLifestyle, alt: "Travel Collection - Lifestyle" },
-    { src: tanTravelBackpack, alt: "Travel Collection - Tan" },
-    { src: navyTravelBackpack, alt: "Travel Collection - Navy" }
+    { src: "/ChatGPT Image Jul 25, 2025, 05_56_03 PM_1758206025280.png", alt: "Travel Collection - Lifestyle" },
+    { src: "/LGM_Classic_me_1757356445165.png", alt: "Travel Collection - Tan" },
+    { src: "/Classic range - Rose Gold_1757356095029.png", alt: "Travel Collection - Navy" }
   ];
 
   const leisureBags = [
-    { src: ladyWithSideBag, alt: "Leisure Collection - Lady with Navy Side Bag" },
-    { src: creamHipBag, alt: "Leisure Collection - White Hip Bag" },
-    { src: blueCrossbodyBag, alt: "Leisure Collection - Blue Crossbody Bag" }
+    { src: "/Lady with side bag - navy_1758383464073.png", alt: "Leisure Collection - Lady with Navy Side Bag" },
+    { src: "/LGM_hip_1757356807770.png", alt: "Leisure Collection - White Hip Bag" },
+    { src: "/913E8FCD-4943-44D3-A3EF-645778762B43_1758357180594.png", alt: "Leisure Collection - Blue Crossbody Bag" }
   ];
 
   const workLaptopBags = [
-    { src: navyWorkBackpack, alt: "Retro Navy Backpack" },
-    { src: brownWorkBackpack, alt: "Grounded Tan Backpack" },
-    { src: whiteWorkBackpack, alt: "Timeless White Backpack" },
-    { src: oliveWorkBackpack, alt: "Retro Olive Backpack" }
+    { src: "/Retro Range - Navy Blue_1758225069385.png", alt: "Retro Navy Backpack" },
+    { src: "/LGM_Grounded (1)_1758225069383.png", alt: "Grounded Tan Backpack" },
+    { src: "/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1758225069381.png", alt: "Timeless White Backpack" },
+    { src: "/Retro Range - Olive_1758362124136.png", alt: "Retro Olive Backpack" }
   ];
 
   const leisureRangeBags = [
-    { src: hipBagSolo, alt: "Leisure Range - Hip Bag Solo" }
+    { src: "/LGM_hip_1757357579607.png", alt: "Leisure Range - Hip Bag Solo" }
   ];
 
   const sleevedLaptopBags = [
-    { src: tanLaptopSleeve, alt: "Laptop Sleeve - Tan Front" },
-    { src: tanLaptopSleeveSide, alt: "Laptop Sleeve - Tan Side" },
-    { src: navyLaptopSleeveFront, alt: "Laptop Sleeve - Navy Front" },
-    { src: navyLaptopSleeveSide, alt: "Laptop Sleeve - Navy Side" }
+    { src: "/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png", alt: "Laptop Sleeve - Tan Front" },
+    { src: "/1FCA156B-07B9-4EB4-B6CB-90243D3F1240_1758358612678.png", alt: "Laptop Sleeve - Tan Side" },
+    { src: "/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758358612678.png", alt: "Laptop Sleeve - Navy Front" },
+    { src: "/73877EA7-4681-4580-9B27-19C20A7D3A10_1758358612678.png", alt: "Laptop Sleeve - Navy Side" }
   ];
 
   const accessoriesBags = [
-    { src: tanLaptopSleeve, alt: "Laptop Sleeve - Tan Front" },
-    { src: tanLaptopSleeveSide, alt: "Laptop Sleeve - Tan Side" },
-    { src: navyLaptopSleeveFront, alt: "Laptop Sleeve - Navy Front" },
-    { src: navyLaptopSleeveSide, alt: "Laptop Sleeve - Navy Side" },
-    { src: embossCompanyTag, alt: "Laptop Tag - Welcome Message" },
-    { src: embossInitials, alt: "Embossing - Custom Initials" }
+    { src: "/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png", alt: "Laptop Sleeve - Tan Front" },
+    { src: "/1FCA156B-07B9-4EB4-B6CB-90243D3F1240_1758358612678.png", alt: "Laptop Sleeve - Tan Side" },
+    { src: "/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758358612678.png", alt: "Laptop Sleeve - Navy Front" },
+    { src: "/73877EA7-4681-4580-9B27-19C20A7D3A10_1758358612678.png", alt: "Laptop Sleeve - Navy Side" },
+    { src: "/Welcome message - Christopher_1758224465167.png", alt: "Laptop Tag - Welcome Message" },
+    { src: "/Embossing example_1758224006405.png", alt: "Embossing - Custom Initials" }
   ];
 
   const onboardingBags = [
-    { src: navyWorkBackpack, alt: "Navy Work Laptop Bag" },
-    { src: brownWorkBackpack, alt: "Grounded Tan Work Laptop Bag" },
-    { src: oliveWorkBackpack, alt: "Olive Work Laptop Bag" }
+    { src: "/Retro Range - Navy Blue_1758225069385.png", alt: "Navy Work Laptop Bag" },
+    { src: "/LGM_Grounded (1)_1758225069383.png", alt: "Grounded Tan Work Laptop Bag" },
+    { src: "/Retro Range - Olive_1758362124136.png", alt: "Olive Work Laptop Bag" }
   ];
 
   const giftsBags = [
-    { src: wineBagWithBottles, alt: "Wine Bag with Bottles" },
-    { src: wineBagEmpty, alt: "Wine Bag - Empty" }
+    { src: "/Wine bag - wine bottles_1758387116266.png", alt: "Wine Bag with Bottles" },
+    { src: "/Wine bag_1758387116268.png", alt: "Wine Bag - Empty" }
   ];
 
   useEffect(() => {
@@ -434,7 +434,7 @@ const Hero = () => {
       <section className="relative min-h-[60vh] sm:min-h-[70vh] md:h-[85vh] flex items-center overflow-hidden pt-16 md:pt-0">
         {/* Background Image */}
         <div className="absolute inset-0" style={{
-          backgroundImage: `url(${newHeroBg})`,
+          backgroundImage: `url(/image_1757230274214.png)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
@@ -553,7 +553,7 @@ const Hero = () => {
                 
                 {/* Blue crossbody bag (on hover) */}
                 <img 
-                  src={blueCrossbodyBag}
+                  src="/913E8FCD-4943-44D3-A3EF-645778762B43_1758357180594.png"
                   alt="Leisure Range - Blue Crossbody Bag"
                   className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ imageRendering: 'auto' }}
@@ -582,7 +582,7 @@ const Hero = () => {
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Navy color (default) */}
                 <img 
-                  src={newNavyTennisBag}
+                  src="/Navy sports back - neutral background_1758112268197.png"
                   alt="Tennis Sports Bag - Navy"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                   style={{ imageRendering: 'auto' }}
@@ -590,7 +590,7 @@ const Hero = () => {
                 
                 {/* White color (on hover) */}
                 <img 
-                  src={newWhiteTennisBag}
+                  src="/Tennis bag - White - neutral background_1758110253206.png"
                   alt="Tennis Sports Bag - White"
                   className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ imageRendering: 'auto' }}
@@ -619,7 +619,7 @@ const Hero = () => {
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Navy color (default) */}
                 <img 
-                  src={newClassicNavyBag}
+                  src="/Copy of Classic range - Rose Gold_1758112410766.png"
                   alt="Classic Backpack - Navy"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                   style={{ imageRendering: 'auto' }}
@@ -627,7 +627,7 @@ const Hero = () => {
                 
                 {/* Tan color (on hover) */}
                 <img 
-                  src={newClassicTanBag}
+                  src="/LGM_Classic_me (1)_1758112410768.png"
                   alt="Classic Backpack - Tan"
                   className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ imageRendering: 'auto' }}
@@ -659,7 +659,7 @@ const Hero = () => {
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Original image (default) */}
                 <img 
-                  src={groundedBag}
+                  src="/LGM_Grounded (1)_1757318142201.png"
                   alt="Grounded Backpack - Original"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                   style={{ imageRendering: 'auto' }}
@@ -667,7 +667,7 @@ const Hero = () => {
                 
                 {/* Enhanced image (on hover) */}
                 <img 
-                  src={newGroundedBag}
+                  src="/ChatGPT Image Sep 17, 2025, 03_24_36 PM_1758115521218.png"
                   alt="Grounded Backpack - Enhanced"
                   className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ imageRendering: 'auto' }}
@@ -699,7 +699,7 @@ const Hero = () => {
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Original styled laptop bag (default) */}
                 <img 
-                  src={styledLaptopBag}
+                  src="/LGM_Styled_1757318531199.png"
                   alt="Timeless Backpack - Original"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                   style={{ imageRendering: 'auto' }}
@@ -707,7 +707,7 @@ const Hero = () => {
                 
                 {/* Rose gold zip version (on hover) */}
                 <img 
-                  src={timelessRoseGoldBag}
+                  src="/Timeless Range - Rose Gold zip_1758117345340.png"
                   alt="Timeless Backpack - Rose Gold Zip"
                   className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ imageRendering: 'auto' }}
@@ -959,7 +959,7 @@ const Hero = () => {
               {/* Top right - Laptop Sleeves */}
               <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-sleeves">
                 <img 
-                  src={tanLaptopSleeve} 
+                  src={"/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png"} 
                   alt="Laptop sleeve example" 
                   className="w-full h-full object-cover"
                 />
@@ -972,7 +972,7 @@ const Hero = () => {
               {/* Middle right - Named */}
               <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-named">
                 <img 
-                  src={embossInitials} 
+                  src={"/Embossing example_1758224006405.png"} 
                   alt="Named embossing example" 
                   className="w-full h-full object-cover"
                 />
@@ -996,7 +996,7 @@ const Hero = () => {
               {/* Bottom right - Welcome Tag */}
               <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg" data-testid="card-welcome-tag">
                 <img 
-                  src={embossCompanyTag} 
+                  src={"/Welcome message - Christopher_1758224465167.png"} 
                   alt="Welcome tag example" 
                   className="w-full h-full object-cover"
                 />
@@ -1014,7 +1014,7 @@ const Hero = () => {
         <div className="md:hidden grid grid-cols-2 gap-3 px-4 pb-8">
           {/* Business Collection */}
           <Link href="/browse?category=work" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-business-mobile">
-            <img src={manCarryingOliveBag} alt="Business Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+            <img src={"/ChatGPT Image Sep 17, 2025, 04_11_01 PM_1758118389040.png"} alt="Business Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Business</h3>
@@ -1024,7 +1024,7 @@ const Hero = () => {
           
           {/* Sports Collection */}
           <Link href="/browse?category=sport" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-sports-mobile">
-            <img src={gentWithTennisBag} alt="Sports Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+            <img src={"/Gent wih tennis bag - navy _1758386562325.png"} alt="Sports Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Sports</h3>
@@ -1038,7 +1038,7 @@ const Hero = () => {
             className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" 
             data-testid="tile-leisure-mobile"
           >
-            <img src={ladyWithSideBag} alt="Leisure Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+            <img src={"/Lady with side bag - navy_1758383464073.png"} alt="Leisure Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Leisure</h3>
@@ -1048,7 +1048,7 @@ const Hero = () => {
           
           {/* Travel Collection */}
           <Link href="/browse?category=travel" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-travel-mobile">
-            <img src={travelBackpackLifestyle} alt="Travel Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+            <img src={"/ChatGPT Image Jul 25, 2025, 05_56_03 PM_1758206025280.png"} alt="Travel Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Travel</h3>
@@ -1084,7 +1084,7 @@ const Hero = () => {
           
           {/* Gifting Collection */}
           <Link href="/browse?category=gifting" className="aspect-square group relative overflow-hidden shadow-xl rounded-lg" data-testid="tile-gifting-mobile">
-            <img src={wineBagWithBottles} alt="Gifting Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
+            <img src={"/Wine bag - wine bottles_1758387116266.png"} alt="Gifting Collection" className="w-full h-full object-cover" style={{ imageRendering: 'auto' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-4 left-4 text-white">
               <h3 className="text-sm font-semibold">Gifts</h3>
@@ -1123,7 +1123,7 @@ const Hero = () => {
               {/* Top right - Laptop Sleeves */}
               <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg">
                 <img 
-                  src={tanLaptopSleeve} 
+                  src={"/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png"} 
                   alt="Laptop sleeve example" 
                   className="w-full h-full object-cover"
                 />
@@ -1136,7 +1136,7 @@ const Hero = () => {
               {/* Middle right - Named */}
               <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg">
                 <img 
-                  src={embossInitials} 
+                  src={"/Embossing example_1758224006405.png"} 
                   alt="Named embossing example" 
                   className="w-full h-full object-cover"
                 />
@@ -1160,7 +1160,7 @@ const Hero = () => {
               {/* Bottom right - Welcome Tag */}
               <div className="col-span-1 row-span-1 relative overflow-hidden rounded-lg">
                 <img 
-                  src={embossCompanyTag} 
+                  src={"/Welcome message - Christopher_1758224465167.png"} 
                   alt="Welcome tag example" 
                   className="w-full h-full object-cover"
                 />
@@ -1276,31 +1276,31 @@ const Hero = () => {
               <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={creamCrossbodyBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+              <img src={"/913E8FCD-4943-44D3-A3EF-645778762B43_1758357180594.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={newNavyTennisBagInstagram} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+              <img src={"/Navy Tennis bag_1758386586336.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={navyRetroBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+              <img src={"/Retro Range - Navy Blue_1757319569359.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
               <img src="/images/white-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={navyTravelBackpack} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+              <img src={"/Classic range - Rose Gold_1757356095029.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={groundedBag} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+              <img src={"/LGM_Grounded (1)_1757318142201.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={tanBackpackBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+              <img src={"/LGM_Classic_me (1)_1758112410768.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={whiteTennisBagBrowse} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+              <img src={"/Tennis bag - White - neutral background_1758386577764.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
             <div className="aspect-square overflow-hidden">
-              <img src={laptopSleeveInstagram} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+              <img src={"/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
             </div>
           </div>
           

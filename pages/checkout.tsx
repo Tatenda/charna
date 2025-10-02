@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Seo from "@/components/layout/Seo";
-import { useLocation } from "wouter";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCart } from "@/hooks/useCart";
 import CartSummary from "@/components/cart/CartSummary";
@@ -44,7 +44,7 @@ type CheckoutFormValues = z.infer<typeof formSchema>;
 
 const Checkout = () => {
   const { cart, cartTotal, clearCart } = useCart();
-  const [, setLocation] = useLocation();
+  const router = useRouter();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
@@ -53,9 +53,9 @@ const Checkout = () => {
   // Redirect if cart is empty
   useEffect(() => {
     if (cart.length === 0) {
-      setLocation('/cart');
+      router.push('/cart');
     }
-  }, [cart, setLocation]);
+  }, [cart, router]);
 
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(formSchema),
@@ -137,7 +137,7 @@ const Checkout = () => {
         description: `Your order #${order.id} has been confirmed and paid.`,
       });
       
-      setLocation('/');
+      router.push('/');
     } catch (error) {
       toast({
         title: "Order Creation Failed",

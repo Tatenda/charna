@@ -1,5 +1,5 @@
 import { ArrowLeft, Plus, Minus } from "lucide-react";
-import { Link } from "wouter";
+import Link from "next/link";
 import { useState } from "react";
 import Seo from "@/components/layout/Seo";
 

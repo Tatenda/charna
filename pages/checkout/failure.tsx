@@ -1,10 +1,10 @@
-import { useLocation } from "wouter";
+import { useRouter } from "next/router";
 import Seo from "@/components/layout/Seo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@/components/ui/button";
 
 export default function CheckoutFailure() {
-  const [, setLocation] = useLocation();
+  const router = useRouter();
 
   return (
     <div className="bg-secondary-light min-h-screen">
@@ -104,14 +104,14 @@ export default function CheckoutFailure() {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={() => setLocation("/checkout")}
+              onClick={() => router.push("/checkout")}
               className="btn-primary px-8 py-3"
             >
               <FontAwesomeIcon icon="credit-card" className="mr-2" />
               Try Payment Again
             </Button>
             <Button
-              onClick={() => setLocation("/contact")}
+              onClick={() => router.push("/contact")}
               variant="outline"
               className="px-8 py-3"
             >

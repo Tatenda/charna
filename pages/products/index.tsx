@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Seo from "@/components/layout/Seo";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "wouter";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Product } from "@shared/schema";
 import ProductCard from "@/components/products/ProductCard";
@@ -16,13 +16,13 @@ import {
 } from "@/components/ui/select";
 
 const Products = () => {
-  const [location] = useLocation();
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedPriceRange, setPriceRange] = useState<string>("all");
   const [selectedColor, setColor] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("featured");
 
-  const searchParams = new URLSearchParams(location.split('?')[1]);
+  const searchParams = new URLSearchParams(router.asPath.split('?')[1]);
   const categoryParam = searchParams.get('category');
 
   // Set initial filter from URL params

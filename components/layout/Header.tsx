@@ -63,7 +63,7 @@ const Header = () => {
             >
               Contact
             </Link>
-            {import.meta.env.DEV && (
+            {process.env.NODE_ENV === 'development' && (
               <Link
                 href="/test-payments"
                 className={`text-orange-700 hover:text-orange-800 transition duration-200 px-3 py-2 ${isActive("/test-payments") ? "font-semibold" : ""}`}
@@ -128,7 +128,7 @@ const Header = () => {
             >
               Contact
             </Link>
-            {import.meta.env.DEV && (
+            {process.env.NODE_ENV === 'development' && (
               <Link
                 href="/test-payments"
                 className={`text-orange-700 hover:text-orange-800 transition duration-200 py-3 px-2 rounded-lg min-h-[44px] flex items-center ${isActive("/test-payments") ? "font-semibold bg-orange-50" : "hover:bg-orange-50"}`}

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { MemStorage } from '../../server/storage.js';
+import { MemStorage } from '@/server/storage';
 
 const storage = new MemStorage();
 

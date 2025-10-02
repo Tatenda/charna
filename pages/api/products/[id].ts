@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { MemStorage } from '../../../server/storage.js';
+import { MemStorage } from '@/server/storage';
 
 const storage = new MemStorage();
 
@@ -20,17 +20,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const { id } = req.query;
-
-    if (!id || typeof id !== 'string') {
-      return res.status(400).json({ message: 'Product ID is required' });
-    }
-
-    const productId = parseInt(id, 10);
-    if (isNaN(productId)) {
+    
+    if (!id || isNaN(Number(id))) {
       return res.status(400).json({ message: 'Invalid product ID' });
     }
 
-    const product = await storage.getProductById(productId);
+    const product = await storage.getProductById(Number(id));
     
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });

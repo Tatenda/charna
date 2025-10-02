@@ -1,4 +1,5 @@
-import { Link, useLocation } from "wouter";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
@@ -10,28 +11,28 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import Seo from "@/components/layout/Seo";
-import johannesburgSkyline from "@assets/ChatGPT Image Sep 18, 2025, 10_43_30 PM_1758254550927.png";
-import welcomeTag from "@assets/Welcome message - Christopher_1758261765918.png";
-import navyTennisBag from "@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1757403283994.png";
-import creamCrossbody from "@assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png";
-import whiteBackpack from "@assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757403283999.png";
-import navyRoseGoldBackpack from "@assets/Copy of Classic range - Rose Gold_1757403284000.png";
-import tanBackpack from "@assets/LGM_Classic_me (1)_1757403284001.png";
-import brownBackpack from "@assets/LGM_Grounded (1)_1757403284002.png";
-import navyModernBackpack from "@assets/Retro Range - Navy Blue_1757403284003.png";
-import oliveBackpack from "@assets/Retro Range - Olive_1757403284004.png";
-import whiteTennisBag from "@assets/Tennis bag - White - neutral background_1757403947038.png";
-import newNavyTennisBag from "@assets/Navy sports back - neutral background_1758112268197.png";
-import tanLaptopSleeve from "@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758343502287.png";
-import navyLaptopSleeve from "@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758348677472.png";
-import groundedGoldZip from "@assets/ChatGPT Image Sep 17, 2025, 03_09_28 PM_1758392791511.png";
-import timelessWhiteRoseGold from "@assets/Timeless Range - Rose Gold zip_1758117345340.png";
-import navySideBag from "@assets/Navy side bag - neutral background_1758388433671.png";
-import tanLaptopSleeve2 from "@assets/Laptop sleeve - Tan_1758299564397.png";
-import tanLaptopSleeve3 from "@assets/Laptop sleeve - Tan_1758299666358.png";
-import navyLaptopSleeve2 from "@assets/Laptop sleeve - Navy_1758299564401.png";
-import navyLaptopSleeve3 from "@assets/Laptop sleeve - Navy_1758299666356.png";
-import wineBagWithBottles from "@assets/Wine bag - wine bottles_1758387116266.png";
+import johannesburgSkyline from "../attached_assets/ChatGPT Image Sep 18, 2025, 10_43_30 PM_1758254550927.png";
+import welcomeTag from "../attached_assets/Welcome message - Christopher_1758261765918.png";
+import navyTennisBag from "../attached_assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1757403283994.png";
+import creamCrossbody from "../attached_assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png";
+import whiteBackpack from "../attached_assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757403283999.png";
+import navyRoseGoldBackpack from "../attached_assets/Copy of Classic range - Rose Gold_1757403284000.png";
+import tanBackpack from "../attached_assets/LGM_Classic_me (1)_1757403284001.png";
+import brownBackpack from "../attached_assets/LGM_Grounded (1)_1757403284002.png";
+import navyModernBackpack from "../attached_assets/Retro Range - Navy Blue_1757403284003.png";
+import oliveBackpack from "../attached_assets/Retro Range - Olive_1757403284004.png";
+import whiteTennisBag from "../attached_assets/Tennis bag - White - neutral background_1757403947038.png";
+import newNavyTennisBag from "../attached_assets/Navy sports back - neutral background_1758112268197.png";
+import tanLaptopSleeve from "../attached_assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758343502287.png";
+import navyLaptopSleeve from "../attached_assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758348677472.png";
+import groundedGoldZip from "../attached_assets/ChatGPT Image Sep 17, 2025, 03_09_28 PM_1758392791511.png";
+import timelessWhiteRoseGold from "../attached_assets/Timeless Range - Rose Gold zip_1758117345340.png";
+import navySideBag from "../attached_assets/Navy side bag - neutral background_1758388433671.png";
+import tanLaptopSleeve2 from "../attached_assets/Laptop sleeve - Tan_1758299564397.png";
+import tanLaptopSleeve3 from "../attached_assets/Laptop sleeve - Tan_1758299666358.png";
+import navyLaptopSleeve2 from "../attached_assets/Laptop sleeve - Navy_1758299564401.png";
+import navyLaptopSleeve3 from "../attached_assets/Laptop sleeve - Navy_1758299666356.png";
+import wineBagWithBottles from "../attached_assets/Wine bag - wine bottles_1758387116266.png";
 
 // Product data for collage display
 const collageProducts = [
@@ -39,135 +40,135 @@ const collageProducts = [
     id: 1,
     name: "Navy Tennis Bag",
     price: 3299,
-    image: newNavyTennisBag,
+    image: newNavyTennisBag.src,
     category: "tennis"
   },
   {
     id: 6,
     name: "Grounded Tan Backpack",
     price: 1999,
-    image: brownBackpack,
+    image: brownBackpack.src,
     category: "business"
   },
   {
     id: 31,
     name: "Grounded Tan Backpack - Gold Zip",
     price: 1999,
-    image: groundedGoldZip,
+    image: groundedGoldZip.src,
     category: "business"
   },
   {
     id: 32,
     name: "Timeless White BackPack - Rosegold Zip",
     price: 1899,
-    image: timelessWhiteRoseGold,
+    image: timelessWhiteRoseGold.src,
     category: "business"
   },
   {
     id: 2,
     name: "Cream Crossbody",
     price: 1100,
-    image: creamCrossbody,
+    image: creamCrossbody.src,
     category: "leisure"
   },
   {
     id: 33,
     name: "Navy Crossbody",
     price: 1100,
-    image: navySideBag,
+    image: navySideBag.src,
     category: "leisure"
   },
   {
     id: 4,
     name: "Classic Travel Bag - Navy",
     price: 2499,
-    image: navyRoseGoldBackpack,
+    image: navyRoseGoldBackpack.src,
     category: "travel"
   },
   {
     id: 5,
     name: "Classic Travel Bag - Tan",
     price: 2499,
-    image: tanBackpack,
+    image: tanBackpack.src,
     category: "travel"
   },
   {
     id: 9,
     name: "Test Bag",
     price: 1,
-    image: navyRoseGoldBackpack,
+    image: navyRoseGoldBackpack.src,
     category: "business"
   },
   {
     id: 3,
     name: "Timeless White Backpack",
     price: 1899,
-    image: whiteBackpack,
+    image: whiteBackpack.src,
     category: "business"
   },
   {
     id: 7,
     name: "Retro Navy Backpack",
     price: 2399,
-    image: navyModernBackpack,
+    image: navyModernBackpack.src,
     category: "business"
   },
   {
     id: 8,
     name: "Retro Olive Backpack",
     price: 2399,
-    image: oliveBackpack,
+    image: oliveBackpack.src,
     category: "business"
   },
   {
     id: 9,
     name: "White Tennis Bag",
     price: 3299,
-    image: whiteTennisBag,
+    image: whiteTennisBag.src,
     category: "tennis"
   },
   {
     id: 27,
     name: "Grounded Tan Backpack",
     price: 1999,
-    image: brownBackpack,
+    image: brownBackpack.src,
     category: "onboarding"
   },
   {
     id: 28,
     name: "Retro Navy Backpack",
     price: 2399,
-    image: navyModernBackpack,
+    image: navyModernBackpack.src,
     category: "onboarding"
   },
   {
     id: 29,
     name: "Retro Olive Backpack",
     price: 2399,
-    image: oliveBackpack,
+    image: oliveBackpack.src,
     category: "onboarding"
   },
   {
     id: 30,
     name: "Timeless White Backpack",
     price: 1899,
-    image: whiteBackpack,
+    image: whiteBackpack.src,
     category: "onboarding"
   },
   {
     id: 12,
     name: "Laptop Sleeve - Tan",
     price: 1100,
-    image: tanLaptopSleeve,
-    images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
+    image: tanLaptopSleeve.src,
+    images: [tanLaptopSleeve.src, tanLaptopSleeve2.src, tanLaptopSleeve3.src],
     category: "onboarding"
   },
   {
     id: 38,
     name: "Laptop Sleeve - Navy",
     price: 1100,
-    image: navyLaptopSleeve,
-    images: [navyLaptopSleeve, navyLaptopSleeve2, navyLaptopSleeve3],
+    image: navyLaptopSleeve.src,
+    images: [navyLaptopSleeve.src, navyLaptopSleeve2.src, navyLaptopSleeve3.src],
     category: "onboarding"
   },
   {
@@ -181,7 +182,7 @@ const collageProducts = [
     id: 10,
     name: "Company Leather Bag Tag",
     price: 250,
-    image: welcomeTag,
+    image: welcomeTag.src,
     category: "onboarding",
     description: "Onboarding welcome message embossed on Luggage tag"
   },
@@ -189,23 +190,23 @@ const collageProducts = [
     id: 13,
     name: "The Perfect Onboarding Package",
     price: 3180,
-    image: brownBackpack,
+    image: brownBackpack.src,
     category: "onboarding",
     isPackage: true,
     packageItems: [
       {
         name: "Grounded Tan Backpack",
-        image: brownBackpack,
+        image: brownBackpack.src,
         size: "large"
       },
       {
         name: "Laptop Sleeve",
-        images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
+        images: [tanLaptopSleeve.src, tanLaptopSleeve2.src, tanLaptopSleeve3.src],
         size: "small"
       },
       {
         name: "Company Leather Bag Tag",
-        image: welcomeTag,
+        image: welcomeTag.src,
         size: "small"
       }
     ]
@@ -214,18 +215,18 @@ const collageProducts = [
     id: 14,
     name: "The Perfect Onboarding Package 2",
     price: 4399,
-    image: navyModernBackpack,
+    image: navyModernBackpack.src,
     category: "onboarding",
     isPackage: true,
     packageItems: [
       {
         name: "Retro Range Bag",
-        image: navyModernBackpack,
+        image: navyModernBackpack.src,
         size: "medium"
       },
       {
         name: "Laptop Sleeve",
-        images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
+        images: [tanLaptopSleeve.src, tanLaptopSleeve2.src, tanLaptopSleeve3.src],
         size: "medium"
       },
       {
@@ -235,7 +236,7 @@ const collageProducts = [
       },
       {
         name: "Company Leather Bag Tag",
-        image: welcomeTag,
+        image: welcomeTag.src,
         size: "medium"
       }
     ]
@@ -244,16 +245,16 @@ const collageProducts = [
     id: 17,
     name: "Laptop Sleeve - Tan",
     price: 1100,
-    image: tanLaptopSleeve,
-    images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
+    image: tanLaptopSleeve.src,
+    images: [tanLaptopSleeve.src, tanLaptopSleeve2.src, tanLaptopSleeve3.src],
     category: "accessories"
   },
   {
     id: 18,
     name: "Laptop Sleeve - Navy",
     price: 1100,
-    image: navyLaptopSleeve,
-    images: [navyLaptopSleeve, navyLaptopSleeve2, navyLaptopSleeve3],
+    image: navyLaptopSleeve.src,
+    images: [navyLaptopSleeve.src, navyLaptopSleeve2.src, navyLaptopSleeve3.src],
     category: "accessories"
   },
   {
@@ -281,14 +282,14 @@ const collageProducts = [
     id: 24,
     name: "Wine Bottle Bag",
     price: 900,
-    image: wineBagWithBottles,
+    image: wineBagWithBottles.src,
     category: "gifting"
   },
   {
     id: 23,
     name: "Leather Luggage Tags",
     price: 150,
-    image: welcomeTag,
+    image: welcomeTag.src,
     category: "accessories"
   },
   // Gifting category products (duplicates from other categories)
@@ -297,7 +298,7 @@ const collageProducts = [
     id: 1006,
     name: "Grounded Tan Backpack",
     price: 1999,
-    image: brownBackpack,
+    image: brownBackpack.src,
     category: "gifting",
     colors: ["tan"]
   },
@@ -305,7 +306,7 @@ const collageProducts = [
     id: 1031,
     name: "Grounded Tan Backpack - Gold Zip",
     price: 1999,
-    image: groundedGoldZip,
+    image: groundedGoldZip.src,
     category: "gifting",
     colors: ["tan"]
   },
@@ -313,7 +314,7 @@ const collageProducts = [
     id: 1032,
     name: "Timeless White BackPack - Rosegold Zip",
     price: 1899,
-    image: timelessWhiteRoseGold,
+    image: timelessWhiteRoseGold.src,
     category: "gifting",
     colors: ["white"]
   },
@@ -321,7 +322,7 @@ const collageProducts = [
     id: 1003,
     name: "Timeless White Backpack",
     price: 1899,
-    image: whiteBackpack,
+    image: whiteBackpack.src,
     category: "gifting",
     colors: ["white"]
   },
@@ -329,7 +330,7 @@ const collageProducts = [
     id: 1007,
     name: "Retro Navy Backpack",
     price: 2399,
-    image: navyModernBackpack,
+    image: navyModernBackpack.src,
     category: "gifting",
     colors: ["navy"]
   },
@@ -337,7 +338,7 @@ const collageProducts = [
     id: 1008,
     name: "Retro Olive Backpack",
     price: 2399,
-    image: oliveBackpack,
+    image: oliveBackpack.src,
     category: "gifting",
     colors: ["olive"]
   },
@@ -346,7 +347,7 @@ const collageProducts = [
     id: 1004,
     name: "Classic Travel Bag - Navy",
     price: 2499,
-    image: navyRoseGoldBackpack,
+    image: navyRoseGoldBackpack.src,
     category: "gifting",
     colors: ["navy"]
   },
@@ -354,7 +355,7 @@ const collageProducts = [
     id: 1005,
     name: "Classic Travel Bag - Tan",
     price: 2499,
-    image: tanBackpack,
+    image: tanBackpack.src,
     category: "gifting",
     colors: ["tan"]
   },
@@ -363,8 +364,8 @@ const collageProducts = [
     id: 1017,
     name: "Laptop Sleeve - Tan",
     price: 1100,
-    image: tanLaptopSleeve,
-    images: [tanLaptopSleeve, tanLaptopSleeve2, tanLaptopSleeve3],
+    image: tanLaptopSleeve.src,
+    images: [tanLaptopSleeve.src, tanLaptopSleeve2.src, tanLaptopSleeve3.src],
     category: "gifting",
     colors: ["tan"]
   },
@@ -372,8 +373,8 @@ const collageProducts = [
     id: 1018,
     name: "Laptop Sleeve - Navy",
     price: 1100,
-    image: navyLaptopSleeve,
-    images: [navyLaptopSleeve, navyLaptopSleeve2, navyLaptopSleeve3],
+    image: navyLaptopSleeve.src,
+    images: [navyLaptopSleeve.src, navyLaptopSleeve2.src, navyLaptopSleeve3.src],
     category: "gifting",
     colors: ["navy"]
   },
@@ -382,7 +383,7 @@ const collageProducts = [
     id: 1002,
     name: "Cream Crossbody",
     price: 1100,
-    image: creamCrossbody,
+    image: creamCrossbody.src,
     category: "gifting",
     colors: ["cream"]
   },
@@ -390,7 +391,7 @@ const collageProducts = [
     id: 1033,
     name: "Navy Crossbody",
     price: 1100,
-    image: navySideBag,
+    image: navySideBag.src,
     category: "gifting",
     colors: ["navy"]
   },
@@ -424,7 +425,7 @@ const collageProducts = [
     id: 1023,
     name: "Leather Luggage Tags",
     price: 150,
-    image: welcomeTag,
+    image: welcomeTag.src,
     category: "gifting"
   },
   // Company leather bag tag (named picture option) for gifting
@@ -432,7 +433,7 @@ const collageProducts = [
     id: 1010,
     name: "Company Leather Bag Tag",
     price: 250,
-    image: welcomeTag,
+    image: welcomeTag.src,
     category: "gifting",
     description: "Onboarding welcome message embossed on Luggage tag"
   }
@@ -470,7 +471,7 @@ const categoryMapping: Record<string, string> = {
 };
 
 export default function Browse() {
-  const [location, setLocation] = useLocation();
+  const router = useRouter();
   const [priceRange, setPriceRange] = useState([0, 6000]);
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
@@ -791,7 +792,7 @@ export default function Browse() {
 
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
-    setLocation(`/browse?category=${categoryId}`);
+    router.push(`/browse?category=${categoryId}`);
   };
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -947,7 +948,7 @@ export default function Browse() {
         <div 
           className="absolute inset-0 bg-contain bg-center bg-no-repeat opacity-20 pointer-events-none mix-blend-multiply"
           style={{
-            backgroundImage: `url(${johannesburgSkyline})`
+            backgroundImage: `url(${johannesburgSkyline.src})`
           }}
         ></div>
       </div>
@@ -955,7 +956,7 @@ export default function Browse() {
         title={seoContent.title}
         description={seoContent.description}
         keywords={seoContent.keywords}
-        url={`/browse${location.includes('?') ? '?' + location.split('?')[1] : ''}`}
+        url={`/browse${router.asPath.includes('?') ? '?' + router.asPath.split('?')[1] : ''}`}
         image=""
       />
       {/* Breadcrumb Navigation */}

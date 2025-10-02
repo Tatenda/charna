@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Seo from "@/components/layout/Seo";
-import { useParams, useLocation } from "wouter";
+import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Product } from "@shared/schema";
@@ -11,8 +11,8 @@ import ProductCard from "@/components/products/ProductCard";
 import WhatsAppBanner from "@/components/home/WhatsAppBanner";
 
 const ProductDetail = () => {
-  const { id } = useParams();
-  const [, setLocation] = useLocation();
+  const router = useRouter();
+  const { id } = router.query;
   
   // Fetch product details
   const { data: product, isLoading, error } = useQuery<Product>({
@@ -47,7 +47,7 @@ const ProductDetail = () => {
           Sorry, we couldn't find the product you're looking for.
         </p>
         <button 
-          onClick={() => setLocation('/browse')}
+          onClick={() => router.push('/browse')}
           className="btn-secondary"
         >
           Back to Products
@@ -69,11 +69,11 @@ const ProductDetail = () => {
       <div className="container mx-auto px-4 py-12">
         {/* Breadcrumbs */}
         <div className="mb-8 flex items-center text-sm">
-          <button onClick={() => setLocation('/')} className="text-neutral-light hover:text-primary">
+          <button onClick={() => router.push('/')} className="text-neutral-light hover:text-primary">
             Home
           </button>
           <FontAwesomeIcon icon="chevron-right" className="mx-2 text-xs text-neutral-light" />
-          <button onClick={() => setLocation('/browse')} className="text-neutral-light hover:text-primary">
+          <button onClick={() => router.push('/browse')} className="text-neutral-light hover:text-primary">
             Browse
           </button>
           <FontAwesomeIcon icon="chevron-right" className="mx-2 text-xs text-neutral-light" />

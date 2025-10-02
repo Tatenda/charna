@@ -1,6 +1,6 @@
-import { products, type Product, type InsertProduct } from "../shared/schema.js";
-import { orders, type Order, type InsertOrder } from "../shared/schema.js";
-import { contacts, type Contact, type InsertContact } from "../shared/schema.js";
+import { products, type Product, type InsertProduct } from "../shared/schema";
+import { orders, type Order, type InsertOrder } from "../shared/schema";
+import { contacts, type Contact, type InsertContact } from "../shared/schema";
 
 // Storage Interface
 export interface IStorage {

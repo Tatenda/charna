@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { MemStorage } from '../../server/storage.js';
+import { MemStorage } from '@/server/storage';
 
 const storage = new MemStorage();
 
@@ -31,6 +31,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const contact = await storage.createContact({
       name,
       email,
+      phone: '', // Default empty phone
+      subject: 'Contact Form Submission', // Default subject
       message,
       createdAt: new Date()
     });
@@ -39,11 +41,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       message: 'Contact form submitted successfully',
       contact
     });
+
   } catch (error) {
-    console.error('Error submitting contact form:', error);
-    return res.status(500).json({
+    console.error('Error processing contact form:', error);
+    return res.status(500).json({ 
       message: 'Internal server error',
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 }

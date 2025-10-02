@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { MemStorage } from '../../server/storage.js';
-import { EmailService } from '../../server/emailService.js';
+import { MemStorage } from '@/server/storage';
+import { EmailService } from '@/server/emailService';
 
 const storage = new MemStorage();
 const emailService = new EmailService();
@@ -36,7 +36,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       customerInfo: orderData.customerInfo,
       items: orderData.items,
       totalAmount: orderData.totalAmount,
-      shippingCost: orderData.shippingCost || 0,
       paymentId: orderData.paymentId,
       status: 'completed'
     });
@@ -48,26 +47,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       totalAmount: order.totalAmount
     });
 
-    // Send email receipt
+    // Send confirmation email
     try {
-      console.log('Sending email receipt to:', orderData.customerInfo.email);
-      await emailService.sendOrderReceipt({
-        customerInfo: orderData.customerInfo,
-        items: orderData.items,
+      // Transform order data to match OrderEmailData interface
+      const emailData = {
+        customerInfo: orderData.customerInfo, // Use the original customerInfo from request
+        items: orderData.items, // Use the original items from request
         orderId: order.id.toString(),
-        totalAmount: orderData.totalAmount,
-        shippingCost: orderData.shippingCost || 0,
-        paymentId: orderData.paymentId
-      });
-      console.log('Email receipt sent successfully');
+        totalAmount: order.totalAmount,
+        shippingCost: 0, // Default shipping cost
+        paymentId: order.paymentId || ''
+      };
+      await emailService.sendOrderReceipt(emailData);
+      console.log('Order confirmation email sent successfully');
     } catch (emailError) {
-      console.error('Failed to send receipt email:', emailError);
-      // Don't fail the order if email fails
+      console.error('Failed to send order confirmation email:', emailError);
+      // Don't fail the order creation if email fails
     }
 
-    return res.status(201).json(order);
+    return res.status(201).json({
+      message: 'Order created successfully',
+      order: {
+        id: order.id,
+        status: order.status,
+        paymentId: order.paymentId,
+        totalAmount: order.totalAmount
+      }
+    });
+
   } catch (error) {
     console.error('Error creating order:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ 
+      message: 'Failed to create order',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
   }
 }
