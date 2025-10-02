@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
-import { insertContactSchema } from "@shared/schema";
+import { insertContactSchema, type OrderItem } from "@shared/schema";
 import { EmailService } from "./emailService";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -389,7 +389,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (orderData.paymentId && order) {
         try {
           // Check if order contains any test products
-          const hasTestProduct = orderData.items.some(item => 
+          const hasTestProduct = orderData.items.some((item: OrderItem) => 
             item.productId === 9 || item.productName === "Test Bag"
           );
           

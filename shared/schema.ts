@@ -60,8 +60,13 @@ export type InsertContact = typeof contacts.$inferInsert;
 // Order Item Type for the order items jsonb field
 export interface OrderItem {
   productId: number;
+  productName: string;
   quantity: number;
   price: number;
+  customizations?: {
+    embossing: boolean;
+    embossingPrice: number;
+  };
 }
 
 // Insert Schemas
