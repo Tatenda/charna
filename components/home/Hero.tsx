@@ -7,55 +7,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import newHeroBg from '@assets/image_1757230274214.png';
-import groundedBag from '@assets/LGM_Grounded (1)_1757318142201.png';
-import styledLaptopBag from '@assets/LGM_Styled_1757318531199.png';
-import navyTennisBag from '@assets/Navy Tennis bag_1757319259444.png';
-import navyRetroBag from '@assets/Retro Range - Navy Blue_1757319569359.png';
-import whiteTennisBag from '@assets/Tennis Bag on Clay Court_1757320190792.png';
-import whiteTennisBagBrowse from '@assets/Tennis bag - White - neutral background_1757403947038.png';
-import creamCrossbodyBrowse from '@assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png';
-import tanBackpackBrowse from '@assets/LGM_Classic_me (1)_1757403284001.png';
-import classicBackpack from '@assets/LGM_Classic_me_1757337982042.png';
-import navyRoseGoldBackpack from '@assets/Classic range - Rose Gold_1757338766199.png';
-import tanBusinessBag from '@assets/LGM_Grounded (1) (1)_1757354457354.png';
-import navyBusinessBag from '@assets/ChatGPT Image Sep 5, 2025, 05_34_17 PM_1757354728267.png';
-import whiteBusinessBag from '@assets/ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757354752545.png';
-import navyTennisBagNew from '@assets/Navy Tennis bag_1757355605958.png';
-import navyTravelBackpack from '@assets/Classic range - Rose Gold_1757356095029.png';
-import tanTravelBackpack from '@assets/LGM_Classic_me_1757356445165.png';
-import travelBackpackLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 05_56_03 PM_1758206025280.png';
-import embossInitials from '@assets/Embossing example_1758224006405.png';
-import embossCompanyTag from '@assets/Welcome message - Christopher_1758224465167.png';
-import whiteWorkBackpack from "@assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1758225069381.png";
-import brownWorkBackpack from "@assets/LGM_Grounded (1)_1758225069383.png";
-import navyWorkBackpack from "@assets/Retro Range - Navy Blue_1758225069385.png";
-import oliveWorkBackpack from "@assets/Retro Range - Olive_1758362124136.png";
-import creamHipBag from '@assets/LGM_hip_1757356807770.png';
-import hipBagSolo from '@assets/LGM_hip_1757357579607.png';
-import hipBagLifestyle from '@assets/ChatGPT Image Jul 25, 2025, 06_02_21 PM_1757357619873.png';
-import blueCrossbodyBag from '@assets/913E8FCD-4943-44D3-A3EF-645778762B43_1758357180594.png';
-import newWhiteTennisBag from '@assets/Tennis bag - White - neutral background_1758110253206.png';
-import newNavyTennisBag from '@assets/Navy sports back - neutral background_1758112268197.png';
-import newClassicNavyBag from '@assets/Copy of Classic range - Rose Gold_1758112410766.png';
-import newClassicTanBag from '@assets/LGM_Classic_me (1)_1758112410768.png';
-import navyGoldZipBag from '@assets/Retro range - Navy with gold zip_1758113011142.png';
-import newGroundedBag from '@assets/ChatGPT Image Sep 17, 2025, 03_24_36 PM_1758115521218.png';
-import timelessRoseGoldBag from '@assets/Timeless Range - Rose Gold zip_1758117345340.png';
-import manCarryingOliveBag from '@assets/ChatGPT Image Sep 17, 2025, 04_11_01 PM_1758118389040.png';
-import newNavyBusinessBag from '@assets/ChatGPT Image Sep 17, 2025, 01_42_26 PM_1758118389041.png';
-import newNavyTennisBagInstagram from '@assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1758226256896.png';
-import tanLaptopSleeve from '@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png';
-import tanLaptopSleeveSide from '@assets/1FCA156B-07B9-4EB4-B6CB-90243D3F1240_1758358612678.png';
-import navyLaptopSleeveSide from '@assets/73877EA7-4681-4580-9B27-19C20A7D3A10_1758358612678.png';
-import navyLaptopSleeveFront from '@assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758358612678.png';
-import ladyWithSideBag from '@assets/Lady with side bag - navy_1758383464073.png';
-import gentWithTennisBag from '@assets/Gent wih tennis bag - navy _1758386562325.png';
-import whiteTennisBagNew from '@assets/Tennis bag - White - neutral background_1758386577764.png';
-import navyTennisBagNew2 from '@assets/Navy Tennis bag_1758386586336.png';
-import wineBagWithBottles from '@assets/Wine bag - wine bottles_1758387116266.png';
-import wineBagEmpty from '@assets/Wine bag_1758387116268.png';
-import laptopSleeveInstagram from '@assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758388455051.png';
 
 const Hero = () => {
   const { addToCart } = useCart();
@@ -554,7 +505,7 @@ const Hero = () => {
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* Navy backpack (default) */}
                 <img 
-                  src={navyWorkBackpack}
+                  src="/Retro Range - Navy Blue_1758225069385.png"
                   alt="Retro Range - Navy Backpack"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                   style={{ imageRendering: 'auto' }}
@@ -562,7 +513,7 @@ const Hero = () => {
                 
                 {/* Olive backpack (on hover) */}
                 <img 
-                  src={oliveWorkBackpack}
+                  src="/Retro Range - Olive_1758362124136.png"
                   alt="Retro Range - Olive Backpack"
                   className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
                   style={{ imageRendering: 'auto' }}
@@ -594,7 +545,7 @@ const Hero = () => {
               <div className="relative overflow-hidden rounded-xl mb-4">
                 {/* White hip bag (default) */}
                 <img 
-                  src={creamHipBag}
+                  src="/LGM_hip_1757356807770.png"
                   alt="Leisure Range - White Hip Bag"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
                   style={{ imageRendering: 'auto' }}
