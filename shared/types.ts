@@ -21,6 +21,49 @@ export interface Product {
   careInstructions: string;
   featured: boolean;
   createdAt: Date;
+  isPackage?: boolean;
+  packageItems?: Array<{
+    id: number;
+    variantId: number;
+    quantity: number;
+    size?: string;
+    displayOrder: number;
+    variant: {
+      id: number;
+      name: string;
+      sku: string;
+      price: number;
+      originalPrice?: number;
+      inStock: boolean;
+      images: string[];
+      isDefault: boolean;
+      attributes: Array<{
+        attributeType: string;
+        attributeValue: string;
+      }>;
+    };
+  }>;
+  categories?: Array<{
+    id: number;
+    name: string;
+    slug: string;
+    displayName: string;
+    isPrimary: boolean;
+  }>;
+  variants?: Array<{
+    id: number;
+    name: string;
+    sku: string;
+    price: number;
+    originalPrice?: number;
+    inStock: boolean;
+    images: string[];
+    isDefault: boolean;
+    attributes: Array<{
+      attributeType: string;
+      attributeValue: string;
+    }>;
+  }>;
 }
 
 export interface Order {

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, useEffect, useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import type { Product } from "@shared/types";
 import { useCart } from "@/hooks/useCart";
 import { useToast } from "@/hooks/use-toast";
@@ -11,434 +10,80 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import Seo from "@/components/layout/Seo";
+
 // Background image for browse page
 const johannesburgSkyline = "/ChatGPT Image Sep 18, 2025, 10_43_30 PM_1758254550927.png";
-import welcomeTag from "../attached_assets/Welcome message - Christopher_1758261765918.png";
-import navyTennisBag from "../attached_assets/ChatGPT Image Sep 9, 2025, 06_28_09 AM_1757403283994.png";
-import creamCrossbody from "../attached_assets/ChatGPT Image Sep 9, 2025, 06_31_47 AM_1757403283997.png";
-import whiteBackpack from "../attached_assets/Copy of ChatGPT Image Jul 25, 2025, 05_27_55 PM_1757403283999.png";
-import navyRoseGoldBackpack from "../attached_assets/Copy of Classic range - Rose Gold_1757403284000.png";
-import tanBackpack from "../attached_assets/LGM_Classic_me (1)_1757403284001.png";
-import brownBackpack from "../attached_assets/LGM_Grounded (1)_1757403284002.png";
-import navyModernBackpack from "../attached_assets/Retro Range - Navy Blue_1757403284003.png";
-import oliveBackpack from "../attached_assets/Retro Range - Olive_1757403284004.png";
-import whiteTennisBag from "../attached_assets/Tennis bag - White - neutral background_1757403947038.png";
-import newNavyTennisBag from "../attached_assets/Navy sports back - neutral background_1758112268197.png";
-import tanLaptopSleeve from "../attached_assets/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758343502287.png";
-import navyLaptopSleeve from "../attached_assets/855ABA3F-D6BD-42E0-BBA5-488FEFF9EE7E_1758348677472.png";
-import groundedGoldZip from "../attached_assets/ChatGPT Image Sep 17, 2025, 03_09_28 PM_1758392791511.png";
-import timelessWhiteRoseGold from "../attached_assets/Timeless Range - Rose Gold zip_1758117345340.png";
-import navySideBag from "../attached_assets/Navy side bag - neutral background_1758388433671.png";
-import tanLaptopSleeve2 from "../attached_assets/Laptop sleeve - Tan_1758299564397.png";
-import tanLaptopSleeve3 from "../attached_assets/Laptop sleeve - Tan_1758299666358.png";
-import navyLaptopSleeve2 from "../attached_assets/Laptop sleeve - Navy_1758299564401.png";
-import navyLaptopSleeve3 from "../attached_assets/Laptop sleeve - Navy_1758299666356.png";
-import wineBagWithBottles from "../attached_assets/Wine bag - wine bottles_1758387116266.png";
 
-// Product data for collage display
-const collageProducts = [
-  {
-    id: 1,
-    name: "Navy Tennis Bag",
-    price: 3299,
-    image: newNavyTennisBag.src,
-    category: "tennis"
-  },
-  {
-    id: 6,
-    name: "Grounded Tan Backpack",
-    price: 1999,
-    image: brownBackpack.src,
-    category: "business"
-  },
-  {
-    id: 31,
-    name: "Grounded Tan Backpack - Gold Zip",
-    price: 1999,
-    image: groundedGoldZip.src,
-    category: "business"
-  },
-  {
-    id: 32,
-    name: "Timeless White BackPack - Rosegold Zip",
-    price: 1899,
-    image: timelessWhiteRoseGold.src,
-    category: "business"
-  },
-  {
-    id: 2,
-    name: "Cream Crossbody",
-    price: 1100,
-    image: creamCrossbody.src,
-    category: "leisure"
-  },
-  {
-    id: 33,
-    name: "Navy Crossbody",
-    price: 1100,
-    image: navySideBag.src,
-    category: "leisure"
-  },
-  {
-    id: 4,
-    name: "Classic Travel Bag - Navy",
-    price: 2499,
-    image: navyRoseGoldBackpack.src,
-    category: "travel"
-  },
-  {
-    id: 5,
-    name: "Classic Travel Bag - Tan",
-    price: 2499,
-    image: tanBackpack.src,
-    category: "travel"
-  },
-  {
-    id: 9,
-    name: "Test Bag",
-    price: 2,
-    image: navyRoseGoldBackpack.src,
-    category: "business"
-  },
-  {
-    id: 3,
-    name: "Timeless White Backpack",
-    price: 1899,
-    image: whiteBackpack.src,
-    category: "business"
-  },
-  {
-    id: 7,
-    name: "Retro Navy Backpack",
-    price: 2399,
-    image: navyModernBackpack.src,
-    category: "business"
-  },
-  {
-    id: 8,
-    name: "Retro Olive Backpack",
-    price: 2399,
-    image: oliveBackpack.src,
-    category: "business"
-  },
-  {
-    id: 9,
-    name: "White Tennis Bag",
-    price: 3299,
-    image: whiteTennisBag.src,
-    category: "tennis"
-  },
-  {
-    id: 27,
-    name: "Grounded Tan Backpack",
-    price: 1999,
-    image: brownBackpack.src,
-    category: "onboarding"
-  },
-  {
-    id: 28,
-    name: "Retro Navy Backpack",
-    price: 2399,
-    image: navyModernBackpack.src,
-    category: "onboarding"
-  },
-  {
-    id: 29,
-    name: "Retro Olive Backpack",
-    price: 2399,
-    image: oliveBackpack.src,
-    category: "onboarding"
-  },
-  {
-    id: 30,
-    name: "Timeless White Backpack",
-    price: 1899,
-    image: whiteBackpack.src,
-    category: "onboarding"
-  },
-  {
-    id: 12,
-    name: "Laptop Sleeve - Tan",
-    price: 1100,
-    image: tanLaptopSleeve.src,
-    images: [tanLaptopSleeve.src, tanLaptopSleeve2.src, tanLaptopSleeve3.src],
-    category: "onboarding"
-  },
-  {
-    id: 38,
-    name: "Laptop Sleeve - Navy",
-    price: 1100,
-    image: navyLaptopSleeve.src,
-    images: [navyLaptopSleeve.src, navyLaptopSleeve2.src, navyLaptopSleeve3.src],
-    category: "onboarding"
-  },
-  {
-    id: 15,
-    name: "Desk Mats",
-    price: 899,
-    image: "/placeholder-desk-mats.jpg",
-    category: "onboarding"
-  },
-  {
-    id: 10,
-    name: "Company Leather Bag Tag",
-    price: 250,
-    image: welcomeTag.src,
-    category: "onboarding",
-    description: "Onboarding welcome message embossed on Luggage tag"
-  },
-  {
-    id: 13,
-    name: "The Perfect Onboarding Package",
-    price: 3180,
-    image: brownBackpack.src,
-    category: "onboarding",
-    isPackage: true,
-    packageItems: [
-      {
-        name: "Grounded Tan Backpack",
-        image: brownBackpack.src,
-        size: "large"
-      },
-      {
-        name: "Laptop Sleeve",
-        images: [tanLaptopSleeve.src, tanLaptopSleeve2.src, tanLaptopSleeve3.src],
-        size: "small"
-      },
-      {
-        name: "Company Leather Bag Tag",
-        image: welcomeTag.src,
-        size: "small"
-      }
-    ]
-  },
-  {
-    id: 14,
-    name: "The Perfect Onboarding Package 2",
-    price: 4399,
-    image: navyModernBackpack.src,
-    category: "onboarding",
-    isPackage: true,
-    packageItems: [
-      {
-        name: "Retro Range Bag",
-        image: navyModernBackpack.src,
-        size: "medium"
-      },
-      {
-        name: "Laptop Sleeve",
-        images: [tanLaptopSleeve.src, tanLaptopSleeve2.src, tanLaptopSleeve3.src],
-        size: "medium"
-      },
-      {
-        name: "Desk Mat",
-        image: "/placeholder-desk-mat.jpg",
-        size: "medium"
-      },
-      {
-        name: "Company Leather Bag Tag",
-        image: welcomeTag.src,
-        size: "medium"
-      }
-    ]
-  },
-  {
-    id: 17,
-    name: "Laptop Sleeve - Tan",
-    price: 1100,
-    image: tanLaptopSleeve.src,
-    images: [tanLaptopSleeve.src, tanLaptopSleeve2.src, tanLaptopSleeve3.src],
-    category: "accessories"
-  },
-  {
-    id: 18,
-    name: "Laptop Sleeve - Navy",
-    price: 1100,
-    image: navyLaptopSleeve.src,
-    images: [navyLaptopSleeve.src, navyLaptopSleeve2.src, navyLaptopSleeve3.src],
-    category: "accessories"
-  },
-  {
-    id: 20,
-    name: "Desk Mat - Tan",
-    price: 899,
-    image: "/placeholder-desk-mat-tan.jpg",
-    category: "accessories"
-  },
-  {
-    id: 21,
-    name: "Desk Mat - Olive",
-    price: 899,
-    image: "/placeholder-desk-mat-olive.jpg",
-    category: "accessories"
-  },
-  {
-    id: 22,
-    name: "Desk Mat - Navy",
-    price: 899,
-    image: "/placeholder-desk-mat-navy.jpg",
-    category: "accessories"
-  },
-  {
-    id: 24,
-    name: "Wine Bottle Bag",
-    price: 900,
-    image: wineBagWithBottles.src,
-    category: "gifting"
-  },
-  {
-    id: 23,
-    name: "Leather Luggage Tags",
-    price: 150,
-    image: welcomeTag.src,
-    category: "accessories"
-  },
-  // Gifting category products (duplicates from other categories)
-  // Laptop bags for gifting
-  {
-    id: 1006,
-    name: "Grounded Tan Backpack",
-    price: 1999,
-    image: brownBackpack.src,
-    category: "gifting",
-    colors: ["tan"]
-  },
-  {
-    id: 1031,
-    name: "Grounded Tan Backpack - Gold Zip",
-    price: 1999,
-    image: groundedGoldZip.src,
-    category: "gifting",
-    colors: ["tan"]
-  },
-  {
-    id: 1032,
-    name: "Timeless White BackPack - Rosegold Zip",
-    price: 1899,
-    image: timelessWhiteRoseGold.src,
-    category: "gifting",
-    colors: ["white"]
-  },
-  {
-    id: 1003,
-    name: "Timeless White Backpack",
-    price: 1899,
-    image: whiteBackpack.src,
-    category: "gifting",
-    colors: ["white"]
-  },
-  {
-    id: 1007,
-    name: "Retro Navy Backpack",
-    price: 2399,
-    image: navyModernBackpack.src,
-    category: "gifting",
-    colors: ["navy"]
-  },
-  {
-    id: 1008,
-    name: "Retro Olive Backpack",
-    price: 2399,
-    image: oliveBackpack.src,
-    category: "gifting",
-    colors: ["olive"]
-  },
-  // Travel bags for gifting
-  {
-    id: 1004,
-    name: "Classic Travel Bag - Navy",
-    price: 2499,
-    image: navyRoseGoldBackpack.src,
-    category: "gifting",
-    colors: ["navy"]
-  },
-  {
-    id: 1005,
-    name: "Classic Travel Bag - Tan",
-    price: 2499,
-    image: tanBackpack.src,
-    category: "gifting",
-    colors: ["tan"]
-  },
-  // Laptop sleeves for gifting
-  {
-    id: 1017,
-    name: "Laptop Sleeve - Tan",
-    price: 1100,
-    image: tanLaptopSleeve.src,
-    images: [tanLaptopSleeve.src, tanLaptopSleeve2.src, tanLaptopSleeve3.src],
-    category: "gifting",
-    colors: ["tan"]
-  },
-  {
-    id: 1018,
-    name: "Laptop Sleeve - Navy",
-    price: 1100,
-    image: navyLaptopSleeve.src,
-    images: [navyLaptopSleeve.src, navyLaptopSleeve2.src, navyLaptopSleeve3.src],
-    category: "gifting",
-    colors: ["navy"]
-  },
-  // Crossover bags for gifting
-  {
-    id: 1002,
-    name: "Cream Crossbody",
-    price: 1100,
-    image: creamCrossbody.src,
-    category: "gifting",
-    colors: ["cream"]
-  },
-  {
-    id: 1033,
-    name: "Navy Crossbody",
-    price: 1100,
-    image: navySideBag.src,
-    category: "gifting",
-    colors: ["navy"]
-  },
-  // Desk mats for gifting
-  {
-    id: 1020,
-    name: "Desk Mat - Tan",
-    price: 899,
-    image: "/placeholder-desk-mat-tan.jpg",
-    category: "gifting",
-    colors: ["tan"]
-  },
-  {
-    id: 1021,
-    name: "Desk Mat - Olive",
-    price: 899,
-    image: "/placeholder-desk-mat-olive.jpg",
-    category: "gifting",
-    colors: ["olive"]
-  },
-  {
-    id: 1022,
-    name: "Desk Mat - Navy",
-    price: 899,
-    image: "/placeholder-desk-mat-navy.jpg",
-    category: "gifting",
-    colors: ["navy"]
-  },
-  // Leather luggage tags for gifting
-  {
-    id: 1023,
-    name: "Leather Luggage Tags",
-    price: 150,
-    image: welcomeTag.src,
-    category: "gifting"
-  },
-  // Company leather bag tag (named picture option) for gifting
-  {
-    id: 1010,
-    name: "Company Leather Bag Tag",
-    price: 250,
-    image: welcomeTag.src,
-    category: "gifting",
-    description: "Onboarding welcome message embossed on Luggage tag"
-  }
-];
+// Types
+interface ProductVariant {
+  id: number;
+  name: string;
+  sku: string;
+  price: number;
+  originalPrice?: number;
+  inStock: boolean;
+  images: string[];
+  isDefault: boolean;
+  attributes: Array<{
+    attributeType: string;
+    attributeValue: string;
+  }>;
+}
+
+// Use the existing Product type from shared/types
+type ProductWithVariants = Product;
+
+// Constants
+const PACKAGE_PRODUCT_IDS = {
+  ONBOARDING_PACKAGE_1: 229, // "The Perfect Onboarding Package"
+  ONBOARDING_PACKAGE_2: 230, // "The Perfect Onboarding Package 2"
+} as const;
+
+// Custom hook for image cycling functionality
+const useImageCycling = (images: string[], hasImages: boolean) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const timerRef = useRef<number | null>(null);
+
+  const startCycling = useCallback(() => {
+    if (!hasImages) return;
+    
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    
+    timerRef.current = window.setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 900);
+  }, [hasImages, images.length]);
+
+  const stopCycling = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  const handleImageClick = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+    if (hasImages) {
+      e.preventDefault();
+      e.stopPropagation();
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }
+  }, [hasImages, images.length]);
+
+  useEffect(() => {
+    return () => {
+      stopCycling();
+    };
+  }, [stopCycling]);
+
+  return {
+    currentImageIndex,
+    startCycling,
+    stopCycling,
+    handleImageClick,
+  };
+};
 
 const categoryTabs = [
   { id: 'work', label: 'Work' },
@@ -477,7 +122,9 @@ export default function Browse() {
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   // State that tracks current category from URL
-  const [selectedCategory, setSelectedCategory] = useState('work');
+  const [selectedCategory, setSelectedCategory] = useState(() => {
+    return (router.query.category as string) || 'work';
+  });
   
   // Update category when router query changes
   useEffect(() => {
@@ -485,6 +132,17 @@ export default function Browse() {
       setSelectedCategory(router.query.category);
     }
   }, [router.query.category]);
+
+  // Also read from URL on client side for immediate updates
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const category = urlParams.get('category');
+      if (category) {
+        setSelectedCategory(category);
+      }
+    }
+  }, []);
 
   // Package customization modal state
   const [showCustomizationModal, setShowCustomizationModal] = useState(false);
@@ -525,44 +183,13 @@ export default function Browse() {
   // Generate dynamic SEO content based on category
   // Package Item Component for cycling images within package
   const PackageItem = ({ item, isPackage2 = false }: { item: any, isPackage2?: boolean }) => {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const timerRef = useRef<number | null>(null);
-    
     const hasImages = Array.isArray(item.images) && item.images.length > 1;
+    const { currentImageIndex, startCycling, stopCycling, handleImageClick } = useImageCycling(
+      item.images || [],
+      hasImages
+    );
+    
     const currentImage = hasImages ? item.images[currentImageIndex] : item.image;
-    
-    const startCycling = () => {
-      if (!hasImages) return;
-      
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-      
-      timerRef.current = window.setInterval(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % item.images.length);
-      }, 900);
-    };
-    
-    const stopCycling = () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-    };
-    
-    const handleImageClick = (e: React.MouseEvent | React.TouchEvent) => {
-      if (hasImages) {
-        e.preventDefault();
-        e.stopPropagation();
-        setCurrentImageIndex((prev) => (prev + 1) % item.images.length);
-      }
-    };
-    
-    useEffect(() => {
-      return () => {
-        stopCycling();
-      };
-    }, []);
     
     return (
       <div 
@@ -579,7 +206,7 @@ export default function Browse() {
         />
         {hasImages && (
           <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-1">
-            {item.images.map((_: any, index: number) => (
+            {item.images.map((_: string, index: number) => (
               <div
                 key={index}
                 className={`w-1.5 h-1.5 rounded-full transition-colors duration-200 ${
@@ -597,45 +224,14 @@ export default function Browse() {
   };
 
   // ProductTile component with image cycling functionality
-  const ProductTile = ({ product, onAddToCart }: { product: any, onAddToCart: (product: any) => void }) => {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const timerRef = useRef<number | null>(null);
-    
+  const ProductTile = ({ product, onAddToCart }: { product: ProductWithVariants, onAddToCart: (product: ProductWithVariants) => void }) => {
     const hasGallery = Array.isArray(product.images) && product.images.length > 1;
-    const currentImage = hasGallery ? product.images[currentImageIndex] : product.image;
+    const { currentImageIndex, startCycling, stopCycling, handleImageClick } = useImageCycling(
+      product.images || [],
+      hasGallery
+    );
     
-    const startCycling = () => {
-      if (!hasGallery) return;
-      
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-      
-      timerRef.current = window.setInterval(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
-      }, 900);
-    };
-    
-    const stopCycling = () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-    };
-    
-    const handleImageClick = (e: React.MouseEvent | React.TouchEvent) => {
-      if (hasGallery) {
-        e.preventDefault();
-        e.stopPropagation();
-        setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
-      }
-    };
-    
-    useEffect(() => {
-      return () => {
-        stopCycling();
-      };
-    }, []);
+    const currentImage = hasGallery ? product.images[currentImageIndex] : (product.images && product.images[0]) || '';
     
     // Special package layout
     if (product.isPackage && product.packageItems) {
@@ -709,7 +305,7 @@ export default function Browse() {
           />
           {hasGallery && (
             <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-              {product.images.map((_: any, index: number) => (
+              {product.images.map((_: string, index: number) => (
                 <div
                   key={index}
                   className={`w-2 h-2 rounded-full transition-colors duration-200 ${
@@ -779,20 +375,105 @@ export default function Browse() {
 
   const { addToCart } = useCart();
 
-  const { data: products = [], isLoading } = useQuery<Product[]>({
-    queryKey: ['/api/products', selectedCategory],
-    enabled: !!selectedCategory,
-  });
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Filter products based on category and price
-  const filteredCollageProducts = collageProducts.filter((product) => {
-    // Use URL category as single source of truth
-    const targetCategory = categoryMapping[selectedCategory] || selectedCategory;
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/products');
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  // Filter products and then extract their variants
+  const filteredVariants = useMemo(() => {
+    if (!products.length) return [];
     
-    const matchesCategory = product.category === targetCategory;
+    const urlCategory = router.query.category as string || selectedCategory;
+    const targetCategory = categoryMapping[urlCategory] || urlCategory;
+    
+    // First filter products by category and price
+    const filteredProducts = products.filter((product) => {
+      // Check both primary category and categories array
+      const matchesCategory = product.category === targetCategory || 
+        (product.categories && product.categories.some((cat: { slug: string }) => cat.slug === targetCategory));
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+      
     return matchesCategory && matchesPrice;
   });
+    
+    // Then extract all variants from filtered products
+    const variants = [];
+    for (const product of filteredProducts) {
+      if (product.variants && product.variants.length > 0) {
+        // Add product info to each variant
+        product.variants.forEach((variant: ProductVariant) => {
+          variants.push({
+            ...variant,
+            product: {
+              id: product.id,
+              name: product.name,
+              description: product.description,
+              longDescription: product.longDescription,
+              materials: product.materials,
+              dimensions: product.dimensions,
+              careInstructions: product.careInstructions,
+              badge: product.badge,
+              rating: product.rating,
+              reviewCount: product.reviewCount,
+              featured: product.featured,
+              createdAt: product.createdAt,
+              category: product.category,
+              categories: product.categories
+            }
+          });
+        });
+      } else {
+        // If no variants, create a default variant from the product
+        variants.push({
+          id: product.id,
+          name: product.name,
+          sku: `${product.name.toUpperCase().replace(/\s+/g, '-')}`,
+          price: product.price,
+          originalPrice: product.originalPrice,
+          inStock: product.inStock,
+          images: product.images,
+          isDefault: true,
+          attributes: [],
+          product: {
+            id: product.id,
+            name: product.name,
+            description: product.description,
+            longDescription: product.longDescription,
+            materials: product.materials,
+            dimensions: product.dimensions,
+            careInstructions: product.careInstructions,
+            badge: product.badge,
+            rating: product.rating,
+            reviewCount: product.reviewCount,
+            featured: product.featured,
+            createdAt: product.createdAt,
+            category: product.category,
+            categories: product.categories
+          }
+        });
+      }
+    }
+    
+    return variants;
+  }, [products, router.query.category, selectedCategory, priceRange]);
 
 
   const handleCategoryChange = (categoryId: string) => {
@@ -805,18 +486,18 @@ export default function Browse() {
     setPriceRange([priceRange[0], value]);
   };
 
-  const handleAddToCart = (product: any) => {
+  const handleAddToCart = (product: ProductWithVariants) => {
     // Check if this is a package that needs customization
-    if (product.isPackage && (product.id === 13 || product.id === 14)) {
+    if (product.isPackage && (product.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_1 || product.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_2)) {
       setSelectedProduct(product);
       
       // Reset customization state based on package
-      if (product.id === 13) {
+      if (product.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_1) {
         // Package 1: laptop bag color choice
         setSelectedColor('tan');
         setIncludeEmbossing(false);
         setEmbossingText("");
-      } else if (product.id === 14) {
+      } else if (product.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_2) {
         // Package 2: bag color and sleeve color choices
         setSelectedBagColor('navy');
         setSelectedSleeveColor('tan');
@@ -1087,16 +768,22 @@ export default function Browse() {
 
             {/* Collage Style Product Grid - Mobile Optimized */}
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6 w-full">
-              {filteredCollageProducts.map((product) => (
+              {isLoading ? (
+                <div className="col-span-full text-center py-8">
+                  <p className="text-white">Loading products...</p>
+                </div>
+              ) : (
+                filteredVariants.map((variant) => (
                 <ProductTile
-                  key={product.id}
-                  product={product}
+                    key={`${variant.product.id}-${variant.id}`}
+                    product={variant as any}
                   onAddToCart={handleAddToCart}
                 />
-              ))}
+                ))
+              )}
             </div>
 
-            {filteredCollageProducts.length === 0 && (
+            {!isLoading && filteredVariants.length === 0 && (
               <div className="text-center py-12 sm:py-20 bg-terracotta/70 backdrop-blur-sm rounded-lg mx-auto max-w-lg">
                 <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 px-4">
                   No products found
@@ -1118,9 +805,9 @@ export default function Browse() {
               Customize Your {selectedProduct?.name}
             </DialogTitle>
             <DialogDescription className="text-gray-600">
-              {selectedProduct?.id === 13 
+              {selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_1 
                 ? "Choose your laptop bag color and add optional embossing to personalize your package."
-                : selectedProduct?.id === 14
+                : selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_2
                 ? "Choose your bag and sleeve colors, plus add optional embossing to personalize your package."
                 : selectedProduct?.colors && selectedProduct.colors.length > 0
                 ? "Choose your color and add optional embossing to personalize your product."
@@ -1131,7 +818,7 @@ export default function Browse() {
           
           <div className="space-y-6 py-4">
             {/* Package 1 Color Selection */}
-            {selectedProduct?.id === 13 && (
+            {selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_1 && (
               <div>
                 <Label className="text-base font-semibold text-gray-900 mb-3 block">
                   Laptop Bag Color
@@ -1154,7 +841,7 @@ export default function Browse() {
             )}
 
             {/* Package 2 Color Selections */}
-            {selectedProduct?.id === 14 && (
+            {selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_2 && (
               <>
                 <div>
                   <Label className="text-base font-semibold text-gray-900 mb-3 block">

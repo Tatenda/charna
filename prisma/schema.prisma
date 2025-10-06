@@ -10,30 +10,127 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Categories (Hierarchical - includes sports as subcategories)
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique // e.g., "work", "sport", "tennis", "business"
+  slug        String   @unique // e.g., "work", "sport", "tennis", "business"
+  displayName String   @map("display_name") // e.g., "Work", "Sport", "Tennis", "Business"
+  description String?
+  parentId    Int?     @map("parent_id") // For subcategories (e.g., "tennis" under "sport")
+  parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+  sortOrder   Int      @default(0) @map("sort_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  // Relationships
+  products    ProductCategory[]
+
+  @@map("categories")
+}
+
+// Products (Base product info)
 model Product {
   id               Int      @id @default(autoincrement())
   name             String
+  slug             String   @unique
   description      String
   longDescription  String   @map("long_description")
-  price            Int
-  originalPrice    Int?     @map("original_price")
+  basePrice        Int      @map("base_price") // Base price in cents
   rating           Int      @default(5) // For simplicity, storing as an integer * 10 (e.g., 4.5 => 45)
   reviewCount      Int      @default(0) @map("review_count")
-  inStock          Boolean  @default(true) @map("in_stock")
   badge            String?
-  category         String
-  colors           String[] // JSON array of strings
-  features         String[] // JSON array of strings
-  images           String[] // JSON array of strings
   materials        String
   dimensions       String
   careInstructions String  @map("care_instructions")
   featured         Boolean  @default(false)
+  isPackage        Boolean  @default(false) @map("is_package")
+  isActive         Boolean  @default(true) @map("is_active")
   createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+  
+  // Relationships
+  categories       ProductCategory[]
+  variants         ProductVariant[]
+  packageItems     PackageItem[]
 
   @@map("products")
 }
 
+// Product Variants (Individual variations)
+model ProductVariant {
+  id           Int      @id @default(autoincrement())
+  productId    Int      @map("product_id")
+  name         String   // e.g., "Standard", "Gold Zip", "Tan", "Navy"
+  sku          String   @unique // e.g., "GTB-STD", "GTB-GOLD", "LS-TAN"
+  price        Int      // Price in cents
+  originalPrice Int?     @map("original_price") // Original price in cents
+  inStock      Boolean  @default(true) @map("in_stock")
+  weight       Float?   // Weight in kg
+  images       String[] // JSON array of image paths
+  isDefault    Boolean  @default(false) @map("is_default")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  
+  // Relationships
+  product      Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  attributes   VariantAttribute[]
+  packageItems PackageItem[]
+
+  @@map("product_variants")
+}
+
+// Variant Attributes (Key-value pairs for filtering)
+model VariantAttribute {
+  id            Int @id @default(autoincrement())
+  variantId     Int @map("variant_id")
+  attributeType String @map("attribute_type") // e.g., "color", "hardware", "size", "material"
+  attributeValue String @map("attribute_value") // e.g., "tan", "gold", "large", "leather"
+  displayOrder  Int @default(0) @map("display_order")
+  
+  // Relationships
+  variant       ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@unique([variantId, attributeType, attributeValue])
+  @@map("variant_attributes")
+}
+
+// Product-Category Relationships (Many-to-Many)
+model ProductCategory {
+  id         Int @id @default(autoincrement())
+  productId  Int @map("product_id")
+  categoryId Int @map("category_id")
+  isPrimary  Boolean @default(false) @map("is_primary")
+  
+  // Relationships
+  product    Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, categoryId])
+  @@map("product_categories")
+}
+
+// Package Items (for package products)
+model PackageItem {
+  id               Int @id @default(autoincrement())
+  packageProductId Int @map("package_product_id")
+  variantId        Int @map("variant_id")
+  quantity         Int @default(1)
+  size             String? // e.g., "small", "medium", "large"
+  displayOrder     Int @default(0) @map("display_order")
+  
+  // Relationships
+  packageProduct  Product @relation(fields: [packageProductId], references: [id], onDelete: Cascade)
+  variant         ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@unique([packageProductId, variantId])
+  @@map("package_items")
+}
+
+// Orders
 model Order {
   id           Int      @id @default(autoincrement())
   customerInfo Json     @map("customer_info")
@@ -46,6 +143,7 @@ model Order {
   @@map("orders")
 }
 
+// Contacts
 model Contact {
   id        Int      @id @default(autoincrement())
   name      String
