@@ -8,8 +8,16 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const discountPercentage = product.originalPrice 
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) 
+  // Use variant pricing if available, otherwise fall back to product pricing
+  const currentPrice = product.variants && product.variants.length > 0 
+    ? product.variants[0].price 
+    : product.price;
+  const originalPrice = product.variants && product.variants.length > 0 
+    ? product.variants[0].originalPrice 
+    : product.originalPrice;
+    
+  const discountPercentage = originalPrice 
+    ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100)
     : 0;
 
   return (
@@ -17,7 +25,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <Link href={`/browse?category=${product.category}`}>
         <div className="relative">
           <img 
-            src={getImagePath(product.images[0])} 
+            src={getImagePath(
+              product.variants && product.variants.length > 0 && product.variants[0].images.length > 0 
+                ? product.variants[0].images[0] 
+                : product.images && product.images.length > 0 
+                  ? product.images[0] 
+                  : ''
+            )} 
             alt={product.name} 
             className="w-full h-64 object-cover"
             style={{ imageRendering: 'auto' }}
@@ -52,15 +66,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <p className="text-sm text-neutral mb-4 line-clamp-2">{product.description}</p>
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-lg font-semibold text-primary">R{product.price.toLocaleString()}</span>
-              {product.originalPrice && (
+              <span className="text-lg font-semibold text-primary">R{currentPrice.toLocaleString()}</span>
+              {originalPrice && originalPrice > currentPrice && (
                 <span className="ml-2 text-sm text-neutral-light line-through">
-                  R{product.originalPrice.toLocaleString()}
+                  R{originalPrice.toLocaleString()}
                 </span>
               )}
             </div>
             <div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
-              {product.inStock ? "In Stock" : "Out of Stock"}
+              {(product.variants && product.variants.length > 0 ? product.variants[0].inStock : product.inStock) ? "In Stock" : "Out of Stock"}
             </div>
           </div>
         </div>

@@ -17,6 +17,8 @@ model Category {
   slug        String   @unique // e.g., "work", "sport", "tennis", "business"
   displayName String   @map("display_name") // e.g., "Work", "Sport", "Tennis", "Business"
   description String?
+  image       String?  // Category banner/hero image
+  icon        String?  // Category icon image
   parentId    Int?     @map("parent_id") // For subcategories (e.g., "tennis" under "sport")
   parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
   children    Category[] @relation("CategoryHierarchy")
@@ -38,7 +40,7 @@ model Product {
   slug             String   @unique
   description      String
   longDescription  String   @map("long_description")
-  basePrice        Int      @map("base_price") // Base price in cents
+  basePrice        Int      @map("base_price") // Base price in whole Rands (e.g., 1999 = R1,999)
   rating           Int      @default(5) // For simplicity, storing as an integer * 10 (e.g., 4.5 => 45)
   reviewCount      Int      @default(0) @map("review_count")
   badge            String?
@@ -65,11 +67,11 @@ model ProductVariant {
   productId    Int      @map("product_id")
   name         String   // e.g., "Standard", "Gold Zip", "Tan", "Navy"
   sku          String   @unique // e.g., "GTB-STD", "GTB-GOLD", "LS-TAN"
-  price        Int      // Price in cents
-  originalPrice Int?     @map("original_price") // Original price in cents
+  price        Int      // Price in whole Rands (e.g., 1999 = R1,999)
+  originalPrice Int?     @map("original_price") // Original price in whole Rands (e.g., 2499 = R2,499)
   inStock      Boolean  @default(true) @map("in_stock")
   weight       Float?   // Weight in kg
-  images       String[] // JSON array of image paths
+  images       String[] // Array of image filenames (URLs will be constructed using getImagePath)
   isDefault    Boolean  @default(false) @map("is_default")
   isActive     Boolean  @default(true) @map("is_active")
   createdAt    DateTime @default(now()) @map("created_at")
@@ -154,4 +156,61 @@ model Contact {
   createdAt DateTime @default(now()) @map("created_at")
 
   @@map("contacts")
+}
+
+// NextAuth.js required models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  password      String?   // For credentials provider
+  role          String    @default("admin") // admin, user, etc.
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  accounts Account[]
+  sessions Session[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
 }

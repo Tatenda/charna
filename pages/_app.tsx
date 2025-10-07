@@ -1,4 +1,6 @@
 import type { AppProps } from 'next/app';
+import { SessionProvider } from "next-auth/react";
+import { useRouter } from "next/router";
 import { queryClient } from "@/lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -16,23 +18,40 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 // Tell Font Awesome to skip adding the CSS automatically since it's already imported above
 config.autoAddCss = false;
 
+function AppContent({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const isAdminPage = router.pathname.startsWith('/admin');
+
+  if (isAdminPage) {
+    // For admin pages, render without main site header/footer
+    return <Component {...pageProps} />;
+  }
+
+  // For regular pages, render with main site layout
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow pt-16">
+        <Component {...pageProps} />
+      </main>
+      <WhatsAppButton />
+      <Footer />
+    </div>
+  );
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        <TooltipProvider>
-          <Toaster />
-          <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-grow pt-16">
-              <Component {...pageProps} />
-            </main>
-            <WhatsAppButton />
-            <Footer />
-          </div>
-        </TooltipProvider>
-      </CartProvider>
-    </QueryClientProvider>
+    <SessionProvider session={pageProps.session}>
+      <QueryClientProvider client={queryClient}>
+        <CartProvider>
+          <TooltipProvider>
+            <Toaster />
+            <AppContent Component={Component} pageProps={pageProps} />
+          </TooltipProvider>
+        </CartProvider>
+      </QueryClientProvider>
+    </SessionProvider>
   );
 }
 
