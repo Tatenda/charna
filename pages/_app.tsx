@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 import { SessionProvider } from "next-auth/react";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import { queryClient } from "@/lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -40,15 +40,15 @@ function AppContent({ Component, pageProps }: AppProps) {
   );
 }
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
       <QueryClientProvider client={queryClient}>
         <CartProvider>
-          <TooltipProvider>
-            <Toaster />
-            <AppContent Component={Component} pageProps={pageProps} />
-          </TooltipProvider>
+            <TooltipProvider>
+              <Toaster />
+              <AppContent Component={Component} pageProps={pageProps} router={router} />
+            </TooltipProvider>
         </CartProvider>
       </QueryClientProvider>
     </SessionProvider>

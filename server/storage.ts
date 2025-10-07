@@ -221,14 +221,14 @@ export class PrismaStorage implements IStorage {
     const order = await prisma.order.create({
       data: {
         customerInfo: orderData.customerInfo,
-        items: orderData.items,
+        items: orderData.items as any, // Type assertion for JSON field
         totalAmount: orderData.totalAmount,
         paymentId: orderData.paymentId,
         status: orderData.status
       }
     })
     
-    return order as Order
+    return order as unknown as Order
   }
 
   async getOrderById(id: number): Promise<Order | undefined> {
@@ -236,12 +236,12 @@ export class PrismaStorage implements IStorage {
       where: { id }
     })
     
-    return order as Order | undefined
+    return order as unknown as Order | undefined
   }
 
   async getAllOrders(): Promise<Order[]> {
     const orders = await prisma.order.findMany()
-    return orders as Order[]
+    return orders as unknown as Order[]
   }
 
   // Contacts
@@ -285,7 +285,7 @@ export class PrismaStorage implements IStorage {
     })) || []
 
     // Get primary category for the main category field
-    const primaryCategory = transformedCategories.find(cat => cat.isPrimary)
+    const primaryCategory = transformedCategories.find((cat: any) => cat.isPrimary)
     const mainCategory = primaryCategory?.slug || transformedCategories[0]?.slug || ''
 
     // Transform variants to clean up image paths

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { memStorage } from '@/server/storage';
+import { MemStorage } from '@/server/storage';
 
-const storage = memStorage;
+const storage = new MemStorage();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Set CORS headers

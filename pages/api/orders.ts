@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { memStorage } from '@/server/storage';
+import { MemStorage } from '@/server/storage';
 import { EmailService } from '@/server/emailService';
 
-const storage = memStorage;
+const storage = new MemStorage();
 const emailService = new EmailService();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
