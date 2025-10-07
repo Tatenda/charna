@@ -15,9 +15,11 @@ import {
   Package,
   Star,
   Eye,
-  EyeOff
+  EyeOff,
+  Tag
 } from "lucide-react"
 import Link from "next/link"
+import CategorySelector from "@/components/admin/CategorySelector"
 
 export default function NewProductPage() {
   const router = useRouter()
@@ -40,6 +42,10 @@ export default function NewProductPage() {
     isPackage: false,
     isActive: true,
   })
+
+  // Category state
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([])
+  const [primaryCategoryId, setPrimaryCategoryId] = useState<number | null>(null)
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
@@ -64,6 +70,26 @@ export default function NewProductPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validate categories
+    if (selectedCategoryIds.length === 0) {
+      toast({
+        title: "Error",
+        description: "Please select at least one category",
+        variant: "destructive",
+      })
+      return
+    }
+
+    if (!primaryCategoryId) {
+      toast({
+        title: "Error",
+        description: "Please select a primary category",
+        variant: "destructive",
+      })
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -82,15 +108,55 @@ export default function NewProductPage() {
 
       if (response.ok) {
         const product = await response.json()
+        
+        // Assign categories to the product
+        const categoriesResponse = await fetch(`/api/admin/products/${product.id}/categories`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            categoryIds: selectedCategoryIds,
+            primaryCategoryId: primaryCategoryId,
+          }),
+        })
+
+        if (!categoriesResponse.ok) {
+          toast({
+            title: "Warning",
+            description: "Product created but failed to assign categories",
+            variant: "destructive",
+          })
+        } else {
+          toast({
+            title: "Success",
+            description: "Product created successfully!",
+          })
+        }
+
         router.push(`/admin/products/${product.id}`)
       } else {
-        console.error('Failed to create product')
+        toast({
+          title: "Error",
+          description: "Failed to create product",
+          variant: "destructive",
+        })
       }
     } catch (error) {
       console.error('Error creating product:', error)
+      toast({
+        title: "Error",
+        description: "Failed to create product",
+        variant: "destructive",
+      })
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  const handleCategoriesChange = (categoryIds: number[], primaryId: number | null) => {
+    setSelectedCategoryIds(categoryIds)
+    setPrimaryCategoryId(primaryId)
   }
 
   return (
@@ -292,6 +358,26 @@ export default function NewProductPage() {
                   </CardContent>
                 </Card>
 
+                {/* Categories */}
+                <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-heading text-forest flex items-center gap-2">
+                      <Tag className="h-5 w-5 text-botanical" />
+                      Categories
+                    </CardTitle>
+                    <CardDescription className="text-botanical/80">
+                      Assign this product to one or more categories
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <CategorySelector
+                      selectedCategoryIds={selectedCategoryIds}
+                      primaryCategoryId={primaryCategoryId}
+                      onCategoriesChange={handleCategoriesChange}
+                    />
+                  </CardContent>
+                </Card>
+
                 {/* Variant Creation Notice */}
                 <Card className="bg-gradient-to-br from-sage/10 to-mint/10 border-2 border-sage/20 shadow-lg">
                   <CardHeader>
@@ -308,6 +394,7 @@ export default function NewProductPage() {
                       <h4 className="font-medium text-forest mb-2">What happens next:</h4>
                       <ul className="text-sm text-botanical/70 space-y-1">
                         <li>• Product will be created with basic information</li>
+                        <li>• Categories will be assigned to the product</li>
                         <li>• You'll be redirected to the product edit page</li>
                         <li>• You can then create variants (colors, sizes, etc.)</li>
                         <li>• Each variant can have its own images and pricing</li>

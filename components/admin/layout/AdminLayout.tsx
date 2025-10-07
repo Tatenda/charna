@@ -17,7 +17,8 @@ import {
   MessageSquare,
   Settings,
   LogOut,
-  User
+  User,
+  FolderTree
 } from "lucide-react"
 import Link from "next/link"
 
@@ -50,7 +51,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const navigation = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Products", href: "/admin/products", icon: Package },
-    { name: "Categories", href: "/admin/categories", icon: Settings },
+    { name: "Categories", href: "/admin/categories", icon: FolderTree },
     { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
     { name: "Contacts", href: "/admin/contacts", icon: MessageSquare },
   ]

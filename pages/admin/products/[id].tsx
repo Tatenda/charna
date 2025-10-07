@@ -24,6 +24,7 @@ import { useState } from "react"
 import { useRouter } from "next/router"
 import { useToast } from "@/hooks/use-toast"
 import VariantManagement from "@/components/admin/VariantManagement"
+import CategorySelector from "@/components/admin/CategorySelector"
 
 interface Product {
   id: number
@@ -90,6 +91,14 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
     isActive: product.isActive
   })
 
+  // Category state
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>(
+    product.categories.map(c => c.category.id)
+  )
+  const [primaryCategoryId, setPrimaryCategoryId] = useState<number | null>(
+    product.categories.find(c => c.isPrimary)?.category.id || null
+  )
+
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
@@ -99,10 +108,31 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validate categories
+    if (selectedCategoryIds.length === 0) {
+      toast({
+        title: "Error",
+        description: "Please select at least one category",
+        variant: "destructive",
+      })
+      return
+    }
+
+    if (!primaryCategoryId) {
+      toast({
+        title: "Error",
+        description: "Please select a primary category",
+        variant: "destructive",
+      })
+      return
+    }
+
     setIsLoading(true)
 
     try {
-      const response = await fetch(`/api/admin/products/${product.id}`, {
+      // Update product info
+      const productResponse = await fetch(`/api/admin/products/${product.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -113,8 +143,24 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
         }),
       })
 
-      if (!response.ok) {
+      if (!productResponse.ok) {
         throw new Error('Failed to update product')
+      }
+
+      // Update categories
+      const categoriesResponse = await fetch(`/api/admin/products/${product.id}/categories`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          categoryIds: selectedCategoryIds,
+          primaryCategoryId: primaryCategoryId,
+        }),
+      })
+
+      if (!categoriesResponse.ok) {
+        throw new Error('Failed to update categories')
       }
 
       toast({
@@ -122,7 +168,8 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
         description: "Product updated successfully!",
       })
 
-      // Stay on the same page - no navigation
+      // Refresh the page to show updated data
+      router.replace(router.asPath)
     } catch (error) {
       console.error('Error updating product:', error)
       toast({
@@ -133,6 +180,11 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleCategoriesChange = (categoryIds: number[], primaryId: number | null) => {
+    setSelectedCategoryIds(categoryIds)
+    setPrimaryCategoryId(primaryId)
   }
 
   const handleDelete = async () => {
@@ -369,6 +421,26 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
                         required
                       />
                     </div>
+                  </CardContent>
+                </Card>
+
+                {/* Categories */}
+                <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-heading text-forest flex items-center gap-2">
+                      <Tag className="h-5 w-5 text-botanical" />
+                      Categories
+                    </CardTitle>
+                    <CardDescription>
+                      Assign this product to one or more categories
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <CategorySelector
+                      selectedCategoryIds={selectedCategoryIds}
+                      primaryCategoryId={primaryCategoryId}
+                      onCategoriesChange={handleCategoriesChange}
+                    />
                   </CardContent>
                 </Card>
 
