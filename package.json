@@ -9,7 +9,8 @@
     "lint": "next lint",
     "check": "tsc",
     "db:push": "drizzle-kit push",
-    "create-admin": "tsx scripts/create-admin.ts"
+    "create-admin": "tsx scripts/create-admin.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.6.0",
