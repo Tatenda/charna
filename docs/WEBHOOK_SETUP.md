@@ -41,13 +41,47 @@ npx prisma generate
 
 ### 3. Configure Yoco Webhook
 
-1. Log in to your [Yoco Dashboard](https://portal.yoco.com/)
-2. Go to **Settings** → **Webhooks** → **Add Webhook**
-3. Add webhook URL: `https://www.charna.co.com//api/webhooks/yoco`
-4. Select events:
-   - ✅ `payment.succeeded`
-   - ✅ `checkout.succeeded`
-5. Save webhook configuration
+**Important:** Yoco webhooks must be registered via API (no dashboard UI available).
+
+#### Get Your Yoco API Keys:
+1. Log in to **Yoco App**
+2. Go to **Sales** → **Payment Gateway**
+3. Copy your **Test secret key** (starts with `sk_test_`)
+   - For production: Copy **Live secret key** (starts with `sk_live_`)
+
+#### Register Webhook Using Script:
+
+```bash
+# Set your webhook URL (production)
+export WEBHOOK_URL=https://www.charna.co.com/api/webhooks/yoco
+
+# Run registration script
+npx tsx scripts/register-yoco-webhook.ts
+
+# For local testing with ngrok:
+# 1. Start ngrok: ngrok http 3000
+# 2. export WEBHOOK_URL=https://abc123.ngrok.io/api/webhooks/yoco
+# 3. npx tsx scripts/register-yoco-webhook.ts
+```
+
+#### Or Register Manually via API:
+
+```bash
+# Using curl
+curl -X POST https://payments.yoco.com/api/webhooks \
+  -H "Authorization: Bearer sk_test_YOUR_KEY_HERE" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "charna-webhook",
+    "url": "https://www.charna.co.com/api/webhooks/yoco"
+  }'
+```
+
+#### List Existing Webhooks:
+
+```bash
+npx tsx scripts/register-yoco-webhook.ts --list
+```
 
 ### 4. Test the Webhook
 

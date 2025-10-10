@@ -28,13 +28,16 @@ interface Order {
   discountAmount?: number;
   totalAmount: number;
   promoCodeUsed?: string;
+  paymentId?: string;
   status: string;
+  webhookPayload?: any;
   createdAt: Date;
 }
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
 
   useEffect(() => {
     fetchOrders();
@@ -162,11 +165,13 @@ export default function OrdersPage() {
                       ? `${order.customerInfo.firstName} ${order.customerInfo.lastName}`
                       : 'Unknown Customer';
                     const customerEmail = order.customerInfo?.email || '';
+                    const isExpanded = expandedOrder === order.id;
+                    const webhookData = order.webhookPayload;
                     
                     return (
                       <div
                         key={order.id}
-                        className="flex flex-col md:flex-row md:items-center justify-between p-4 border border-sage/20 rounded-lg hover:border-botanical/40 transition-colors gap-4"
+                        className="flex flex-col p-4 border border-sage/20 rounded-lg hover:border-botanical/40 transition-colors gap-4"
                       >
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
@@ -209,6 +214,86 @@ export default function OrdersPage() {
                             {order.items?.length || 0} {order.items?.length === 1 ? 'item' : 'items'}
                           </p>
                         </div>
+                        
+                        {/* Expand/Collapse Button */}
+                        <div className="flex justify-end">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
+                            className="text-xs"
+                          >
+                            {isExpanded ? 'Hide Details' : 'Show Details'}
+                          </Button>
+                        </div>
+                        
+                        {/* Expanded Details */}
+                        {isExpanded && (
+                          <div className="border-t border-sage/20 pt-4 mt-2 space-y-4">
+                            {/* Order Items */}
+                            <div>
+                              <h4 className="font-semibold text-forest mb-2">Order Items:</h4>
+                              <div className="space-y-2">
+                                {order.items?.map((item: any, idx: number) => (
+                                  <div key={idx} className="bg-sage/5 p-3 rounded text-sm">
+                                    <p className="font-medium">{item.productName || item.name}</p>
+                                    <div className="text-botanical/70 space-y-1 mt-1">
+                                      <p>Quantity: {item.quantity}</p>
+                                      <p>Price: R{item.price}</p>
+                                      {item.customizations && Object.keys(item.customizations).length > 0 && (
+                                        <div className="mt-2 text-xs">
+                                          <p className="font-medium">Customizations:</p>
+                                          {item.customizations.embossing && (
+                                            <p>• Embossing: {item.customizations.embossingText || 'Yes'} (+R{item.customizations.embossingPrice})</p>
+                                          )}
+                                          {item.customizations.color && (
+                                            <p>• Color: {item.customizations.color}</p>
+                                          )}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Payment Info */}
+                            {(order.paymentId || webhookData) && (
+                              <div>
+                                <h4 className="font-semibold text-forest mb-2">Payment Information:</h4>
+                                <div className="bg-sage/5 p-3 rounded text-sm space-y-1">
+                                  {order.paymentId && (
+                                    <p><span className="font-medium">Payment ID:</span> {order.paymentId}</p>
+                                  )}
+                                  {webhookData?.payload?.paymentMethodDetails && (
+                                    <p><span className="font-medium">Payment Method:</span> {webhookData.payload.paymentMethodDetails.type}</p>
+                                  )}
+                                  {webhookData?.payload?.currency && (
+                                    <p><span className="font-medium">Currency:</span> {webhookData.payload.currency}</p>
+                                  )}
+                                  {webhookData?.payload?.mode && (
+                                    <p><span className="font-medium">Mode:</span> <Badge variant="outline" className="text-xs">{webhookData.payload.mode}</Badge></p>
+                                  )}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Webhook Payload (Developer Info) */}
+                            {webhookData && (
+                              <div>
+                                <h4 className="font-semibold text-forest mb-2">Webhook Data (Dev):</h4>
+                                <details className="bg-gray-50 p-3 rounded">
+                                  <summary className="cursor-pointer text-xs font-medium text-botanical/70 hover:text-botanical">
+                                    View Raw Webhook Payload
+                                  </summary>
+                                  <pre className="mt-2 text-xs overflow-auto max-h-96 bg-white p-2 rounded border">
+                                    {JSON.stringify(webhookData, null, 2)}
+                                  </pre>
+                                </details>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     );
                   })}

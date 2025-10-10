@@ -96,14 +96,28 @@ export default function CheckoutSuccess() {
   };
 
   const createOrderFromSuccess = async (paymentId: string) => {
-    console.log('=== CREATE ORDER FROM SUCCESS ===');
-    console.log('Payment ID:', paymentId);
-    console.log('Cart items before order:', cart);
-    
     setIsCreatingOrder(true);
     
     try {
-      // Get customer info from localStorage (stored during checkout)
+      // First, check if webhook already created the order
+      const checkResponse = await fetch(`/api/orders?paymentId=${paymentId}`);
+      if (checkResponse.ok) {
+        const existingOrders = await checkResponse.json();
+        if (existingOrders && existingOrders.length > 0) {
+          // Order already exists from webhook, just show success
+          setOrderCreated(true);
+          clearCart();
+          localStorage.removeItem('checkoutCustomerInfo');
+          
+          toast({
+            title: "Order Completed Successfully!",
+            description: `Your order #${existingOrders[0].id} has been confirmed.`,
+          });
+          return;
+        }
+      }
+      
+      // No existing order, create it (webhook might not have fired yet)
       const storedCustomerInfo = localStorage.getItem('checkoutCustomerInfo');
       
       if (!storedCustomerInfo) {
@@ -165,14 +179,9 @@ export default function CheckoutSuccess() {
       
       setOrderCreated(true);
       
-      console.log('Order created successfully, clearing cart...');
-      console.log('Cart before clearing:', cart);
-      
       // Clear cart (also clears promo code) and stored customer info
       clearCart();
       localStorage.removeItem('checkoutCustomerInfo');
-      
-      console.log('Cart cleared and customer info removed from localStorage');
       
       
       toast({

@@ -15,14 +15,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).end();
   }
 
+  // Handle GET request to check if order exists by paymentId
+  if (req.method === 'GET') {
+    try {
+      const { paymentId } = req.query;
+      
+      if (!paymentId || typeof paymentId !== 'string') {
+        return res.status(400).json({ message: 'Payment ID is required' });
+      }
+
+      const orders = await prisma.order.findMany({
+        where: { paymentId }
+      });
+
+      return res.status(200).json(orders);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
-    console.log('=== ORDER CREATION REQUEST ===');
-    console.log('Order data received:', JSON.stringify(req.body, null, 2));
-
     const orderData = req.body;
     
     // Validate required fields
@@ -91,13 +108,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     });
 
-    console.log('Order created successfully:', {
-      id: order.id,
-      status: order.status,
-      paymentId: order.paymentId,
-      totalAmount: order.totalAmount
-    });
-
     // Send confirmation email
     try {
       // Transform order data to match OrderEmailData interface
@@ -110,7 +120,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         paymentId: order.paymentId || ''
       };
       await emailService.sendOrderReceipt(emailData);
-      console.log('Order confirmation email sent successfully');
     } catch (emailError) {
       console.error('Failed to send order confirmation email:', emailError);
       // Don't fail the order creation if email fails

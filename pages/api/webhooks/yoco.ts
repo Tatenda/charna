@@ -1,8 +1,45 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/lib/prisma';
 import { EmailService } from '@/server/emailService';
+import crypto from 'crypto';
 
 const emailService = new EmailService();
+
+/**
+ * Verify Yoco webhook signature using HMAC
+ * Yoco uses Svix for webhook delivery with signature format: v1,{signature}
+ */
+function verifyWebhookSignature(
+  payload: string,
+  signature: string | undefined,
+  timestamp: string | undefined,
+  secret: string
+): boolean {
+  if (!signature || !timestamp) {
+    return false;
+  }
+
+  // Extract the actual signature (format: v1,signature)
+  const signatureParts = signature.split(',');
+  if (signatureParts.length !== 2 || signatureParts[0] !== 'v1') {
+    return false;
+  }
+  const expectedSignature = signatureParts[1];
+
+  // Create the signed content (timestamp.payload)
+  const signedContent = `${timestamp}.${payload}`;
+
+  // Compute HMAC using the webhook secret (base64 encoded)
+  const hmac = crypto.createHmac('sha256', Buffer.from(secret.replace('whsec_', ''), 'base64'));
+  hmac.update(signedContent);
+  const computedSignature = hmac.digest('base64');
+
+  // Compare signatures
+  return crypto.timingSafeEqual(
+    Buffer.from(computedSignature),
+    Buffer.from(expectedSignature)
+  );
+}
 
 /**
  * Yoco Webhook Handler
@@ -24,25 +61,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    console.log('=== YOCO WEBHOOK RECEIVED ===');
-    console.log('Headers:', JSON.stringify(req.headers, null, 2));
-    console.log('Body:', JSON.stringify(req.body, null, 2));
+    // Verify webhook signature for security
+    const signature = req.headers['webhook-signature'] as string;
+    const timestamp = req.headers['webhook-timestamp'] as string;
+    const webhookSecret = process.env.YOCO_WEBHOOK_SECRET;
+
+    if (webhookSecret && process.env.NODE_ENV === 'production') {
+      // In production, always verify signature
+      const rawBody = JSON.stringify(req.body);
+      const isValid = verifyWebhookSignature(rawBody, signature, timestamp, webhookSecret);
+      
+      if (!isValid) {
+        return res.status(401).json({ message: 'Invalid webhook signature' });
+      }
+    }
 
     const event = req.body;
-
-    // Verify webhook signature (optional but recommended for production)
-    // const signature = req.headers['x-yoco-signature'];
-    // if (!verifyYocoSignature(signature, req.body)) {
-    //   return res.status(401).json({ message: 'Invalid signature' });
-    // }
 
     // Handle payment success event
     if (event.type === 'payment.succeeded' || event.type === 'checkout.succeeded') {
       const paymentData = event.payload;
       const paymentId = paymentData.id;
-      const checkoutId = paymentData.checkoutId;
-      
-      console.log(`Payment succeeded: ${paymentId}, Checkout: ${checkoutId}`);
+      // checkoutId is in metadata, not in the main payload
+      const checkoutId = paymentData.metadata?.checkoutId || paymentData.checkoutId || paymentData.checkout_id;
+      const metadata = paymentData.metadata || {};
 
       // Check if order already exists for this payment
       const existingOrder = await prisma.order.findFirst({
@@ -50,7 +92,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
 
       if (existingOrder) {
-        console.log(`Order already exists for payment ${paymentId}, skipping creation`);
         return res.status(200).json({ 
           message: 'Order already processed',
           orderId: existingOrder.id 
@@ -58,37 +99,68 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // Try to retrieve pending checkout data from database
-      const pendingCheckout = await prisma.pendingCheckout.findUnique({
-        where: { checkoutId }
-      });
+      // Handle case where checkoutId might be undefined
+      let pendingCheckout = null;
+      
+      if (checkoutId) {
+        pendingCheckout = await prisma.pendingCheckout.findUnique({
+          where: { checkoutId }
+        });
+      }
 
       if (!pendingCheckout) {
-        console.error(`No pending checkout found for checkout ID: ${checkoutId}`);
         
-        // Fallback: Try to extract from metadata
-        const checkoutMetadata = paymentData.metadata || {};
+        // Fallback: Create order from webhook metadata
+        // The metadata contains items, customer info, etc.
+        const items = metadata.items || [];
+        const customerEmail = metadata.customerEmail || 'unknown@example.com';
+        const customerName = metadata.customerName || 'Unknown Customer';
+        const nameParts = customerName.split(' ');
         
-        // Log the payment for manual processing
-        await prisma.order.create({
+        const customerInfo = {
+          email: customerEmail,
+          firstName: nameParts[0] || 'Unknown',
+          lastName: nameParts.slice(1).join(' ') || 'Customer',
+          phone: metadata.phone || '',
+          address: metadata.address || '',
+          city: metadata.city || '',
+          province: metadata.province || '',
+          postalCode: metadata.postalCode || ''
+        };
+        
+        // Create order from webhook data
+        const order = await prisma.order.create({
           data: {
-            customerInfo: {
-              email: checkoutMetadata.customerEmail || 'unknown@example.com',
-              firstName: checkoutMetadata.customerName?.split(' ')[0] || 'Unknown',
-              lastName: checkoutMetadata.customerName?.split(' ').slice(1).join(' ') || 'Customer',
-            },
-            items: [],
-            subtotal: 0,
-            discountAmount: 0,
-            totalAmount: paymentData.amount / 100, // Convert from cents
+            customerInfo,
+            items,
+            subtotal: paymentData.amount / 100, // Convert from cents
+            discountAmount: 0, // Will be in metadata if promo was used
+            totalAmount: paymentData.amount / 100,
             paymentId,
-            status: 'pending_verification', // Requires manual verification
-            promoCodeUsed: checkoutMetadata.promoCode,
+            status: 'completed',
+            promoCodeUsed: metadata.promoCode,
+            webhookPayload: event, // Store complete webhook payload
           }
         });
 
+        // Send email
+        try {
+          const emailData = {
+            customerInfo: customerInfo as any,
+            items: items as any,
+            orderId: order.id.toString(),
+            totalAmount: order.totalAmount,
+            shippingCost: 0,
+            paymentId: paymentId || ''
+          };
+          await emailService.sendOrderReceipt(emailData);
+        } catch (emailError) {
+          console.error('Failed to send email:', emailError);
+        }
+
         return res.status(200).json({ 
-          message: 'Payment received but order requires manual verification',
-          warning: 'No pending checkout data found'
+          message: 'Order created from webhook metadata',
+          orderId: order.id
         });
       }
 
@@ -147,11 +219,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           promoCodeId,
           promoCodeUsed,
           paymentId,
-          status: 'completed'
+          status: 'completed',
+          webhookPayload: event, // Store complete webhook payload
         }
       });
-
-      console.log(`Order ${order.id} created successfully via webhook`);
 
       // Clean up pending checkout after order is created
       await prisma.pendingCheckout.delete({
@@ -169,7 +240,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           paymentId: order.paymentId || ''
         };
         await emailService.sendOrderReceipt(emailData);
-        console.log('Order confirmation email sent');
       } catch (emailError) {
         console.error('Failed to send email:', emailError);
       }
@@ -181,7 +251,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Handle other webhook events
-    console.log(`Unhandled webhook event type: ${event.type}`);
     return res.status(200).json({ message: 'Event received' });
 
   } catch (error) {

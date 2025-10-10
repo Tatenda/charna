@@ -28,6 +28,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const orders = await prisma.order.findMany({
       orderBy: {
         createdAt: 'desc'
+      },
+      select: {
+        id: true,
+        customerInfo: true,
+        items: true,
+        subtotal: true,
+        discountAmount: true,
+        totalAmount: true,
+        promoCodeId: true,
+        promoCodeUsed: true,
+        paymentId: true,
+        status: true,
+        webhookPayload: true,
+        createdAt: true,
+        updatedAt: true
       }
     });
 

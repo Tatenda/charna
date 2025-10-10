@@ -201,6 +201,7 @@ model Order {
   // Payment
   paymentId       String?     @map("payment_id") // Yoco payment ID for successful payments
   status          String      @default("pending")
+  webhookPayload  Json?       @map("webhook_payload") // Full webhook data for debugging/analytics
   
   createdAt       DateTime    @default(now()) @map("created_at")
   updatedAt       DateTime    @updatedAt @map("updated_at")
