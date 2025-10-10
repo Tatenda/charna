@@ -226,7 +226,7 @@ export default function OrdersPage() {
                               <div className="text-2xl font-bold text-forest">
                                 R{order.totalAmount.toLocaleString()}
                               </div>
-                              {order.discountAmount > 0 && (
+                              {order.discountAmount && order.discountAmount > 0 && (
                                 <div className="text-xs space-y-0.5 mt-1">
                                   <p className="text-botanical/60 line-through">
                                     R{order.subtotal?.toLocaleString()}
