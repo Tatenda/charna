@@ -49,6 +49,7 @@ const Checkout = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
   const [customerInfo, setCustomerInfo] = useState<CheckoutFormValues | null>(null);
+  const [promoData, setPromoData] = useState<{ code: string; discount: number; promoCodeId?: number } | null>(null);
 
   // Redirect if cart is empty
   useEffect(() => {
@@ -91,7 +92,13 @@ const Checkout = () => {
   
   // No shipping cost for test products, otherwise apply normal logic
   const shippingCost = hasTestProduct ? 0 : (cartTotal >= 1000 ? 0 : 150);
-  const totalAmount = cartTotal + shippingCost;
+  const discountAmount = promoData?.discount || 0;
+  const subtotal = cartTotal;
+  const totalAmount = subtotal - discountAmount + shippingCost;
+
+  const handlePromoChange = (data: { code: string; discount: number; promoCodeId?: number } | null) => {
+    setPromoData(data);
+  };
 
   const onSubmit = async (values: CheckoutFormValues) => {
     console.log('Form submitted with values:', values);
@@ -119,7 +126,7 @@ const Checkout = () => {
     setIsSubmitting(true);
     
     try {
-      // Create order with payment ID
+      // Create order with payment ID and promo code data
       const response = await apiRequest("POST", "/api/orders", {
         customerInfo,
         items: cart.map(item => ({
@@ -129,13 +136,17 @@ const Checkout = () => {
           price: item.product.price,
           customizations: item.customizations
         })),
+        subtotal: subtotal,
+        discountAmount: discountAmount,
         totalAmount: totalAmount,
+        promoCodeId: promoData?.promoCodeId,
+        promoCodeUsed: promoData?.code,
         paymentId: paymentId
       });
       
       const order = await response.json();
       
-      // Clear cart and redirect to success page
+      // Clear cart (also clears promo code)
       clearCart();
       
       toast({
@@ -429,7 +440,11 @@ const Checkout = () => {
           </div>
           
           <div>
-            <CartSummary showCheckoutButton={false} />
+            <CartSummary 
+              showCheckoutButton={false}
+              customerEmail={customerInfo?.email || form.watch('email')}
+              onPromoChange={handlePromoChange}
+            />
             
             {/* Secure Checkout */}
             <div className="mt-6 bg-white rounded-lg shadow-md p-6">

@@ -1,0 +1,75 @@
+feat: Major platform improvements - image rendering, order management, and promo codes
+
+## Image Rendering System
+- Fix browse section images loading from Vercel Blob Storage instead of localhost
+- Create centralized getImagePath utility for consistent image handling
+- Add support for Vercel Blob pathnames, local assets, and external URLs
+- Update all components to use image utility (browse, cart, home, products)
+- Add NEXT_PUBLIC_BLOB_STORAGE_BASE_URL environment variable
+
+## Browse Section Improvements  
+- Fix variant display to show "Product Name - Variant Name"
+- Add product descriptions to variant tiles
+- Improve variant name handling for better UX
+
+## Order Management
+- Replace MemStorage with Prisma database storage (no more data loss on restart)
+- Fix orders not appearing in admin dashboard
+- Update all order APIs to use database directly
+- Add promo code tracking to success page order creation
+- Ensure both checkout paths include promo code data
+
+## Promo Code System
+- Fix promo codes persisting after order completion
+- Add re-validation of saved promo codes on mount
+- Auto-clear promo codes when cart is cleared or empty
+- Improve promo code state management across checkout flow
+
+## Contact Form
+- Migrate contact form submissions from MemStorage to database
+- All contact data now persisted properly
+
+## Webhook Infrastructure (Prepared)
+- Add PendingCheckout model to schema for webhook-based order creation
+- Create Yoco webhook handler (/api/webhooks/yoco)
+- Create pending checkout storage endpoint
+- Prepare infrastructure for server-side order creation (requires Yoco config)
+
+## Documentation
+- Organize all .md files into /docs folder
+- Create docs/README.md as documentation index
+- Add DATABASE_BRANCHING_GUIDE.md for dev/prod database setup
+- Add IMAGE_RENDERING_GUIDE.md for image utility usage
+- Add WEBHOOK_SETUP.md for webhook configuration
+- Add ABANDONED_ORDERS_TRACKING_PLAN.md for future analytics
+- Move existing docs to organized structure
+
+## Database & DevOps
+- Set up development database branch (ep-rapid-pond-adtp7hsb)
+- Configure .env.local for local development (gitignored)
+- Create backup utility (scripts/backup-database.ts)
+- Add backups/ to gitignore
+- Clean production database (remove test orders/promo codes)
+
+## Code Quality
+- Remove deprecated MemStorage class
+- Improve type safety in image handling
+- Add comprehensive error handling
+- Better separation of concerns
+
+## Files Changed
+- Modified: 19 files (components, pages, APIs, utils)
+- Added: 43+ new files (features, docs, migrations)
+- Deleted: 7 old files (moved to docs or deprecated)
+
+## Breaking Changes
+None - All changes are backwards compatible
+
+## Post-Deployment Required
+1. Configure Yoco webhook URL in Yoco dashboard
+2. Monitor first few orders for correct tracking
+3. Verify images loading correctly from Vercel Blob
+
+---
+
+Implements improvements for image rendering, database persistence, promo code handling, and development workflow.

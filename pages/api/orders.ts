@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { MemStorage } from '@/server/storage';
+import { prisma } from '@/lib/prisma';
 import { EmailService } from '@/server/emailService';
 
-const storage = new MemStorage();
 const emailService = new EmailService();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -31,13 +30,65 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ message: 'Missing required order data' });
     }
 
-    // Create order
-    const order = await storage.createOrder({
-      customerInfo: orderData.customerInfo,
-      items: orderData.items,
-      totalAmount: orderData.totalAmount,
-      paymentId: orderData.paymentId,
-      status: 'completed'
+    // Calculate subtotal and discount
+    const subtotal = orderData.subtotal || orderData.totalAmount;
+    const discountAmount = orderData.discountAmount || 0;
+
+    // If promo code was used, increment usage count and create usage log
+    let promoCodeId = orderData.promoCodeId;
+    if (orderData.promoCodeUsed) {
+      try {
+        // Find the promo code
+        const promoCode = await prisma.promoCode.findFirst({
+          where: {
+            code: {
+              equals: orderData.promoCodeUsed.toUpperCase(),
+              mode: 'insensitive'
+            }
+          }
+        });
+
+        if (promoCode) {
+          promoCodeId = promoCode.id;
+
+          // Increment usage count
+          await prisma.promoCode.update({
+            where: { id: promoCode.id },
+            data: {
+              usedCount: {
+                increment: 1
+              }
+            }
+          });
+
+          // Create usage log
+          await prisma.promoCodeUsage.create({
+            data: {
+              promoCodeId: promoCode.id,
+              customerEmail: orderData.customerInfo.email,
+              discountApplied: discountAmount
+            }
+          });
+        }
+      } catch (promoError) {
+        console.error('Error updating promo code usage:', promoError);
+        // Don't fail the order if promo tracking fails
+      }
+    }
+
+    // Create order in database
+    const order = await prisma.order.create({
+      data: {
+        customerInfo: orderData.customerInfo,
+        items: orderData.items,
+        subtotal,
+        discountAmount,
+        totalAmount: orderData.totalAmount,
+        promoCodeId,
+        promoCodeUsed: orderData.promoCodeUsed,
+        paymentId: orderData.paymentId,
+        status: 'completed'
+      }
     });
 
     console.log('Order created successfully:', {

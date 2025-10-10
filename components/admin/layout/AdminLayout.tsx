@@ -18,7 +18,8 @@ import {
   Settings,
   LogOut,
   User,
-  FolderTree
+  FolderTree,
+  Tag
 } from "lucide-react"
 import Link from "next/link"
 
@@ -53,6 +54,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { name: "Products", href: "/admin/products", icon: Package },
     { name: "Categories", href: "/admin/categories", icon: FolderTree },
     { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
+    { name: "Promo Codes", href: "/admin/promo-codes", icon: Tag },
     { name: "Contacts", href: "/admin/contacts", icon: MessageSquare },
   ]
 

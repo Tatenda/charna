@@ -132,15 +132,78 @@ model PackageItem {
   @@map("package_items")
 }
 
+// Promo Codes
+model PromoCode {
+  id                Int       @id @default(autoincrement())
+  code              String    @unique // e.g., "SUMMER2025", "WELCOME10"
+  description       String?   // Internal note about the promo
+  
+  // Discount Configuration
+  discountType      String    // "percentage" or "fixed"
+  discountValue     Int       // 10 for 10% or 5000 for R50.00
+  
+  // Usage Limits
+  maxUses           Int?      @map("max_uses") // null = unlimited
+  usedCount         Int       @default(0) @map("used_count")
+  maxUsesPerUser    Int?      @default(1) @map("max_uses_per_user")
+  
+  // Validity Period
+  validFrom         DateTime  @default(now()) @map("valid_from")
+  validUntil        DateTime? @map("valid_until") // null = no expiry
+  
+  // Constraints
+  minimumOrderValue Int?      @map("minimum_order_value") // in Rands (e.g., 500 = R500)
+  
+  // Status
+  isActive          Boolean   @default(true) @map("is_active")
+  
+  // Metadata
+  createdBy         String?   @map("created_by") // Admin who created it
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  
+  // Relationships
+  orders            Order[]
+  usageLogs         PromoCodeUsage[]
+  
+  @@map("promo_codes")
+}
+
+model PromoCodeUsage {
+  id              Int       @id @default(autoincrement())
+  promoCodeId     Int       @map("promo_code_id")
+  orderId         Int?      @map("order_id") // null if validation only
+  customerEmail   String    @map("customer_email")
+  discountApplied Int       @map("discount_applied") // Amount in Rands
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  promoCode       PromoCode @relation(fields: [promoCodeId], references: [id], onDelete: Cascade)
+  
+  @@map("promo_code_usage")
+}
+
 // Orders
 model Order {
-  id           Int      @id @default(autoincrement())
-  customerInfo Json     @map("customer_info")
-  items        Json     // Array of OrderItem objects
-  totalAmount  Int      @map("total_amount")
-  paymentId    String?  @map("payment_id") // Yoco payment ID for successful payments
-  status       String   @default("pending")
-  createdAt    DateTime @default(now()) @map("created_at")
+  id              Int         @id @default(autoincrement())
+  customerInfo    Json        @map("customer_info")
+  items           Json        // Array of OrderItem objects
+  
+  // Pricing Breakdown
+  subtotal        Int         // Original price before discount
+  discountAmount  Int         @default(0) @map("discount_amount") // Discount in Rands
+  totalAmount     Int         @map("total_amount") // Final amount after discount
+  
+  // Promo Code
+  promoCodeId     Int?        @map("promo_code_id")
+  promoCode       PromoCode?  @relation(fields: [promoCodeId], references: [id])
+  promoCodeUsed   String?     @map("promo_code_used") // Store the actual code string
+  
+  // Payment
+  paymentId       String?     @map("payment_id") // Yoco payment ID for successful payments
+  status          String      @default("pending")
+  
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
 
   @@map("orders")
 }
@@ -213,4 +276,22 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+// Pending Checkouts - Stores checkout data before payment for webhook processing
+model PendingCheckout {
+  id              String   @id @default(cuid())
+  checkoutId      String   @unique @map("checkout_id") // Yoco checkout ID
+  customerInfo    Json     @map("customer_info")
+  items           Json
+  subtotal        Int
+  discountAmount  Int      @default(0) @map("discount_amount")
+  totalAmount     Int      @map("total_amount")
+  promoCodeId     Int?     @map("promo_code_id")
+  promoCodeUsed   String?  @map("promo_code_used")
+  expiresAt       DateTime @map("expires_at")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@index([expiresAt])
+  @@map("pending_checkouts")
 }

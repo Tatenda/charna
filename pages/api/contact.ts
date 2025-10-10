@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { MemStorage } from '@/server/storage';
-
-const storage = new MemStorage();
+import { prisma } from '@/lib/prisma';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Set CORS headers
@@ -27,13 +25,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     }
 
-    // Create contact entry
-    const contact = await storage.createContact({
-      name,
-      email,
-      phone: '', // Default empty phone
-      subject: 'Contact Form Submission', // Default subject
-      message
+    // Create contact entry in database
+    const contact = await prisma.contact.create({
+      data: {
+        name,
+        email,
+        phone: '', // Default empty phone
+        subject: 'Contact Form Submission', // Default subject
+        message
+      }
     });
 
     return res.status(201).json({

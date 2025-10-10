@@ -18,64 +18,6 @@ export interface IStorage {
   getAllContacts(): Promise<Contact[]>;
 }
 
-// In-memory storage implementation (DEPRECATED - Use PrismaStorage instead)
-export class MemStorage implements IStorage {
-  private products: Product[] = [];
-  private orders: Order[] = [];
-  private contacts: Contact[] = [];
-
-  // Products
-  async getAllProducts(): Promise<Product[]> {
-    return [...this.products];
-  }
-
-  async getFeaturedProducts(): Promise<Product[]> {
-    return this.products.filter(product => product.featured);
-  }
-
-  async getProductById(id: number): Promise<Product | undefined> {
-    return this.products.find(product => product.id === id);
-  }
-
-  async getProductsByCategory(category: string): Promise<Product[]> {
-    return this.products.filter(product => product.category === category);
-  }
-
-  // Orders
-  async createOrder(orderData: Omit<Order, 'id' | 'createdAt'>): Promise<Order> {
-    const newOrder: Order = {
-      id: this.orders.length + 1,
-      ...orderData,
-      createdAt: new Date()
-    };
-    this.orders.push(newOrder);
-    return newOrder;
-  }
-
-  async getOrderById(id: number): Promise<Order | undefined> {
-    return this.orders.find(order => order.id === id);
-  }
-
-  async getAllOrders(): Promise<Order[]> {
-    return [...this.orders];
-  }
-
-  // Contacts
-  async createContact(contactData: Omit<Contact, 'id' | 'createdAt'>): Promise<Contact> {
-    const newContact: Contact = {
-      id: this.contacts.length + 1,
-      ...contactData,
-      createdAt: new Date()
-    };
-    this.contacts.push(newContact);
-    return newContact;
-  }
-
-  async getAllContacts(): Promise<Contact[]> {
-    return [...this.contacts];
-  }
-}
-
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
@@ -217,12 +159,16 @@ export class PrismaStorage implements IStorage {
   }
 
   // Orders
-  async createOrder(orderData: Omit<Order, 'id' | 'createdAt'>): Promise<Order> {
+  async createOrder(orderData: Omit<Order, 'id' | 'createdAt' | 'updatedAt'>): Promise<Order> {
     const order = await prisma.order.create({
       data: {
         customerInfo: orderData.customerInfo,
         items: orderData.items as any, // Type assertion for JSON field
+        subtotal: orderData.subtotal,
+        discountAmount: orderData.discountAmount || 0,
         totalAmount: orderData.totalAmount,
+        promoCodeId: orderData.promoCodeId,
+        promoCodeUsed: orderData.promoCodeUsed,
         paymentId: orderData.paymentId,
         status: orderData.status
       }

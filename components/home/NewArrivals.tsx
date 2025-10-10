@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/types";
+import { getImagePath } from "@/lib/imageUtils";
 
 const NewArrivals = () => {
   const { data: products = [] } = useQuery<Product[]>({
@@ -33,7 +34,7 @@ const NewArrivals = () => {
                     </span>
                   )}
                   <img
-                    src={product.images[0]}
+                    src={getImagePath(product.images[0])}
                     alt={product.name}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                     style={{ imageRendering: 'auto' }}

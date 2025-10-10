@@ -70,10 +70,15 @@ export interface Order {
   id: number;
   customerInfo: any; // Will be typed properly with Prisma
   items: OrderItem[];
+  subtotal: number;
+  discountAmount: number;
   totalAmount: number;
+  promoCodeId?: number;
+  promoCodeUsed?: string;
   paymentId?: string;
   status: string;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Contact {
@@ -121,4 +126,46 @@ export interface CustomerInfo {
 // Extended Order type with typed customer info
 export interface OrderWithCustomerInfo extends Omit<Order, 'customerInfo'> {
   customerInfo: CustomerInfo;
+}
+
+// Promo Code interfaces
+export interface PromoCode {
+  id: number;
+  code: string;
+  description?: string;
+  discountType: 'percentage' | 'fixed';
+  discountValue: number;
+  maxUses?: number;
+  usedCount: number;
+  maxUsesPerUser?: number;
+  validFrom: Date;
+  validUntil?: Date;
+  minimumOrderValue?: number;
+  isActive: boolean;
+  createdBy?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface PromoCodeUsage {
+  id: number;
+  promoCodeId: number;
+  orderId?: number;
+  customerEmail: string;
+  discountApplied: number;
+  createdAt: Date;
+}
+
+export interface PromoCodeValidationRequest {
+  code: string;
+  orderTotal: number;
+  customerEmail?: string;
+}
+
+export interface PromoCodeValidationResponse {
+  valid: boolean;
+  discount: number;
+  message: string;
+  promoCode?: PromoCode;
+  discountedTotal?: number;
 }

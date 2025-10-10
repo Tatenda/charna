@@ -57,16 +57,18 @@ const ATTRIBUTE_TYPES = [
   { value: 'material', label: 'Material' },
   { value: 'hardware', label: 'Hardware' },
   { value: 'finish', label: 'Finish' },
-  { value: 'style', label: 'Style' }
+  { value: 'style', label: 'Style' },
+  { value: 'straps', label: 'Straps' }
 ]
 
 const COMMON_ATTRIBUTE_VALUES = {
   color: ['Black', 'Brown', 'Tan', 'Navy', 'Green', 'Red', 'Blue', 'White'],
   size: ['Small', 'Medium', 'Large', 'X-Large', 'One Size'],
   material: ['Leather', 'Canvas', 'Nylon', 'Cotton', 'Suede', 'Faux Leather'],
-  hardware: ['Gold', 'Silver', 'Brass', 'Black', 'Chrome'],
+  hardware: ['Gold', 'Silver', 'Brass', 'Black', 'Chrome', 'Navy'],
   finish: ['Matte', 'Glossy', 'Textured', 'Smooth'],
-  style: ['Classic', 'Modern', 'Vintage', 'Minimalist', 'Sporty']
+  style: ['Classic', 'Modern', 'Vintage', 'Minimalist', 'Sporty'],
+  straps: ['Tan & White', 'White & Red', 'White & Green', 'Navy & White']
 }
 
 export default function VariantManagement({ productId, productName }: VariantManagementProps) {

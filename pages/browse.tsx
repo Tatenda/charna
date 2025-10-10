@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import Seo from "@/components/layout/Seo";
+import { getImagePath } from "@/lib/imageUtils";
 
 // Background image for browse page
 const johannesburgSkyline = "/ChatGPT Image Sep 18, 2025, 10_43_30 PM_1758254550927.png";
@@ -198,7 +199,7 @@ export default function Browse() {
         onMouseLeave={stopCycling}
       >
         <img
-          src={currentImage}
+          src={getImagePath(currentImage)}
           alt={item.name}
           className={`w-full h-full object-cover transition-transform duration-300 hover:scale-105 ${hasImages ? 'cursor-pointer' : ''}`}
           onClick={handleImageClick}
@@ -233,6 +234,15 @@ export default function Browse() {
     
     const currentImage = hasGallery ? product.images[currentImageIndex] : (product.images && product.images[0]) || '';
     
+    // For variants: combine product name with variant name
+    // product.product exists when this is a variant, otherwise it's a regular product
+    const displayName = (product as any).product 
+      ? `${(product as any).product.name} - ${product.name}`
+      : product.name;
+    
+    // For variants: use the parent product's description
+    const displayDescription = (product as any).product?.description || product.description;
+    
     // Special package layout
     if (product.isPackage && product.packageItems) {
       // Package 1 (3 items): large + 2 small in 2x2 grid with span
@@ -264,11 +274,11 @@ export default function Browse() {
             </button>
             
             <h3 className="text-xs sm:text-sm text-gray-900 mb-1 font-medium line-clamp-2">
-              {product.name}
+              {displayName}
             </h3>
             
-            {product.description && (
-              <p className="text-xs text-gray-600 mb-2 line-clamp-2">{product.description}</p>
+            {displayDescription && (
+              <p className="text-xs text-gray-600 mb-2 line-clamp-2">{displayDescription}</p>
             )}
             
             <div>
@@ -292,8 +302,8 @@ export default function Browse() {
         <div className="aspect-square overflow-hidden relative w-full">
           <img
             data-testid={`img-product-${product.id}`}
-            src={currentImage}
-            alt={product.name}
+            src={getImagePath(currentImage)}
+            alt={displayName}
             loading="lazy"
             className={`w-full h-full ${product.name === "Navy Tennis Bag" ? "object-contain" : "object-cover"} group-hover:scale-110 transition-transform duration-500 ${hasGallery ? 'cursor-pointer' : ''}`}
             style={{
@@ -329,11 +339,11 @@ export default function Browse() {
           </button>
           
           <h3 className="text-xs sm:text-sm text-gray-900 mb-1 font-medium line-clamp-2">
-            {product.name}
+            {displayName}
           </h3>
           
-          {product.description && (
-            <p className="text-xs text-gray-600 mb-2 line-clamp-2">{product.description}</p>
+          {displayDescription && (
+            <p className="text-xs text-gray-600 mb-2 line-clamp-2">{displayDescription}</p>
           )}
           
           <div>

@@ -1,9 +1,11 @@
+import { useState, useEffect } from "react"
 import { GetServerSideProps } from "next"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import AdminLayout from "@/components/admin/layout/AdminLayout"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { 
   ShoppingCart,
   Package,
@@ -12,11 +14,54 @@ import {
   Calendar,
   Clock,
   Search,
-  Filter
+  Filter,
+  Tag
 } from "lucide-react"
-import Link from "next/link"
+import { format } from "date-fns"
+import { apiRequest } from "@/lib/queryClient"
+
+interface Order {
+  id: number;
+  customerInfo: any;
+  items: any[];
+  subtotal?: number;
+  discountAmount?: number;
+  totalAmount: number;
+  promoCodeUsed?: string;
+  status: string;
+  createdAt: Date;
+}
 
 export default function OrdersPage() {
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/admin/orders');
+      if (response.ok) {
+        const data = await response.json();
+        setOrders(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch orders:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const stats = {
+    total: orders.length,
+    pending: orders.filter(o => o.status === 'pending').length,
+    revenue: orders.reduce((sum, o) => sum + o.totalAmount, 0),
+    avgOrder: orders.length > 0 ? Math.round(orders.reduce((sum, o) => sum + o.totalAmount, 0) / orders.length) : 0,
+    totalDiscount: orders.reduce((sum, o) => sum + (o.discountAmount || 0), 0)
+  };
   return (
     <AdminLayout>
       <div className="min-h-screen bg-gradient-to-br from-mint/20 via-white to-sage/10">
@@ -45,7 +90,7 @@ export default function OrdersPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-botanical/70">Total Orders</p>
-                    <p className="text-2xl font-bold text-forest mt-1">0</p>
+                    <p className="text-2xl font-bold text-forest mt-1">{stats.total}</p>
                   </div>
                   <div className="h-12 w-12 bg-gradient-to-br from-botanical/20 to-sage/20 rounded-lg flex items-center justify-center">
                     <ShoppingCart className="h-6 w-6 text-botanical" />
@@ -58,22 +103,8 @@ export default function OrdersPage() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-botanical/70">Pending</p>
-                    <p className="text-2xl font-bold text-forest mt-1">0</p>
-                  </div>
-                  <div className="h-12 w-12 bg-gradient-to-br from-terracotta/20 to-orange-300/20 rounded-lg flex items-center justify-center">
-                    <Clock className="h-6 w-6 text-terracotta" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
                     <p className="text-sm font-medium text-botanical/70">Revenue</p>
-                    <p className="text-2xl font-bold text-forest mt-1">R0</p>
+                    <p className="text-2xl font-bold text-forest mt-1">R{stats.revenue.toLocaleString()}</p>
                   </div>
                   <div className="h-12 w-12 bg-gradient-to-br from-botanical/20 to-sage/20 rounded-lg flex items-center justify-center">
                     <DollarSign className="h-6 w-6 text-botanical" />
@@ -87,7 +118,7 @@ export default function OrdersPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-botanical/70">Avg. Order Value</p>
-                    <p className="text-2xl font-bold text-forest mt-1">R0</p>
+                    <p className="text-2xl font-bold text-forest mt-1">R{stats.avgOrder.toLocaleString()}</p>
                   </div>
                   <div className="h-12 w-12 bg-gradient-to-br from-botanical/20 to-sage/20 rounded-lg flex items-center justify-center">
                     <TrendingUp className="h-6 w-6 text-botanical" />
@@ -95,71 +126,94 @@ export default function OrdersPage() {
                 </div>
               </CardContent>
             </Card>
+
+            <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-botanical/70">Total Discounts</p>
+                    <p className="text-2xl font-bold text-forest mt-1">R{stats.totalDiscount.toLocaleString()}</p>
+                  </div>
+                  <div className="h-12 w-12 bg-gradient-to-br from-green-400/20 to-green-500/20 rounded-lg flex items-center justify-center">
+                    <Tag className="h-6 w-6 text-green-600" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
-          {/* Coming Soon Card */}
-          <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
-            <CardContent className="p-12">
-              <div className="text-center max-w-2xl mx-auto">
-                <div className="h-20 w-20 bg-gradient-to-br from-botanical/20 to-sage/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <ShoppingCart className="h-10 w-10 text-botanical" />
+          {/* Orders List */}
+          <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20">
+            <CardHeader>
+              <CardTitle className="text-forest">Recent Orders</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <div className="text-center py-8 text-botanical/70">Loading orders...</div>
+              ) : orders.length === 0 ? (
+                <div className="text-center py-12">
+                  <ShoppingCart className="h-12 w-12 text-botanical/30 mx-auto mb-3" />
+                  <p className="text-botanical/70">No orders yet</p>
                 </div>
-                
-                <h2 className="text-3xl font-heading font-bold text-forest mb-4">
-                  Order Management Coming Soon
-                </h2>
-                
-                <p className="text-lg text-botanical/80 mb-8">
-                  We're building a powerful order management system where you'll be able to:
-                </p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left mb-8">
-                  <div className="flex items-start gap-3 p-4 bg-sage/5 rounded-lg">
-                    <div className="h-8 w-8 bg-botanical/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <ShoppingCart className="h-4 w-4 text-botanical" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-forest mb-1">View All Orders</h3>
-                      <p className="text-sm text-botanical/70">Access complete order history and details</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3 p-4 bg-sage/5 rounded-lg">
-                    <div className="h-8 w-8 bg-botanical/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Package className="h-4 w-4 text-botanical" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-forest mb-1">Track Status</h3>
-                      <p className="text-sm text-botanical/70">Monitor order fulfillment and shipping</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3 p-4 bg-sage/5 rounded-lg">
-                    <div className="h-8 w-8 bg-botanical/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Search className="h-4 w-4 text-botanical" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-forest mb-1">Search & Filter</h3>
-                      <p className="text-sm text-botanical/70">Find orders by customer, date, or status</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-3 p-4 bg-sage/5 rounded-lg">
-                    <div className="h-8 w-8 bg-botanical/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <TrendingUp className="h-4 w-4 text-botanical" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-forest mb-1">Analytics & Reports</h3>
-                      <p className="text-sm text-botanical/70">View sales trends and performance metrics</p>
-                    </div>
-                  </div>
+              ) : (
+                <div className="space-y-4">
+                  {orders.map((order) => {
+                    const customerName = order.customerInfo?.firstName 
+                      ? `${order.customerInfo.firstName} ${order.customerInfo.lastName}`
+                      : 'Unknown Customer';
+                    const customerEmail = order.customerInfo?.email || '';
+                    
+                    return (
+                      <div
+                        key={order.id}
+                        className="flex flex-col md:flex-row md:items-center justify-between p-4 border border-sage/20 rounded-lg hover:border-botanical/40 transition-colors gap-4"
+                      >
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="text-lg font-heading font-semibold text-forest">
+                              Order #{order.id}
+                            </h3>
+                            <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
+                              {order.status}
+                            </Badge>
+                            {order.promoCodeUsed && (
+                              <Badge className="bg-purple-100 text-purple-700 hover:bg-purple-100 flex items-center gap-1">
+                                <Tag className="h-3 w-3" />
+                                {order.promoCodeUsed}
+                              </Badge>
+                            )}
+                          </div>
+                          <div className="space-y-1 text-sm text-botanical/70">
+                            <p className="font-medium text-botanical">{customerName}</p>
+                            <p>{customerEmail}</p>
+                            <p className="text-xs">{format(new Date(order.createdAt), 'MMM dd, yyyy HH:mm')}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          {order.subtotal && order.subtotal !== order.totalAmount && (
+                            <div className="space-y-1 mb-2">
+                              <p className="text-sm text-botanical/60">
+                                Subtotal: <span className="line-through">R{order.subtotal.toLocaleString()}</span>
+                              </p>
+                              {order.discountAmount && order.discountAmount > 0 && (
+                                <p className="text-sm text-green-600 font-medium">
+                                  Discount: -R{order.discountAmount.toLocaleString()}
+                                </p>
+                              )}
+                            </div>
+                          )}
+                          <p className="text-2xl font-bold text-forest">
+                            R{order.totalAmount.toLocaleString()}
+                          </p>
+                          <p className="text-xs text-botanical/60 mt-1">
+                            {order.items?.length || 0} {order.items?.length === 1 ? 'item' : 'items'}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-                
-                <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-sage/10 to-botanical/10 rounded-lg border-2 border-sage/20">
-                  <Clock className="h-5 w-5 text-botanical" />
-                  <span className="text-botanical font-medium">In Development</span>
-                </div>
-              </div>
+              )}
             </CardContent>
           </Card>
         </div>

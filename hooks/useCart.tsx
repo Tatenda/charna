@@ -109,6 +109,8 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   
   const clearCart = () => {
     setCart([]);
+    // Also clear promo code when clearing cart
+    localStorage.removeItem('appliedPromoCode');
   };
   
   return (

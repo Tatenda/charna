@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { CartItem as CartItemType } from "@/hooks/useCart";
+import { getImagePath } from "@/lib/imageUtils";
 
 interface CartItemProps {
   item: CartItemType;
@@ -28,7 +29,7 @@ const CartItem = ({ item, updateQuantity, removeFromCart }: CartItemProps) => {
     <div className="flex items-start border-b pb-4" data-testid={`cart-item-${product.id}`}>
       <div className="h-20 w-20 rounded-md overflow-hidden flex-shrink-0">
         <img 
-          src={product.images[0]} 
+          src={getImagePath(product.images[0])} 
           alt={product.name} 
           className="h-full w-full object-cover"
           style={{ imageRendering: 'auto' }}

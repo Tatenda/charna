@@ -117,6 +117,17 @@ export default function CheckoutSuccess() {
 
       const customerInfo = JSON.parse(storedCustomerInfo);
       
+      // Get promo code data from localStorage if it exists
+      const storedPromoData = localStorage.getItem('appliedPromoCode');
+      let promoData = null;
+      if (storedPromoData) {
+        try {
+          promoData = JSON.parse(storedPromoData);
+        } catch (e) {
+          console.error('Error parsing promo code data:', e);
+        }
+      }
+      
       // Check if cart contains any test products
       const hasTestProduct = cart.some(item => 
         item.product.id === 9 || item.product.name === "Test Bag"
@@ -124,7 +135,9 @@ export default function CheckoutSuccess() {
       
       // No shipping cost for test products, otherwise apply normal logic
       const shippingCost = hasTestProduct ? 0 : (cartTotal >= 1000 ? 0 : 150);
-      const totalAmount = cartTotal + shippingCost;
+      const discountAmount = promoData?.discount || 0;
+      const subtotal = cartTotal;
+      const totalAmount = subtotal - discountAmount + shippingCost;
 
 
       const orderData = {
@@ -136,7 +149,11 @@ export default function CheckoutSuccess() {
           price: item.product.price,
           customizations: item.customizations
         })),
+        subtotal: subtotal,
+        discountAmount: discountAmount,
         totalAmount: totalAmount,
+        promoCodeId: promoData?.promoCodeId,
+        promoCodeUsed: promoData?.code,
         paymentId: paymentId
       };
 
@@ -151,7 +168,7 @@ export default function CheckoutSuccess() {
       console.log('Order created successfully, clearing cart...');
       console.log('Cart before clearing:', cart);
       
-      // Clear cart and stored customer info
+      // Clear cart (also clears promo code) and stored customer info
       clearCart();
       localStorage.removeItem('checkoutCustomerInfo');
       
