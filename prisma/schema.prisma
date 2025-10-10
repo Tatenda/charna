@@ -12,23 +12,23 @@ datasource db {
 
 // Categories (Hierarchical - includes sports as subcategories)
 model Category {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique // e.g., "work", "sport", "tennis", "business"
-  slug        String   @unique // e.g., "work", "sport", "tennis", "business"
-  displayName String   @map("display_name") // e.g., "Work", "Sport", "Tennis", "Business"
+  id          Int        @id @default(autoincrement())
+  name        String     @unique // e.g., "work", "sport", "tennis", "business"
+  slug        String     @unique // e.g., "work", "sport", "tennis", "business"
+  displayName String     @map("display_name") // e.g., "Work", "Sport", "Tennis", "Business"
   description String?
-  image       String?  // Category banner/hero image
-  icon        String?  // Category icon image
-  parentId    Int?     @map("parent_id") // For subcategories (e.g., "tennis" under "sport")
-  parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  image       String? // Category banner/hero image
+  icon        String? // Category icon image
+  parentId    Int?       @map("parent_id") // For subcategories (e.g., "tennis" under "sport")
+  parent      Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
   children    Category[] @relation("CategoryHierarchy")
-  sortOrder   Int      @default(0) @map("sort_order")
-  isActive    Boolean  @default(true) @map("is_active")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  
+  sortOrder   Int        @default(0) @map("sort_order")
+  isActive    Boolean    @default(true) @map("is_active")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+
   // Relationships
-  products    ProductCategory[]
+  products ProductCategory[]
 
   @@map("categories")
 }
@@ -46,39 +46,39 @@ model Product {
   badge            String?
   materials        String
   dimensions       String
-  careInstructions String  @map("care_instructions")
+  careInstructions String   @map("care_instructions")
   featured         Boolean  @default(false)
   isPackage        Boolean  @default(false) @map("is_package")
   isActive         Boolean  @default(true) @map("is_active")
   createdAt        DateTime @default(now()) @map("created_at")
   updatedAt        DateTime @updatedAt @map("updated_at")
-  
+
   // Relationships
-  categories       ProductCategory[]
-  variants         ProductVariant[]
-  packageItems     PackageItem[]
+  categories   ProductCategory[]
+  variants     ProductVariant[]
+  packageItems PackageItem[]
 
   @@map("products")
 }
 
 // Product Variants (Individual variations)
 model ProductVariant {
-  id           Int      @id @default(autoincrement())
-  productId    Int      @map("product_id")
-  name         String   // e.g., "Standard", "Gold Zip", "Tan", "Navy"
-  sku          String   @unique // e.g., "GTB-STD", "GTB-GOLD", "LS-TAN"
-  price        Int      // Price in whole Rands (e.g., 1999 = R1,999)
+  id            Int      @id @default(autoincrement())
+  productId     Int      @map("product_id")
+  name          String // e.g., "Standard", "Gold Zip", "Tan", "Navy"
+  sku           String   @unique // e.g., "GTB-STD", "GTB-GOLD", "LS-TAN"
+  price         Int // Price in whole Rands (e.g., 1999 = R1,999)
   originalPrice Int?     @map("original_price") // Original price in whole Rands (e.g., 2499 = R2,499)
-  inStock      Boolean  @default(true) @map("in_stock")
-  weight       Float?   // Weight in kg
-  images       String[] // Array of image filenames (URLs will be constructed using getImagePath)
-  isDefault    Boolean  @default(false) @map("is_default")
-  isActive     Boolean  @default(true) @map("is_active")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-  
+  inStock       Boolean  @default(true) @map("in_stock")
+  weight        Float? // Weight in kg
+  images        String[] // Array of image filenames (URLs will be constructed using getImagePath)
+  isDefault     Boolean  @default(false) @map("is_default")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
   // Relationships
-  product      Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product      Product            @relation(fields: [productId], references: [id], onDelete: Cascade)
   attributes   VariantAttribute[]
   packageItems PackageItem[]
 
@@ -87,14 +87,14 @@ model ProductVariant {
 
 // Variant Attributes (Key-value pairs for filtering)
 model VariantAttribute {
-  id            Int @id @default(autoincrement())
-  variantId     Int @map("variant_id")
-  attributeType String @map("attribute_type") // e.g., "color", "hardware", "size", "material"
+  id             Int    @id @default(autoincrement())
+  variantId      Int    @map("variant_id")
+  attributeType  String @map("attribute_type") // e.g., "color", "hardware", "size", "material"
   attributeValue String @map("attribute_value") // e.g., "tan", "gold", "large", "leather"
-  displayOrder  Int @default(0) @map("display_order")
-  
+  displayOrder   Int    @default(0) @map("display_order")
+
   // Relationships
-  variant       ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  variant ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@unique([variantId, attributeType, attributeValue])
   @@map("variant_attributes")
@@ -102,14 +102,14 @@ model VariantAttribute {
 
 // Product-Category Relationships (Many-to-Many)
 model ProductCategory {
-  id         Int @id @default(autoincrement())
-  productId  Int @map("product_id")
-  categoryId Int @map("category_id")
+  id         Int     @id @default(autoincrement())
+  productId  Int     @map("product_id")
+  categoryId Int     @map("category_id")
   isPrimary  Boolean @default(false) @map("is_primary")
-  
+
   // Relationships
-  product    Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([productId, categoryId])
   @@map("product_categories")
@@ -117,16 +117,16 @@ model ProductCategory {
 
 // Package Items (for package products)
 model PackageItem {
-  id               Int @id @default(autoincrement())
-  packageProductId Int @map("package_product_id")
-  variantId        Int @map("variant_id")
-  quantity         Int @default(1)
+  id               Int     @id @default(autoincrement())
+  packageProductId Int     @map("package_product_id")
+  variantId        Int     @map("variant_id")
+  quantity         Int     @default(1)
   size             String? // e.g., "small", "medium", "large"
-  displayOrder     Int @default(0) @map("display_order")
-  
+  displayOrder     Int     @default(0) @map("display_order")
+
   // Relationships
-  packageProduct  Product @relation(fields: [packageProductId], references: [id], onDelete: Cascade)
-  variant         ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  packageProduct Product        @relation(fields: [packageProductId], references: [id], onDelete: Cascade)
+  variant        ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
   @@unique([packageProductId, variantId])
   @@map("package_items")
@@ -134,77 +134,77 @@ model PackageItem {
 
 // Promo Codes
 model PromoCode {
-  id                Int       @id @default(autoincrement())
-  code              String    @unique // e.g., "SUMMER2025", "WELCOME10"
-  description       String?   // Internal note about the promo
-  
+  id          Int     @id @default(autoincrement())
+  code        String  @unique // e.g., "SUMMER2025", "WELCOME10"
+  description String? // Internal note about the promo
+
   // Discount Configuration
-  discountType      String    // "percentage" or "fixed"
-  discountValue     Int       // 10 for 10% or 5000 for R50.00
-  
+  discountType  String // "percentage" or "fixed"
+  discountValue Int // 10 for 10% or 5000 for R50.00
+
   // Usage Limits
-  maxUses           Int?      @map("max_uses") // null = unlimited
-  usedCount         Int       @default(0) @map("used_count")
-  maxUsesPerUser    Int?      @default(1) @map("max_uses_per_user")
-  
+  maxUses        Int? @map("max_uses") // null = unlimited
+  usedCount      Int  @default(0) @map("used_count")
+  maxUsesPerUser Int? @default(1) @map("max_uses_per_user")
+
   // Validity Period
-  validFrom         DateTime  @default(now()) @map("valid_from")
-  validUntil        DateTime? @map("valid_until") // null = no expiry
-  
+  validFrom  DateTime  @default(now()) @map("valid_from")
+  validUntil DateTime? @map("valid_until") // null = no expiry
+
   // Constraints
-  minimumOrderValue Int?      @map("minimum_order_value") // in Rands (e.g., 500 = R500)
-  
+  minimumOrderValue Int? @map("minimum_order_value") // in Rands (e.g., 500 = R500)
+
   // Status
-  isActive          Boolean   @default(true) @map("is_active")
-  
+  isActive Boolean @default(true) @map("is_active")
+
   // Metadata
-  createdBy         String?   @map("created_by") // Admin who created it
-  createdAt         DateTime  @default(now()) @map("created_at")
-  updatedAt         DateTime  @updatedAt @map("updated_at")
-  
+  createdBy String?  @map("created_by") // Admin who created it
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
   // Relationships
-  orders            Order[]
-  usageLogs         PromoCodeUsage[]
-  
+  orders    Order[]
+  usageLogs PromoCodeUsage[]
+
   @@map("promo_codes")
 }
 
 model PromoCodeUsage {
-  id              Int       @id @default(autoincrement())
-  promoCodeId     Int       @map("promo_code_id")
-  orderId         Int?      @map("order_id") // null if validation only
-  customerEmail   String    @map("customer_email")
-  discountApplied Int       @map("discount_applied") // Amount in Rands
-  createdAt       DateTime  @default(now()) @map("created_at")
-  
-  promoCode       PromoCode @relation(fields: [promoCodeId], references: [id], onDelete: Cascade)
-  
+  id              Int      @id @default(autoincrement())
+  promoCodeId     Int      @map("promo_code_id")
+  orderId         Int?     @map("order_id") // null if validation only
+  customerEmail   String   @map("customer_email")
+  discountApplied Int      @map("discount_applied") // Amount in Rands
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  promoCode PromoCode @relation(fields: [promoCodeId], references: [id], onDelete: Cascade)
+
   @@map("promo_code_usage")
 }
 
 // Orders
 model Order {
-  id              Int         @id @default(autoincrement())
-  customerInfo    Json        @map("customer_info")
-  items           Json        // Array of OrderItem objects
-  
+  id           Int  @id @default(autoincrement())
+  customerInfo Json @map("customer_info")
+  items        Json // Array of OrderItem objects
+
   // Pricing Breakdown
-  subtotal        Int         // Original price before discount
-  discountAmount  Int         @default(0) @map("discount_amount") // Discount in Rands
-  totalAmount     Int         @map("total_amount") // Final amount after discount
-  
+  subtotal       Int // Original price before discount
+  discountAmount Int @default(0) @map("discount_amount") // Discount in Rands
+  totalAmount    Int @map("total_amount") // Final amount after discount
+
   // Promo Code
-  promoCodeId     Int?        @map("promo_code_id")
-  promoCode       PromoCode?  @relation(fields: [promoCodeId], references: [id])
-  promoCodeUsed   String?     @map("promo_code_used") // Store the actual code string
-  
+  promoCodeId   Int?       @map("promo_code_id")
+  promoCode     PromoCode? @relation(fields: [promoCodeId], references: [id])
+  promoCodeUsed String?    @map("promo_code_used") // Store the actual code string
+
   // Payment
-  paymentId       String?     @map("payment_id") // Yoco payment ID for successful payments
-  status          String      @default("pending")
-  webhookPayload  Json?       @map("webhook_payload") // Full webhook data for debugging/analytics
-  
-  createdAt       DateTime    @default(now()) @map("created_at")
-  updatedAt       DateTime    @updatedAt @map("updated_at")
+  paymentId      String? @map("payment_id") // Yoco payment ID for successful payments
+  status         String  @default("pending")
+  webhookPayload Json?   @map("webhook_payload") // Full webhook data for debugging/analytics
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("orders")
 }
@@ -259,7 +259,7 @@ model User {
   email         String    @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
-  password      String?   // For credentials provider
+  password      String? // For credentials provider
   role          String    @default("admin") // admin, user, etc.
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
@@ -281,18 +281,59 @@ model VerificationToken {
 
 // Pending Checkouts - Stores checkout data before payment for webhook processing
 model PendingCheckout {
-  id              String   @id @default(cuid())
-  checkoutId      String   @unique @map("checkout_id") // Yoco checkout ID
-  customerInfo    Json     @map("customer_info")
-  items           Json
-  subtotal        Int
-  discountAmount  Int      @default(0) @map("discount_amount")
-  totalAmount     Int      @map("total_amount")
-  promoCodeId     Int?     @map("promo_code_id")
-  promoCodeUsed   String?  @map("promo_code_used")
-  expiresAt       DateTime @map("expires_at")
-  createdAt       DateTime @default(now()) @map("created_at")
+  id             String   @id @default(cuid())
+  checkoutId     String   @unique @map("checkout_id") // Yoco checkout ID
+  customerInfo   Json     @map("customer_info")
+  items          Json
+  subtotal       Int
+  discountAmount Int      @default(0) @map("discount_amount")
+  totalAmount    Int      @map("total_amount")
+  promoCodeId    Int?     @map("promo_code_id")
+  promoCodeUsed  String?  @map("promo_code_used")
+  expiresAt      DateTime @map("expires_at")
+  createdAt      DateTime @default(now()) @map("created_at")
 
   @@index([expiresAt])
   @@map("pending_checkouts")
+}
+
+// Landing Page CMS - Sections
+model LandingPageSection {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique // "hero", "ranges", "categories", "capsule", "instagram"
+  title     String? // Section heading
+  subtitle  String? // Section subheading
+  enabled   Boolean  @default(true)
+  order     Int      @default(0)
+  settings  Json? // Additional settings (colors, layout, etc.)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  images LandingPageImage[]
+
+  @@index([order])
+  @@map("landing_page_sections")
+}
+
+// Landing Page CMS - Images
+model LandingPageImage {
+  id        Int                @id @default(autoincrement())
+  sectionId Int                @map("section_id")
+  section   LandingPageSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  imageUrl String  @map("image_url") // Vercel Blob URL or path
+  altText  String  @map("alt_text")
+  caption  String?
+  linkUrl  String? @map("link_url") // Optional link destination
+
+  order   Int     @default(0)
+  enabled Boolean @default(true)
+
+  metadata Json? // Additional data (category, hover images, price, etc.)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([sectionId, order])
+  @@map("landing_page_images")
 }
