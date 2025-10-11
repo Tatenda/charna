@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useLandingPageSection } from "@/hooks/useLandingPageSection";
 import { getImagePath } from "@/lib/imageUtils";
+import CategoriesSection from "@/components/home/CategoriesSection";
 
 const Hero = () => {
   const { addToCart } = useCart();
