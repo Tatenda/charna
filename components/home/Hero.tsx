@@ -7,10 +7,20 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { useLandingPageSection } from "@/hooks/useLandingPageSection";
+import { getImagePath } from "@/lib/imageUtils";
 
 const Hero = () => {
   const { addToCart } = useCart();
   const { toast } = useToast();
+  
+  // Fetch landing page sections from database
+  const { section: heroSection } = useLandingPageSection('hero');
+  const { section: rangesSection } = useLandingPageSection('ranges');
+  const { section: categoriesSection } = useLandingPageSection('categories');
+  const { section: capsuleSection } = useLandingPageSection('capsule');
+  const { section: instagramSection } = useLandingPageSection('instagram');
+  
   const [retroImageIndex, setRetroImageIndex] = useState(0);
   const [hoverTimer, setHoverTimer] = useState<NodeJS.Timeout | null>(null);
   const [isGroundedHovered, setIsGroundedHovered] = useState(false);
@@ -428,13 +438,19 @@ const Hero = () => {
     };
   }, [isGiftsHovered, giftsBags.length]);
 
+  // Get dynamic content from database or use defaults
+  const heroImage = heroSection?.images?.[0]?.imageUrl || '/image_1757230274214.png';
+  const heroTitle = heroSection?.title || 'Handcrafted, beautiful and affordable bags';
+  const heroCTA = heroSection?.settings?.ctaText || 'Shop Bags';
+  const heroCTALink = heroSection?.settings?.ctaLink || '/browse?category=work';
+
   return (
     <div className="relative">
       {/* Clean Hero Section with Background Image */}
       <section className="relative min-h-[60vh] sm:min-h-[70vh] md:h-[85vh] flex items-center overflow-hidden pt-16 md:pt-0">
-        {/* Background Image */}
+        {/* Background Image - FROM DATABASE */}
         <div className="absolute inset-0" style={{
-          backgroundImage: `url(/image_1757230274214.png)`,
+          backgroundImage: `url(${getImagePath(heroImage)})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
@@ -467,19 +483,19 @@ const Hero = () => {
         </div>
         
         
-        {/* Central Content */}
+        {/* Central Content - FROM DATABASE */}
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="max-w-xs sm:max-w-xl md:max-w-4xl mx-auto space-y-6 md:space-y-8 mt-16 sm:mt-20 md:mt-0">
             <p className="text-lg sm:text-xl lg:text-2xl text-stone-200 leading-relaxed max-w-xl md:max-w-2xl mx-auto">
-              Handcrafted, beautiful and affordable bags
+              {heroTitle}
             </p>
             <div className="flex justify-center">
               <Link
-                href="/browse?category=work"
+                href={heroCTALink}
                 className="inline-block bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white px-6 sm:px-10 py-3 md:py-4 text-base md:text-lg font-semibold rounded-md hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 md:-translate-x-6 min-h-[44px] flex items-center"
                 data-testid="button-shop-bags"
               >
-                Shop Bags
+                {heroCTA}
               </Link>
             </div>
           </div>
