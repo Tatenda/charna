@@ -22,6 +22,7 @@ import { useToast } from '@/hooks/use-toast';
 import { getImagePath } from '@/lib/imageUtils';
 import { getSectionConfig, canAddImage } from '@/lib/landingPageConfig';
 import ImageUploadModal from '@/components/admin/landing-page/ImageUploadModal';
+import ImageMetadataEditor from '@/components/admin/landing-page/ImageMetadataEditor';
 
 interface LandingPageImage {
   id: number;
@@ -57,6 +58,7 @@ const SectionEditor = () => {
   const [subtitle, setSubtitle] = useState('');
   const [enabled, setEnabled] = useState(true);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [editingImage, setEditingImage] = useState<LandingPageImage | null>(null);
 
   useEffect(() => {
     if (id) {
@@ -331,23 +333,36 @@ const SectionEditor = () => {
 
                   {/* Actions */}
                   <div className="p-2 bg-sage/5 flex items-center justify-between border-t border-sage/10">
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => toggleImageEnabled(image.id, image.enabled)}
-                      className="h-8 px-2"
-                    >
-                      {image.enabled ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
-                    </Button>
+                    <div className="flex gap-1">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => setEditingImage(image)}
+                        className="h-8 px-2"
+                        title="Edit metadata"
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => toggleImageEnabled(image.id, image.enabled)}
+                        className="h-8 px-2"
+                        title={image.enabled ? 'Disable' : 'Enable'}
+                      >
+                        {image.enabled ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </div>
                     <Button
                       size="sm"
                       variant="ghost"
                       onClick={() => deleteImage(image.id)}
                       className="h-8 px-2 text-red-600 hover:text-red-700"
+                      title="Delete"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -357,6 +372,37 @@ const SectionEditor = () => {
             </div>
           )}
         </div>
+
+        {/* Upload Modal */}
+        <ImageUploadModal
+          open={uploadModalOpen}
+          onClose={() => setUploadModalOpen(false)}
+          sectionId={section.id}
+          sectionName={section.title || section.name}
+          currentImageCount={section.images.length}
+          maxImages={sectionConfig.maxImages || undefined}
+          onUploadComplete={fetchSection}
+        />
+
+        {/* Metadata Editor Modal */}
+        {editingImage && (
+          <ImageMetadataEditor
+            open={!!editingImage}
+            onClose={() => setEditingImage(null)}
+            imageId={editingImage.id}
+            sectionName={section.name}
+            currentData={{
+              altText: editingImage.altText,
+              caption: editingImage.caption,
+              linkUrl: editingImage.linkUrl,
+              metadata: editingImage.metadata || {},
+            }}
+            onSaveComplete={() => {
+              fetchSection();
+              setEditingImage(null);
+            }}
+          />
+        )}
       </div>
     </AdminLayout>
   );
