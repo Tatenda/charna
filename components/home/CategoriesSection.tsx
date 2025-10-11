@@ -101,64 +101,14 @@ const CategoriesSection = () => {
         {categoriesSection.images.map((category) => {
           const metadata = category.metadata || {};
           const hoverImages = metadata.hoverImages || [];
-          const [currentImageIndex, setCurrentImageIndex] = useState(0);
-          const [isHovered, setIsHovered] = useState(false);
-
-          useEffect(() => {
-            let interval: NodeJS.Timeout | null = null;
-            if (isHovered && hoverImages.length > 0) {
-              interval = setInterval(() => {
-                setCurrentImageIndex((prev) => (prev + 1) % hoverImages.length);
-              }, 1500);
-            } else {
-              setCurrentImageIndex(0);
-            }
-            return () => {
-              if (interval) clearInterval(interval);
-            };
-          }, [isHovered, hoverImages.length]);
 
           return (
-            <Link
+            <CategoryTile
               key={category.id}
-              href={category.linkUrl || '/browse'}
-              className={`${metadata.gridSpan || 'col-span-1 row-span-1'} group relative overflow-hidden shadow-xl`}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              {hoverImages.length > 0 ? (
-                // Animated hover images
-                hoverImages.map((imgUrl: string, imgIndex: number) => (
-                  <img
-                    key={imgIndex}
-                    src={getImagePath(imgUrl)}
-                    alt={`${category.altText} - ${imgIndex + 1}`}
-                    className={`w-full h-full object-cover transition-opacity duration-500 ${
-                      imgIndex === currentImageIndex ? 'opacity-100' : 'opacity-0 absolute inset-0'
-                    }`}
-                  />
-                ))
-              ) : (
-                // Single image
-                <img
-                  src={getImagePath(category.imageUrl)}
-                  alt={category.altText}
-                  className="w-full h-full object-cover"
-                />
-              )}
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-              <div className="absolute bottom-6 left-6 text-white min-h-[60px] flex flex-col justify-end">
-                <h3 className="text-lg font-semibold text-white mb-1 leading-tight">
-                  {metadata.categoryName || category.caption || 'Category'}
-                </h3>
-                {metadata.description && (
-                  <p className="text-sm opacity-90 text-white leading-tight">
-                    {metadata.description}
-                  </p>
-                )}
-              </div>
-            </Link>
+              category={category}
+              metadata={metadata}
+              hoverImages={hoverImages}
+            />
           );
         })}
       </div>
@@ -199,4 +149,3 @@ const CategoriesSection = () => {
 };
 
 export default CategoriesSection;
-
