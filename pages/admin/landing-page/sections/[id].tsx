@@ -16,7 +16,10 @@ import {
   EyeOff,
   GripVertical,
   ExternalLink,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Pencil,
+  ArrowUp,
+  ArrowDown
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { getImagePath } from '@/lib/imageUtils';
@@ -164,6 +167,47 @@ const SectionEditor = () => {
       toast({
         title: 'Error',
         description: 'Failed to delete image',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const moveImage = async (imageId: number, direction: 'up' | 'down') => {
+    if (!section) return;
+    
+    const currentImage = section.images.find(img => img.id === imageId);
+    if (!currentImage) return;
+    
+    const sortedImages = [...section.images].sort((a, b) => a.order - b.order);
+    const currentIndex = sortedImages.findIndex(img => img.id === imageId);
+    
+    if (direction === 'up' && currentIndex === 0) return;
+    if (direction === 'down' && currentIndex === sortedImages.length - 1) return;
+    
+    const swapIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+    const swapImage = sortedImages[swapIndex];
+    
+    try {
+      // Swap orders
+      await Promise.all([
+        fetch(`/api/admin/landing-page/images/${currentImage.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ order: swapImage.order }),
+        }),
+        fetch(`/api/admin/landing-page/images/${swapImage.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ order: currentImage.order }),
+        }),
+      ]);
+      
+      fetchSection();
+    } catch (error) {
+      console.error('Error reordering image:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to reorder image',
         variant: 'destructive',
       });
     }
@@ -332,40 +376,69 @@ const SectionEditor = () => {
                   </div>
 
                   {/* Actions */}
-                  <div className="p-2 bg-sage/5 flex items-center justify-between border-t border-sage/10">
+                  <div className="p-2 bg-sage/5 border-t border-sage/10">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex gap-1">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => moveImage(image.id, 'up')}
+                          className="h-7 px-2"
+                          disabled={image.order === 0}
+                          title="Move up"
+                        >
+                          <ArrowUp className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => moveImage(image.id, 'down')}
+                          className="h-7 px-2"
+                          disabled={image.order === section.images.length - 1}
+                          title="Move down"
+                        >
+                          <ArrowDown className="h-3 w-3" />
+                        </Button>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => deleteImage(image.id)}
+                        className="h-7 px-2 text-red-600 hover:text-red-700"
+                        title="Delete"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                     <div className="flex gap-1">
                       <Button
                         size="sm"
-                        variant="ghost"
+                        variant="outline"
                         onClick={() => setEditingImage(image)}
-                        className="h-8 px-2"
-                        title="Edit metadata"
+                        className="h-7 px-2 flex-1 text-xs"
                       >
-                        <Pencil className="h-4 w-4" />
+                        <Pencil className="h-3 w-3 mr-1" />
+                        Edit
                       </Button>
                       <Button
                         size="sm"
-                        variant="ghost"
+                        variant="outline"
                         onClick={() => toggleImageEnabled(image.id, image.enabled)}
-                        className="h-8 px-2"
-                        title={image.enabled ? 'Disable' : 'Enable'}
+                        className="h-7 px-2 flex-1 text-xs"
                       >
                         {image.enabled ? (
-                          <EyeOff className="h-4 w-4" />
+                          <>
+                            <EyeOff className="h-3 w-3 mr-1" />
+                            Hide
+                          </>
                         ) : (
-                          <Eye className="h-4 w-4" />
+                          <>
+                            <Eye className="h-3 w-3 mr-1" />
+                            Show
+                          </>
                         )}
                       </Button>
                     </div>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => deleteImage(image.id)}
-                      className="h-8 px-2 text-red-600 hover:text-red-700"
-                      title="Delete"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
                   </div>
                 </div>
               ))}
