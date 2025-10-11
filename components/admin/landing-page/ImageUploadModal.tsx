@@ -84,7 +84,7 @@ const ImageUploadModal = ({
     try {
       // 1. Upload to Vercel Blob
       const formData = new FormData();
-      formData.append('file', selectedFile);
+      formData.append('files', selectedFile); // Note: 'files' not 'file' to match upload endpoint
 
       const uploadRes = await fetch('/api/admin/upload', {
         method: 'POST',
@@ -92,10 +92,12 @@ const ImageUploadModal = ({
       });
 
       if (!uploadRes.ok) {
-        throw new Error('Failed to upload image');
+        const errorData = await uploadRes.json();
+        throw new Error(errorData.message || 'Failed to upload image');
       }
 
-      const { url } = await uploadRes.json();
+      const uploadData = await uploadRes.json();
+      const url = uploadData.files?.[0]?.url || uploadData.url;
 
       // 2. Save to database
       const imageData = {
