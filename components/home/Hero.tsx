@@ -1280,54 +1280,72 @@ const Hero = () => {
 
 
 
-      {/* Instagram Gallery */}
+      {/* Instagram Gallery - FROM DATABASE */}
       <section className="py-20" style={{backgroundColor: '#7A8471'}}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-georgia-bold text-white mb-4">Charna on the #Gram</h2>
+            <h2 className="text-4xl font-georgia-bold text-white mb-4">
+              {instagramSection?.title || 'Charna on the #Gram'}
+            </h2>
           </div>
           
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1 md:gap-2">
-            <div className="aspect-square overflow-hidden">
-              <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-            </div>
-            <div className="aspect-square overflow-hidden">
-              <img src={"/913E8FCD-4943-44D3-A3EF-645778762B43_1758357180594.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-            </div>
-            <div className="aspect-square overflow-hidden">
-              <img src={"/Navy Tennis bag_1758386586336.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-            </div>
-            <div className="aspect-square overflow-hidden">
-              <img src={"/Retro Range - Navy Blue_1757319569359.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-            </div>
-            <div className="aspect-square overflow-hidden">
-              <img src="/images/white-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-            </div>
-            <div className="aspect-square overflow-hidden">
-              <img src={"/Classic range - Rose Gold_1757356095029.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-            </div>
-            <div className="aspect-square overflow-hidden">
-              <img src={"/LGM_Grounded (1)_1757318142201.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-            </div>
-            <div className="aspect-square overflow-hidden">
-              <img src={"/LGM_Classic_me (1)_1758112410768.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-            </div>
-            <div className="aspect-square overflow-hidden">
-              <img src={"/Tennis bag - White - neutral background_1758386577764.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-            </div>
-            <div className="aspect-square overflow-hidden">
-              <img src={"/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-            </div>
+            {instagramSection?.images && instagramSection.images.length > 0 ? (
+              instagramSection.images.map((image) => (
+                <div key={image.id} className="aspect-square overflow-hidden">
+                  <img 
+                    src={getImagePath(image.imageUrl)} 
+                    alt={image.altText} 
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" 
+                    style={{ imageRendering: 'auto' }} 
+                  />
+                </div>
+              ))
+            ) : (
+              // Fallback to hardcoded if database has no images
+              <>
+                <div className="aspect-square overflow-hidden">
+                  <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+                </div>
+                <div className="aspect-square overflow-hidden">
+                  <img src={"/913E8FCD-4943-44D3-A3EF-645778762B43_1758357180594.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+                </div>
+                <div className="aspect-square overflow-hidden">
+                  <img src={"/Navy Tennis bag_1758386586336.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+                </div>
+                <div className="aspect-square overflow-hidden">
+                  <img src={"/Retro Range - Navy Blue_1757319569359.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+                </div>
+                <div className="aspect-square overflow-hidden">
+                  <img src="/images/white-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+                </div>
+                <div className="aspect-square overflow-hidden">
+                  <img src={"/Classic range - Rose Gold_1757356095029.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+                </div>
+                <div className="aspect-square overflow-hidden">
+                  <img src={"/LGM_Grounded (1)_1757318142201.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+                </div>
+                <div className="aspect-square overflow-hidden">
+                  <img src={"/LGM_Classic_me (1)_1758112410768.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+                </div>
+                <div className="aspect-square overflow-hidden">
+                  <img src={"/Tennis bag - White - neutral background_1758386577764.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+                </div>
+                <div className="aspect-square overflow-hidden">
+                  <img src={"/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
+                </div>
+              </>
+            )}
           </div>
           
           <div className="text-center mt-12">
             <a 
-              href="https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr" 
+              href={instagramSection?.settings?.instagramUrl || "https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr"} 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-block bg-black text-white px-8 py-3 font-semibold hover:bg-botanical transition-colors duration-300"
             >
-              Follow @charna.co
+              Follow {instagramSection?.settings?.instagramHandle || '@charna.co'}
             </a>
           </div>
         </div>
