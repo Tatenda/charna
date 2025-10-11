@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
 import { Upload, Loader2, X, Plus } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -104,6 +105,15 @@ const CategoryUploadModal = ({
       return;
     }
 
+    if (hoverImages.length < 3) {
+      toast({
+        title: 'Not enough hover images',
+        description: 'Please add at least 3 hover images for animation effect',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     if (currentImageCount >= maxImages) {
       toast({
         title: 'Limit reached',
@@ -188,7 +198,7 @@ const CategoryUploadModal = ({
         <DialogHeader>
           <DialogTitle>Add New Category Tile</DialogTitle>
           <DialogDescription>
-            {currentImageCount} / {maxImages} categories used
+            {currentImageCount} / {maxImages} categories used • Add 3-5 hover images for animation effect
           </DialogDescription>
         </DialogHeader>
 
@@ -221,15 +231,26 @@ const CategoryUploadModal = ({
 
           {/* Hover Images */}
           <div className="col-span-2">
-            <Label>Hover Images (optional, for animation)</Label>
+            <div className="flex items-center justify-between mb-2">
+              <Label>Hover Images (required for animation)</Label>
+              <Badge variant={hoverPreviews.length >= 3 ? 'default' : 'destructive'} className="text-xs">
+                {hoverPreviews.length} / 3-5 images
+              </Badge>
+            </div>
+            <p className="text-xs text-botanical/60 mb-2">
+              Upload 3-5 images that will alternate when user hovers over this category tile
+            </p>
             <div className="mt-2 grid grid-cols-3 gap-2">
               {hoverPreviews.map((preview, index) => (
-                <div key={index} className="relative">
+                <div key={index} className="relative group">
                   <img src={preview} alt={`Hover ${index + 1}`} className="w-full h-24 object-cover rounded-lg border border-sage/20" />
+                  <div className="absolute -top-1 -left-1 bg-botanical text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {index + 1}
+                  </div>
                   <Button
                     variant="destructive"
                     size="sm"
-                    className="absolute -top-2 -right-2 h-6 w-6 p-0 rounded-full"
+                    className="absolute -top-2 -right-2 h-6 w-6 p-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                     onClick={() => removeHoverImage(index)}
                   >
                     <X className="h-3 w-3" />
@@ -237,12 +258,25 @@ const CategoryUploadModal = ({
                 </div>
               ))}
               {hoverPreviews.length < 5 && (
-                <label htmlFor="hover-img-cat" className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-sage/30 rounded-lg cursor-pointer hover:border-botanical/40">
-                  <Plus className="h-6 w-6 text-botanical/50" />
-                  <input id="hover-img-cat" type="file" className="hidden" accept="image/*" onChange={handleAddHoverImage} />
+                <label htmlFor="hover-img-cat" className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-sage/30 rounded-lg cursor-pointer hover:border-botanical/40 transition-colors">
+                  <Plus className="h-6 w-6 text-botanical/50 mb-1" />
+                  <span className="text-xs text-botanical/60">Add hover image</span>
+                  <input 
+                    id="hover-img-cat" 
+                    type="file" 
+                    className="hidden" 
+                    accept="image/*" 
+                    onChange={handleAddHoverImage}
+                    key={hoverPreviews.length} // Reset input after each upload
+                  />
                 </label>
               )}
             </div>
+            {hoverPreviews.length < 3 && (
+              <p className="text-xs text-red-600 mt-2">
+                ⚠️ Add at least 3 hover images for smooth animation
+              </p>
+            )}
           </div>
         </div>
 
@@ -308,7 +342,7 @@ const CategoryUploadModal = ({
           </Button>
           <Button
             onClick={handleAddCategory}
-            disabled={uploading || !mainImage || !categoryName.trim() || !description.trim()}
+            disabled={uploading || !mainImage || !categoryName.trim() || !description.trim() || hoverImages.length < 3}
             className="bg-botanical hover:bg-botanical/90"
           >
             {uploading ? (
