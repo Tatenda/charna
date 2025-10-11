@@ -1,5 +1,9 @@
-import Hero from "@/components/home/Hero";
 import Seo from "@/components/layout/Seo";
+import HeroSection from "@/components/home/HeroSection";
+import RangesSection from "@/components/home/RangesSection";
+import CategoriesSection from "@/components/home/CategoriesSection";
+import CapsuleSection from "@/components/home/CapsuleSection";
+import InstagramSection from "@/components/home/InstagramSection";
 
 const Home = () => {
   return (
@@ -11,7 +15,11 @@ const Home = () => {
         image="/images/hero-background.png"
         url="/"
       />
-      <Hero />
+      <HeroSection />
+      <RangesSection />
+      <CategoriesSection />
+      <CapsuleSection />
+      <InstagramSection />
     </div>
   );
 };

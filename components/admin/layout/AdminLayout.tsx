@@ -19,7 +19,8 @@ import {
   LogOut,
   User,
   FolderTree,
-  Tag
+  Tag,
+  Image
 } from "lucide-react"
 import Link from "next/link"
 
@@ -55,6 +56,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { name: "Categories", href: "/admin/categories", icon: FolderTree },
     { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
     { name: "Promo Codes", href: "/admin/promo-codes", icon: Tag },
+    { name: "Landing Page", href: "/admin/landing-page", icon: Image },
     { name: "Contacts", href: "/admin/contacts", icon: MessageSquare },
   ]
 
@@ -103,7 +105,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <div className="flex h-16 items-center justify-between px-6">
             <div>
               <h2 className="text-lg font-heading font-semibold text-forest">
-                {navigation.find(item => item.href === router.pathname)?.name || "Dashboard"}
+                {navigation.find(item => router.pathname.startsWith(item.href))?.name || "Dashboard"}
               </h2>
             </div>
             
