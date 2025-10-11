@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { getImagePath } from '@/lib/imageUtils';
+import { getSectionConfig, canAddImage } from '@/lib/landingPageConfig';
+import ImageUploadModal from '@/components/admin/landing-page/ImageUploadModal';
 
 interface LandingPageImage {
   id: number;
@@ -54,6 +56,7 @@ const SectionEditor = () => {
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [enabled, setEnabled] = useState(true);
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -188,6 +191,9 @@ const SectionEditor = () => {
     );
   }
 
+  const sectionConfig = getSectionConfig(section.name);
+  const canAdd = canAddImage(section.name, section.images.length);
+
   return (
     <AdminLayout>
       <div className="max-w-7xl mx-auto">
@@ -252,12 +258,24 @@ const SectionEditor = () => {
         {/* Images Grid */}
         <div className="bg-white border border-sage/20 rounded-lg p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-forest">
-              Images ({section.images.length})
-            </h2>
-            <Button size="sm" className="bg-botanical hover:bg-botanical/90">
+            <div>
+              <h2 className="text-xl font-semibold text-forest">
+                Images ({section.images.length})
+              </h2>
+              {sectionConfig.maxImages && (
+                <p className="text-sm text-botanical/70 mt-1">
+                  Maximum {sectionConfig.maxImages} image{sectionConfig.maxImages === 1 ? '' : 's'} allowed
+                </p>
+              )}
+            </div>
+            <Button
+              size="sm"
+              className="bg-botanical hover:bg-botanical/90"
+              onClick={() => setUploadModalOpen(true)}
+              disabled={!canAdd}
+            >
               <Plus className="h-4 w-4 mr-2" />
-              Add Image
+              {canAdd ? 'Add Image' : 'Limit Reached'}
             </Button>
           </div>
 
