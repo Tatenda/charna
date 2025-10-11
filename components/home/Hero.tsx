@@ -15,11 +15,11 @@ const Hero = () => {
   const { toast } = useToast();
   
   // Fetch landing page sections from database
-  const { section: heroSection } = useLandingPageSection('hero');
-  const { section: rangesSection } = useLandingPageSection('ranges');
-  const { section: categoriesSection } = useLandingPageSection('categories');
-  const { section: capsuleSection } = useLandingPageSection('capsule');
-  const { section: instagramSection } = useLandingPageSection('instagram');
+  const { section: heroSection, loading: heroLoading } = useLandingPageSection('hero');
+  const { section: rangesSection, loading: rangesLoading } = useLandingPageSection('ranges');
+  const { section: categoriesSection, loading: categoriesLoading } = useLandingPageSection('categories');
+  const { section: capsuleSection, loading: capsuleLoading } = useLandingPageSection('capsule');
+  const { section: instagramSection, loading: instagramLoading } = useLandingPageSection('instagram');
   
   const [retroImageIndex, setRetroImageIndex] = useState(0);
   const [hoverTimer, setHoverTimer] = useState<NodeJS.Timeout | null>(null);
@@ -1290,7 +1290,13 @@ const Hero = () => {
           </div>
           
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1 md:gap-2">
-            {instagramSection?.images && instagramSection.images.length > 0 ? (
+            {instagramLoading ? (
+              // Loading skeleton
+              Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className="aspect-square overflow-hidden bg-gray-700/50 animate-pulse"></div>
+              ))
+            ) : instagramSection?.images && instagramSection.images.length > 0 ? (
+              // Database images
               instagramSection.images.map((image) => (
                 <div key={image.id} className="aspect-square overflow-hidden">
                   <img 
@@ -1302,39 +1308,10 @@ const Hero = () => {
                 </div>
               ))
             ) : (
-              // Fallback to hardcoded if database has no images
-              <>
-                <div className="aspect-square overflow-hidden">
-                  <img src="/images/green-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-                </div>
-                <div className="aspect-square overflow-hidden">
-                  <img src={"/913E8FCD-4943-44D3-A3EF-645778762B43_1758357180594.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-                </div>
-                <div className="aspect-square overflow-hidden">
-                  <img src={"/Navy Tennis bag_1758386586336.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-                </div>
-                <div className="aspect-square overflow-hidden">
-                  <img src={"/Retro Range - Navy Blue_1757319569359.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-                </div>
-                <div className="aspect-square overflow-hidden">
-                  <img src="/images/white-backpack.jpg" alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-                </div>
-                <div className="aspect-square overflow-hidden">
-                  <img src={"/Classic range - Rose Gold_1757356095029.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-                </div>
-                <div className="aspect-square overflow-hidden">
-                  <img src={"/LGM_Grounded (1)_1757318142201.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-                </div>
-                <div className="aspect-square overflow-hidden">
-                  <img src={"/LGM_Classic_me (1)_1758112410768.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-                </div>
-                <div className="aspect-square overflow-hidden">
-                  <img src={"/Tennis bag - White - neutral background_1758386577764.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-                </div>
-                <div className="aspect-square overflow-hidden">
-                  <img src={"/DF6D3DFE-6CBA-45BD-8742-1ABE450C1F7E_1758358612678.png"} alt="Instagram post" className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" style={{ imageRendering: 'auto' }} />
-                </div>
-              </>
+              // No images message
+              <div className="col-span-full text-center py-12">
+                <p className="text-white/70">No Instagram images yet. Add them in the admin panel!</p>
+              </div>
             )}
           </div>
           
