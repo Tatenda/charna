@@ -1,9 +1,5 @@
 import Hero from "@/components/home/Hero";
-import HeroDatabase from "@/components/home/HeroDatabase";
 import Seo from "@/components/layout/Seo";
-
-// Feature flag to switch between database and hardcoded hero
-const USE_DATABASE_HERO = process.env.NEXT_PUBLIC_USE_DATABASE_LANDING === 'true';
 
 const Home = () => {
   return (
@@ -15,7 +11,7 @@ const Home = () => {
         image="/images/hero-background.png"
         url="/"
       />
-      {USE_DATABASE_HERO ? <HeroDatabase /> : <Hero />}
+      <Hero />
     </div>
   );
 };
