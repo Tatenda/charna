@@ -503,17 +503,104 @@ const Hero = () => {
         
       </section>
 
-      {/* Our Ranges Section */}
-      <section className="py-12" style={{backgroundColor: '#F5F1E8'}}>
+      {/* Our Ranges Section - FROM DATABASE */}
+      <section className="py-12" style={{backgroundColor: rangesSection?.settings?.backgroundColor || '#F5F1E8'}}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="text-4xl font-georgia-bold text-botanical mb-4">Our Ranges</h2>
-            <Link href="/browse?category=work" className="bg-botanical text-white px-8 py-3 font-semibold hover:bg-botanical/90 transition-colors rounded-lg">
-              Shop All
+            <h2 className="text-4xl font-georgia-bold text-botanical mb-4">
+              {rangesSection?.title || 'Our Ranges'}
+            </h2>
+            <Link 
+              href={rangesSection?.settings?.ctaLink || '/browse?category=work'} 
+              className="bg-botanical text-white px-8 py-3 font-semibold hover:bg-botanical/90 transition-colors rounded-lg"
+            >
+              {rangesSection?.settings?.ctaText || 'Shop All'}
             </Link>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+            {rangesLoading ? (
+              // Loading skeleton
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="space-y-4">
+                  <div className="w-full h-80 bg-gray-200 animate-pulse rounded-xl"></div>
+                  <div className="h-4 bg-gray-200 animate-pulse rounded"></div>
+                  <div className="h-3 bg-gray-200 animate-pulse rounded w-2/3"></div>
+                </div>
+              ))
+            ) : rangesSection?.images && rangesSection.images.length > 0 ? (
+              // Database images
+              rangesSection.images.map((range) => {
+                const metadata = range.metadata || {};
+                return (
+                  <Link 
+                    key={range.id}
+                    href={range.linkUrl || '/browse?category=work'} 
+                    className="group cursor-pointer block"
+                  >
+                    <div className="relative overflow-hidden rounded-xl mb-4">
+                      {/* Main image */}
+                      <img 
+                        src={getImagePath(range.imageUrl)}
+                        alt={range.altText}
+                        className="w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 group-hover:opacity-0"
+                        style={{ imageRendering: 'auto' }}
+                      />
+                      
+                      {/* Hover image (if available) */}
+                      {metadata.hoverImage && (
+                        <img 
+                          src={getImagePath(metadata.hoverImage)}
+                          alt={`${range.altText} - Alternate view`}
+                          className="absolute inset-0 w-full h-80 object-cover group-hover:scale-105 transition-all duration-500 opacity-0 group-hover:opacity-100"
+                          style={{ imageRendering: 'auto' }}
+                        />
+                      )}
+
+                      <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button 
+                          className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Could open add to cart modal if needed
+                          }}
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                    </div>
+                    <h3 className="text-lg text-botanical mb-2">{metadata.rangeName || range.caption || 'Product Range'}</h3>
+                    <p className="text-gray-600 text-sm mb-2">{metadata.description || range.caption || ''}</p>
+                    {metadata.price && (
+                      <p className="font-bold text-black">R{metadata.price}</p>
+                    )}
+                  </Link>
+                );
+              })
+            ) : (
+              // No ranges
+              <div className="col-span-full text-center py-12">
+                <p className="text-botanical/70">No ranges yet. Add them in the admin panel!</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Shop by Category - Still needs database integration */}
+      <section className="relative overflow-hidden" style={{backgroundColor: '#7A8471'}}>
+        <div className="relative z-10 text-center py-16">
+          <h2 className="text-4xl font-georgia-bold text-white mb-4">
+            {categoriesSection?.title || 'Discover'}
+          </h2>
+          <p className="text-xl text-white/80">
+            {categoriesSection?.subtitle || 'Shop by Category'}
+          </p>
+        </div>
+        
+        {/* For now, keep existing category grid hardcoded */}
+        <div className="hidden md:grid md:grid-cols-6 md:grid-rows-2 gap-2 h-[70vh] w-full px-0">
             <Link 
               href="/browse?category=work" 
               className="group cursor-pointer block"
@@ -1193,12 +1280,14 @@ const Hero = () => {
       </section>
 
 
-      {/* Bag Capsule Section */}
+      {/* Bag Capsule Section - FROM DATABASE */}
       <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4">
           {/* Section Heading */}
           <div className="text-center mb-6">
-            <h2 className="text-4xl font-georgia-bold text-terracotta mb-4">Bag Capsule</h2>
+            <h2 className="text-4xl font-georgia-bold text-terracotta mb-4">
+              {capsuleSection?.title || 'Bag Capsule'}
+            </h2>
           </div>
           
           {/* Capsule Options */}
@@ -1235,14 +1324,21 @@ const Hero = () => {
           </div>
         </div>
         
-        {/* Full Screen Image */}
+        {/* Full Screen Image - FROM DATABASE */}
         <div className="h-[80vh] w-full overflow-hidden">
-            {/* Background Image */}
-            <img 
-              src="/images/navy-backpack-capsule.png"
-              alt="Premium Navy Leather Backpack"
-              className="w-full h-full object-cover"
-            />
+            {capsuleLoading ? (
+              <div className="w-full h-full bg-gray-200 animate-pulse"></div>
+            ) : capsuleSection?.images?.[0] ? (
+              <img 
+                src={getImagePath(capsuleSection.images[0].imageUrl)}
+                alt={capsuleSection.images[0].altText}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                <p className="text-gray-500">No capsule image yet. Add one in the admin panel!</p>
+              </div>
+            )}
             
             {/* Content Overlay */}
             <div style={{display: 'none'}} className="hidden">
