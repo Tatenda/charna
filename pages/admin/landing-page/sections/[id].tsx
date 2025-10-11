@@ -26,6 +26,8 @@ import { getImagePath } from '@/lib/imageUtils';
 import { getSectionConfig, canAddImage } from '@/lib/landingPageConfig';
 import ImageUploadModal from '@/components/admin/landing-page/ImageUploadModal';
 import ImageMetadataEditor from '@/components/admin/landing-page/ImageMetadataEditor';
+import RangeUploadModal from '@/components/admin/landing-page/RangeUploadModal';
+import CategoryUploadModal from '@/components/admin/landing-page/CategoryUploadModal';
 
 interface LandingPageImage {
   id: number;
@@ -321,7 +323,12 @@ const SectionEditor = () => {
               disabled={!canAdd}
             >
               <Plus className="h-4 w-4 mr-2" />
-              {canAdd ? 'Add Image' : 'Limit Reached'}
+              {canAdd ? (
+                section.name === 'ranges' ? 'Add Range' :
+                section.name === 'categories' ? 'Add Category' :
+                section.name === 'instagram' ? 'Add Image' :
+                'Add Image'
+              ) : 'Limit Reached'}
             </Button>
           </div>
 
@@ -446,16 +453,35 @@ const SectionEditor = () => {
           )}
         </div>
 
-        {/* Upload Modal */}
-        <ImageUploadModal
-          open={uploadModalOpen}
-          onClose={() => setUploadModalOpen(false)}
-          sectionId={section.id}
-          sectionName={section.title || section.name}
-          currentImageCount={section.images.length}
-          maxImages={sectionConfig.maxImages || undefined}
-          onUploadComplete={fetchSection}
-        />
+        {/* Upload Modal - Section-Specific */}
+        {section.name === 'ranges' ? (
+          <RangeUploadModal
+            open={uploadModalOpen}
+            onClose={() => setUploadModalOpen(false)}
+            sectionId={section.id}
+            currentImageCount={section.images.length}
+            onUploadComplete={fetchSection}
+          />
+        ) : section.name === 'categories' ? (
+          <CategoryUploadModal
+            open={uploadModalOpen}
+            onClose={() => setUploadModalOpen(false)}
+            sectionId={section.id}
+            currentImageCount={section.images.length}
+            maxImages={sectionConfig.maxImages || 8}
+            onUploadComplete={fetchSection}
+          />
+        ) : (
+          <ImageUploadModal
+            open={uploadModalOpen}
+            onClose={() => setUploadModalOpen(false)}
+            sectionId={section.id}
+            sectionName={section.title || section.name}
+            currentImageCount={section.images.length}
+            maxImages={sectionConfig.maxImages || undefined}
+            onUploadComplete={fetchSection}
+          />
+        )}
 
         {/* Metadata Editor Modal */}
         {editingImage && (
