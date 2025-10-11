@@ -105,7 +105,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <div className="flex h-16 items-center justify-between px-6">
             <div>
               <h2 className="text-lg font-heading font-semibold text-forest">
-                {navigation.find(item => item.href === router.pathname)?.name || "Dashboard"}
+                {navigation.find(item => router.pathname.startsWith(item.href))?.name || "Dashboard"}
               </h2>
             </div>
             

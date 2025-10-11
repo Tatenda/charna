@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Settings, Eye, EyeOff, GripVertical, Pencil } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { getSectionConfig } from '@/lib/landingPageConfig';
 
 interface LandingPageImage {
   id: number;
@@ -78,16 +79,6 @@ const LandingPageManager = () => {
     }
   };
 
-  const getSectionIcon = (name: string) => {
-    const icons: { [key: string]: string } = {
-      hero: '🎬',
-      ranges: '🎒',
-      categories: '🏷️',
-      capsule: '📦',
-      instagram: '📸'
-    };
-    return icons[name] || '📄';
-  };
 
   if (loading) {
     return (
@@ -131,7 +122,14 @@ const LandingPageManager = () => {
               </Button>
             </div>
           ) : (
-            sections.map((section) => (
+            sections.map((section) => {
+              const config = getSectionConfig(section.name);
+              const limitText = config.maxImages 
+                ? `${section.images.length}/${config.maxImages}` 
+                : section.images.length.toString();
+              const isAtLimit = config.maxImages && section.images.length >= config.maxImages;
+
+              return (
               <div
                 key={section.id}
                 className="border border-sage/20 rounded-lg p-6 bg-white hover:border-botanical/40 transition-colors"
@@ -141,13 +139,13 @@ const LandingPageManager = () => {
                   <div className="flex items-start space-x-4 flex-1">
                     <div className="flex flex-col items-center space-y-2">
                       <GripVertical className="h-5 w-5 text-botanical/30 cursor-move" />
-                      <span className="text-2xl">{getSectionIcon(section.name)}</span>
+                      <span className="text-2xl">{config.icon}</span>
                     </div>
 
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-heading font-semibold text-forest capitalize">
-                          {section.title || section.name}
+                        <h3 className="text-xl font-heading font-semibold text-forest">
+                          {config.displayName}
                         </h3>
                         <Badge
                           variant={section.enabled ? 'default' : 'secondary'}
@@ -155,10 +153,15 @@ const LandingPageManager = () => {
                         >
                           {section.enabled ? 'Enabled' : 'Disabled'}
                         </Badge>
-                        <Badge variant="outline" className="text-xs">
-                          {section.images.length} {section.images.length === 1 ? 'image' : 'images'}
+                        <Badge 
+                          variant="outline" 
+                          className={`text-xs ${isAtLimit ? 'bg-yellow-50 text-yellow-700 border-yellow-300' : ''}`}
+                        >
+                          {limitText} {section.images.length === 1 ? 'image' : 'images'}
                         </Badge>
                       </div>
+                      
+                      <p className="text-sm text-botanical/70 mb-3">{config.description}</p>
 
                       {section.subtitle && (
                         <p className="text-sm text-botanical/70 mb-3">{section.subtitle}</p>
@@ -224,7 +227,7 @@ const LandingPageManager = () => {
                   </div>
                 </div>
               </div>
-            ))
+            )})
           )}
         </div>
 
