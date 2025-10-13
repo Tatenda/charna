@@ -43,6 +43,9 @@ const ImageMetadataEditor = ({
   // For hover images upload
   const [newHoverImages, setNewHoverImages] = useState<File[]>([]);
   const [hoverImagePreviews, setHoverImagePreviews] = useState<string[]>([]);
+  
+  // Track which existing hover images to delete (by index)
+  const [deletedHoverImageIndices, setDeletedHoverImageIndices] = useState<Set<number>>(new Set());
 
   const sectionConfig = getSectionConfig(sectionName);
   const hasHoverImages = sectionConfig.hasHoverImages;
@@ -64,16 +67,46 @@ const ImageMetadataEditor = ({
     setHoverImagePreviews(hoverImagePreviews.filter((_, i) => i !== index));
   };
 
+  const removeExistingHoverImage = (index: number) => {
+    const newDeleted = new Set(deletedHoverImageIndices);
+    newDeleted.add(index);
+    setDeletedHoverImageIndices(newDeleted);
+  };
+
+  const undoRemoveExistingHoverImage = (index: number) => {
+    const newDeleted = new Set(deletedHoverImageIndices);
+    newDeleted.delete(index);
+    setDeletedHoverImageIndices(newDeleted);
+  };
+
   const uploadHoverImages = async (): Promise<string[]> => {
     const urls: string[] = [];
     for (const file of newHoverImages) {
       const formData = new FormData();
       formData.append('files', file);
       const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
-      if (res.ok) {
-        const data = await res.json();
-        urls.push(data.files?.[0]?.url || data.url);
+      
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ message: 'Unknown error' }));
+        const errorMessage = errorData.error || errorData.message || 'Failed to upload hover image';
+        console.error('Hover image upload failed:', {
+          status: res.status,
+          statusText: res.statusText,
+          error: errorData,
+          fileName: file.name,
+        });
+        throw new Error(`Failed to upload ${file.name}: ${errorMessage}`);
       }
+      
+      const data = await res.json();
+      const url = data.files?.[0]?.url || data.url;
+      
+      if (!url) {
+        console.error('No URL in hover image upload response:', data);
+        throw new Error(`Upload succeeded for ${file.name} but no URL was returned`);
+      }
+      
+      urls.push(url);
     }
     return urls;
   };
@@ -88,17 +121,68 @@ const ImageMetadataEditor = ({
       return;
     }
 
+    // Validate required metadata fields
+    for (const field of sectionConfig.metadataFields) {
+      if (field.required) {
+        const value = metadata[field.key];
+        if (value === undefined || value === null || value === '') {
+          toast({
+            title: 'Missing required field',
+            description: `${field.label} is required`,
+            variant: 'destructive',
+          });
+          return;
+        }
+        // Validate number fields don't contain NaN
+        if (field.type === 'number' && (typeof value === 'number' && isNaN(value))) {
+          toast({
+            title: 'Invalid number',
+            description: `${field.label} must be a valid number`,
+            variant: 'destructive',
+          });
+          return;
+        }
+      }
+    }
+
     setSaving(true);
 
     try {
-      // Upload new hover images if any
+      // Process hover images: remove deleted ones and add new ones
       let updatedMetadata = { ...metadata };
+      
+      // Get existing hover images (handle both array and single string)
+      const existingHoverImages = metadata.hoverImages 
+        ? metadata.hoverImages 
+        : metadata.hoverImage 
+          ? [metadata.hoverImage] 
+          : [];
+      
+      // Filter out deleted hover images
+      const filteredHoverImages = existingHoverImages.filter(
+        (_: string, idx: number) => !deletedHoverImageIndices.has(idx)
+      );
+      
+      // Upload new hover images if any
+      let finalHoverImages = filteredHoverImages;
       if (newHoverImages.length > 0) {
         const uploadedUrls = await uploadHoverImages();
-        const existingHoverImages = metadata.hoverImages || [];
+        finalHoverImages = [...filteredHoverImages, ...uploadedUrls];
+      }
+      
+      // Update metadata based on section type
+      // Ranges use hoverImage (singular), categories use hoverImages (array)
+      if (metadata.hoverImage !== undefined) {
+        // This section uses singular hoverImage (like ranges)
         updatedMetadata = {
           ...metadata,
-          hoverImages: [...existingHoverImages, ...uploadedUrls],
+          hoverImage: finalHoverImages.length > 0 ? finalHoverImages[0] : undefined,
+        };
+      } else {
+        // This section uses hoverImages array (like categories)
+        updatedMetadata = {
+          ...metadata,
+          hoverImages: finalHoverImages.length > 0 ? finalHoverImages : undefined,
         };
       }
 
@@ -185,25 +269,69 @@ const ImageMetadataEditor = ({
               <h3 className="text-sm font-semibold text-forest mb-3">Hover Images (for animation)</h3>
               
               {/* Existing Hover Images */}
-              {metadata.hoverImages && metadata.hoverImages.length > 0 && (
-                <div className="mb-4">
-                  <Label className="text-xs">Current Hover Images</Label>
-                  <div className="grid grid-cols-4 gap-2 mt-2">
-                    {metadata.hoverImages.map((url: string, idx: number) => (
-                      <div key={idx} className="relative">
-                        <img 
-                          src={getImagePath(url)} 
-                          alt={`Hover ${idx + 1}`} 
-                          className="w-full h-20 object-cover rounded border border-sage/20" 
-                        />
-                        <div className="absolute -top-1 -left-1 bg-botanical text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                          {idx + 1}
-                        </div>
-                      </div>
-                    ))}
+              {(() => {
+                // Handle both hoverImages (array) and hoverImage (single)
+                const hoverImagesArray = metadata.hoverImages 
+                  ? metadata.hoverImages 
+                  : metadata.hoverImage 
+                    ? [metadata.hoverImage] 
+                    : [];
+                
+                if (hoverImagesArray.length === 0) return null;
+                
+                return (
+                  <div className="mb-4">
+                    <Label className="text-xs">Current Hover Images</Label>
+                    <div className="grid grid-cols-4 gap-2 mt-2">
+                      {hoverImagesArray.map((url: string, idx: number) => {
+                        const isDeleted = deletedHoverImageIndices.has(idx);
+                        return (
+                          <div key={idx} className="relative group">
+                            <img 
+                              src={getImagePath(url)} 
+                              alt={`Hover ${idx + 1}`} 
+                              className={`w-full h-20 object-cover rounded border ${
+                                isDeleted 
+                                  ? 'border-red-400 opacity-40' 
+                                  : 'border-sage/20'
+                              }`}
+                            />
+                            {isDeleted && (
+                              <div className="absolute inset-0 bg-red-500/20 flex items-center justify-center">
+                                <span className="text-xs text-red-600 font-semibold">Deleted</span>
+                              </div>
+                            )}
+                            <div className="absolute -top-1 -left-1 bg-botanical text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                              {idx + 1}
+                            </div>
+                            {isDeleted ? (
+                              <Button
+                                variant="secondary"
+                                size="sm"
+                                className="absolute -top-2 -right-2 h-6 w-6 p-0 rounded-full opacity-100"
+                                onClick={() => undoRemoveExistingHoverImage(idx)}
+                                title="Undo delete"
+                              >
+                                ↺
+                              </Button>
+                            ) : (
+                              <Button
+                                variant="destructive"
+                                size="sm"
+                                className="absolute -top-2 -right-2 h-6 w-6 p-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                onClick={() => removeExistingHoverImage(idx)}
+                                title="Delete"
+                              >
+                                <X className="h-3 w-3" />
+                              </Button>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
               
               {/* Add New Hover Images */}
               <div>
@@ -271,7 +399,17 @@ const ImageMetadataEditor = ({
                         id={`meta-${field.key}`}
                         type="number"
                         value={metadata[field.key] || ''}
-                        onChange={(e) => handleMetadataChange(field.key, parseInt(e.target.value, 10))}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (val === '') {
+                            handleMetadataChange(field.key, '');
+                          } else {
+                            const numVal = parseInt(val, 10);
+                            if (!isNaN(numVal)) {
+                              handleMetadataChange(field.key, numVal);
+                            }
+                          }
+                        }}
                         placeholder={field.placeholder}
                         className="mt-2"
                       />
