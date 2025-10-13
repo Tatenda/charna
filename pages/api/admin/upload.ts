@@ -58,25 +58,40 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const uploadedFiles = []
     
     for (const file of files.files) {
-      if (!file.filepath || !file.originalFilename) continue
+      if (!file.filepath || !file.originalFilename) {
+        console.warn('Skipping file with missing filepath or originalFilename:', file)
+        continue
+      }
       
       try {
         // Generate unique random filename (no spaces, clean format)
         const timestamp = Date.now()
-        const extension = file.originalFilename.split('.').pop() || ''
+        const extension = file.originalFilename.split('.').pop() || 'jpg'
         const randomString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
         const filename = `upload_${timestamp}_${randomString}.${extension}`
         
-        console.log(`Generated filename: ${filename}`)
+        console.log(`[Upload] Processing file:`, {
+          originalFilename: file.originalFilename,
+          generatedFilename: filename,
+          size: file.size,
+          mimetype: file.mimetype,
+        })
         
         // Read the file buffer
         const fs = await import('fs')
         const fileBuffer = fs.readFileSync(file.filepath)
         
+        console.log(`[Upload] Read file buffer, size: ${fileBuffer.length} bytes`)
+        
         // Upload to Vercel Blob
         const blob = await put(filename, fileBuffer, {
           access: 'public',
           addRandomSuffix: true,
+        })
+        
+        console.log(`[Upload] Successfully uploaded to Vercel Blob:`, {
+          url: blob.url,
+          pathname: blob.pathname,
         })
         
             uploadedFiles.push({
@@ -89,18 +104,37 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         
         // Clean up temporary file
         fs.unlinkSync(file.filepath)
-      } catch (fileError) {
-        console.error('Error uploading file:', fileError)
+      } catch (fileError: any) {
+        console.error('[Upload] Error uploading file:', {
+          error: fileError.message,
+          stack: fileError.stack,
+          originalFilename: file.originalFilename,
+        })
         // Continue with other files even if one fails
       }
     }
 
+    if (uploadedFiles.length === 0) {
+      console.error('[Upload] No files were successfully uploaded')
+      return res.status(400).json({ 
+        message: 'Failed to upload any files',
+        error: 'All file uploads failed. Check server logs for details.'
+      })
+    }
+
+    console.log(`[Upload] Successfully uploaded ${uploadedFiles.length} file(s)`)
     return res.status(200).json({
       message: 'Files uploaded successfully',
       files: uploadedFiles,
     })
-  } catch (error) {
-    console.error('Error uploading files:', error)
-    return res.status(500).json({ message: 'Internal server error' })
+  } catch (error: any) {
+    console.error('[Upload] Error uploading files:', {
+      error: error.message,
+      stack: error.stack,
+    })
+    return res.status(500).json({ 
+      message: 'Internal server error',
+      error: error.message || 'Unknown error occurred during upload'
+    })
   }
 }
