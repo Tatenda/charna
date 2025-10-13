@@ -103,12 +103,26 @@ const RangeUploadModal = ({
     });
 
     if (!uploadRes.ok) {
-      const errorData = await uploadRes.json();
-      throw new Error(errorData.message || 'Failed to upload image');
+      const errorData = await uploadRes.json().catch(() => ({ message: 'Unknown error' }));
+      const errorMessage = errorData.error || errorData.message || 'Failed to upload image';
+      console.error('Upload failed:', {
+        status: uploadRes.status,
+        statusText: uploadRes.statusText,
+        error: errorData,
+        fileName: file.name,
+      });
+      throw new Error(errorMessage);
     }
 
     const uploadData = await uploadRes.json();
-    return uploadData.files?.[0]?.url || uploadData.url;
+    const url = uploadData.files?.[0]?.url || uploadData.url;
+    
+    if (!url) {
+      console.error('No URL in upload response:', uploadData);
+      throw new Error('Upload succeeded but no URL was returned');
+    }
+    
+    return url;
   };
 
   const handleAddRange = async () => {
@@ -121,16 +135,29 @@ const RangeUploadModal = ({
       return;
     }
 
+    // Validate price is a valid number
+    const priceNum = parseInt(price, 10);
+    if (isNaN(priceNum) || priceNum <= 0) {
+      toast({
+        title: 'Invalid price',
+        description: 'Please enter a valid price greater than 0',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setUploading(true);
 
     try {
       // 1. Upload main image
       const mainImageUrl = await uploadImage(mainImage);
+      console.log('Main image uploaded:', mainImageUrl);
 
       // 2. Upload hover image if provided
       let hoverImageUrl = null;
       if (hoverImage) {
         hoverImageUrl = await uploadImage(hoverImage);
+        console.log('Hover image uploaded:', hoverImageUrl);
       }
 
       // 3. Save range to database
@@ -144,7 +171,7 @@ const RangeUploadModal = ({
         enabled: true,
         metadata: {
           rangeName: rangeName.trim(),
-          price: parseInt(price, 10),
+          price: priceNum, // Use the already validated priceNum
           description: description.trim(),
           category,
           ...(hoverImageUrl && { hoverImage: hoverImageUrl }),

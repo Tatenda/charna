@@ -92,12 +92,24 @@ const ImageUploadModal = ({
       });
 
       if (!uploadRes.ok) {
-        const errorData = await uploadRes.json();
-        throw new Error(errorData.message || 'Failed to upload image');
+        const errorData = await uploadRes.json().catch(() => ({ message: 'Unknown error' }));
+        const errorMessage = errorData.error || errorData.message || 'Failed to upload image';
+        console.error('Upload failed:', {
+          status: uploadRes.status,
+          statusText: uploadRes.statusText,
+          error: errorData,
+          fileName: selectedFile.name,
+        });
+        throw new Error(errorMessage);
       }
 
       const uploadData = await uploadRes.json();
       const url = uploadData.files?.[0]?.url || uploadData.url;
+      
+      if (!url) {
+        console.error('No URL in upload response:', uploadData);
+        throw new Error('Upload succeeded but no URL was returned');
+      }
 
       // 2. Save to database
       const imageData = {

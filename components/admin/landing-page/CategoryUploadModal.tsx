@@ -88,11 +88,26 @@ const CategoryUploadModal = ({
     });
 
     if (!uploadRes.ok) {
-      throw new Error('Failed to upload');
+      const errorData = await uploadRes.json().catch(() => ({ message: 'Unknown error' }));
+      const errorMessage = errorData.error || errorData.message || 'Failed to upload image';
+      console.error('Upload failed:', {
+        status: uploadRes.status,
+        statusText: uploadRes.statusText,
+        error: errorData,
+        fileName: file.name,
+      });
+      throw new Error(errorMessage);
     }
 
     const data = await uploadRes.json();
-    return data.files?.[0]?.url || data.url;
+    const url = data.files?.[0]?.url || data.url;
+    
+    if (!url) {
+      console.error('No URL in upload response:', data);
+      throw new Error('Upload succeeded but no URL was returned');
+    }
+    
+    return url;
   };
 
   const handleAddCategory = async () => {
