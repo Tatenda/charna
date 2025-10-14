@@ -1,6 +1,7 @@
 // Add custom jest matchers from jest-dom
 // This allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
+import '@testing-library/jest-dom'
 
 // Mock environment variables for tests
 process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/test'
