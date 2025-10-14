@@ -76,16 +76,11 @@ const RangesSection = () => {
                   )}
 
                   <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button 
-                      className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        // Could integrate add to cart functionality here
-                      }}
+                    <div 
+                      className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100 text-center transition-colors"
                     >
-                      Add to Cart
-                    </button>
+                      Shop Range
+                    </div>
                   </div>
                 </div>
                 <h3 className="text-lg text-botanical mb-2">
