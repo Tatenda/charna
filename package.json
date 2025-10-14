@@ -8,8 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "check": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:pre-commit": "jest --bail --findRelatedTests",
     "db:push": "drizzle-kit push",
     "create-admin": "tsx scripts/create-admin.ts",
+    "prepare": "husky install",
     "postinstall": "prisma generate"
   },
   "dependencies": {

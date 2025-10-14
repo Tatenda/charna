@@ -17,12 +17,15 @@ jest.mock('crypto', () => ({
   })),
 }))
 
-describe.skip('/api/webhooks/yoco', () => {
+describe('/api/webhooks/yoco', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   it('should create order with discount from pending checkout on payment success', async () => {
+    // Mock: No existing order for this payment
+    prismaMock.order.findFirst.mockResolvedValue(null)
+    
     const mockPendingCheckout = {
       id: 'pending_123',
       checkoutId: 'checkout_abc123',
@@ -141,6 +144,9 @@ describe.skip('/api/webhooks/yoco', () => {
   })
 
   it('should create order without discount when no promo code used', async () => {
+    // Mock: No existing order for this payment
+    prismaMock.order.findFirst.mockResolvedValue(null)
+    
     const mockPendingCheckout = {
       id: 'pending_456',
       checkoutId: 'checkout_def456',
@@ -217,8 +223,16 @@ describe.skip('/api/webhooks/yoco', () => {
     expect(res._getStatusCode()).toBe(200)
   })
 
-  it('should return error if pending checkout not found', async () => {
+  it('should handle missing pending checkout gracefully', async () => {
+    // Mock: No existing order for this payment
+    prismaMock.order.findFirst.mockResolvedValue(null)
+    // Mock: No pending checkout found
     prismaMock.pendingCheckout.findUnique.mockResolvedValue(null)
+    // Mock: Order creation from webhook metadata fallback
+    prismaMock.order.create.mockResolvedValue({
+      id: 1,
+      status: 'completed',
+    } as any)
 
     const { req, res } = createMocks({
       method: 'POST',
@@ -237,9 +251,16 @@ describe.skip('/api/webhooks/yoco', () => {
 
     await handler(req, res)
 
-    // Should return error but still respond with 200 to prevent webhook retries
+    // Should still create order using webhook metadata fallback
     expect(res._getStatusCode()).toBe(200)
-    expect(prismaMock.order.create).not.toHaveBeenCalled()
+    expect(prismaMock.order.create).toHaveBeenCalled()
+    
+    // Verify it created order from webhook metadata (not pending checkout)
+    const createCall = prismaMock.order.create.mock.calls[0][0]
+    expect(createCall.data).toMatchObject({
+      paymentId: 'payment_orphan',
+      status: 'completed',
+    })
   })
 })
 
