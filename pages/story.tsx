@@ -3,7 +3,6 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import WhatsAppBanner from "@/components/home/WhatsAppBanner";
 import { getImagePath } from "@/lib/imageUtils";
-import aboutImage from "../attached_assets/4FC44507-54B4-425D-9143-2A25663AFB6D_1758283287550.png";
 
 const Story = () => {
   return (
@@ -49,7 +48,7 @@ const Story = () => {
             </div>
             <div>
               <img 
-                src={aboutImage.src} 
+                src={getImagePath("Navy Tennis bag_1758386586336.png")} 
                 alt="Charna. tennis bag with Johannesburg skyline" 
                 className="rounded-lg shadow-lg w-full"
                 style={{ imageRendering: 'auto' }}

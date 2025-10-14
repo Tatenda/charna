@@ -27,8 +27,14 @@ export class PrismaStorage implements IStorage {
   // Products
   async getAllProducts(): Promise<Product[]> {
     const products = await prisma.product.findMany({
+      where: {
+        isActive: true
+      },
       include: {
         variants: {
+          where: {
+            isActive: true
+          },
           include: {
             attributes: true
           }
@@ -39,6 +45,11 @@ export class PrismaStorage implements IStorage {
           }
         },
         packageItems: {
+          where: {
+            variant: {
+              isActive: true
+            }
+          },
           include: {
             variant: {
               include: {
@@ -58,9 +69,15 @@ export class PrismaStorage implements IStorage {
 
   async getFeaturedProducts(): Promise<Product[]> {
     const products = await prisma.product.findMany({
-      where: { featured: true },
+      where: { 
+        featured: true,
+        isActive: true
+      },
       include: {
         variants: {
+          where: {
+            isActive: true
+          },
           include: {
             attributes: true
           }
@@ -71,6 +88,11 @@ export class PrismaStorage implements IStorage {
           }
         },
         packageItems: {
+          where: {
+            variant: {
+              isActive: true
+            }
+          },
           include: {
             variant: {
               include: {
@@ -89,10 +111,16 @@ export class PrismaStorage implements IStorage {
   }
 
   async getProductById(id: number): Promise<Product | undefined> {
-    const product = await prisma.product.findUnique({
-      where: { id },
+    const product = await prisma.product.findFirst({
+      where: { 
+        id,
+        isActive: true
+      },
       include: {
         variants: {
+          where: {
+            isActive: true
+          },
           include: {
             attributes: true
           }
@@ -103,6 +131,11 @@ export class PrismaStorage implements IStorage {
           }
         },
         packageItems: {
+          where: {
+            variant: {
+              isActive: true
+            }
+          },
           include: {
             variant: {
               include: {
@@ -123,6 +156,7 @@ export class PrismaStorage implements IStorage {
   async getProductsByCategory(category: string): Promise<Product[]> {
     const products = await prisma.product.findMany({
       where: {
+        isActive: true,
         categories: { 
           some: { 
             category: { slug: category } 
@@ -131,6 +165,9 @@ export class PrismaStorage implements IStorage {
       },
       include: {
         variants: {
+          where: {
+            isActive: true
+          },
           include: {
             attributes: true
           }
@@ -141,6 +178,11 @@ export class PrismaStorage implements IStorage {
           }
         },
         packageItems: {
+          where: {
+            variant: {
+              isActive: true
+            }
+          },
           include: {
             variant: {
               include: {
