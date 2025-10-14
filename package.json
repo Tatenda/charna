@@ -14,7 +14,7 @@
     "test:pre-commit": "jest --bail --findRelatedTests",
     "db:push": "drizzle-kit push",
     "create-admin": "tsx scripts/create-admin.ts",
-    "prepare": "husky install",
+    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production' && !process.env.CI) { require('child_process').execSync('husky install', {stdio: 'inherit'}) }\"",
     "postinstall": "prisma generate"
   },
   "dependencies": {
