@@ -38,8 +38,12 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName }: Ran
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedVariants, setSelectedVariants] = useState<Record<number, number>>({});
+  const [embossingEnabled, setEmbossingEnabled] = useState<Record<number, boolean>>({});
+  const [embossingText, setEmbossingText] = useState<Record<number, string>>({});
   const { addToCart } = useCart();
   const { toast } = useToast();
+  
+  const embossingPrice = 80; // R80.00 for embossing
 
   useEffect(() => {
     if (isOpen && category) {
@@ -105,6 +109,8 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName }: Ran
 
   const handleAddToCart = (variant: VariantWithProduct) => {
     const quantity = selectedVariants[variant.id] || 1;
+    const hasEmbossing = embossingEnabled[variant.id] || false;
+    const embossingTextValue = embossingText[variant.id] || '';
     
     // Create a product object from the variant
     const productToAdd: Product = {
@@ -128,15 +134,32 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName }: Ran
       createdAt: new Date(),
     };
     
-    addToCart(productToAdd, quantity);
+    const customizations = hasEmbossing && embossingTextValue.trim() ? {
+      embossing: true,
+      embossingText: embossingTextValue.trim(),
+      embossingPrice: embossingPrice
+    } : undefined;
+    
+    addToCart(productToAdd, quantity, customizations);
+    
+    const totalPrice = variant.price + (hasEmbossing ? embossingPrice : 0);
+    const embossingNote = hasEmbossing && embossingTextValue.trim() ? ` with embossing "${embossingTextValue.trim()}"` : '';
     
     toast({
       title: 'Added to Cart',
-      description: `${quantity} × ${variant.productName} - ${variant.name} added to your cart`,
+      description: `${quantity} × ${variant.productName} - ${variant.name}${embossingNote} (R${totalPrice.toLocaleString()})`,
     });
     
-    // Reset quantity for this variant
+    // Reset for this variant
     setSelectedVariants((prev) => {
+      const { [variant.id]: _, ...rest } = prev;
+      return rest;
+    });
+    setEmbossingEnabled((prev) => {
+      const { [variant.id]: _, ...rest } = prev;
+      return rest;
+    });
+    setEmbossingText((prev) => {
       const { [variant.id]: _, ...rest } = prev;
       return rest;
     });
@@ -250,18 +273,25 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName }: Ran
                         </h3>
                         <p className="text-sm text-gray-600 mb-2">{variant.name}</p>
                         
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="font-bold text-lg">
-                            R{variant.price.toLocaleString()}
-                          </span>
-                          {variant.originalPrice && variant.originalPrice !== variant.price && (
-                            <span className="text-sm text-gray-500 line-through">
-                              R{variant.originalPrice.toLocaleString()}
+                        <div className="mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-lg">
+                              R{(variant.price + (embossingEnabled[variant.id] ? embossingPrice : 0)).toLocaleString()}
+                            </span>
+                            {variant.originalPrice && variant.originalPrice !== variant.price && (
+                              <span className="text-sm text-gray-500 line-through">
+                                R{variant.originalPrice.toLocaleString()}
+                              </span>
+                            )}
+                          </div>
+                          {embossingEnabled[variant.id] && (
+                            <span className="text-xs text-gray-600">
+                              Base: R{variant.price.toLocaleString()} + Embossing: R{embossingPrice}
                             </span>
                           )}
                         </div>
                         
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 mb-3">
                           <span
                             className={`text-xs px-2 py-1 rounded ${
                               variant.inStock
@@ -271,6 +301,49 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName }: Ran
                           >
                             {variant.inStock ? 'In Stock' : 'Out of Stock'}
                           </span>
+                        </div>
+
+                        {/* Embossing Option */}
+                        <div className="space-y-2">
+                          <label className="flex items-center gap-2 text-sm cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={embossingEnabled[variant.id] || false}
+                              onChange={(e) => {
+                                setEmbossingEnabled(prev => ({
+                                  ...prev,
+                                  [variant.id]: e.target.checked
+                                }));
+                                if (!e.target.checked) {
+                                  setEmbossingText(prev => ({
+                                    ...prev,
+                                    [variant.id]: ''
+                                  }));
+                                }
+                              }}
+                              className="rounded border-gray-300"
+                            />
+                            <span className="font-medium text-gray-700">
+                              Add Embossing (+R{embossingPrice})
+                            </span>
+                          </label>
+                          
+                          {embossingEnabled[variant.id] && (
+                            <input
+                              type="text"
+                              value={embossingText[variant.id] || ''}
+                              onChange={(e) => {
+                                const value = e.target.value.slice(0, 10);
+                                setEmbossingText(prev => ({
+                                  ...prev,
+                                  [variant.id]: value
+                                }));
+                              }}
+                              placeholder="Embossing text (max 10 chars)"
+                              className="w-full text-sm px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-botanical"
+                              maxLength={10}
+                            />
+                          )}
                         </div>
                       </div>
 
@@ -304,7 +377,11 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName }: Ran
 
                         <Button
                           onClick={() => handleAddToCart(variant)}
-                          disabled={!variant.inStock || quantity === 0}
+                          disabled={
+                            !variant.inStock || 
+                            quantity === 0 || 
+                            (embossingEnabled[variant.id] && !embossingText[variant.id]?.trim())
+                          }
                           className="bg-botanical hover:bg-botanical/90 text-white mt-2"
                           size="sm"
                         >
