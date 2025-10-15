@@ -115,8 +115,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         customerInfo: orderData.customerInfo, // Use the original customerInfo from request
         items: orderData.items, // Use the original items from request
         orderId: order.id.toString(),
+        subtotal: order.subtotal,
+        discountAmount: order.discountAmount || 0,
         totalAmount: order.totalAmount,
         shippingCost: 0, // Default shipping cost
+        promoCodeUsed: order.promoCodeUsed || undefined,
         paymentId: order.paymentId || ''
       };
       await emailService.sendOrderReceipt(emailData);

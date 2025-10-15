@@ -26,8 +26,11 @@ interface OrderEmailData {
     };
   }>;
   orderId: string;
+  subtotal?: number;
+  discountAmount?: number;
   totalAmount: number;
   shippingCost: number;
+  promoCodeUsed?: string;
   paymentId: string;
 }
 
@@ -142,7 +145,10 @@ export class EmailService {
                 </thead>
                 <tbody>
                     ${items.map(item => {
-                      const itemTotal = (item.price + (item.customizations?.embossingPrice || 0)) * item.quantity;
+                      const basePrice = item.price;
+                      const embossingPrice = item.customizations?.embossingPrice || 0;
+                      const unitPrice = basePrice + embossingPrice;
+                      const itemTotal = unitPrice * item.quantity;
                       return `
                         <tr>
                             <td>
@@ -151,10 +157,17 @@ export class EmailService {
                                 ${item.customizations?.bagColor ? `<br><small>Bag: ${item.customizations.bagColor}</small>` : ''}
                                 ${item.customizations?.sleeveColor ? `<br><small>Sleeve: ${item.customizations.sleeveColor}</small>` : ''}
                                 ${item.customizations?.embossing && item.customizations?.embossingText ? 
-                                  `<div class="embossing-detail">+ Custom Embossing: "${item.customizations.embossingText}"</div>` : ''}
+                                  `<div class="embossing-detail" style="background: #FEF3C7; padding: 6px 8px; border-radius: 4px; border-left: 3px solid #F59E0B; margin-top: 4px;">
+                                    <strong style="color: #92400E;">✨ Custom Embossing:</strong> "${item.customizations.embossingText}"
+                                  </div>` : ''}
                             </td>
                             <td>${item.quantity}</td>
-                            <td>R${(item.price + (item.customizations?.embossingPrice || 0)).toLocaleString()}</td>
+                            <td>
+                                ${embossingPrice > 0 ? 
+                                  `R${basePrice.toLocaleString()}<br><small style="color: #92400E; font-weight: 600;">+ R${embossingPrice} embossing</small>` : 
+                                  `R${basePrice.toLocaleString()}`
+                                }
+                            </td>
                             <td>R${itemTotal.toLocaleString()}</td>
                         </tr>
                       `;
@@ -165,8 +178,14 @@ export class EmailService {
             <div class="total-section">
                 <div class="total-row">
                     <span>Subtotal:</span>
-                    <span>R${subtotal.toLocaleString()}</span>
+                    <span>R${(orderData.subtotal || subtotal).toLocaleString()}</span>
                 </div>
+                ${orderData.discountAmount && orderData.discountAmount > 0 ? `
+                <div class="total-row" style="color: #15803D;">
+                    <span>${orderData.promoCodeUsed ? `Discount (${orderData.promoCodeUsed}):` : 'Discount:'}</span>
+                    <span>-R${orderData.discountAmount.toLocaleString()}</span>
+                </div>
+                ` : ''}
                 <div class="total-row">
                     <span>Shipping:</span>
                     <span>${shippingCost === 0 ? 'Free' : `R${shippingCost.toLocaleString()}`}</span>
@@ -224,22 +243,34 @@ ORDER DETAILS:
 
 ITEMS ORDERED:
 ${items.map(item => {
-  const itemTotal = (item.price + (item.customizations?.embossingPrice || 0)) * item.quantity;
-  let itemText = `- ${item.productName} (Qty: ${item.quantity}) - R${itemTotal.toLocaleString()}`;
+  const basePrice = item.price;
+  const embossingPrice = item.customizations?.embossingPrice || 0;
+  const unitPrice = basePrice + embossingPrice;
+  const itemTotal = unitPrice * item.quantity;
+  
+  let itemText = `- ${item.productName} (Qty: ${item.quantity})`;
+  if (embossingPrice > 0) {
+    itemText += `\n  Base Price: R${basePrice.toLocaleString()} + R${embossingPrice} embossing = R${unitPrice.toLocaleString()}`;
+    itemText += `\n  Total: R${itemTotal.toLocaleString()}`;
+  } else {
+    itemText += ` - R${itemTotal.toLocaleString()}`;
+  }
   
   if (item.customizations?.color) itemText += `\n  Color: ${item.customizations.color}`;
   if (item.customizations?.bagColor) itemText += `\n  Bag Color: ${item.customizations.bagColor}`;
   if (item.customizations?.sleeveColor) itemText += `\n  Sleeve Color: ${item.customizations.sleeveColor}`;
   if (item.customizations?.embossing && item.customizations?.embossingText) {
-    itemText += `\n  + Custom Embossing: "${item.customizations.embossingText}"`;
+    itemText += `\n  ✨ Custom Embossing: "${item.customizations.embossingText}"`;
   }
   
   return itemText;
-}).join('\n')}
+}).join('\n\n')}
 
 TOTAL BREAKDOWN:
-Subtotal: R${subtotal.toLocaleString()}
-Shipping: ${shippingCost === 0 ? 'Free' : `R${shippingCost.toLocaleString()}`}
+Subtotal: R${(orderData.subtotal || subtotal).toLocaleString()}
+${orderData.discountAmount && orderData.discountAmount > 0 ? 
+  `${orderData.promoCodeUsed ? `Discount (${orderData.promoCodeUsed})` : 'Discount'}: -R${orderData.discountAmount.toLocaleString()}\n` : 
+  ''}Shipping: ${shippingCost === 0 ? 'Free' : `R${shippingCost.toLocaleString()}`}
 Total Paid: R${totalAmount.toLocaleString()}
 
 SHIPPING ADDRESS:

@@ -149,8 +149,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             customerInfo: customerInfo as any,
             items: items as any,
             orderId: order.id.toString(),
+            subtotal: order.subtotal,
+            discountAmount: order.discountAmount || 0,
             totalAmount: order.totalAmount,
             shippingCost: 0,
+            promoCodeUsed: order.promoCodeUsed || undefined,
             paymentId: paymentId || ''
           };
           await emailService.sendOrderReceipt(emailData);
@@ -235,8 +238,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           customerInfo: customerInfo as any,
           items: items as any,
           orderId: order.id.toString(),
+          subtotal: order.subtotal,
+          discountAmount: order.discountAmount || 0,
           totalAmount: order.totalAmount,
           shippingCost: 0,
+          promoCodeUsed: order.promoCodeUsed || undefined,
           paymentId: order.paymentId || ''
         };
         await emailService.sendOrderReceipt(emailData);
