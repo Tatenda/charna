@@ -1,9 +1,12 @@
+import { useState } from "react";
 import Link from "next/link";
 import { useLandingPageSection } from "@/hooks/useLandingPageSection";
 import { getImagePath } from "@/lib/imageUtils";
+import { RangeProductsModal } from "./RangeProductsModal";
 
 const RangesSection = () => {
   const { section: rangesSection, loading } = useLandingPageSection('ranges');
+  const [selectedRange, setSelectedRange] = useState<{ category: string; name: string } | null>(null);
 
   if (loading) {
     return (
@@ -49,12 +52,14 @@ const RangesSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {rangesSection.images.map((range) => {
             const metadata = range.metadata || {};
+            const category = metadata.category || 'work';
+            const rangeName = metadata.rangeName || range.caption || 'Product Range';
             
             return (
-              <Link 
+              <div 
                 key={range.id}
-                href={range.linkUrl || '/browse?category=work'} 
                 className="group cursor-pointer block"
+                onClick={() => setSelectedRange({ category, name: rangeName })}
               >
                 <div className="relative overflow-hidden rounded-xl mb-4">
                   {/* Main image */}
@@ -79,23 +84,33 @@ const RangesSection = () => {
                     <div 
                       className="w-full bg-white text-gray-800 py-2 px-4 font-semibold rounded-lg hover:bg-gray-100 text-center transition-colors"
                     >
-                      Shop Range
+                      Add to Cart
                     </div>
                   </div>
                 </div>
                 <h3 className="text-lg text-botanical mb-2">
-                  {metadata.rangeName || range.caption || 'Product Range'}
+                  {rangeName}
                 </h3>
                 <p className="text-gray-600 text-sm mb-2">
                   {metadata.description || range.caption || ''}
                 </p>
                 {metadata.price && (
-                  <p className="font-bold text-black">R{metadata.price}</p>
+                  <p className="font-bold text-black">From R{metadata.price}</p>
                 )}
-              </Link>
+              </div>
             );
           })}
         </div>
+        
+        {/* Range Products Modal */}
+        {selectedRange && (
+          <RangeProductsModal
+            isOpen={!!selectedRange}
+            onClose={() => setSelectedRange(null)}
+            category={selectedRange.category}
+            rangeName={selectedRange.name}
+          />
+        )}
       </div>
     </section>
   );
