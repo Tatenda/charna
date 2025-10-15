@@ -210,14 +210,21 @@ export default function OrdersPage() {
                               </div>
                               
                               {/* Items Preview */}
-                              <div className="mt-2 text-xs text-botanical/60">
-                                {order.items?.slice(0, 2).map((item: any, idx: number) => (
-                                  <span key={idx}>
-                                    {item.quantity}x {item.productName || item.name}
-                                    {idx < Math.min(order.items.length - 1, 1) && ', '}
-                                  </span>
-                                ))}
-                                {order.items?.length > 2 && ` +${order.items.length - 2} more`}
+                              <div className="mt-2 flex items-center gap-2 flex-wrap">
+                                <span className="text-xs text-botanical/60">
+                                  {order.items?.slice(0, 2).map((item: any, idx: number) => (
+                                    <span key={idx}>
+                                      {item.quantity}x {item.productName || item.name}
+                                      {idx < Math.min(order.items.length - 1, 1) && ', '}
+                                    </span>
+                                  ))}
+                                  {order.items?.length > 2 && ` +${order.items.length - 2} more`}
+                                </span>
+                                {order.items?.some((item: any) => item.customizations?.embossing) && (
+                                  <Badge className="bg-amber-100 text-amber-900 hover:bg-amber-100 text-xs font-semibold border border-amber-300 px-1.5 py-0">
+                                    ✨ Has Embossing
+                                  </Badge>
+                                )}
                               </div>
                             </div>
                             
@@ -322,11 +329,19 @@ export default function OrdersPage() {
                                         <td className="p-2">
                                           <div>
                                             <p className="font-medium text-botanical">{item.productName || item.name}</p>
-                                            {item.customizations && (item.customizations.embossing || item.customizations.color) && (
-                                              <p className="text-botanical/50 text-xs mt-0.5">
-                                                {item.customizations.embossing && `Embossing: ${item.customizations.embossingText || 'Yes'}`}
-                                                {item.customizations.color && ` • ${item.customizations.color}`}
-                                              </p>
+                                            {item.customizations && (
+                                              <div className="flex flex-wrap gap-1.5 mt-1.5">
+                                                {item.customizations.embossing && (
+                                                  <Badge className="bg-amber-100 text-amber-900 hover:bg-amber-100 text-xs font-semibold border border-amber-300">
+                                                    ✨ Embossing: "{item.customizations.embossingText || 'Yes'}"
+                                                  </Badge>
+                                                )}
+                                                {item.customizations.color && (
+                                                  <Badge variant="outline" className="text-xs">
+                                                    {item.customizations.color}
+                                                  </Badge>
+                                                )}
+                                              </div>
                                             )}
                                           </div>
                                         </td>
