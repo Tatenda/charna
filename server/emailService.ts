@@ -123,7 +123,6 @@ export class EmailService {
             <div class="order-info">
                 <h3 style="margin-top: 0; color: #000;">Order Details</h3>
                 <p><strong>Order Number:</strong> #${orderId}</p>
-                <p><strong>Payment ID:</strong> ${paymentId}</p>
                 <p><strong>Order Date:</strong> ${new Date().toLocaleDateString('en-ZA', { 
                   day: 'numeric', 
                   month: 'long', 
@@ -221,7 +220,6 @@ Thank you for your order! Your payment has been successfully processed.
 
 ORDER DETAILS:
 - Order Number: #${orderId}
-- Payment ID: ${paymentId}
 - Order Date: ${new Date().toLocaleDateString('en-ZA')}
 
 ITEMS ORDERED:

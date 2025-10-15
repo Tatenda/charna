@@ -245,14 +245,6 @@ export default function CheckoutSuccess() {
                     </span>
                   </div>
                 )}
-                {paymentDetails.paymentId && (
-                  <div className="flex justify-between">
-                    <span className="text-neutral-600">Payment ID:</span>
-                    <span className="font-mono text-sm">
-                      {paymentDetails.paymentId}
-                    </span>
-                  </div>
-                )}
               </div>
             </div>
           )}
