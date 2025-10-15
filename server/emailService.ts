@@ -98,9 +98,7 @@ export class EmailService {
     <style>
         body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f5f5f5; }
         .container { max-width: 600px; margin: 0 auto; background: white; padding: 0; }
-        .header { background: #B67E5A; color: white; padding: 40px 30px; text-align: center; overflow: visible; }
-        .logo-link { display: inline-block; margin-bottom: 10px; }
-        .logo { max-width: 180px; width: 180px; height: auto; display: inline-block; vertical-align: middle; }
+        .header { background: #B67E5A; color: white; padding: 30px; text-align: center; }
         .brand { font-size: 32px; font-weight: bold; margin: 0; }
         .brand-dot { color: #D4A574; font-size: 48px; }
         .content { padding: 30px; }
@@ -124,10 +122,8 @@ export class EmailService {
 <body>
     <div class="container">
         <div class="header">
-            <a href="${baseUrl}" class="logo-link" style="text-decoration: none;">
-                <img src="data:image/png;base64,${logoBase64}" alt="Charna Logo" class="logo" />
-            </a>
-            <p style="margin: 15px 0 0; font-size: 16px; color: white;">Premium Handcrafted Leather Goods</p>
+            <h1 class="brand"><a href="${baseUrl}" style="color: white; text-decoration: none;">Charna<span class="brand-dot">.</span></a></h1>
+            <p style="margin: 10px 0 0; font-size: 16px;">Premium Handcrafted Leather Goods</p>
         </div>
         
         <div class="content">
