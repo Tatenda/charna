@@ -79,6 +79,12 @@ export class EmailService {
   private generateReceiptHTML(orderData: OrderEmailData): string {
     const { customerInfo, items, orderId, totalAmount, shippingCost, paymentId } = orderData;
     const subtotal = totalAmount - shippingCost;
+    
+    // Use production URL or Vercel URL for logo and links
+    const baseUrl = process.env.NEXT_PUBLIC_URL || 
+                    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') || 
+                    'https://www.charna.co.com';
+    const logoUrl = `${baseUrl}/charna-logo.png`;
 
     return `
 <!DOCTYPE html>
@@ -91,6 +97,8 @@ export class EmailService {
         body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f5f5f5; }
         .container { max-width: 600px; margin: 0 auto; background: white; padding: 0; }
         .header { background: #B67E5A; color: white; padding: 30px; text-align: center; }
+        .logo-link { display: inline-block; }
+        .logo { max-width: 150px; height: auto; }
         .brand { font-size: 32px; font-weight: bold; margin: 0; }
         .brand-dot { color: #D4A574; font-size: 48px; }
         .content { padding: 30px; }
@@ -114,8 +122,10 @@ export class EmailService {
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="brand">Charna<span class="brand-dot">.</span></h1>
-            <p style="margin: 10px 0 0; font-size: 16px;">Premium Handcrafted Leather Goods</p>
+            <a href="${baseUrl}" class="logo-link" style="text-decoration: none;">
+                <img src="${logoUrl}" alt="Charna Logo" class="logo" />
+            </a>
+            <p style="margin: 15px 0 0; font-size: 16px; color: white;">Premium Handcrafted Leather Goods</p>
         </div>
         
         <div class="content">
@@ -212,8 +222,9 @@ export class EmailService {
 
         <div class="footer">
             <div class="contact-info">
-                <p><strong>Charna.</strong></p>
-                <p>Email: info@charna.co.com | WhatsApp: +27 723560321</p>
+                <p><strong><a href="${baseUrl}" style="color: #333; text-decoration: none;">Charna.</a></strong></p>
+                <p>Email: <a href="mailto:info@charna.co.com" style="color: #666; text-decoration: none;">info@charna.co.com</a> | WhatsApp: <a href="https://wa.me/27723560321" style="color: #666; text-decoration: none;">+27 723560321</a></p>
+                <p><a href="${baseUrl}" style="color: #666; text-decoration: none;">www.charna.co.com</a></p>
             </div>
             <p style="font-size: 12px; color: #999; margin-top: 20px;">
                 This is an automated receipt. Please save this email for your records.
