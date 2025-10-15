@@ -87,7 +87,7 @@ const ProductTabs = () => {
             <div key={product.id} className="group">
               <Link href={`/browse?category=${product.category}`}>
                 <div className="relative overflow-hidden rounded-lg mb-4">
-                  {product.originalPrice && (
+                  {product.originalPrice && product.originalPrice !== product.price && (
                     <span className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded z-10">
                       On Sale
                     </span>
@@ -121,7 +121,7 @@ const ProductTabs = () => {
                   {product.name}
                 </h3>
                 <div className="flex justify-center items-center gap-2">
-                  {product.originalPrice && (
+                  {product.originalPrice && product.originalPrice !== product.price && (
                     <span className="text-gray-400 line-through text-sm">
                       R{product.originalPrice}
                     </span>

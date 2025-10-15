@@ -254,7 +254,7 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName }: Ran
                           <span className="font-bold text-lg">
                             R{variant.price.toLocaleString()}
                           </span>
-                          {variant.originalPrice && (
+                          {variant.originalPrice && variant.originalPrice !== variant.price && (
                             <span className="text-sm text-gray-500 line-through">
                               R{variant.originalPrice.toLocaleString()}
                             </span>

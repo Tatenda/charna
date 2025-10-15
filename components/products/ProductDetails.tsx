@@ -91,7 +91,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 Base price: R{product.price.toLocaleString()} + Embossing: R{embossingPrice}
               </span>
             )}
-            {product.originalPrice && (
+            {product.originalPrice && product.originalPrice !== product.price && (
               <span className="ml-2 text-neutral-light line-through">
                 R{product.originalPrice.toLocaleString()}
               </span>
