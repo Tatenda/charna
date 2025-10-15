@@ -98,9 +98,9 @@ export class EmailService {
     <style>
         body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f5f5f5; }
         .container { max-width: 600px; margin: 0 auto; background: white; padding: 0; }
-        .header { background: #B67E5A; color: white; padding: 30px; text-align: center; }
+        .header { background: #B67E5A; color: white; padding: 40px 30px; text-align: center; overflow: visible; }
         .logo-link { display: inline-block; margin-bottom: 10px; }
-        .logo { max-width: 200px; width: 100%; height: auto; display: block; }
+        .logo { max-width: 180px; width: 180px; height: auto; display: inline-block; vertical-align: middle; }
         .brand { font-size: 32px; font-weight: bold; margin: 0; }
         .brand-dot { color: #D4A574; font-size: 48px; }
         .content { padding: 30px; }
