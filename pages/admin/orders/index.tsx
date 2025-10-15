@@ -15,7 +15,8 @@ import {
   Clock,
   Search,
   Filter,
-  Tag
+  Tag,
+  Mail
 } from "lucide-react"
 import { format } from "date-fns"
 import { apiRequest } from "@/lib/queryClient"
@@ -38,6 +39,7 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
+  const [sendingReceipt, setSendingReceipt] = useState<number | null>(null);
 
   useEffect(() => {
     fetchOrders();
@@ -55,6 +57,27 @@ export default function OrdersPage() {
       console.error('Failed to fetch orders:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSendReceipt = async (orderId: number, customerEmail: string) => {
+    setSendingReceipt(orderId);
+    try {
+      const response = await fetch(`/api/admin/orders/${orderId}/send-receipt`, {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        alert(`Receipt sent successfully to ${customerEmail}`);
+      } else {
+        const error = await response.json();
+        alert(`Failed to send receipt: ${error.message}`);
+      }
+    } catch (error) {
+      console.error('Error sending receipt:', error);
+      alert('Failed to send receipt. Please try again.');
+    } finally {
+      setSendingReceipt(null);
     }
   };
 
@@ -387,6 +410,34 @@ export default function OrdersPage() {
                                     <span className="font-bold text-forest text-sm">R{order.totalAmount.toLocaleString()}</span>
                                   </div>
                                 </div>
+                              </div>
+
+                              {/* Actions */}
+                              <div className="mt-3 flex gap-2">
+                                <Button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleSendReceipt(order.id, customerEmail);
+                                  }}
+                                  disabled={sendingReceipt === order.id}
+                                  className="bg-botanical hover:bg-botanical/90 text-white text-xs"
+                                  size="sm"
+                                >
+                                  {sendingReceipt === order.id ? (
+                                    <>
+                                      <svg className="animate-spin h-3 w-3 mr-1.5" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                      </svg>
+                                      Sending...
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Mail className="h-3 w-3 mr-1.5" />
+                                      Send Receipt
+                                    </>
+                                  )}
+                                </Button>
                               </div>
                             </div>
 
