@@ -99,8 +99,8 @@ export class EmailService {
         body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f5f5f5; }
         .container { max-width: 600px; margin: 0 auto; background: white; padding: 0; }
         .header { background: #B67E5A; color: white; padding: 30px; text-align: center; }
-        .logo-link { display: inline-block; }
-        .logo { max-width: 150px; height: auto; }
+        .logo-link { display: inline-block; margin-bottom: 10px; }
+        .logo { max-width: 200px; width: 100%; height: auto; display: block; }
         .brand { font-size: 32px; font-weight: bold; margin: 0; }
         .brand-dot { color: #D4A574; font-size: 48px; }
         .content { padding: 30px; }
