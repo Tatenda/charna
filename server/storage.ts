@@ -154,12 +154,25 @@ export class PrismaStorage implements IStorage {
   }
 
   async getProductsByCategory(category: string): Promise<Product[]> {
+    // First, find the category and its children
+    const targetCategory = await prisma.category.findUnique({
+      where: { slug: category },
+      include: { children: true }
+    });
+    
+    if (!targetCategory) {
+      return [];
+    }
+    
+    // Get all category IDs (parent + children)
+    const categoryIds = [targetCategory.id, ...targetCategory.children.map(c => c.id)];
+    
     const products = await prisma.product.findMany({
       where: {
         isActive: true,
         categories: { 
           some: { 
-            category: { slug: category } 
+            categoryId: { in: categoryIds }
           } 
         }
       },
@@ -174,7 +187,11 @@ export class PrismaStorage implements IStorage {
         },
         categories: {
           include: {
-            category: true
+            category: {
+              include: {
+                parent: true
+              }
+            }
           }
         },
         packageItems: {
