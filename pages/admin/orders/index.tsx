@@ -346,12 +346,47 @@ export default function OrdersPage() {
                                           </div>
                                         </td>
                                         <td className="p-2 text-center text-botanical/70">{item.quantity}</td>
-                                        <td className="p-2 text-right text-botanical/70">R{item.price}</td>
-                                        <td className="p-2 text-right font-medium text-forest">R{(item.price * item.quantity).toLocaleString()}</td>
+                                        <td className="p-2 text-right">
+                                          <div className="text-botanical/70">
+                                            R{item.price.toLocaleString()}
+                                            {item.customizations?.embossingPrice && (
+                                              <div className="text-xs text-amber-900 font-semibold">
+                                                + R{item.customizations.embossingPrice}
+                                              </div>
+                                            )}
+                                          </div>
+                                        </td>
+                                        <td className="p-2 text-right font-medium text-forest">
+                                          R{((item.price + (item.customizations?.embossingPrice || 0)) * item.quantity).toLocaleString()}
+                                        </td>
                                       </tr>
                                     ))}
                                   </tbody>
                                 </table>
+                              </div>
+
+                              {/* Order Summary */}
+                              <div className="mt-3 bg-white rounded border border-sage/10 p-3">
+                                <div className="space-y-1.5 text-xs">
+                                  {order.subtotal && (
+                                    <div className="flex justify-between">
+                                      <span className="text-botanical/70">Subtotal:</span>
+                                      <span className="font-medium text-forest">R{order.subtotal.toLocaleString()}</span>
+                                    </div>
+                                  )}
+                                  {order.discountAmount && order.discountAmount > 0 && (
+                                    <div className="flex justify-between text-green-600">
+                                      <span className="font-medium">
+                                        {order.promoCodeUsed ? `Discount (${order.promoCodeUsed}):` : 'Discount:'}
+                                      </span>
+                                      <span className="font-semibold">-R{order.discountAmount.toLocaleString()}</span>
+                                    </div>
+                                  )}
+                                  <div className="flex justify-between pt-1.5 border-t border-sage/20">
+                                    <span className="font-semibold text-forest">Total:</span>
+                                    <span className="font-bold text-forest text-sm">R{order.totalAmount.toLocaleString()}</span>
+                                  </div>
+                                </div>
                               </div>
                             </div>
 
