@@ -6,7 +6,7 @@ import { RangeProductsModal } from "./RangeProductsModal";
 
 const RangesSection = () => {
   const { section: rangesSection, loading } = useLandingPageSection('ranges');
-  const [selectedRange, setSelectedRange] = useState<{ category: string; name: string } | null>(null);
+  const [selectedRange, setSelectedRange] = useState<{ category: string; name: string; id: number } | null>(null);
 
   if (loading) {
     return (
@@ -59,7 +59,7 @@ const RangesSection = () => {
               <div 
                 key={range.id}
                 className="group cursor-pointer block"
-                onClick={() => setSelectedRange({ category, name: rangeName })}
+                onClick={() => setSelectedRange({ category, name: rangeName, id: range.id })}
               >
                 <div className="relative overflow-hidden rounded-xl mb-4">
                   {/* Main image */}
@@ -109,6 +109,7 @@ const RangesSection = () => {
             onClose={() => setSelectedRange(null)}
             category={selectedRange.category}
             rangeName={selectedRange.name}
+            rangeId={selectedRange.id}
           />
         )}
       </div>

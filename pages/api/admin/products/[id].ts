@@ -79,7 +79,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         featured,
         isPackage,
         isActive,
-        images
+        images,
+        rangeIds
       } = req.body
 
       // Validate required fields
@@ -114,6 +115,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           featured: featured || false,
           isPackage: isPackage || false,
           isActive: isActive !== false, // Default to true if not specified
+          rangeIds: rangeIds || [],
         },
         include: {
           variants: {

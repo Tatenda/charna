@@ -19,6 +19,7 @@ interface RangeProductsModalProps {
   onClose: () => void;
   category: string;
   rangeName: string;
+  rangeId: number;
 }
 
 interface VariantWithProduct {
@@ -34,7 +35,7 @@ interface VariantWithProduct {
   productDescription: string;
 }
 
-export const RangeProductsModal = ({ isOpen, onClose, category, rangeName }: RangeProductsModalProps) => {
+export const RangeProductsModal = ({ isOpen, onClose, category, rangeName, rangeId }: RangeProductsModalProps) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedVariants, setSelectedVariants] = useState<Record<number, number>>({});
@@ -46,19 +47,24 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName }: Ran
   const embossingPrice = 80; // R80.00 for embossing
 
   useEffect(() => {
-    if (isOpen && category) {
+    if (isOpen && rangeId) {
       fetchProducts();
     }
-  }, [isOpen, category]);
+  }, [isOpen, rangeId]);
 
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
-      // Fetch products by category (includes child categories automatically)
-      const response = await fetch(`/api/products/category/${category}`);
+      // Fetch all products
+      const response = await fetch('/api/products');
       if (!response.ok) throw new Error('Failed to fetch products');
       
-      const filteredProducts: Product[] = await response.json();
+      const allProducts: Product[] = await response.json();
+      
+      // Filter products that have this range assigned
+      const filteredProducts = allProducts.filter((product: any) => {
+        return product.rangeIds && Array.isArray(product.rangeIds) && product.rangeIds.includes(rangeId);
+      });
       
       setProducts(filteredProducts);
     } catch (error) {

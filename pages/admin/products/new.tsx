@@ -20,6 +20,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import CategorySelector from "@/components/admin/CategorySelector"
+import RangeSelector from "@/components/admin/RangeSelector"
 
 export default function NewProductPage() {
   const router = useRouter()
@@ -46,6 +47,9 @@ export default function NewProductPage() {
   // Category state
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([])
   const [primaryCategoryId, setPrimaryCategoryId] = useState<number | null>(null)
+  
+  // Range state
+  const [selectedRangeIds, setSelectedRangeIds] = useState<number[]>([])
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
@@ -103,6 +107,7 @@ export default function NewProductPage() {
           basePrice: parseInt(formData.basePrice), // Price in Rands
           rating: parseInt(formData.rating) * 10, // Convert to rating * 10 format
           reviewCount: parseInt(formData.reviewCount),
+          rangeIds: selectedRangeIds,
         }),
       })
 
@@ -377,6 +382,12 @@ export default function NewProductPage() {
                     />
                   </CardContent>
                 </Card>
+
+                {/* Range Assignment */}
+                <RangeSelector
+                  selectedRangeIds={selectedRangeIds}
+                  onChange={setSelectedRangeIds}
+                />
 
                 {/* Variant Creation Notice */}
                 <Card className="bg-gradient-to-br from-sage/10 to-mint/10 border-2 border-sage/20 shadow-lg">

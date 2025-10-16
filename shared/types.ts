@@ -22,6 +22,7 @@ export interface Product {
   featured: boolean;
   createdAt: Date;
   isPackage?: boolean;
+  rangeIds?: number[];
   packageItems?: Array<{
     id: number;
     variantId: number;

@@ -25,6 +25,7 @@ import { useRouter } from "next/router"
 import { useToast } from "@/hooks/use-toast"
 import VariantManagement from "@/components/admin/VariantManagement"
 import CategorySelector from "@/components/admin/CategorySelector"
+import RangeSelector from "@/components/admin/RangeSelector"
 
 interface Product {
   id: number
@@ -42,6 +43,7 @@ interface Product {
   featured: boolean
   isPackage: boolean
   isActive: boolean
+  rangeIds?: number[]
   createdAt: string
   updatedAt: string
   variants: Array<{
@@ -98,6 +100,11 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
   const [primaryCategoryId, setPrimaryCategoryId] = useState<number | null>(
     product.categories.find(c => c.isPrimary)?.category.id || null
   )
+  
+  // Range state
+  const [selectedRangeIds, setSelectedRangeIds] = useState<number[]>(
+    product.rangeIds || []
+  )
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
@@ -140,6 +147,7 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
         body: JSON.stringify({
           ...formData,
           basePrice: parseInt(formData.basePrice),
+          rangeIds: selectedRangeIds,
         }),
       })
 
@@ -443,6 +451,12 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
                     />
                   </CardContent>
                 </Card>
+
+                {/* Range Assignment */}
+                <RangeSelector
+                  selectedRangeIds={selectedRangeIds}
+                  onChange={setSelectedRangeIds}
+                />
 
                 {/* Variant Management */}
                 <VariantManagement

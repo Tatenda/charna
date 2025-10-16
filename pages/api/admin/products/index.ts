@@ -20,6 +20,7 @@ const createProductSchema = z.object({
   featured: z.boolean().default(false),
   isPackage: z.boolean().default(false),
   isActive: z.boolean().default(true),
+  rangeIds: z.array(z.number()).default([]),
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -156,6 +157,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           featured: validatedData.featured,
           isPackage: validatedData.isPackage,
           isActive: validatedData.isActive,
+          rangeIds: validatedData.rangeIds,
         },
         include: {
           _count: {

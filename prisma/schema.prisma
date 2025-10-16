@@ -50,6 +50,7 @@ model Product {
   featured         Boolean  @default(false)
   isPackage        Boolean  @default(false) @map("is_package")
   isActive         Boolean  @default(true) @map("is_active")
+  rangeIds         Int[]    @default([]) @map("range_ids") // Landing page range assignments
   createdAt        DateTime @default(now()) @map("created_at")
   updatedAt        DateTime @updatedAt @map("updated_at")
 

@@ -329,6 +329,7 @@ export class PrismaStorage implements IStorage {
       featured: product.featured,
       createdAt: product.createdAt,
       isPackage: product.isPackage,
+      rangeIds: product.rangeIds || [],
       packageItems: transformedPackageItems,
       categories: transformedCategories,
       variants: transformedVariants
