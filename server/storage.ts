@@ -192,6 +192,9 @@ export class PrismaStorage implements IStorage {
                 parent: true
               }
             }
+          },
+          orderBy: {
+            displayOrder: 'asc'
           }
         },
         packageItems: {
@@ -214,7 +217,16 @@ export class PrismaStorage implements IStorage {
       }
     })
     
-    return products.map(product => this.transformProduct(product))
+    // Sort products by their displayOrder in the target category
+    const sortedProducts = products.sort((a, b) => {
+      const aCategoryRel = a.categories.find(c => categoryIds.includes(c.categoryId));
+      const bCategoryRel = b.categories.find(c => categoryIds.includes(c.categoryId));
+      const aOrder = aCategoryRel?.displayOrder ?? 999999;
+      const bOrder = bCategoryRel?.displayOrder ?? 999999;
+      return aOrder - bOrder;
+    });
+    
+    return sortedProducts.map(product => this.transformProduct(product))
   }
 
   // Orders

@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'PUT') {
     try {
-      const { categoryIds, primaryCategoryId } = req.body
+      const { categoryIds, primaryCategoryId, categoryOrders = {} } = req.body
 
       if (!categoryIds || !Array.isArray(categoryIds) || categoryIds.length === 0) {
         return res.status(400).json({ error: 'At least one category must be selected' })
@@ -52,7 +52,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         data: categoryIds.map((categoryId: number) => ({
           productId,
           categoryId,
-          isPrimary: categoryId === primaryCategoryId
+          isPrimary: categoryId === primaryCategoryId,
+          displayOrder: categoryOrders[categoryId] ?? 0
         }))
       })
 

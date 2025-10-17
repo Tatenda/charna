@@ -103,16 +103,18 @@ model VariantAttribute {
 
 // Product-Category Relationships (Many-to-Many)
 model ProductCategory {
-  id         Int     @id @default(autoincrement())
-  productId  Int     @map("product_id")
-  categoryId Int     @map("category_id")
-  isPrimary  Boolean @default(false) @map("is_primary")
+  id           Int     @id @default(autoincrement())
+  productId    Int     @map("product_id")
+  categoryId   Int     @map("category_id")
+  isPrimary    Boolean @default(false) @map("is_primary")
+  displayOrder Int     @default(0) @map("display_order") // Order within category (lower = appears first)
 
   // Relationships
   product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([productId, categoryId])
+  @@index([categoryId, displayOrder])
   @@map("product_categories")
 }
 

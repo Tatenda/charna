@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { 
   ArrowLeft,
   Save,
@@ -17,7 +18,10 @@ import {
   Package,
   Star,
   Tag,
-  Wrench
+  Wrench,
+  Info,
+  FolderTree,
+  Grid3X3
 } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
@@ -66,6 +70,7 @@ interface Product {
       slug: string
     }
     isPrimary: boolean
+    displayOrder: number
   }>
 }
 
@@ -99,6 +104,12 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
   )
   const [primaryCategoryId, setPrimaryCategoryId] = useState<number | null>(
     product.categories.find(c => c.isPrimary)?.category.id || null
+  )
+  const [categoryOrders, setCategoryOrders] = useState<Record<number, number>>(
+    product.categories.reduce((acc, c) => {
+      acc[c.category.id] = c.displayOrder
+      return acc
+    }, {} as Record<number, number>)
   )
   
   // Range state
@@ -164,6 +175,7 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
         body: JSON.stringify({
           categoryIds: selectedCategoryIds,
           primaryCategoryId: primaryCategoryId,
+          categoryOrders: categoryOrders,
         }),
       })
 
@@ -190,9 +202,12 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
     }
   }
 
-  const handleCategoriesChange = (categoryIds: number[], primaryId: number | null) => {
+  const handleCategoriesChange = (categoryIds: number[], primaryId: number | null, orders?: Record<number, number>) => {
     setSelectedCategoryIds(categoryIds)
     setPrimaryCategoryId(primaryId)
+    if (orders) {
+      setCategoryOrders(orders)
+    }
   }
 
   const handleDelete = async () => {
@@ -268,10 +283,28 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Main Form */}
-              <div className="lg:col-span-2 space-y-6">
-                {/* Basic Information */}
-                <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
+              {/* Main Form with Tabs */}
+              <div className="lg:col-span-2">
+                <Tabs defaultValue="details" className="space-y-6">
+                  <TabsList className="grid w-full grid-cols-3 bg-sage/10">
+                    <TabsTrigger value="details" className="data-[state=active]:bg-white data-[state=active]:text-botanical">
+                      <Info className="h-4 w-4 mr-2" />
+                      Details
+                    </TabsTrigger>
+                    <TabsTrigger value="categories" className="data-[state=active]:bg-white data-[state=active]:text-botanical">
+                      <FolderTree className="h-4 w-4 mr-2" />
+                      Categories
+                    </TabsTrigger>
+                    <TabsTrigger value="variants" className="data-[state=active]:bg-white data-[state=active]:text-botanical">
+                      <Grid3X3 className="h-4 w-4 mr-2" />
+                      Variants
+                    </TabsTrigger>
+                  </TabsList>
+
+                  {/* Details Tab */}
+                  <TabsContent value="details" className="space-y-6">
+                    {/* Basic Information */}
+                    <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
                   <CardHeader>
                     <CardTitle className="text-xl font-heading text-forest flex items-center gap-2">
                       <Package className="h-5 w-5 text-botanical" />
@@ -431,38 +464,46 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
                     </div>
                   </CardContent>
                 </Card>
+                  </TabsContent>
 
-                {/* Categories */}
-                <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="text-xl font-heading text-forest flex items-center gap-2">
-                      <Tag className="h-5 w-5 text-botanical" />
-                      Categories
-                    </CardTitle>
-                    <CardDescription>
-                      Assign this product to one or more categories
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <CategorySelector
-                      selectedCategoryIds={selectedCategoryIds}
-                      primaryCategoryId={primaryCategoryId}
-                      onCategoriesChange={handleCategoriesChange}
+                  {/* Categories & Ranges Tab */}
+                  <TabsContent value="categories" className="space-y-6">
+                    {/* Categories */}
+                    <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
+                      <CardHeader>
+                        <CardTitle className="text-xl font-heading text-forest flex items-center gap-2">
+                          <Tag className="h-5 w-5 text-botanical" />
+                          Categories
+                        </CardTitle>
+                        <CardDescription>
+                          Assign this product to one or more categories (order managed per category)
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <CategorySelector
+                          selectedCategoryIds={selectedCategoryIds}
+                          primaryCategoryId={primaryCategoryId}
+                          categoryOrders={categoryOrders}
+                          onCategoriesChange={handleCategoriesChange}
+                        />
+                      </CardContent>
+                    </Card>
+
+                    {/* Range Assignment */}
+                    <RangeSelector
+                      selectedRangeIds={selectedRangeIds}
+                      onChange={setSelectedRangeIds}
                     />
-                  </CardContent>
-                </Card>
+                  </TabsContent>
 
-                {/* Range Assignment */}
-                <RangeSelector
-                  selectedRangeIds={selectedRangeIds}
-                  onChange={setSelectedRangeIds}
-                />
-
-                {/* Variant Management */}
-                <VariantManagement
-                  productId={product.id}
-                  productName={product.name}
-                />
+                  {/* Variants Tab */}
+                  <TabsContent value="variants">
+                    <VariantManagement
+                      productId={product.id}
+                      productName={product.name}
+                    />
+                  </TabsContent>
+                </Tabs>
               </div>
 
               {/* Sidebar */}

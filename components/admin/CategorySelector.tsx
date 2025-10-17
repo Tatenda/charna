@@ -20,17 +20,20 @@ interface Category {
 interface CategorySelectorProps {
   selectedCategoryIds: number[]
   primaryCategoryId: number | null
-  onCategoriesChange: (categoryIds: number[], primaryId: number | null) => void
+  categoryOrders?: Record<number, number> // categoryId -> displayOrder
+  onCategoriesChange: (categoryIds: number[], primaryId: number | null, orders?: Record<number, number>) => void
 }
 
 export default function CategorySelector({
   selectedCategoryIds,
   primaryCategoryId,
+  categoryOrders = {},
   onCategoriesChange,
 }: CategorySelectorProps) {
   const [categories, setCategories] = useState<Category[]>([])
   const [expandedCategories, setExpandedCategories] = useState<Set<number>>(new Set())
   const [loading, setLoading] = useState(true)
+  const [orders, setOrders] = useState<Record<number, number>>(categoryOrders)
 
   useEffect(() => {
     fetchCategories()
@@ -63,10 +66,12 @@ export default function CategorySelector({
 
   const handleCategoryToggle = (categoryId: number) => {
     let newSelectedIds: number[]
+    let newOrders = { ...orders }
     
     if (selectedCategoryIds.includes(categoryId)) {
       // Removing a category
       newSelectedIds = selectedCategoryIds.filter(id => id !== categoryId)
+      delete newOrders[categoryId]
       
       // If it was the primary, clear primary or set to first remaining
       let newPrimaryId = primaryCategoryId
@@ -74,20 +79,29 @@ export default function CategorySelector({
         newPrimaryId = newSelectedIds.length > 0 ? newSelectedIds[0] : null
       }
       
-      onCategoriesChange(newSelectedIds, newPrimaryId)
+      setOrders(newOrders)
+      onCategoriesChange(newSelectedIds, newPrimaryId, newOrders)
     } else {
       // Adding a category
       newSelectedIds = [...selectedCategoryIds, categoryId]
+      newOrders[categoryId] = Object.keys(newOrders).length // Auto-assign next order number
       
       // If this is the first category, make it primary
       const newPrimaryId = selectedCategoryIds.length === 0 ? categoryId : primaryCategoryId
       
-      onCategoriesChange(newSelectedIds, newPrimaryId)
+      setOrders(newOrders)
+      onCategoriesChange(newSelectedIds, newPrimaryId, newOrders)
     }
   }
 
   const handlePrimaryChange = (categoryId: number) => {
-    onCategoriesChange(selectedCategoryIds, categoryId)
+    onCategoriesChange(selectedCategoryIds, categoryId, orders)
+  }
+  
+  const handleOrderChange = (categoryId: number, order: number) => {
+    const newOrders = { ...orders, [categoryId]: order }
+    setOrders(newOrders)
+    onCategoriesChange(selectedCategoryIds, primaryCategoryId, newOrders)
   }
 
   const toggleExpand = (categoryId: number) => {
@@ -241,14 +255,14 @@ export default function CategorySelector({
                   }
                 >
                   {category.displayName}
-                  {id === primaryCategoryId && " (Primary)"}
+                  {id === primaryCategoryId && " ⭐"}
                 </Badge>
               )
             })}
           </div>
           <p className="text-xs text-botanical/70 mt-2">
             {primaryCategoryId
-              ? "The primary category is used for main navigation and filtering."
+              ? "⭐ Primary category is used for main navigation. Product display order is managed from the category edit page."
               : "Select at least one category and mark one as primary."}
           </p>
         </div>

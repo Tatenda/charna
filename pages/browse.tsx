@@ -86,46 +86,66 @@ const useImageCycling = (images: string[], hasImages: boolean) => {
   };
 };
 
-const categoryTabs = [
-  { id: 'work', label: 'Work' },
-  { id: 'leisure', label: 'Leisure' },
-  { id: 'sport', label: 'Sport' },
-  { id: 'travel', label: 'Travel' },
-  { id: 'accessories', label: 'Accessories' },
-  { id: 'gifting', label: 'Gifting' },
-  { id: 'onboarding', label: 'Onboarding' }
-];
-
-const browseCategories = [
-  'Work',
-  'Leisure',
-  'Sport',
-  'Travel',
-  'Accessories',
-  'Onboarding',
-  'Gifting'
-];
-
-// Map hero categories to actual product categories
-const categoryMapping: Record<string, string> = {
-  'work': 'business',
-  'sport': 'tennis', 
-  'leisure': 'leisure',
-  'travel': 'travel',
-  'accessories': 'accessories',
-  'onboarding': 'onboarding',
-  'gifting': 'gifting'
-};
+// Interface for database categories
+interface CategoryNode {
+  id: number;
+  name: string;
+  slug: string;
+  displayName: string;
+  description: string | null;
+  icon: string | null;
+  image: string | null;
+  parentId: number | null;
+  sortOrder: number;
+  productCount: number;
+  children: Array<{
+    id: number;
+    name: string;
+    slug: string;
+    displayName: string;
+    description: string | null;
+    icon: string | null;
+    parentId: number | null;
+    sortOrder: number;
+  }>;
+}
 
 export default function Browse() {
   const router = useRouter();
   const [priceRange, setPriceRange] = useState([0, 6000]);
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+  
+  // Database-driven categories
+  const [categories, setCategories] = useState<CategoryNode[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [expandedCategories, setExpandedCategories] = useState<Set<number>>(new Set());
 
   // State that tracks current category from URL
-  const [selectedCategory, setSelectedCategory] = useState(() => {
-    return (router.query.category as string) || 'work';
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(() => {
+    return (router.query.category as string) || null;
   });
+  
+  // Fetch categories from database
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('/api/categories/public');
+        if (response.ok) {
+          const data = await response.json();
+          setCategories(data);
+          // Auto-select first category if none selected
+          if (!selectedCategory && data.length > 0) {
+            setSelectedCategory(data[0].slug);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
   
   // Update category when router query changes
   useEffect(() => {
@@ -388,10 +408,17 @@ export default function Browse() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Fetch products by selected category
   useEffect(() => {
     const fetchProducts = async () => {
+      if (!selectedCategory) {
+        setIsLoading(false);
+        return;
+      }
+      
+      setIsLoading(true);
       try {
-        const response = await fetch('/api/products');
+        const response = await fetch(`/api/products/category/${selectedCategory}`);
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
@@ -399,30 +426,23 @@ export default function Browse() {
         setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
+        setProducts([]);
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchProducts();
-  }, []);
+  }, [selectedCategory]);
 
-  // Filter products and then extract their variants
+  // Filter products by price (category filtering now done by API)
   const filteredVariants = useMemo(() => {
     if (!products.length) return [];
     
-    const urlCategory = router.query.category as string || selectedCategory;
-    const targetCategory = categoryMapping[urlCategory] || urlCategory;
-    
-    // First filter products by category and price
+    // Filter by price only (category already filtered by API)
     const filteredProducts = products.filter((product) => {
-      // Check both primary category and categories array
-      const matchesCategory = product.category === targetCategory || 
-        (product.categories && product.categories.some((cat: { slug: string }) => cat.slug === targetCategory));
-    const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
-      
-    return matchesCategory && matchesPrice;
-  });
+      return product.price >= priceRange[0] && product.price <= priceRange[1];
+    });
     
     // Then extract all variants from filtered products
     const variants = [];
@@ -483,7 +503,7 @@ export default function Browse() {
     }
     
     return variants;
-  }, [products, router.query.category, selectedCategory, priceRange]);
+  }, [products, priceRange]);
 
 
   const handleCategoryChange = (categoryId: string) => {
@@ -720,28 +740,87 @@ export default function Browse() {
             <h3 className="text-xl font-bold mb-6 text-white border-b border-white/30 pb-3">
               Browse by
             </h3>
-            <div className="space-y-3">
-              {browseCategories.map((category) => {
-                const categoryId = category.toLowerCase();
-                const isActive = selectedCategory === categoryId;
-                
-                return (
-                  <button
-                    key={category}
-                    onClick={() => {
-                      handleCategoryChange(categoryId);
-                    }}
-                    className={`block w-full text-left py-2 px-3 rounded transition-colors ${
-                      isActive
-                        ? 'bg-botanical text-white font-medium'
-                        : 'text-white/80 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    {category}
-                  </button>
-                );
-              })}
-            </div>
+            {categoriesLoading ? (
+              <div className="text-center py-4">
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mx-auto"></div>
+                <p className="text-white/60 text-sm mt-2">Loading categories...</p>
+              </div>
+            ) : (
+              <div className="space-y-1">
+                {categories.map((category) => {
+                  const isActive = selectedCategory === category.slug;
+                  const isExpanded = expandedCategories.has(category.id);
+                  const hasChildren = category.children.length > 0;
+                  
+                  return (
+                    <div key={category.id}>
+                      {/* Parent Category */}
+                      <div className="flex items-center gap-1">
+                        {hasChildren && (
+                          <button
+                            onClick={() => {
+                              const newExpanded = new Set(expandedCategories);
+                              if (isExpanded) {
+                                newExpanded.delete(category.id);
+                              } else {
+                                newExpanded.add(category.id);
+                              }
+                              setExpandedCategories(newExpanded);
+                            }}
+                            className="p-1 hover:bg-white/10 rounded text-white/60 hover:text-white transition-colors"
+                          >
+                            <svg className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        )}
+                        <button
+                          onClick={() => {
+                            handleCategoryChange(category.slug);
+                          }}
+                          className={`flex-1 text-left py-2 px-3 rounded transition-colors ${
+                            isActive
+                              ? 'bg-botanical text-white font-medium'
+                              : 'text-white/80 hover:text-white hover:bg-white/10'
+                          } ${!hasChildren ? 'ml-5' : ''}`}
+                        >
+                          <span className="flex items-center justify-between">
+                            <span>{category.displayName}</span>
+                            {category.productCount > 0 && (
+                              <span className="text-xs text-white/50">({category.productCount})</span>
+                            )}
+                          </span>
+                        </button>
+                      </div>
+                      
+                      {/* Child Categories */}
+                      {hasChildren && isExpanded && (
+                        <div className="ml-6 mt-1 space-y-1">
+                          {category.children.map((child) => {
+                            const isChildActive = selectedCategory === child.slug;
+                            return (
+                              <button
+                                key={child.id}
+                                onClick={() => {
+                                  handleCategoryChange(child.slug);
+                                }}
+                                className={`block w-full text-left py-2 px-3 rounded text-sm transition-colors ${
+                                  isChildActive
+                                    ? 'bg-botanical/80 text-white font-medium'
+                                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                                }`}
+                              >
+                                {child.displayName}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Filter by Section */}

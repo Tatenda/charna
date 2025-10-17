@@ -9,12 +9,16 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import ProductOrderingManager from "@/components/admin/ProductOrderingManager"
 import { 
   ArrowLeft, 
   Save, 
   FolderTree,
   Eye,
-  Package
+  Package,
+  Settings,
+  ArrowUpDown
 } from "lucide-react"
 import Link from "next/link"
 
@@ -225,10 +229,24 @@ export default function EditCategoryPage() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Main Form */}
-              <div className="lg:col-span-2 space-y-6">
+          <Tabs defaultValue="settings" className="space-y-6">
+            <TabsList className="grid w-full max-w-md grid-cols-2 bg-sage/10">
+              <TabsTrigger value="settings" className="data-[state=active]:bg-white data-[state=active]:text-botanical">
+                <Settings className="h-4 w-4 mr-2" />
+                Settings
+              </TabsTrigger>
+              <TabsTrigger value="products" className="data-[state=active]:bg-white data-[state=active]:text-botanical">
+                <ArrowUpDown className="h-4 w-4 mr-2" />
+                Product Order
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Settings Tab */}
+            <TabsContent value="settings">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* Main Form */}
+                  <div className="lg:col-span-2 space-y-6">
                 {/* Basic Information */}
                 <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
                   <CardHeader>
@@ -374,128 +392,112 @@ export default function EditCategoryPage() {
                   </CardContent>
                 </Card>
 
-                {/* Products in Category */}
-                {category.products && category.products.length > 0 && (
-                  <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
-                    <CardHeader>
-                      <CardTitle className="text-xl font-heading text-forest flex items-center">
-                        <Package className="h-5 w-5 mr-2 text-botanical" />
-                        Products in Category
-                      </CardTitle>
-                      <CardDescription className="text-botanical/80">
-                        {category.products.length} product(s) assigned to this category
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        {category.products.slice(0, 5).map(pc => (
-                          <div key={pc.product.id} className="flex items-center gap-2 text-sm">
-                            <Package className="h-4 w-4 text-botanical/50" />
-                            <span className="text-forest">{pc.product.name}</span>
-                            {pc.isPrimary && (
-                              <span className="text-xs text-botanical/70">(Primary)</span>
-                            )}
+                  </div>
+
+                  {/* Sidebar */}
+                  <div className="space-y-6">
+                    {/* Status & Settings */}
+                    <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
+                      <CardHeader>
+                        <CardTitle className="text-lg font-heading text-forest">Status</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <Eye className="h-4 w-4 text-botanical" />
+                            <Label htmlFor="isActive" className="text-sm font-medium text-forest">Active</Label>
                           </div>
-                        ))}
-                        {category.products.length > 5 && (
-                          <p className="text-xs text-botanical/70 mt-2">
-                            ...and {category.products.length - 5} more
-                          </p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-
-              {/* Sidebar */}
-              <div className="space-y-6">
-                {/* Status & Settings */}
-                <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="text-lg font-heading text-forest">Status</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <Eye className="h-4 w-4 text-botanical" />
-                        <Label htmlFor="isActive" className="text-sm font-medium text-forest">Active</Label>
-                      </div>
-                      <Switch
-                        id="isActive"
-                        checked={formData.isActive}
-                        onCheckedChange={(checked) => handleInputChange("isActive", checked)}
-                      />
-                    </div>
-                    <p className="text-xs text-botanical/70">
-                      Inactive categories are hidden from customers
-                    </p>
-                  </CardContent>
-                </Card>
-
-                {/* Preview */}
-                <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="text-lg font-heading text-forest">Preview</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="text-sm">
-                      <span className="text-botanical/70">Display Name:</span>
-                      <p className="font-medium text-forest">{formData.displayName || "Category name..."}</p>
-                    </div>
-                    <div className="text-sm">
-                      <span className="text-botanical/70">Slug:</span>
-                      <p className="font-mono text-xs text-forest">{formData.slug || "category-slug..."}</p>
-                    </div>
-                    {formData.parentId && (
-                      <div className="text-sm">
-                        <span className="text-botanical/70">Parent:</span>
-                        <p className="font-medium text-forest">
-                          {categories.find(c => c.id.toString() === formData.parentId)?.displayName || "None"}
+                          <Switch
+                            id="isActive"
+                            checked={formData.isActive}
+                            onCheckedChange={(checked) => handleInputChange("isActive", checked)}
+                          />
+                        </div>
+                        <p className="text-xs text-botanical/70">
+                          Inactive categories are hidden from customers
                         </p>
-                      </div>
-                    )}
-                    {category.children && category.children.length > 0 && (
-                      <div className="text-sm">
-                        <span className="text-botanical/70">Subcategories:</span>
-                        <p className="font-medium text-forest">{category.children.length}</p>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
+                      </CardContent>
+                    </Card>
 
-                {/* Actions */}
-                <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
-                  <CardContent className="p-6">
-                    <div className="space-y-3">
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full bg-gradient-to-r from-botanical to-sage hover:from-botanical/90 hover:to-sage/90 text-white font-heading font-medium"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                            Updating...
-                          </>
-                        ) : (
-                          <>
-                            <Save className="h-4 w-4 mr-2" />
-                            Update Category
-                          </>
+                    {/* Preview */}
+                    <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
+                      <CardHeader>
+                        <CardTitle className="text-lg font-heading text-forest">Preview</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <div className="text-sm">
+                          <span className="text-botanical/70">Display Name:</span>
+                          <p className="font-medium text-forest">{formData.displayName || "Category name..."}</p>
+                        </div>
+                        <div className="text-sm">
+                          <span className="text-botanical/70">Slug:</span>
+                          <p className="font-mono text-xs text-forest">{formData.slug || "category-slug..."}</p>
+                        </div>
+                        {formData.parentId && (
+                          <div className="text-sm">
+                            <span className="text-botanical/70">Parent:</span>
+                            <p className="font-medium text-forest">
+                              {categories.find(c => c.id.toString() === formData.parentId)?.displayName || "None"}
+                            </p>
+                          </div>
                         )}
-                      </Button>
-                      <Link href="/admin/categories" className="block">
-                        <Button variant="outline" className="w-full border-sage/30 text-botanical hover:bg-sage/10">
-                          Cancel
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </form>
+                        {category.children && category.children.length > 0 && (
+                          <div className="text-sm">
+                            <span className="text-botanical/70">Subcategories:</span>
+                            <p className="font-medium text-forest">{category.children.length}</p>
+                          </div>
+                        )}
+                        {category.products && (
+                          <div className="text-sm">
+                            <span className="text-botanical/70">Products:</span>
+                            <p className="font-medium text-forest">{category.products.length}</p>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+
+                    {/* Actions */}
+                    <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
+                      <CardContent className="p-6">
+                        <div className="space-y-3">
+                          <Button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="w-full bg-gradient-to-r from-botanical to-sage hover:from-botanical/90 hover:to-sage/90 text-white font-heading font-medium"
+                          >
+                            {isSubmitting ? (
+                              <>
+                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                Updating...
+                              </>
+                            ) : (
+                              <>
+                                <Save className="h-4 w-4 mr-2" />
+                                Update Category
+                              </>
+                            )}
+                          </Button>
+                          <Link href="/admin/categories" className="block">
+                            <Button variant="outline" className="w-full border-sage/30 text-botanical hover:bg-sage/10">
+                              Cancel
+                            </Button>
+                          </Link>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </form>
+            </TabsContent>
+
+            {/* Product Order Tab */}
+            <TabsContent value="products">
+              <ProductOrderingManager
+                categoryId={category.id}
+                categoryName={formData.displayName || category.displayName}
+              />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </AdminLayout>

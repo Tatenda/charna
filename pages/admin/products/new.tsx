@@ -47,6 +47,7 @@ export default function NewProductPage() {
   // Category state
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([])
   const [primaryCategoryId, setPrimaryCategoryId] = useState<number | null>(null)
+  const [categoryOrders, setCategoryOrders] = useState<Record<number, number>>({})
   
   // Range state
   const [selectedRangeIds, setSelectedRangeIds] = useState<number[]>([])
@@ -123,6 +124,7 @@ export default function NewProductPage() {
           body: JSON.stringify({
             categoryIds: selectedCategoryIds,
             primaryCategoryId: primaryCategoryId,
+            categoryOrders: categoryOrders,
           }),
         })
 
@@ -159,9 +161,12 @@ export default function NewProductPage() {
     }
   }
 
-  const handleCategoriesChange = (categoryIds: number[], primaryId: number | null) => {
+  const handleCategoriesChange = (categoryIds: number[], primaryId: number | null, orders?: Record<number, number>) => {
     setSelectedCategoryIds(categoryIds)
     setPrimaryCategoryId(primaryId)
+    if (orders) {
+      setCategoryOrders(orders)
+    }
   }
 
   return (
@@ -378,6 +383,7 @@ export default function NewProductPage() {
                     <CategorySelector
                       selectedCategoryIds={selectedCategoryIds}
                       primaryCategoryId={primaryCategoryId}
+                      categoryOrders={categoryOrders}
                       onCategoriesChange={handleCategoriesChange}
                     />
                   </CardContent>
