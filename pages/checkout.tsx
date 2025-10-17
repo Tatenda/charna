@@ -35,9 +35,28 @@ const formSchema = z.object({
   postalCode: z.string().min(4, { message: "Postal code is required" }),
   notes: z.string().optional(),
   sameAsBilling: z.boolean().default(true),
+  // Billing address fields (required when sameAsBilling is false)
+  billingAddress: z.string().optional(),
+  billingCity: z.string().optional(),
+  billingProvince: z.string().optional(),
+  billingPostalCode: z.string().optional(),
   acceptTerms: z.boolean().refine(val => val === true, {
     message: "You must accept the terms and conditions"
   }),
+}).refine((data) => {
+  // If billing is different, require billing fields
+  if (!data.sameAsBilling) {
+    return (
+      data.billingAddress && data.billingAddress.length >= 5 &&
+      data.billingCity && data.billingCity.length >= 2 &&
+      data.billingProvince && data.billingProvince.length >= 2 &&
+      data.billingPostalCode && data.billingPostalCode.length >= 4
+    );
+  }
+  return true;
+}, {
+  message: "All billing address fields are required when billing address is different",
+  path: ["billingAddress"]
 });
 
 type CheckoutFormValues = z.infer<typeof formSchema>;
@@ -71,6 +90,10 @@ const Checkout = () => {
       postalCode: "",
       notes: "",
       sameAsBilling: true,
+      billingAddress: "",
+      billingCity: "",
+      billingProvince: "",
+      billingPostalCode: "",
       acceptTerms: false,
     },
   });
@@ -352,12 +375,80 @@ const Checkout = () => {
                             />
                           </FormControl>
                           <div className="space-y-1 leading-none">
-                            <FormLabel>Billing address same as shipping</FormLabel>
+                            <FormLabel>Billing address is the same as shipping address</FormLabel>
                           </div>
                         </FormItem>
                       )}
                     />
-                    
+                  </div>
+
+                  {/* Billing Address Section - Show when different from shipping */}
+                  {!form.watch("sameAsBilling") && (
+                    <div className="space-y-4 pt-4 mt-4 border-t border-sage/20">
+                      <h2 className="font-heading text-xl font-semibold">Billing Address</h2>
+                      <Separator className="my-4" />
+                      
+                      <FormField
+                        control={form.control}
+                        name="billingAddress"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Billing Address *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="123 Main Street" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="billingCity"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>City *</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Cape Town" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="billingProvince"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Province *</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Western Cape" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="billingPostalCode"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Postal Code *</FormLabel>
+                              <FormControl>
+                                <Input placeholder="8001" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="space-y-3 pt-4">
                     <FormField
                       control={form.control}
                       name="acceptTerms"
