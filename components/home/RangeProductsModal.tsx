@@ -222,17 +222,17 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName, range
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh]">
+      <DialogContent className="max-w-4xl max-h-[95vh] w-[95vw] sm:w-full p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-georgia-bold text-botanical">
+          <DialogTitle className="text-xl sm:text-2xl font-georgia-bold text-botanical">
             {rangeName}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-sm">
             Select variants to add to your cart
           </DialogDescription>
         </DialogHeader>
 
-        <ScrollArea className="h-[60vh] pr-4">
+        <ScrollArea className="h-[55vh] sm:h-[60vh] pr-2 sm:pr-4">
           {isLoading ? (
             <div className="space-y-4">
               {Array.from({ length: 3 }).map((_, i) => (
@@ -260,20 +260,20 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName, range
                 return (
                   <div
                     key={variant.id}
-                    className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                    className="border rounded-lg p-3 sm:p-4 hover:shadow-md transition-shadow"
                   >
-                    <div className="flex gap-4">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                       {/* Product Image */}
-                      <div className="flex-shrink-0">
+                      <div className="flex-shrink-0 mx-auto sm:mx-0">
                         <img
                           src={getImagePath(mainImage)}
                           alt={variant.name}
-                          className="w-24 h-24 object-cover rounded"
+                          className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded"
                         />
                       </div>
 
                       {/* Product Info */}
-                      <div className="flex-1">
+                      <div className="flex-1 text-center sm:text-left">
                         <h3 className="font-semibold text-lg text-botanical">
                           {variant.productName}
                         </h3>
@@ -354,8 +354,8 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName, range
                       </div>
 
                       {/* Quantity Controls */}
-                      <div className="flex flex-col items-end justify-between">
-                        <div className="flex items-center gap-2">
+                      <div className="flex flex-col sm:items-end justify-between w-full sm:w-auto mt-3 sm:mt-0">
+                        <div className="flex items-center gap-2 justify-center sm:justify-end mb-3 sm:mb-0">
                           <Button
                             variant="outline"
                             size="icon"
@@ -388,7 +388,7 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName, range
                             quantity === 0 || 
                             (embossingEnabled[variant.id] && !embossingText[variant.id]?.trim())
                           }
-                          className="bg-botanical hover:bg-botanical/90 text-white mt-2"
+                          className="bg-botanical hover:bg-botanical/90 text-white w-full sm:w-auto"
                           size="sm"
                         >
                           <ShoppingCart className="h-4 w-4 mr-2" />
@@ -405,13 +405,13 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName, range
 
         {/* Footer with Add All button */}
         {totalSelectedItems > 0 && (
-          <div className="border-t pt-4 flex items-center justify-between">
-            <div className="text-sm text-gray-600">
+          <div className="border-t pt-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="text-sm text-gray-600 text-center sm:text-left">
               {totalSelectedItems} item{totalSelectedItems > 1 ? 's' : ''} selected
             </div>
             <Button
               onClick={handleAddAllToCart}
-              className="bg-botanical hover:bg-botanical/90 text-white"
+              className="bg-botanical hover:bg-botanical/90 text-white w-full sm:w-auto"
             >
               <ShoppingCart className="h-4 w-4 mr-2" />
               Add All to Cart ({totalSelectedItems})
