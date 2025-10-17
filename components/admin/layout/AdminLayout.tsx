@@ -20,9 +20,12 @@ import {
   User,
   FolderTree,
   Tag,
-  Image
+  Image,
+  ChevronRight,
+  Bell
 } from "lucide-react"
 import Link from "next/link"
+import { Badge } from "@/components/ui/badge"
 
 interface AdminLayoutProps {
   children: ReactNode
@@ -100,42 +103,102 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
       {/* Main content */}
       <div className="pl-64">
-        {/* Header */}
-        <header className="bg-white/80 backdrop-blur-sm shadow-lg border-b-2 border-sage/20">
-          <div className="flex h-16 items-center justify-between px-6">
-            <div>
-              <h2 className="text-lg font-heading font-semibold text-forest">
-                {navigation.find(item => router.pathname.startsWith(item.href))?.name || "Dashboard"}
-              </h2>
+        {/* Redesigned Header */}
+        <header className="sticky top-0 z-40 bg-gradient-to-r from-white via-white to-sage/5 backdrop-blur-sm shadow-lg border-b-2 border-sage/20">
+          <div className="px-6 py-4">
+            {/* Top row: Breadcrumbs and Actions */}
+            <div className="flex items-center justify-between mb-3">
+              {/* Breadcrumb Navigation */}
+              <div className="flex items-center space-x-2 text-sm">
+                <Link href="/admin" className="text-botanical/60 hover:text-botanical transition-colors">
+                  Admin
+                </Link>
+                {router.pathname !== "/admin" && (
+                  <>
+                    <ChevronRight className="h-4 w-4 text-sage/40" />
+                    <span className="text-forest font-medium">
+                      {navigation.find(item => router.pathname.startsWith(item.href))?.name || "Page"}
+                    </span>
+                  </>
+                )}
+              </div>
+
+              {/* Quick Actions */}
+              <div className="flex items-center space-x-3">
+                {/* Notifications */}
+                <Button variant="ghost" size="sm" className="relative hover:bg-sage/10">
+                  <Bell className="h-5 w-5 text-botanical" />
+                  {/* Notification badge - example */}
+                  {false && (
+                    <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-terracotta text-white text-xs flex items-center justify-center">
+                      3
+                    </span>
+                  )}
+                </Button>
+
+                {/* User Menu */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="flex items-center gap-2 hover:bg-sage/10 px-3">
+                      <Avatar className="h-8 w-8 border-2 border-sage/30">
+                        <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
+                        <AvatarFallback className="bg-botanical/10 text-botanical">
+                          <User className="h-4 w-4" />
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="text-left hidden sm:block">
+                        <p className="text-sm font-medium text-forest leading-none mb-1">
+                          {session?.user?.name?.split(' ')[0] || 'Admin'}
+                        </p>
+                        <p className="text-xs text-botanical/60">Administrator</p>
+                      </div>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <div className="flex items-center justify-start gap-2 p-2">
+                      <div className="flex flex-col space-y-1 leading-none">
+                        <p className="font-medium">{session?.user?.name}</p>
+                        <p className="w-[200px] truncate text-sm text-muted-foreground">
+                          {session?.user?.email}
+                        </p>
+                      </div>
+                    </div>
+                    <DropdownMenuItem onClick={handleSignOut}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
-            
-            <div className="flex items-center space-x-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
-                      <AvatarFallback>
-                        <User className="h-4 w-4" />
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <div className="flex items-center justify-start gap-2 p-2">
-                    <div className="flex flex-col space-y-1 leading-none">
-                      <p className="font-medium">{session?.user?.name}</p>
-                      <p className="w-[200px] truncate text-sm text-muted-foreground">
-                        {session?.user?.email}
+
+            {/* Bottom row: Page Title with Icon */}
+            <div className="flex items-center gap-3">
+              {(() => {
+                const currentNav = navigation.find(item => router.pathname.startsWith(item.href)) || navigation[0]
+                const Icon = currentNav.icon
+                return (
+                  <>
+                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-botanical/20 to-sage/20 border-2 border-sage/30">
+                      <Icon className="h-6 w-6 text-botanical" />
+                    </div>
+                    <div>
+                      <h1 className="text-2xl font-heading font-bold text-forest leading-none mb-1">
+                        {currentNav.name}
+                      </h1>
+                      <p className="text-sm text-botanical/70">
+                        {currentNav.name === 'Dashboard' && 'Overview of your store'}
+                        {currentNav.name === 'Products' && 'Manage your product catalog'}
+                        {currentNav.name === 'Categories' && 'Organize product categories'}
+                        {currentNav.name === 'Orders' && 'View and manage orders'}
+                        {currentNav.name === 'Promo Codes' && 'Create and manage discounts'}
+                        {currentNav.name === 'Landing Page' && 'Customize your homepage'}
+                        {currentNav.name === 'Contacts' && 'Customer inquiries and messages'}
                       </p>
                     </div>
-                  </div>
-                  <DropdownMenuItem onClick={handleSignOut}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                  </>
+                )
+              })()}
             </div>
           </div>
         </header>
