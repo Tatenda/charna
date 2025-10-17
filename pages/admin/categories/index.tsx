@@ -260,7 +260,7 @@ export default function CategoriesPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Badge className={category.isActive ? "bg-botanical/20 text-botanical" : "bg-gray-200 text-gray-600"}>
                 {category.isActive ? (
                   <>
@@ -275,40 +275,43 @@ export default function CategoriesPage() {
                 )}
               </Badge>
 
-              {/* Always visible Edit button */}
-              <Link href={`/admin/categories/${category.id}`}>
-                <Button
-                  size="sm"
-                  className="bg-botanical hover:bg-botanical/90 text-white"
-                >
-                  <Edit className="h-4 w-4 mr-2" />
-                  Edit
-                </Button>
-              </Link>
+              <div className="flex gap-1.5">
+                {/* Always visible Edit button - modern icon style */}
+                <Link href={`/admin/categories/${category.id}`}>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-9 w-9 rounded-lg hover:bg-botanical/10 hover:text-botanical text-botanical/70 transition-all"
+                    title="Edit category"
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                </Link>
 
-              {/* Secondary actions - show on hover */}
-              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleToggleActive(category)}
-                  className="border-sage/30 text-botanical hover:bg-sage/10"
-                  title={category.isActive ? "Deactivate" : "Activate"}
-                >
-                  {category.isActive ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => {
-                    setCategoryToDelete(category)
-                    setDeleteDialogOpen(true)
-                  }}
-                  className="border-red-200 text-red-600 hover:bg-red-50"
-                  title="Delete"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                {/* Secondary actions - show on hover */}
+                <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => handleToggleActive(category)}
+                    className="h-9 w-9 rounded-lg hover:bg-sage/10 text-botanical/60 hover:text-botanical"
+                    title={category.isActive ? "Deactivate" : "Activate"}
+                  >
+                    {category.isActive ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => {
+                      setCategoryToDelete(category)
+                      setDeleteDialogOpen(true)
+                    }}
+                    className="h-9 w-9 rounded-lg hover:bg-red-50 text-red-500/60 hover:text-red-600"
+                    title="Delete"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
