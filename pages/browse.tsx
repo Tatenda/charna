@@ -871,9 +871,27 @@ export default function Browse() {
             {/* Collage Style Product Grid - Mobile Optimized */}
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6 w-full">
               {isLoading ? (
-                <div className="col-span-full text-center py-8">
-                  <p className="text-white">Loading products...</p>
-                </div>
+                // Ghost/Skeleton Loaders
+                Array.from({ length: 8 }).map((_, index) => (
+                  <div key={index} className="bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden border border-white/10 animate-pulse">
+                    {/* Image skeleton */}
+                    <div className="aspect-square bg-white/10"></div>
+                    
+                    {/* Content skeleton */}
+                    <div className="p-3 md:p-4 space-y-2 md:space-y-3">
+                      {/* Title */}
+                      <div className="h-4 md:h-5 bg-white/10 rounded w-3/4"></div>
+                      {/* Subtitle */}
+                      <div className="h-3 md:h-4 bg-white/10 rounded w-1/2"></div>
+                      
+                      {/* Price and buttons */}
+                      <div className="flex items-center justify-between pt-2">
+                        <div className="h-5 md:h-6 bg-white/10 rounded w-16 md:w-20"></div>
+                        <div className="h-8 md:h-9 bg-white/10 rounded w-20 md:w-24"></div>
+                      </div>
+                    </div>
+                  </div>
+                ))
               ) : (
                 filteredVariants.map((variant) => (
                 <ProductTile
