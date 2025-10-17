@@ -103,111 +103,70 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
       {/* Main content */}
       <div className="pl-64">
-        {/* Redesigned Header */}
-        <header className="sticky top-0 z-40 bg-gradient-to-r from-white via-white to-sage/5 backdrop-blur-sm shadow-lg border-b-2 border-sage/20">
-          <div className="px-6 py-4">
-            {/* Top row: Breadcrumbs and Actions */}
-            <div className="flex items-center justify-between mb-3">
-              {/* Breadcrumb Navigation */}
-              <div className="flex items-center space-x-2 text-sm">
-                <Link href="/admin" className="text-botanical/60 hover:text-botanical transition-colors">
-                  Admin
-                </Link>
-                {router.pathname !== "/admin" && (
-                  <>
-                    <ChevronRight className="h-4 w-4 text-sage/40" />
-                    <span className="text-forest font-medium">
-                      {navigation
-                        .slice()
-                        .sort((a, b) => b.href.length - a.href.length)
-                        .find(item => router.pathname.startsWith(item.href))?.name || "Page"}
-                    </span>
-                  </>
-                )}
-              </div>
-
-              {/* Quick Actions */}
-              <div className="flex items-center space-x-3">
-                {/* Notifications */}
-                <Button variant="ghost" size="sm" className="relative hover:bg-sage/10">
-                  <Bell className="h-5 w-5 text-botanical" />
-                  {/* Notification badge - example */}
-                  {false && (
-                    <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-terracotta text-white text-xs flex items-center justify-center">
-                      3
-                    </span>
-                  )}
-                </Button>
-
-                {/* User Menu */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="flex items-center gap-2 hover:bg-sage/10 px-3">
-                      <Avatar className="h-8 w-8 border-2 border-sage/30">
-                        <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
-                        <AvatarFallback className="bg-botanical/10 text-botanical">
-                          <User className="h-4 w-4" />
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="text-left hidden sm:block">
-                        <p className="text-sm font-medium text-forest leading-none mb-1">
-                          {session?.user?.name?.split(' ')[0] || 'Admin'}
-                        </p>
-                        <p className="text-xs text-botanical/60">Administrator</p>
-                      </div>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56" align="end" forceMount>
-                    <div className="flex items-center justify-start gap-2 p-2">
-                      <div className="flex flex-col space-y-1 leading-none">
-                        <p className="font-medium">{session?.user?.name}</p>
-                        <p className="w-[200px] truncate text-sm text-muted-foreground">
-                          {session?.user?.email}
-                        </p>
-                      </div>
-                    </div>
-                    <DropdownMenuItem onClick={handleSignOut}>
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>Log out</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+        {/* Simplified Header */}
+        <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-sm shadow-sm border-b border-sage/10">
+          <div className="flex items-center justify-between px-6 py-3">
+            {/* Breadcrumb Navigation */}
+            <div className="flex items-center space-x-2 text-sm">
+              <Link href="/admin" className="text-botanical/60 hover:text-botanical transition-colors font-medium">
+                Admin
+              </Link>
+              {router.pathname !== "/admin" && (
+                <>
+                  <ChevronRight className="h-4 w-4 text-sage/40" />
+                  <span className="text-forest font-semibold">
+                    {navigation
+                      .slice()
+                      .sort((a, b) => b.href.length - a.href.length)
+                      .find(item => router.pathname.startsWith(item.href))?.name || "Page"}
+                  </span>
+                </>
+              )}
             </div>
 
-            {/* Bottom row: Page Title with Icon */}
-            <div className="flex items-center gap-3">
-              {(() => {
-                // Find the best matching navigation item (longest match wins)
-                const currentNav = navigation
-                  .slice() // Create a copy to avoid mutating original
-                  .sort((a, b) => b.href.length - a.href.length) // Sort by length (longest first)
-                  .find(item => router.pathname.startsWith(item.href) || router.pathname === item.href) 
-                  || navigation[0]
-                
-                const Icon = currentNav.icon
-                return (
-                  <>
-                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-botanical/20 to-sage/20 border-2 border-sage/30">
-                      <Icon className="h-6 w-6 text-botanical" />
-                    </div>
-                    <div>
-                      <h1 className="text-2xl font-heading font-bold text-forest leading-none mb-1">
-                        {currentNav.name}
-                      </h1>
-                      <p className="text-sm text-botanical/70">
-                        {currentNav.name === 'Dashboard' && 'Overview of your store'}
-                        {currentNav.name === 'Products' && 'Manage your product catalog'}
-                        {currentNav.name === 'Categories' && 'Organize product categories'}
-                        {currentNav.name === 'Orders' && 'View and manage orders'}
-                        {currentNav.name === 'Promo Codes' && 'Create and manage discounts'}
-                        {currentNav.name === 'Landing Page' && 'Customize your homepage'}
-                        {currentNav.name === 'Contacts' && 'Customer inquiries and messages'}
+            {/* Quick Actions */}
+            <div className="flex items-center space-x-3">
+              {/* Notifications */}
+              <Button variant="ghost" size="sm" className="relative hover:bg-sage/10">
+                <Bell className="h-5 w-5 text-botanical/70" />
+                {/* Notification badge - example */}
+                {false && (
+                  <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-terracotta text-white text-xs flex items-center justify-center">
+                    3
+                  </span>
+                )}
+              </Button>
+
+              {/* User Menu */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center gap-2 hover:bg-sage/10">
+                    <Avatar className="h-8 w-8 border-2 border-sage/20">
+                      <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
+                      <AvatarFallback className="bg-botanical/10 text-botanical">
+                        <User className="h-4 w-4" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm font-medium text-forest hidden md:inline">
+                      {session?.user?.name?.split(' ')[0] || 'Admin'}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <div className="flex items-center justify-start gap-2 p-2">
+                    <div className="flex flex-col space-y-1 leading-none">
+                      <p className="font-medium">{session?.user?.name}</p>
+                      <p className="w-[200px] truncate text-sm text-muted-foreground">
+                        {session?.user?.email}
                       </p>
                     </div>
-                  </>
-                )
-              })()}
+                  </div>
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </header>
