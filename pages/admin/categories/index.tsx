@@ -276,15 +276,15 @@ export default function CategoriesPage() {
               </Badge>
 
               <div className="flex gap-1.5">
-                {/* Always visible Edit button - modern icon style */}
+                {/* Always visible Edit button */}
                 <Link href={`/admin/categories/${category.id}`}>
                   <Button
-                    size="icon"
+                    size="sm"
                     variant="ghost"
-                    className="h-9 w-9 rounded-lg hover:bg-botanical/10 hover:text-botanical text-botanical/70 transition-all"
-                    title="Edit category"
+                    className="rounded-lg hover:bg-botanical/10 hover:text-botanical text-botanical/70 transition-all px-3"
                   >
-                    <Edit className="h-4 w-4" />
+                    <Edit className="h-4 w-4 mr-1.5" />
+                    <span className="text-sm font-medium">Edit</span>
                   </Button>
                 </Link>
 
