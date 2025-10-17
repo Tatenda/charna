@@ -10,6 +10,11 @@ interface OrderEmailData {
     city: string;
     province: string;
     postalCode: string;
+    billingAddress?: string;
+    billingCity?: string;
+    billingProvince?: string;
+    billingPostalCode?: string;
+    sameAsBilling?: boolean;
   };
   items: Array<{
     productId: number;
