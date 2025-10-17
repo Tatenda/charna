@@ -212,6 +212,15 @@ export class EmailService {
                 Phone: ${customerInfo.phone}</p>
             </div>
 
+            ${!customerInfo.sameAsBilling && customerInfo.billingAddress ? `
+            <h3 style="color: #000; margin-top: 20px;">Billing Address</h3>
+            <div class="order-info">
+                <p>${customerInfo.firstName} ${customerInfo.lastName}<br>
+                ${customerInfo.billingAddress}<br>
+                ${customerInfo.billingCity}, ${customerInfo.billingProvince} ${customerInfo.billingPostalCode}</p>
+            </div>
+            ` : ''}
+
             <h3 style="color: #000;">What's Next?</h3>
             <p>🛠️ <strong>Crafting:</strong> Your order will be handcrafted within 3-5 business days.</p>
             <p>📦 <strong>Shipping:</strong> We'll send you tracking information once your order ships (usually within 2-5 business days after crafting).</p>
@@ -287,6 +296,13 @@ ${customerInfo.firstName} ${customerInfo.lastName}
 ${customerInfo.address}
 ${customerInfo.city}, ${customerInfo.province} ${customerInfo.postalCode}
 Phone: ${customerInfo.phone}
+
+${!customerInfo.sameAsBilling && customerInfo.billingAddress ? `
+BILLING ADDRESS:
+${customerInfo.firstName} ${customerInfo.lastName}
+${customerInfo.billingAddress}
+${customerInfo.billingCity}, ${customerInfo.billingProvince} ${customerInfo.billingPostalCode}
+` : ''}
 
 WHAT'S NEXT?
 Your order will be handcrafted within 3-5 business days. We'll send tracking information once it ships.

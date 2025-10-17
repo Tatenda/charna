@@ -306,11 +306,27 @@ export default function OrdersPage() {
                                   <p>{customerName}</p>
                                   <p>{customerEmail}</p>
                                   {order.customerInfo?.phone && <p>{order.customerInfo.phone}</p>}
+                                  
+                                  {/* Shipping Address */}
                                   {order.customerInfo?.address && (
-                                    <p className="mt-1">
-                                      {order.customerInfo.address}<br/>
-                                      {order.customerInfo.city}, {order.customerInfo.province} {order.customerInfo.postalCode}
-                                    </p>
+                                    <div className="mt-2">
+                                      <p className="font-semibold text-forest mb-1">Shipping:</p>
+                                      <p>
+                                        {order.customerInfo.address}<br/>
+                                        {order.customerInfo.city}, {order.customerInfo.province} {order.customerInfo.postalCode}
+                                      </p>
+                                    </div>
+                                  )}
+                                  
+                                  {/* Billing Address - Only show if different */}
+                                  {!order.customerInfo?.sameAsBilling && order.customerInfo?.billingAddress && (
+                                    <div className="mt-2">
+                                      <p className="font-semibold text-forest mb-1">Billing:</p>
+                                      <p>
+                                        {order.customerInfo.billingAddress}<br/>
+                                        {order.customerInfo.billingCity}, {order.customerInfo.billingProvince} {order.customerInfo.billingPostalCode}
+                                      </p>
+                                    </div>
                                   )}
                                 </div>
                               </div>

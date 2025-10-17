@@ -115,10 +115,16 @@ export interface CustomerInfo {
   lastName: string;
   email: string;
   phone: string;
+  // Shipping address
   address: string;
   city: string;
   province: string;
   postalCode: string;
+  // Billing address (when different from shipping)
+  billingAddress?: string;
+  billingCity?: string;
+  billingProvince?: string;
+  billingPostalCode?: string;
   notes?: string;
   sameAsBilling: boolean;
   acceptTerms: boolean;
