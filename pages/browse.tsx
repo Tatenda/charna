@@ -377,6 +377,13 @@ export default function Browse() {
   };
 
   const getSEOContent = () => {
+    if (!selectedCategory) {
+      return {
+        title: 'Browse Leather Bags | Charna Leather Goods',
+        description: 'Browse our collection of handcrafted leather bags, backpacks, and accessories. Premium South African leather goods crafted in Johannesburg.'
+      };
+    }
+    
     const categoryTitle = selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1);
     const baseTitle = `${categoryTitle} Bags | Charna Leather Goods`;
     const descriptions: Record<string, string> = {
