@@ -148,18 +148,97 @@ export default function ProductOrderingManager({
   }
 
   return (
-    <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
-      <CardHeader>
-        <div className="flex items-start justify-between">
-          <div>
-            <CardTitle className="text-xl font-heading text-forest flex items-center gap-2">
-              <Package className="h-5 w-5 text-botanical" />
-              Product Display Order
-            </CardTitle>
-            <CardDescription className="text-botanical/80 mt-1">
-              Drag or use arrows to reorder how products appear in "<span className="font-semibold">{categoryName}</span>"
-            </CardDescription>
+    <div className="space-y-4">
+      {/* Help Card */}
+      <Card className="bg-botanical/5 border-2 border-botanical/20">
+        <CardHeader>
+          <CardTitle className="text-lg font-heading text-forest flex items-center gap-2">
+            <svg className="h-5 w-5 text-botanical" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            How Product Ordering Works
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <h4 className="font-semibold text-forest text-sm">📋 What is this?</h4>
+              <p className="text-sm text-botanical/80">
+                Control which products appear first when customers browse "<span className="font-semibold">{categoryName}</span>". 
+                Products at the top will be displayed first on the website.
+              </p>
+            </div>
+            
+            <div className="space-y-2">
+              <h4 className="font-semibold text-forest text-sm">🎯 How to use</h4>
+              <ul className="text-sm text-botanical/80 space-y-1">
+                <li className="flex items-start gap-2">
+                  <span className="text-botanical">•</span>
+                  <span>Click <strong>↑↓ arrows</strong> to move products up or down</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-botanical">•</span>
+                  <span>Position <strong>#1</strong> appears first to customers</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-botanical">•</span>
+                  <span>Click <strong>"Save Order"</strong> when done</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="space-y-2">
+              <h4 className="font-semibold text-forest text-sm">💡 Best Practices</h4>
+              <ul className="text-sm text-botanical/80 space-y-1">
+                <li className="flex items-start gap-2">
+                  <span className="text-botanical">•</span>
+                  <span>Put <strong>featured/popular</strong> products at the top</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-botanical">•</span>
+                  <span>Group similar products together</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-botanical">•</span>
+                  <span>Review order regularly to keep it fresh</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="space-y-2">
+              <h4 className="font-semibold text-forest text-sm">ℹ️ Good to Know</h4>
+              <ul className="text-sm text-botanical/80 space-y-1">
+                <li className="flex items-start gap-2">
+                  <span className="text-botanical">•</span>
+                  <span>Child categories (e.g., Laptop Sleeves) are included</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-botanical">•</span>
+                  <span>Each product can have different order in different categories</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-botanical">•</span>
+                  <span>Changes apply immediately after saving</span>
+                </li>
+              </ul>
+            </div>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Product Ordering Card */}
+      <Card className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 shadow-lg">
+        <CardHeader>
+          <div className="flex items-start justify-between">
+            <div>
+              <CardTitle className="text-xl font-heading text-forest flex items-center gap-2">
+                <Package className="h-5 w-5 text-botanical" />
+                Product Display Order
+              </CardTitle>
+              <CardDescription className="text-botanical/80 mt-1">
+                Drag or use arrows to reorder how products appear in "<span className="font-semibold">{categoryName}</span>"
+              </CardDescription>
+            </div>
           {hasChanges && (
             <Button
               onClick={handleSave}
@@ -286,6 +365,7 @@ export default function ProductOrderingManager({
         )}
       </CardContent>
     </Card>
+    </div>
   )
 }
 
