@@ -117,7 +117,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   <>
                     <ChevronRight className="h-4 w-4 text-sage/40" />
                     <span className="text-forest font-medium">
-                      {navigation.find(item => router.pathname.startsWith(item.href))?.name || "Page"}
+                      {navigation
+                        .slice()
+                        .sort((a, b) => b.href.length - a.href.length)
+                        .find(item => router.pathname.startsWith(item.href))?.name || "Page"}
                     </span>
                   </>
                 )}
@@ -175,7 +178,13 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             {/* Bottom row: Page Title with Icon */}
             <div className="flex items-center gap-3">
               {(() => {
-                const currentNav = navigation.find(item => router.pathname.startsWith(item.href)) || navigation[0]
+                // Find the best matching navigation item (longest match wins)
+                const currentNav = navigation
+                  .slice() // Create a copy to avoid mutating original
+                  .sort((a, b) => b.href.length - a.href.length) // Sort by length (longest first)
+                  .find(item => router.pathname.startsWith(item.href) || router.pathname === item.href) 
+                  || navigation[0]
+                
                 const Icon = currentNav.icon
                 return (
                   <>
