@@ -699,21 +699,27 @@ export default function Browse() {
       {/* Top Category Navigation Tabs - Mobile Friendly */}
       <div className="px-4 md:px-6 mb-8 relative z-10">
         <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-2">
-          <div className="flex overflow-x-auto scrollbar-hide gap-2 pb-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-            {categoryTabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => handleCategoryChange(tab.id)}
-                className={`text-xs sm:text-sm font-medium transition-colors duration-200 px-3 sm:px-4 py-2 rounded-lg whitespace-nowrap min-h-[40px] sm:min-h-[44px] flex-shrink-0 ${
-                  selectedCategory === tab.id
-                    ? 'bg-botanical/60 text-white'
-                    : 'text-stone-200 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+          {categoriesLoading ? (
+            <div className="flex items-center justify-center py-3">
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            </div>
+          ) : (
+            <div className="flex overflow-x-auto scrollbar-hide gap-2 pb-2" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => handleCategoryChange(category.slug)}
+                  className={`text-xs sm:text-sm font-medium transition-colors duration-200 px-3 sm:px-4 py-2 rounded-lg whitespace-nowrap min-h-[40px] sm:min-h-[44px] flex-shrink-0 ${
+                    selectedCategory === category.slug
+                      ? 'bg-botanical/60 text-white'
+                      : 'text-stone-200 hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  {category.displayName}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
