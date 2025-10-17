@@ -212,20 +212,102 @@ export default function EditCategoryPage() {
   return (
     <AdminLayout>
       <div className="min-h-screen bg-gradient-to-br from-mint/20 via-white to-sage/10">
-        <div className="space-y-6 p-6">
-          {/* Header */}
-          <div className="flex items-center gap-4">
-            <Link href="/admin/categories">
-              <Button variant="outline" size="sm" className="border-sage/30 text-botanical hover:bg-sage/10">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Categories
-              </Button>
-            </Link>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-heading text-forest">Edit Category</h1>
-              <p className="text-sm text-botanical/80 font-medium mt-1">
-                Update category details
-              </p>
+        <div className="space-y-6">
+          {/* Redesigned Header */}
+          <div className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 rounded-xl shadow-lg p-6">
+            {/* Back Button */}
+            <div className="mb-4">
+              <Link href="/admin/categories">
+                <Button variant="ghost" size="sm" className="text-botanical/70 hover:text-botanical hover:bg-sage/10 -ml-2">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Back to Categories
+                </Button>
+              </Link>
+            </div>
+
+            {/* Main Header Content */}
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+              {/* Left: Category Info */}
+              <div className="flex gap-4">
+                {/* Category Icon/Badge */}
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-botanical/20 to-sage/20 border-2 border-sage/30 flex items-center justify-center">
+                    <FolderTree className="h-8 w-8 text-botanical" />
+                  </div>
+                </div>
+
+                {/* Category Details */}
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h1 className="text-3xl font-heading font-bold text-forest">
+                      {formData.displayName || category.displayName}
+                    </h1>
+                    {formData.isActive ? (
+                      <span className="px-3 py-1 rounded-full bg-botanical/10 text-botanical text-xs font-semibold border border-botanical/20">
+                        Active
+                      </span>
+                    ) : (
+                      <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-semibold border border-gray-200">
+                        Inactive
+                      </span>
+                    )}
+                    {category.parentId && (
+                      <span className="px-3 py-1 rounded-full bg-sage/10 text-botanical text-xs font-semibold border border-sage/20">
+                        Subcategory
+                      </span>
+                    )}
+                  </div>
+                  
+                  <p className="text-botanical/70 mb-3">
+                    {formData.description || category.description || 'No description provided'}
+                  </p>
+
+                  {/* Category Stats */}
+                  <div className="flex flex-wrap gap-3">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sage/5 border border-sage/20">
+                      <Package className="h-4 w-4 text-botanical" />
+                      <span className="text-sm font-semibold text-forest">
+                        {category.products?.length || 0}
+                      </span>
+                      <span className="text-xs text-botanical/60">products</span>
+                    </div>
+                    
+                    {category.children && category.children.length > 0 && (
+                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sage/5 border border-sage/20">
+                        <FolderTree className="h-4 w-4 text-botanical" />
+                        <span className="text-sm font-semibold text-forest">
+                          {category.children.length}
+                        </span>
+                        <span className="text-xs text-botanical/60">
+                          subcategor{category.children.length === 1 ? 'y' : 'ies'}
+                        </span>
+                      </div>
+                    )}
+                    
+                    {category.parentId && (
+                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sage/5 border border-sage/20">
+                        <span className="text-xs text-botanical/60">Parent:</span>
+                        <span className="text-sm font-semibold text-forest">
+                          {categories.find(c => c.id === category.parentId)?.displayName || 'Unknown'}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Quick Actions (if needed) */}
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-sage/30 text-botanical hover:bg-sage/10"
+                  onClick={() => window.open(`/browse?category=${category.slug}`, '_blank')}
+                >
+                  <Eye className="h-4 w-4 mr-2" />
+                  Preview
+                </Button>
+              </div>
             </div>
           </div>
 

@@ -247,37 +247,114 @@ export default function ProductEditPage({ product }: ProductEditPageProps) {
   return (
     <AdminLayout>
       <div className="min-h-screen bg-gradient-to-br from-mint/20 via-white to-sage/10">
-        <div className="space-y-6 p-6">
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+        <div className="space-y-6">
+          {/* Redesigned Header */}
+          <div className="bg-white/90 backdrop-blur-sm border-2 border-sage/20 rounded-xl shadow-lg p-6">
+            {/* Back Button */}
+            <div className="mb-4">
               <Link href="/admin/products">
-                <Button variant="outline" size="sm" className="border-sage/30 text-botanical">
+                <Button variant="ghost" size="sm" className="text-botanical/70 hover:text-botanical hover:bg-sage/10 -ml-2">
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Products
                 </Button>
               </Link>
-              <div>
-                <h1 className="text-2xl md:text-3xl font-heading text-forest">Edit Product</h1>
-                <p className="text-sm text-botanical/80 font-medium mt-1">
-                  Update product information and settings
-                </p>
-              </div>
             </div>
-            <div className="flex gap-2">
-              <Link href={`/products/${product.slug}`}>
-                <Button variant="outline" className="border-sage/30 text-botanical">
-                  <Eye className="h-4 w-4 mr-2" />
-                  View Product
+
+            {/* Main Header Content */}
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+              {/* Left: Product Info */}
+              <div className="flex gap-4">
+                {/* Product Icon/Badge */}
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-botanical/20 to-sage/20 border-2 border-sage/30 flex items-center justify-center">
+                    <Package className="h-8 w-8 text-botanical" />
+                  </div>
+                </div>
+
+                {/* Product Details */}
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2 flex-wrap">
+                    <h1 className="text-3xl font-heading font-bold text-forest">
+                      {formData.name}
+                    </h1>
+                    {formData.isActive ? (
+                      <span className="px-3 py-1 rounded-full bg-botanical/10 text-botanical text-xs font-semibold border border-botanical/20">
+                        Active
+                      </span>
+                    ) : (
+                      <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-semibold border border-gray-200">
+                        Inactive
+                      </span>
+                    )}
+                    {formData.featured && (
+                      <span className="px-3 py-1 rounded-full bg-terracotta/10 text-terracotta text-xs font-semibold border border-terracotta/20 flex items-center gap-1">
+                        <Star className="h-3 w-3" />
+                        Featured
+                      </span>
+                    )}
+                    {formData.isPackage && (
+                      <span className="px-3 py-1 rounded-full bg-sage/10 text-botanical text-xs font-semibold border border-sage/20">
+                        Package
+                      </span>
+                    )}
+                  </div>
+                  
+                  <p className="text-botanical/70 mb-3 line-clamp-2">
+                    {formData.description}
+                  </p>
+
+                  {/* Product Stats */}
+                  <div className="flex flex-wrap gap-3">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sage/5 border border-sage/20">
+                      <span className="text-sm font-semibold text-forest">
+                        R{parseInt(formData.basePrice || '0').toLocaleString()}
+                      </span>
+                      <span className="text-xs text-botanical/60">base price</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sage/5 border border-sage/20">
+                      <Grid3X3 className="h-4 w-4 text-botanical" />
+                      <span className="text-sm font-semibold text-forest">
+                        {product.variants?.length || 0}
+                      </span>
+                      <span className="text-xs text-botanical/60">
+                        variant{product.variants?.length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+
+                    {selectedCategoryIds.length > 0 && (
+                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sage/5 border border-sage/20">
+                        <FolderTree className="h-4 w-4 text-botanical" />
+                        <span className="text-sm font-semibold text-forest">
+                          {selectedCategoryIds.length}
+                        </span>
+                        <span className="text-xs text-botanical/60">
+                          categor{selectedCategoryIds.length === 1 ? 'y' : 'ies'}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Quick Actions */}
+              <div className="flex flex-col gap-2">
+                <Link href={`/products/${product.slug}`} target="_blank">
+                  <Button variant="outline" size="sm" className="border-sage/30 text-botanical hover:bg-sage/10 w-full">
+                    <Eye className="h-4 w-4 mr-2" />
+                    Preview
+                  </Button>
+                </Link>
+                <Button 
+                  onClick={handleDelete}
+                  disabled={isLoading}
+                  variant="outline"
+                  size="sm"
+                  className="border-red-200 text-red-600 hover:bg-red-50 w-full"
+                >
+                  Delete
                 </Button>
-              </Link>
-              <Button 
-                onClick={handleDelete}
-                disabled={isLoading}
-                className="bg-red-600 hover:bg-red-700 text-white"
-              >
-                Delete Product
-              </Button>
+              </div>
             </div>
           </div>
 
