@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -38,6 +38,7 @@ export default function ProductOrderingManager({
   const [saving, setSaving] = useState(false)
   const [hasChanges, setHasChanges] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
+  const [lastSaved, setLastSaved] = useState<Date | null>(null)
 
   useEffect(() => {
     fetchProducts()
@@ -89,9 +90,23 @@ export default function ProductOrderingManager({
     
     setProducts(newProducts)
     setHasChanges(true)
+    setLastSaved(null) // Clear last saved when making changes
   }
+  
+  // Debounced auto-save effect
+  useEffect(() => {
+    if (!hasChanges) return
+    
+    const timeoutId = setTimeout(async () => {
+      await handleSave()
+    }, 2000) // Wait 2 seconds after last change
+    
+    return () => clearTimeout(timeoutId)
+  }, [products, hasChanges])
 
   const handleSave = async () => {
+    if (!hasChanges) return
+    
     setSaving(true)
     try {
       const response = await fetch(`/api/admin/categories/${categoryId}/products/reorder`, {
@@ -108,11 +123,9 @@ export default function ProductOrderingManager({
       })
 
       if (response.ok) {
-        toast({
-          title: "Success",
-          description: "Product order saved successfully!",
-        })
         setHasChanges(false)
+        setLastSaved(new Date())
+        // Don't show toast for auto-save to avoid spam
       } else {
         toast({
           title: "Error",
@@ -239,28 +252,31 @@ export default function ProductOrderingManager({
                 Drag or use arrows to reorder how products appear in "<span className="font-semibold">{categoryName}</span>"
               </CardDescription>
             </div>
-          {hasChanges && (
-            <Button
-              onClick={handleSave}
-              disabled={saving}
-              size="sm"
-              className="bg-botanical hover:bg-botanical/90"
-            >
-              {saving ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Saving...
-                </>
-              ) : (
-                <>
-                  <Save className="h-4 w-4 mr-2" />
-                  Save Order
-                </>
+            <div className="flex items-center gap-3">
+              {/* Auto-save status */}
+              {saving && (
+                <div className="flex items-center gap-2 text-botanical text-sm">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-botanical"></div>
+                  <span>Saving...</span>
+                </div>
               )}
-            </Button>
-          )}
-        </div>
-      </CardHeader>
+              {!saving && lastSaved && (
+                <div className="flex items-center gap-2 text-botanical/70 text-sm">
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Saved</span>
+                </div>
+              )}
+              {hasChanges && !saving && (
+                <div className="flex items-center gap-2 text-amber-600 text-sm">
+                  <div className="h-2 w-2 rounded-full bg-amber-600 animate-pulse"></div>
+                  <span>Unsaved changes</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </CardHeader>
       <CardContent className="space-y-4">
         {products.length === 0 ? (
           <div className="text-center py-8 text-botanical/70">
@@ -357,8 +373,8 @@ export default function ProductOrderingManager({
             {/* Help Text */}
             <div className="bg-sage/5 rounded-lg p-3 border border-sage/20">
               <p className="text-xs text-botanical/70">
-                💡 <strong>Tip:</strong> Products at the top will appear first when customers browse this category.
-                {hasChanges && <span className="text-botanical font-semibold ml-2">Don't forget to save your changes!</span>}
+                💡 <strong>Auto-save enabled:</strong> Changes save automatically 2 seconds after you stop reordering.
+                {lastSaved && <span className="text-botanical/60 ml-2">Last saved at {lastSaved.toLocaleTimeString()}</span>}
               </p>
             </div>
           </>
