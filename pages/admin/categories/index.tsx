@@ -275,24 +275,28 @@ export default function CategoriesPage() {
                 )}
               </Badge>
 
+              {/* Always visible Edit button */}
+              <Link href={`/admin/categories/${category.id}`}>
+                <Button
+                  size="sm"
+                  className="bg-botanical hover:bg-botanical/90 text-white"
+                >
+                  <Edit className="h-4 w-4 mr-2" />
+                  Edit
+                </Button>
+              </Link>
+
+              {/* Secondary actions - show on hover */}
               <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => handleToggleActive(category)}
                   className="border-sage/30 text-botanical hover:bg-sage/10"
+                  title={category.isActive ? "Deactivate" : "Activate"}
                 >
                   {category.isActive ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </Button>
-                <Link href={`/admin/categories/${category.id}`}>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="border-sage/30 text-botanical hover:bg-sage/10"
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                </Link>
                 <Button
                   size="sm"
                   variant="outline"
@@ -301,6 +305,7 @@ export default function CategoriesPage() {
                     setDeleteDialogOpen(true)
                   }}
                   className="border-red-200 text-red-600 hover:bg-red-50"
+                  title="Delete"
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
