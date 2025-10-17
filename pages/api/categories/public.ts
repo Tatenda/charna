@@ -31,9 +31,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             sortOrder: 'asc'
           }
         },
-        _count: {
-          select: {
-            products: true
+        products: {
+          where: {
+            product: {
+              isActive: true  // Only count active products
+            }
+          },
+          include: {
+            product: {
+              include: {
+                variants: {
+                  where: {
+                    isActive: true
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -42,29 +55,52 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     });
 
-    // Transform to a cleaner format
-    const transformedCategories = categories.map(cat => ({
-      id: cat.id,
-      name: cat.name,
-      slug: cat.slug,
-      displayName: cat.displayName,
-      description: cat.description,
-      icon: cat.icon,
-      image: cat.image,
-      parentId: cat.parentId,
-      sortOrder: cat.sortOrder,
-      productCount: cat._count.products,
-      children: cat.children.map(child => ({
-        id: child.id,
-        name: child.name,
-        slug: child.slug,
-        displayName: child.displayName,
-        description: child.description,
-        icon: child.icon,
-        parentId: child.parentId,
-        sortOrder: child.sortOrder
-      }))
-    }));
+    // Transform to a cleaner format with variant counts
+    const transformedCategories = categories.map(cat => {
+      // Get all category IDs (this category + children)
+      const allCategoryIds = [cat.id, ...cat.children.map(c => c.id)];
+      
+      // Collect all unique products across this category and its children
+      const uniqueProducts = new Map();
+      
+      categories.forEach(category => {
+        if (allCategoryIds.includes(category.id)) {
+          category.products.forEach(pc => {
+            if (!uniqueProducts.has(pc.product.id)) {
+              uniqueProducts.set(pc.product.id, pc.product);
+            }
+          });
+        }
+      });
+
+      // Count variants from unique products
+      const totalVariantCount = Array.from(uniqueProducts.values()).reduce((total, product) => {
+        return total + (product.variants?.length || 0);
+      }, 0);
+
+      return {
+        id: cat.id,
+        name: cat.name,
+        slug: cat.slug,
+        displayName: cat.displayName,
+        description: cat.description,
+        icon: cat.icon,
+        image: cat.image,
+        parentId: cat.parentId,
+        sortOrder: cat.sortOrder,
+        productCount: totalVariantCount, // Now counts variants including children
+        children: cat.children.map(child => ({
+          id: child.id,
+          name: child.name,
+          slug: child.slug,
+          displayName: child.displayName,
+          description: child.description,
+          icon: child.icon,
+          parentId: child.parentId,
+          sortOrder: child.sortOrder
+        }))
+      };
+    });
 
     // Return only top-level categories (no parent)
     const topLevelCategories = transformedCategories.filter(cat => !cat.parentId);
