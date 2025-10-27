@@ -340,3 +340,18 @@ model LandingPageImage {
   @@index([sectionId, order])
   @@map("landing_page_images")
 }
+
+// Static Page CMS - Content for pages like About Us, Contact, etc.
+model PageContent {
+  id          Int      @id @default(autoincrement())
+  pageName    String   @unique @map("page_name") // "about-us", "contact", "shipping-returns", etc.
+  title       String?  // Page title/heading
+  content     Json     // Flexible content structure (can be rich text, sections, etc.)
+  metaTitle   String?  @map("meta_title")
+  metaDescription String? @map("meta_description")
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("page_contents")
+}

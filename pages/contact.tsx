@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Seo from "@/components/layout/Seo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useToast } from "@/hooks/use-toast";
@@ -33,6 +33,8 @@ type ContactFormValues = z.infer<typeof formSchema>;
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [content, setContent] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(formSchema),
@@ -44,6 +46,31 @@ const Contact = () => {
       message: "",
     },
   });
+
+  // Fetch CMS content on mount
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await fetch('/api/page-content/contact');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.content) {
+            setContent(data.content);
+          } else {
+            console.error('No content found in CMS');
+          }
+        } else {
+          console.error('Failed to fetch contact page content');
+        }
+      } catch (error) {
+        console.error('Error fetching contact page content:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, []);
 
   const onSubmit = async (values: ContactFormValues) => {
     setIsSubmitting(true);
@@ -69,6 +96,18 @@ const Contact = () => {
     }
   };
 
+  // Show loading state
+  if (loading || !content) {
+    return (
+      <div className="bg-secondary-light min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-neutral">Loading contact page...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-secondary-light">
       <Seo 
@@ -82,10 +121,10 @@ const Contact = () => {
       <div className="bg-primary text-white py-16">
         <div className="container mx-auto px-4">
           <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-center mb-4">
-            Contact Us
+            {content.hero.title}
           </h1>
           <p className="text-white/80 text-center max-w-3xl mx-auto text-lg">
-            We'd love to hear from you. Get in touch with our team for any questions or inquiries.
+            {content.hero.description}
           </p>
         </div>
       </div>
@@ -98,23 +137,23 @@ const Contact = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FontAwesomeIcon icon="map-marker-alt" className="text-primary text-xl" />
               </div>
-              <h3 className="font-accent text-lg font-semibold mb-2">Visit Our Workshop</h3>
-              <p className="text-neutral">Johannesburg</p>
-              <p className="text-neutral">South Africa</p>
+              <h3 className="font-accent text-lg font-semibold mb-2">{content.location.title}</h3>
+              <p className="text-neutral">{content.location.city}</p>
+              <p className="text-neutral">{content.location.country}</p>
             </div>
             
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FontAwesomeIcon icon="envelope" className="text-primary text-xl" />
               </div>
-              <h3 className="font-accent text-lg font-semibold mb-2">Email Us</h3>
+              <h3 className="font-accent text-lg font-semibold mb-2">{content.email.title}</h3>
               <p className="text-neutral mb-2">For general and order queries:</p>
-              <a href="mailto:info@charna.co.za" className="text-primary hover:text-accent">
-                info@charna.co.za
+              <a href={`mailto:${content.email.generalEmail}`} className="text-primary hover:text-accent">
+                {content.email.generalEmail}
               </a>
               <p className="text-neutral mt-3 mb-2">For wholesale queries:</p>
-              <a href="mailto:info@charna.co.za" className="text-primary hover:text-accent">
-                info@charna.co.za
+              <a href={`mailto:${content.email.wholesaleEmail}`} className="text-primary hover:text-accent">
+                {content.email.wholesaleEmail}
               </a>
             </div>
             
@@ -122,14 +161,14 @@ const Contact = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FontAwesomeIcon icon="phone" className="text-primary text-xl" />
               </div>
-              <h3 className="font-accent text-lg font-semibold mb-2">Call or Chat</h3>
+              <h3 className="font-accent text-lg font-semibold mb-2">{content.phone.title}</h3>
               <p className="text-neutral mb-2">Cell:</p>
-              <a href="tel:0723560321" className="text-primary hover:text-accent">
-                072 356 0321
+              <a href={`tel:${content.phone.cell.replace(/\s/g, '')}`} className="text-primary hover:text-accent">
+                {content.phone.cell}
               </a>
               <p className="text-neutral mt-3 mb-2">WhatsApp:</p>
               <a 
-                href={`https://wa.me/${WHATSAPP_NUMBER}`} 
+                href={`https://wa.me/${content.phone.whatsapp}`} 
                 className="bg-green-600 hover:bg-green-700 text-white font-accent text-sm py-2 px-4 rounded inline-flex items-center"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -142,7 +181,7 @@ const Contact = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white rounded-lg shadow-md p-8">
-              <h2 className="font-heading text-2xl font-semibold text-primary mb-6">Send Us a Message</h2>
+              <h2 className="font-heading text-2xl font-semibold text-primary mb-6">{content.formHeading}</h2>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -257,30 +296,24 @@ const Contact = () => {
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h3 className="font-heading text-xl font-semibold text-primary mb-4">Workshop Hours</h3>
                 <ul className="space-y-3">
-                  <li className="flex justify-between items-center">
-                    <span className="font-accent font-medium">Monday - Friday</span>
-                    <span>9:00 AM - 5:00 PM</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-accent font-medium">Saturday</span>
-                    <span>10:00 AM - 3:00 PM</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-accent font-medium">Sunday</span>
-                    <span>Closed</span>
-                  </li>
+                  {content.workshopHours && content.workshopHours.map((hour: any, index: number) => (
+                    <li key={index} className="flex justify-between items-center">
+                      <span className="font-accent font-medium">{hour.day}</span>
+                      <span>{hour.hours}</span>
+                    </li>
+                  ))}
                 </ul>
                 
                 <div className="mt-6 pt-4 border-t border-gray-200">
                   <h3 className="font-heading text-xl font-semibold text-primary mb-4">Visit Our Joburg Workshop</h3>
                   <p className="text-neutral mb-4">
-                    We welcome visitors to our workshop in Johannesburg. See our craftspeople at work 
-                    and experience our products firsthand.
+                    {content.workshopDescription}
                   </p>
-                  <p className="text-neutral">
-                    <strong>Please note:</strong> Workshop visits are by appointment only. 
-                    Contact us to schedule your visit.
-                  </p>
+                  {content.workshopNote && (
+                    <p className="text-neutral">
+                      <strong>Please note:</strong> {content.workshopNote}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -297,33 +330,14 @@ const Contact = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-secondary rounded-lg p-6">
-              <h3 className="font-accent text-lg font-semibold mb-3">Do you ship internationally?</h3>
-              <p className="text-neutral">
-                Yes, we ship to select international destinations. Please contact us for shipping rates and estimated delivery times.
-              </p>
-            </div>
-            
-            <div className="bg-secondary rounded-lg p-6">
-              <h3 className="font-accent text-lg font-semibold mb-3">What is your return policy?</h3>
-              <p className="text-neutral">
-                We accept returns within 14 days of delivery for items in their original condition. Custom orders are non-returnable.
-              </p>
-            </div>
-            
-            <div className="bg-secondary rounded-lg p-6">
-              <h3 className="font-accent text-lg font-semibold mb-3">How do I care for my leather bag?</h3>
-              <p className="text-neutral">
-                We recommend regular cleaning with a soft cloth and occasional conditioning with leather cream. Keep away from direct sunlight and moisture.
-              </p>
-            </div>
-            
-            <div className="bg-secondary rounded-lg p-6">
-              <h3 className="font-accent text-lg font-semibold mb-3">Do you offer wholesale options?</h3>
-              <p className="text-neutral">
-                Yes, we offer wholesale partnerships with select retailers. Please contact our wholesale department for more information.
-              </p>
-            </div>
+            {content.faq && content.faq.map((item: any, index: number) => (
+              <div key={index} className="bg-secondary rounded-lg p-6">
+                <h3 className="font-accent text-lg font-semibold mb-3">{item.question}</h3>
+                <p className="text-neutral">
+                  {item.answer}
+                </p>
+              </div>
+            ))}
           </div>
           
           <div className="text-center mt-8">
@@ -337,38 +351,23 @@ const Contact = () => {
       {/* Call to Action */}
       <section className="py-12 bg-primary text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-2xl md:text-3xl font-semibold mb-4">Connect With Us on Social Media</h2>
+          <h2 className="font-heading text-2xl md:text-3xl font-semibold mb-4">{content.socialCTA.heading}</h2>
           <p className="text-white/80 max-w-2xl mx-auto mb-8">
-            Follow our journey, see behind-the-scenes content, and be the first to know about new products and promotions.
+            {content.socialCTA.description}
           </p>
           <div className="flex justify-center space-x-6">
-            <a 
-              href="https://www.instagram.com/charna.co?igsh=MXBscWkyNjQybWI2Mw%3D%3D&utm_source=qr" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-primary hover:bg-secondary transition-colors rounded-full w-12 h-12 flex items-center justify-center"
-              aria-label="Instagram"
-            >
-              <FontAwesomeIcon icon={['fab', 'instagram']} className="text-xl" />
-            </a>
-            <a 
-              href="https://facebook.com/livinggreenmovement" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-primary hover:bg-secondary transition-colors rounded-full w-12 h-12 flex items-center justify-center"
-              aria-label="Facebook"
-            >
-              <FontAwesomeIcon icon={['fab', 'facebook-f']} className="text-xl" />
-            </a>
-            <a 
-              href="https://pinterest.com/livinggreenmovement" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white text-primary hover:bg-secondary transition-colors rounded-full w-12 h-12 flex items-center justify-center"
-              aria-label="Pinterest"
-            >
-              <FontAwesomeIcon icon={['fab', 'pinterest-p']} className="text-xl" />
-            </a>
+            {content.socialCTA.socialLinks && content.socialCTA.socialLinks.map((link: any, index: number) => (
+              <a 
+                key={index}
+                href={link.url} 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white text-primary hover:bg-secondary transition-colors rounded-full w-12 h-12 flex items-center justify-center"
+                aria-label={link.label}
+              >
+                <FontAwesomeIcon icon={['fab', link.platform as any]} className="text-xl" />
+              </a>
+            ))}
           </div>
         </div>
       </section>

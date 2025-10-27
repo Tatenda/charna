@@ -22,7 +22,8 @@ import {
   Tag,
   Image,
   ChevronRight,
-  Bell
+  Bell,
+  FileText
 } from "lucide-react"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
@@ -60,6 +61,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
     { name: "Promo Codes", href: "/admin/promo-codes", icon: Tag },
     { name: "Landing Page", href: "/admin/landing-page", icon: Image },
+    { name: "Page Content", href: "/admin/page-content", icon: FileText },
     { name: "Contacts", href: "/admin/contacts", icon: MessageSquare },
   ]
 
