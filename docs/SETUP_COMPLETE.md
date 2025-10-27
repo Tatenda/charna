@@ -32,7 +32,7 @@
 ### Yoco Webhook
 - **Status**: ✅ Registered
 - **ID**: `sub_2LNQWVjDvnJTY3bHA08I4PDx`
-- **URL**: `https://www.charna.co.com/api/webhooks/yoco`
+- **URL**: `https://www.charna.co.za/api/webhooks/yoco`
 - **Mode**: 🧪 Test
 - **Secret**: Added to environment variables
 - **Events**: payment.succeeded, checkout.succeeded

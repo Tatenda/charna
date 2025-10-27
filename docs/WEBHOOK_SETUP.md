@@ -53,7 +53,7 @@ npx prisma generate
 
 ```bash
 # Set your webhook URL (production)
-export WEBHOOK_URL=https://www.charna.co.com/api/webhooks/yoco
+export WEBHOOK_URL=https://www.charna.co.za/api/webhooks/yoco
 
 # Run registration script
 npx tsx scripts/register-yoco-webhook.ts
@@ -73,7 +73,7 @@ curl -X POST https://payments.yoco.com/api/webhooks \
   -H "Content-Type: application/json" \
   -d '{
     "name": "charna-webhook",
-    "url": "https://www.charna.co.com/api/webhooks/yoco"
+    "url": "https://www.charna.co.za/api/webhooks/yoco"
   }'
 ```
 

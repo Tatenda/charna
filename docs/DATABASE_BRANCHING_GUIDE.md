@@ -81,7 +81,7 @@ NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="your-nextauth-secret"
 
 # Email (optional for dev)
-GMAIL_USER=info@charna.co.com
+GMAIL_USER=info@charna.co.za
 GMAIL_APP_PASSWORD=cryp ehkv jyii mhdu
 
 # Environment

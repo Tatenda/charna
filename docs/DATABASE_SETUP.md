@@ -14,7 +14,7 @@ YOCO_SECRET_KEY=sk_test_477a1cb5gER1pBmdca3419e8b810
 YOCO_PUBLIC_KEY=pk_test_3097b2971WOrGKw92624
 
 # Email Configuration (optional)
-GMAIL_USER=info@charna.co.com
+GMAIL_USER=info@charna.co.za
 GMAIL_APP_PASSWORD=cryp ehkv jyii mhdu
 
 # Environment
