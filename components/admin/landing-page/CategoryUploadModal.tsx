@@ -158,7 +158,7 @@ const CategoryUploadModal = ({
         altText: `${categoryName} Collection`,
         caption: description.trim(),
         linkUrl: linkUrl.trim() || '/browse',
-        order: currentImageCount,
+        order: currentImageCount * 10, // Use increments of 10 to allow reordering
         enabled: true,
         metadata: {
           categoryName: categoryName.trim(),

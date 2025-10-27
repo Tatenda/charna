@@ -25,7 +25,7 @@ const CategoryTile = ({ category, metadata, hoverImages }: any) => {
   return (
     <Link
       href={category.linkUrl || '/browse'}
-      className={`${metadata.gridSpan || 'col-span-1 row-span-1'} group relative overflow-hidden shadow-xl`}
+      className={`${metadata.gridSpan || 'col-span-1 row-span-1'} group relative overflow-hidden shadow-xl h-full w-full`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -39,6 +39,7 @@ const CategoryTile = ({ category, metadata, hoverImages }: any) => {
             className={`w-full h-full object-cover transition-opacity duration-500 ${
               imgIndex === currentImageIndex ? 'opacity-100' : 'opacity-0 absolute inset-0'
             }`}
+            style={{ imageRendering: 'auto' }}
           />
         ))
       ) : (
@@ -47,6 +48,7 @@ const CategoryTile = ({ category, metadata, hoverImages }: any) => {
           src={getImagePath(category.imageUrl)}
           alt={category.altText}
           className="w-full h-full object-cover"
+          style={{ imageRendering: 'auto' }}
         />
       )}
 

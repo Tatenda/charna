@@ -1,12 +1,16 @@
 /**
- * Database Backup Script
+ * Production Database Backup Script
  * 
- * Creates a JSON backup of all critical tables
+ * Creates a JSON backup of all critical tables from PRODUCTION database
  */
 
-import { prisma } from '../lib/prisma';
+import { PrismaClient } from '@prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as dotenv from 'dotenv';
+
+// Load production environment variables
+dotenv.config({ path: '.env' });
 
 async function backup() {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
@@ -17,7 +21,10 @@ async function backup() {
     fs.mkdirSync(backupDir, { recursive: true });
   }
 
-  console.log('🔄 Starting database backup...');
+  console.log('🔄 Starting PRODUCTION database backup...');
+  console.log(`📍 DATABASE_URL: ${process.env.DATABASE_URL?.substring(0, 50)}...\n`);
+
+  const prisma = new PrismaClient();
 
   try {
     // Backup all tables
@@ -55,7 +62,7 @@ async function backup() {
     };
 
     // Write backup file
-    const filename = `backup-${timestamp}.json`;
+    const filename = `production-backup-${timestamp}.json`;
     const filepath = path.join(backupDir, filename);
     
     fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
@@ -63,7 +70,7 @@ async function backup() {
     const stats = fs.statSync(filepath);
     const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
     
-    console.log('✅ Backup completed successfully!');
+    console.log('✅ Production backup completed successfully!');
     console.log(`📁 File: ${filename}`);
     console.log(`📊 Size: ${fileSizeInMB} MB`);
     console.log(`📍 Location: ${filepath}`);
@@ -76,6 +83,14 @@ async function backup() {
     console.log(`  - ${data.users.length} users`);
     console.log(`  - ${data.landingPageSections.length} landing page sections`);
     
+    // Summary of landing page data
+    if (data.landingPageSections.length > 0) {
+      console.log('\n📄 Landing Page Summary:');
+      data.landingPageSections.forEach(section => {
+        console.log(`  - ${section.name}: ${section.images.length} images`);
+      });
+    }
+    
     await prisma.$disconnect();
     
   } catch (error) {
@@ -86,4 +101,3 @@ async function backup() {
 }
 
 backup();
-

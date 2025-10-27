@@ -118,7 +118,7 @@ const ImageUploadModal = ({
         altText: altText.trim(),
         caption: caption.trim() || null,
         linkUrl: linkUrl.trim() || null,
-        order: currentImageCount,
+        order: currentImageCount * 10, // Use increments of 10 to allow reordering
         enabled: true,
       };
 

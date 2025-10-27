@@ -167,7 +167,7 @@ const RangeUploadModal = ({
         altText: `${rangeName} - ${category} bag`,
         caption: description.trim(),
         linkUrl: linkUrl.trim() || `/browse?category=${category}`,
-        order: currentImageCount,
+        order: currentImageCount * 10, // Use increments of 10 to allow reordering
         enabled: true,
         metadata: {
           rangeName: rangeName.trim(),

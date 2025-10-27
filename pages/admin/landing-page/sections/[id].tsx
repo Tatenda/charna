@@ -64,6 +64,7 @@ const SectionEditor = () => {
   const [enabled, setEnabled] = useState(true);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [editingImage, setEditingImage] = useState<LandingPageImage | null>(null);
+  const [reorderingImageId, setReorderingImageId] = useState<number | null>(null);
 
   useEffect(() => {
     if (id) {
@@ -180,7 +181,11 @@ const SectionEditor = () => {
     const currentImage = section.images.find(img => img.id === imageId);
     if (!currentImage) return;
     
-    const sortedImages = [...section.images].sort((a, b) => a.order - b.order);
+    // Sort images by order, then by ID for consistent ordering when order values are equal
+    const sortedImages = [...section.images].sort((a, b) => {
+      if (a.order !== b.order) return a.order - b.order;
+      return a.id - b.id;
+    });
     const currentIndex = sortedImages.findIndex(img => img.id === imageId);
     
     if (direction === 'up' && currentIndex === 0) return;
@@ -189,20 +194,39 @@ const SectionEditor = () => {
     const swapIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
     const swapImage = sortedImages[swapIndex];
     
+    // Set loading state
+    setReorderingImageId(imageId);
+    
     try {
-      // Swap orders
-      await Promise.all([
-        fetch(`/api/admin/landing-page/images/${currentImage.id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ order: swapImage.order }),
-        }),
-        fetch(`/api/admin/landing-page/images/${swapImage.id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ order: currentImage.order }),
-        }),
-      ]);
+      // Re-number all images to ensure unique order values
+      // Use a gap of 10 between orders for easy insertion later
+      const updatedOrders = sortedImages.map((img, idx) => ({
+        id: img.id,
+        order: idx * 10
+      }));
+      
+      // Swap the positions in our updated orders
+      const currentNewOrder = updatedOrders[currentIndex].order;
+      const swapNewOrder = updatedOrders[swapIndex].order;
+      
+      updatedOrders[currentIndex].order = swapNewOrder;
+      updatedOrders[swapIndex].order = currentNewOrder;
+      
+      // Update all images to their new orders
+      await Promise.all(
+        updatedOrders.map(({ id, order }) =>
+          fetch(`/api/admin/landing-page/images/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ order }),
+          })
+        )
+      );
+      
+      toast({
+        title: 'Success',
+        description: 'Order updated successfully',
+      });
       
       fetchSection();
     } catch (error) {
@@ -212,6 +236,8 @@ const SectionEditor = () => {
         description: 'Failed to reorder image',
         variant: 'destructive',
       });
+    } finally {
+      setReorderingImageId(null);
     }
   };
 
@@ -340,7 +366,12 @@ const SectionEditor = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {section.images.map((image) => (
+              {(() => {
+                // Sort images by order to get correct index
+                const sortedImages = [...section.images].sort((a, b) => a.order - b.order);
+                
+                return sortedImages.map((image, index) => {
+                  return (
                 <div
                   key={image.id}
                   className="group relative border border-sage/20 rounded-lg overflow-hidden hover:border-botanical/40 transition-colors"
@@ -359,7 +390,7 @@ const SectionEditor = () => {
                     )}
                     <div className="absolute top-2 left-2">
                       <Badge variant="secondary" className="bg-white/90 text-xs">
-                        #{image.order}
+                        #{index + 1}
                       </Badge>
                     </div>
                     {image.linkUrl && (
@@ -391,20 +422,28 @@ const SectionEditor = () => {
                           variant="ghost"
                           onClick={() => moveImage(image.id, 'up')}
                           className="h-7 px-2"
-                          disabled={image.order === 0}
+                          disabled={index === 0 || reorderingImageId === image.id}
                           title="Move up"
                         >
-                          <ArrowUp className="h-3 w-3" />
+                          {reorderingImageId === image.id ? (
+                            <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-botanical"></div>
+                          ) : (
+                            <ArrowUp className="h-3 w-3" />
+                          )}
                         </Button>
                         <Button
                           size="sm"
                           variant="ghost"
                           onClick={() => moveImage(image.id, 'down')}
                           className="h-7 px-2"
-                          disabled={image.order === section.images.length - 1}
+                          disabled={index === sortedImages.length - 1 || reorderingImageId === image.id}
                           title="Move down"
                         >
-                          <ArrowDown className="h-3 w-3" />
+                          {reorderingImageId === image.id ? (
+                            <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-botanical"></div>
+                          ) : (
+                            <ArrowDown className="h-3 w-3" />
+                          )}
                         </Button>
                       </div>
                       <Button
@@ -448,7 +487,9 @@ const SectionEditor = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+                  );
+                });
+              })()}
             </div>
           )}
         </div>
