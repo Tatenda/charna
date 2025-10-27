@@ -12,6 +12,7 @@ vite.config.ts.*
 /generated/prisma
 .env.local
 .env.production
+.env.development
 
 # Backups (contains sensitive production data)
 backups/
