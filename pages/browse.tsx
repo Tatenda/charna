@@ -1048,28 +1048,41 @@ export default function Browse() {
               
               {includeEmbossing && (
                 <div className="mt-3 ml-6 space-y-3">
+                  {/* Embossing Demo Image */}
+                  <div className="mb-4">
+                    <p className="text-xs text-gray-500 mb-2">Sample embossing placement:</p>
+                    <img 
+                      src="/embose/Embossing-Sans-Serif-font.png" 
+                      alt="Embossing example on bottom right corner of product"
+                      className="w-full max-w-md rounded-lg border border-gray-200"
+                    />
+                  </div>
+                  
                   <div>
                     <Label htmlFor="embossing-text" className="block text-sm font-medium text-gray-700 mb-2">
-                      Embossing Text (max 10 characters)
+                      Embossing Text (max 20 characters)
                     </Label>
                     <input
                       type="text"
                       id="embossing-text"
                       value={embossingText}
-                      onChange={(e) => setEmbossingText(e.target.value.slice(0, 10))}
+                      onChange={(e) => setEmbossingText(e.target.value.slice(0, 20))}
                       placeholder="Enter text to emboss"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                       data-testid="input-embossing-text"
                     />
+                    <p className="text-xs text-gray-500 mt-1">
+                      {embossingText.length}/20 characters
+                    </p>
                   </div>
                   
                   {embossingText.trim() && (
                     <div className="bg-amber-50 p-4 rounded-lg border">
-                      <p className="text-sm text-gray-600 mb-2">Preview:</p>
+                      <p className="text-sm text-gray-600 mb-2">Preview (Sans Serif Font):</p>
                       <div 
                         className="text-2xl font-bold text-amber-900 tracking-wider"
                         style={{ 
-                          fontFamily: 'serif',
+                          fontFamily: 'sans-serif',
                           textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
                           letterSpacing: '2px'
                         }}

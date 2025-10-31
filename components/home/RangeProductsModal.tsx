@@ -335,20 +335,35 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName, range
                           </label>
                           
                           {embossingEnabled[variant.id] && (
-                            <input
-                              type="text"
-                              value={embossingText[variant.id] || ''}
-                              onChange={(e) => {
-                                const value = e.target.value.slice(0, 10);
-                                setEmbossingText(prev => ({
-                                  ...prev,
-                                  [variant.id]: value
-                                }));
-                              }}
-                              placeholder="Embossing text (max 10 chars)"
-                              className="w-full text-sm px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-botanical"
-                              maxLength={10}
-                            />
+                            <div className="space-y-2">
+                              {/* Embossing Demo Image */}
+                              <div>
+                                <p className="text-xs text-gray-500 mb-1">Sample embossing placement:</p>
+                                <img 
+                                  src="/embose/Embossing-Sans-Serif-font.png" 
+                                  alt="Embossing example on bottom right corner of product"
+                                  className="w-full max-w-xs rounded-lg border border-gray-200"
+                                />
+                              </div>
+                              
+                              <input
+                                type="text"
+                                value={embossingText[variant.id] || ''}
+                                onChange={(e) => {
+                                  const value = e.target.value.slice(0, 20);
+                                  setEmbossingText(prev => ({
+                                    ...prev,
+                                    [variant.id]: value
+                                  }));
+                                }}
+                                placeholder="Embossing text (max 20 chars)"
+                                className="w-full text-sm px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-botanical"
+                                maxLength={20}
+                              />
+                              <p className="text-xs text-gray-500">
+                                {(embossingText[variant.id]?.length || 0)}/20 characters
+                              </p>
+                            </div>
                           )}
                         </div>
                       </div>
