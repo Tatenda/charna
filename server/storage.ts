@@ -219,8 +219,14 @@ export class PrismaStorage implements IStorage {
     
     // Sort products by their displayOrder in the target category
     const sortedProducts = products.sort((a, b) => {
-      const aCategoryRel = a.categories.find(c => categoryIds.includes(c.categoryId));
-      const bCategoryRel = b.categories.find(c => categoryIds.includes(c.categoryId));
+      // Prefer the displayOrder from the target category itself over its children
+      const aTargetRel = a.categories.find(c => c.categoryId === targetCategory.id);
+      const bTargetRel = b.categories.find(c => c.categoryId === targetCategory.id);
+      
+      // If not in target category, use first matching child category
+      const aCategoryRel = aTargetRel || a.categories.find(c => categoryIds.includes(c.categoryId));
+      const bCategoryRel = bTargetRel || b.categories.find(c => categoryIds.includes(c.categoryId));
+      
       const aOrder = aCategoryRel?.displayOrder ?? 999999;
       const bOrder = bCategoryRel?.displayOrder ?? 999999;
       return aOrder - bOrder;
