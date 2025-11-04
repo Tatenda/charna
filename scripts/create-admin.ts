@@ -11,11 +11,7 @@ async function createAdminUser() {
 
     // Require password to be provided
     if (!password) {
-      console.error('Error: ADMIN_PASSWORD environment variable is required')
-      console.error('\nUsage:')
-      console.error('  ADMIN_PASSWORD=your-secure-password yarn create-admin')
-      console.error('\nOr set it in your .env file:')
-      console.error('  ADMIN_PASSWORD=your-secure-password')
+      
       process.exit(1)
     }
 

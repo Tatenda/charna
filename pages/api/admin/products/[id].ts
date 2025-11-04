@@ -35,7 +35,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           variants: {
             include: {
               attributes: true
-            }
+            },
+            orderBy: [
+              { isDefault: 'desc' },
+              { createdAt: 'asc' }
+            ]
           },
           categories: {
             include: {
@@ -121,7 +125,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           variants: {
             include: {
               attributes: true
-            }
+            },
+            orderBy: [
+              { isDefault: 'desc' },
+              { createdAt: 'asc' }
+            ]
           },
           categories: {
             include: {

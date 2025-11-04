@@ -90,7 +90,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 price: true,
                 inStock: true,
                 images: true,
-              }
+                isDefault: true,
+              },
+              orderBy: [
+                { isDefault: 'desc' },
+                { createdAt: 'asc' }
+              ]
             },
             categories: {
               include: {
