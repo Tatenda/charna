@@ -100,7 +100,12 @@ export interface OrderItem {
   price: number;
   customizations?: {
     embossing: boolean;
+    embossingText?: string;
     embossingPrice: number;
+    embossingOptionId?: number;
+    color?: string;
+    bagColor?: string;
+    sleeveColor?: string;
   };
 }
 

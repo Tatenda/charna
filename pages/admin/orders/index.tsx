@@ -40,10 +40,28 @@ export default function OrdersPage() {
   const [loading, setLoading] = useState(true);
   const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
   const [sendingReceipt, setSendingReceipt] = useState<number | null>(null);
+  const [embossingOptions, setEmbossingOptions] = useState<Record<number, string>>({});
 
   useEffect(() => {
     fetchOrders();
+    fetchEmbossingOptions();
   }, []);
+
+  const fetchEmbossingOptions = async () => {
+    try {
+      const response = await fetch('/api/embossing-options');
+      if (response.ok) {
+        const options = await response.json();
+        const optionsMap: Record<number, string> = {};
+        options.forEach((option: { id: number; name: string }) => {
+          optionsMap[option.id] = option.name;
+        });
+        setEmbossingOptions(optionsMap);
+      }
+    } catch (error) {
+      console.error('Failed to fetch embossing options:', error);
+    }
+  };
 
   const fetchOrders = async () => {
     try {
@@ -372,7 +390,7 @@ export default function OrdersPage() {
                                               <div className="flex flex-wrap gap-1.5 mt-1.5">
                                                 {item.customizations.embossing && (
                                                   <Badge className="bg-amber-100 text-amber-900 hover:bg-amber-100 text-xs font-semibold border border-amber-300">
-                                                    ✨ Embossing: "{item.customizations.embossingText || 'Yes'}"
+                                                    ✨ Embossing{item.customizations.embossingOptionId && embossingOptions[item.customizations.embossingOptionId] ? ` (${embossingOptions[item.customizations.embossingOptionId]})` : ''}: "{item.customizations.embossingText || 'Yes'}"
                                                   </Badge>
                                                 )}
                                                 {item.customizations.color && (

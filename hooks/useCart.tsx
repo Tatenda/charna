@@ -11,6 +11,7 @@ export interface CartItem {
     embossing?: boolean;
     embossingText?: string;
     embossingPrice?: number;
+    embossingOptionId?: number;
   };
 }
 

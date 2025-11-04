@@ -171,12 +171,30 @@ export default function Browse() {
   const [selectedColor, setSelectedColor] = useState('tan');
   const [includeEmbossing, setIncludeEmbossing] = useState(false);
   const [embossingText, setEmbossingText] = useState("");
+  const [embossingOptions, setEmbossingOptions] = useState<any[]>([]);
+  const [selectedEmbossingOptionId, setSelectedEmbossingOptionId] = useState<number | null>(null);
   
   // Package 2 specific customization state
   const [selectedBagColor, setSelectedBagColor] = useState('navy'); // navy or olive
   const [selectedSleeveColor, setSelectedSleeveColor] = useState('tan'); // tan or navy
   
   const { toast } = useToast();
+
+  // Fetch embossing options
+  useEffect(() => {
+    const fetchEmbossingOptions = async () => {
+      try {
+        const response = await fetch('/api/embossing-options');
+        if (response.ok) {
+          const data = await response.json();
+          setEmbossingOptions(data);
+        }
+      } catch (error) {
+        console.error('Error fetching embossing options:', error);
+      }
+    };
+    fetchEmbossingOptions();
+  }, []);
 
   // Update category when URL changes (for browser back/forward navigation)
   useEffect(() => {
@@ -534,12 +552,14 @@ export default function Browse() {
         setSelectedColor('tan');
         setIncludeEmbossing(false);
         setEmbossingText("");
+        setSelectedEmbossingOptionId(null);
       } else if (product.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_2) {
         // Package 2: bag color and sleeve color choices
         setSelectedBagColor('navy');
         setSelectedSleeveColor('tan');
         setIncludeEmbossing(false);
         setEmbossingText("");
+        setSelectedEmbossingOptionId(null);
       }
       
       setShowCustomizationModal(true);
@@ -551,6 +571,7 @@ export default function Browse() {
       setSelectedProduct(product);
       setIncludeEmbossing(false);
       setEmbossingText("");
+      setSelectedEmbossingOptionId(null);
       setShowCustomizationModal(true);
       return;
     }
@@ -559,16 +580,18 @@ export default function Browse() {
     if (product.colors && product.colors.length > 0) {
       setSelectedProduct(product);
       setSelectedColor(product.colors[0]); // Default to first color
-      setIncludeEmbossing(false);
-      setEmbossingText("");
-      setShowCustomizationModal(true);
-      return;
+              setIncludeEmbossing(false);
+        setEmbossingText("");
+        setSelectedEmbossingOptionId(null);
+        setShowCustomizationModal(true);
+        return;
     }
 
     // All other products - show customization modal for embossing
     setSelectedProduct(product);
     setIncludeEmbossing(false);
     setEmbossingText("");
+    setSelectedEmbossingOptionId(null);
     setShowCustomizationModal(true);
     return;
 
@@ -578,7 +601,8 @@ export default function Browse() {
   const handleCustomizedAddToCart = () => {
     if (!selectedProduct) return;
 
-    const embossingPrice = includeEmbossing ? 80 : 0;
+    const selectedOption = embossingOptions.find(opt => opt.id === selectedEmbossingOptionId);
+    const embossingPrice = includeEmbossing && selectedOption ? selectedOption.price : 0;
     let customizations;
     let productName;
 
@@ -588,7 +612,8 @@ export default function Browse() {
         color: selectedColor,
         embossing: includeEmbossing,
         embossingText: includeEmbossing ? embossingText.trim() : undefined,
-        embossingPrice: embossingPrice
+        embossingPrice: embossingPrice,
+        embossingOptionId: includeEmbossing && selectedEmbossingOptionId ? selectedEmbossingOptionId : undefined
       };
       productName = `${selectedProduct.name} - ${selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1)}${includeEmbossing ? ' + Embossing' : ''}`;
     } else if (selectedProduct.id === 14) {
@@ -598,7 +623,8 @@ export default function Browse() {
         sleeveColor: selectedSleeveColor,
         embossing: includeEmbossing,
         embossingText: includeEmbossing ? embossingText.trim() : undefined,
-        embossingPrice: embossingPrice
+        embossingPrice: embossingPrice,
+        embossingOptionId: includeEmbossing && selectedEmbossingOptionId ? selectedEmbossingOptionId : undefined
       };
       productName = `${selectedProduct.name} - ${selectedBagColor.charAt(0).toUpperCase() + selectedBagColor.slice(1)} Bag / ${selectedSleeveColor.charAt(0).toUpperCase() + selectedSleeveColor.slice(1)} Sleeve${includeEmbossing ? ' + Embossing' : ''}`;
     } else if (selectedProduct.id === 24) {
@@ -606,7 +632,8 @@ export default function Browse() {
       customizations = {
         embossing: includeEmbossing,
         embossingText: includeEmbossing ? embossingText.trim() : undefined,
-        embossingPrice: embossingPrice
+        embossingPrice: embossingPrice,
+        embossingOptionId: includeEmbossing && selectedEmbossingOptionId ? selectedEmbossingOptionId : undefined
       };
       productName = `${selectedProduct.name}${includeEmbossing ? ' + Embossing' : ''}`;
     } else if (selectedProduct.colors && selectedProduct.colors.length > 0) {
@@ -615,7 +642,8 @@ export default function Browse() {
         color: selectedColor,
         embossing: includeEmbossing,
         embossingText: includeEmbossing ? embossingText.trim() : undefined,
-        embossingPrice: embossingPrice
+        embossingPrice: embossingPrice,
+        embossingOptionId: includeEmbossing && selectedEmbossingOptionId ? selectedEmbossingOptionId : undefined
       };
       productName = `${selectedProduct.name}${selectedColor ? ' - ' + selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1) : ''}${includeEmbossing ? ' + Embossing' : ''}`;
     } else {
@@ -623,7 +651,8 @@ export default function Browse() {
       customizations = {
         embossing: includeEmbossing,
         embossingText: includeEmbossing ? embossingText.trim() : undefined,
-        embossingPrice: embossingPrice
+        embossingPrice: embossingPrice,
+        embossingOptionId: includeEmbossing && selectedEmbossingOptionId ? selectedEmbossingOptionId : undefined
       };
       productName = `${selectedProduct.name}${includeEmbossing ? ' + Embossing' : ''}`;
     }
@@ -919,113 +948,120 @@ export default function Browse() {
 
       {/* Package Customization Modal */}
       <Dialog open={showCustomizationModal} onOpenChange={setShowCustomizationModal}>
-        <DialogContent className="sm:max-w-md bg-white text-gray-900">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-bold text-gray-900">
-              Customize Your {selectedProduct?.name}
-            </DialogTitle>
-            <DialogDescription className="text-gray-600">
-              {selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_1 
-                ? "Choose your laptop bag color and add optional embossing to personalize your package."
-                : selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_2
-                ? "Choose your bag and sleeve colors, plus add optional embossing to personalize your package."
-                : selectedProduct?.colors && selectedProduct.colors.length > 0
-                ? "Choose your color and add optional embossing to personalize your product."
-                : "Add optional embossing to personalize your product."
-              }
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-6 py-4">
-            {/* Package 1 Color Selection */}
-            {selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_1 && (
-              <div>
-                <Label className="text-base font-semibold text-gray-900 mb-3 block">
-                  Laptop Bag Color
-                </Label>
-                <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="tan" id="tan" />
-                    <Label htmlFor="tan" className="text-gray-700 cursor-pointer">
-                      Tan Leather
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="navy" id="navy" />
-                    <Label htmlFor="navy" className="text-gray-700 cursor-pointer">
-                      Navy Leather
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
-            )}
+        <DialogContent 
+          className="max-w-4xl max-h-[90vh] w-[95vw] sm:w-[98vw] p-0 overflow-hidden"
+          style={{ maxHeight: '90vh', top: '50%', transform: 'translate(-50%, -50%)', overflow: 'hidden' }}
+        >
+          <div className="flex flex-col h-full" style={{ maxHeight: '90vh', overflow: 'hidden' }}>
+            <DialogHeader className="flex-shrink-0 px-4 sm:px-6 pt-4 sm:pt-6 pb-3 border-b">
+              <DialogTitle className="text-xl sm:text-2xl font-bold text-gray-900">
+                Customize Your {selectedProduct?.name}
+              </DialogTitle>
+              <DialogDescription className="text-gray-600">
+                {selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_1 
+                  ? "Choose your laptop bag color and add optional embossing to personalize your package."
+                  : selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_2
+                  ? "Choose your bag and sleeve colors, plus add optional embossing to personalize your package."
+                  : selectedProduct?.colors && selectedProduct.colors.length > 0
+                  ? "Choose your color and add optional embossing to personalize your product."
+                  : "Add optional embossing to personalize your product."
+                }
+              </DialogDescription>
+            </DialogHeader>
+            
+            <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 min-h-0">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                {/* Left Column: Options */}
+                <div className="space-y-6">
+                  {/* Package 1 Color Selection */}
+                  {selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_1 && (
+                    <div>
+                      <Label className="text-base font-semibold text-gray-900 mb-3 block">
+                        Laptop Bag Color
+                      </Label>
+                      <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="tan" id="tan" />
+                          <Label htmlFor="tan" className="text-gray-700 cursor-pointer">
+                            Tan Leather
+                          </Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="navy" id="navy" />
+                          <Label htmlFor="navy" className="text-gray-700 cursor-pointer">
+                            Navy Leather
+                          </Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+                  )}
 
-            {/* Package 2 Color Selections */}
-            {selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_2 && (
-              <>
-                <div>
-                  <Label className="text-base font-semibold text-gray-900 mb-3 block">
-                    Retro Bag Color
-                  </Label>
-                  <RadioGroup value={selectedBagColor} onValueChange={setSelectedBagColor}>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="navy" id="bag-navy" />
-                      <Label htmlFor="bag-navy" className="text-gray-700 cursor-pointer">
-                        Navy Blue
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="olive" id="bag-olive" />
-                      <Label htmlFor="bag-olive" className="text-gray-700 cursor-pointer">
-                        Olive Green
-                      </Label>
-                    </div>
-                  </RadioGroup>
-                </div>
+                  {/* Package 2 Color Selections */}
+                  {selectedProduct?.id === PACKAGE_PRODUCT_IDS.ONBOARDING_PACKAGE_2 && (
+                    <>
+                      <div>
+                        <Label className="text-base font-semibold text-gray-900 mb-3 block">
+                          Retro Bag Color
+                        </Label>
+                        <RadioGroup value={selectedBagColor} onValueChange={setSelectedBagColor}>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="navy" id="bag-navy" />
+                            <Label htmlFor="bag-navy" className="text-gray-700 cursor-pointer">
+                              Navy Blue
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="olive" id="bag-olive" />
+                            <Label htmlFor="bag-olive" className="text-gray-700 cursor-pointer">
+                              Olive Green
+                            </Label>
+                          </div>
+                        </RadioGroup>
+                      </div>
 
-                <div>
-                  <Label className="text-base font-semibold text-gray-900 mb-3 block">
-                    Laptop Sleeve Color
-                  </Label>
-                  <RadioGroup value={selectedSleeveColor} onValueChange={setSelectedSleeveColor}>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="tan" id="sleeve-tan" />
-                      <Label htmlFor="sleeve-tan" className="text-gray-700 cursor-pointer">
-                        Tan Leather
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="navy" id="sleeve-navy" />
-                      <Label htmlFor="sleeve-navy" className="text-gray-700 cursor-pointer">
-                        Navy Leather
-                      </Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-              </>
-            )}
+                      <div>
+                        <Label className="text-base font-semibold text-gray-900 mb-3 block">
+                          Laptop Sleeve Color
+                        </Label>
+                        <RadioGroup value={selectedSleeveColor} onValueChange={setSelectedSleeveColor}>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="tan" id="sleeve-tan" />
+                            <Label htmlFor="sleeve-tan" className="text-gray-700 cursor-pointer">
+                              Tan Leather
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="navy" id="sleeve-navy" />
+                            <Label htmlFor="sleeve-navy" className="text-gray-700 cursor-pointer">
+                              Navy Leather
+                            </Label>
+                          </div>
+                        </RadioGroup>
+                      </div>
+                    </>
+                  )}
 
-            {/* Individual Product Color Selection */}
-            {selectedProduct?.colors && selectedProduct.colors.length > 0 && selectedProduct.id !== 13 && selectedProduct.id !== 14 && (
-              <div>
-                <Label className="text-base font-semibold text-gray-900 mb-3 block">
-                  Color Options
-                </Label>
-                <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
-                  {selectedProduct.colors.map((color: string) => (
-                    <div key={color} className="flex items-center space-x-2">
-                      <RadioGroupItem value={color} id={`color-${color}`} />
-                      <Label htmlFor={`color-${color}`} className="text-gray-700 cursor-pointer">
-                        {color.charAt(0).toUpperCase() + color.slice(1)}
+                  {/* Individual Product Color Selection */}
+                  {selectedProduct?.colors && selectedProduct.colors.length > 0 && selectedProduct.id !== 13 && selectedProduct.id !== 14 && (
+                    <div>
+                      <Label className="text-base font-semibold text-gray-900 mb-3 block">
+                        Color Options
                       </Label>
+                      <RadioGroup value={selectedColor} onValueChange={setSelectedColor}>
+                        {selectedProduct.colors.map((color: string) => (
+                          <div key={color} className="flex items-center space-x-2">
+                            <RadioGroupItem value={color} id={`color-${color}`} />
+                            <Label htmlFor={`color-${color}`} className="text-gray-700 cursor-pointer">
+                              {color.charAt(0).toUpperCase() + color.slice(1)}
+                            </Label>
+                          </div>
+                        ))}
+                      </RadioGroup>
                     </div>
-                  ))}
-                </RadioGroup>
-              </div>
-            )}
+                  )}
 
-            {/* Embossing Option */}
-            <div>
+                  {/* Embossing Option */}
+                  <div>
               <Label className="text-base font-semibold text-gray-900 mb-3 block">
                 Additional Options
               </Label>
@@ -1035,105 +1071,148 @@ export default function Browse() {
                   checked={includeEmbossing}
                   onCheckedChange={(checked) => {
                     setIncludeEmbossing(!!checked);
-                    if (!checked) setEmbossingText("");
+                    if (!checked) {
+                      setEmbossingText("");
+                      setSelectedEmbossingOptionId(null);
+                    }
                   }}
                 />
                 <Label htmlFor="embossing" className="text-gray-700 cursor-pointer">
-                  Add Custom Embossing (+R80.00)
+                  Add Custom Embossing
+                  {selectedEmbossingOptionId && embossingOptions.find(opt => opt.id === selectedEmbossingOptionId) && (
+                    <span> (+R{embossingOptions.find(opt => opt.id === selectedEmbossingOptionId)?.price})</span>
+                  )}
                 </Label>
               </div>
               <p className="text-sm text-gray-500 mt-1 ml-6">
                 Personalize your package with custom embossing on the leather goods
               </p>
               
-              {includeEmbossing && (
-                <div className="mt-3 ml-6 space-y-3">
-                  {/* Embossing Demo Image */}
-                  <div className="mb-4">
-                    <p className="text-xs text-gray-500 mb-2">Sample embossing placement:</p>
-                    <img 
-                      src="/embose/Embossing-Sans-Serif-font.png" 
-                      alt="Embossing example on bottom right corner of product"
-                      className="w-full max-w-md rounded-lg border border-gray-200"
-                    />
+                    {includeEmbossing && (
+                      <div className="mt-3 ml-6 space-y-3">
+                        {/* Embossing Option Dropdown */}
+                        <div>
+                          <Label htmlFor="embossing-option" className="block text-sm font-medium text-gray-700 mb-2">
+                            Select Font Style *
+                          </Label>
+                          <select
+                            id="embossing-option"
+                            value={selectedEmbossingOptionId || ''}
+                            onChange={(e) => {
+                              const optionId = e.target.value ? parseInt(e.target.value) : null;
+                              setSelectedEmbossingOptionId(optionId);
+                            }}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                            required={includeEmbossing}
+                          >
+                            <option value="">Select a font style...</option>
+                            {embossingOptions.map((option) => (
+                              <option key={option.id} value={option.id}>
+                                {option.name} (R{option.price})
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Show images from selected embossing option */}
+                        {selectedEmbossingOptionId && embossingOptions.find(opt => opt.id === selectedEmbossingOptionId) && (
+                          <div className="space-y-3">
+                            {(() => {
+                              const selectedOption = embossingOptions.find(opt => opt.id === selectedEmbossingOptionId);
+                              const images = selectedOption?.images || [];
+                              return images.length > 0 && (
+                                <div className="space-y-2">
+                                  <p className="text-xs text-gray-500 mb-2">Preview:</p>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    {images.map((image: string, idx: number) => (
+                                      <div key={idx} className="relative">
+                                                                                 <img 
+                                           src={getImagePath(image)}
+                                           alt={`${selectedOption.name} preview ${idx + 1}`}
+                                           className="w-full rounded-lg border border-gray-200 object-contain max-h-48"
+                                         />
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              );
+                            })()}
+                          </div>
+                        )}
+                        
+                        <div>
+                          <Label htmlFor="embossing-text" className="block text-sm font-medium text-gray-700 mb-2">
+                            Embossing Text (max 20 characters) *
+                          </Label>
+                          <input
+                            type="text"
+                            id="embossing-text"
+                            value={embossingText}
+                            onChange={(e) => setEmbossingText(e.target.value.slice(0, 20))}
+                            placeholder="Enter text to emboss"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                            data-testid="input-embossing-text"
+                            required={includeEmbossing}
+                          />
+                          <p className="text-xs text-gray-500 mt-1">
+                            {embossingText.length}/20 characters
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  
-                  <div>
-                    <Label htmlFor="embossing-text" className="block text-sm font-medium text-gray-700 mb-2">
-                      Embossing Text (max 20 characters)
-                    </Label>
-                    <input
-                      type="text"
-                      id="embossing-text"
-                      value={embossingText}
-                      onChange={(e) => setEmbossingText(e.target.value.slice(0, 20))}
-                      placeholder="Enter text to emboss"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      data-testid="input-embossing-text"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      {embossingText.length}/20 characters
-                    </p>
-                  </div>
-                  
-                  {embossingText.trim() && (
-                    <div className="bg-amber-50 p-4 rounded-lg border">
-                      <p className="text-sm text-gray-600 mb-2">Preview (Sans Serif Font):</p>
-                      <div 
-                        className="text-2xl font-bold text-amber-900 tracking-wider"
-                        style={{ 
-                          fontFamily: 'sans-serif',
-                          textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                          letterSpacing: '2px'
-                        }}
-                        data-testid="preview-embossing"
-                      >
-                        {embossingText.trim()}
+
+                </div>
+
+                {/* Right Column: Summary */}
+                <div className="space-y-6">
+                  {/* Price Summary */}
+                  <div className="border rounded-lg p-4 md:p-6 bg-gray-50 sticky top-0">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h3>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-base">
+                        <span className="text-gray-700">
+                          {selectedProduct?.isPackage ? 'Package Price:' : 'Product Price:'}
+                        </span>
+                        <span className="text-gray-900 font-medium">R{selectedProduct?.price?.toLocaleString()}</span>
+                      </div>
+                                               {includeEmbossing && selectedEmbossingOptionId && embossingOptions.find(opt => opt.id === selectedEmbossingOptionId) && (
+                           <div className="flex justify-between text-sm text-gray-600">
+                             <span>Embossing ({embossingOptions.find(opt => opt.id === selectedEmbossingOptionId)?.name}):</span>
+                             <span>+R{embossingOptions.find(opt => opt.id === selectedEmbossingOptionId)?.price}</span>
+                           </div>
+                         )}
+                      <div className="flex justify-between text-lg font-bold mt-3 pt-3 border-t border-gray-300">
+                        <span className="text-gray-900">Total:</span>
+                        <span className="text-gray-900 text-xl">
+                          R{((selectedProduct?.price || 0) + (includeEmbossing && selectedEmbossingOptionId ? (embossingOptions.find(opt => opt.id === selectedEmbossingOptionId)?.price || 0) : 0)).toLocaleString()}
+                        </span>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
-              )}
-            </div>
-
-            {/* Price Summary */}
-            <div className="border-t pt-4">
-              <div className="flex justify-between text-base">
-                <span className="text-gray-700">
-                  {selectedProduct?.isPackage ? 'Package Price:' : 'Product Price:'}
-                </span>
-                <span className="text-gray-900">R{selectedProduct?.price?.toLocaleString()}</span>
-              </div>
-              {includeEmbossing && (
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>Embossing:</span>
-                  <span>+R80</span>
-                </div>
-              )}
-              <div className="flex justify-between text-lg font-bold mt-2 border-t pt-2">
-                <span className="text-gray-900">Total:</span>
-                <span className="text-gray-900">
-                  R{((selectedProduct?.price || 0) + (includeEmbossing ? 80 : 0)).toLocaleString()}
-                </span>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-3 pt-4">
-              <Button 
-                variant="outline" 
-                onClick={() => setShowCustomizationModal(false)}
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-              <Button 
-                onClick={handleCustomizedAddToCart}
-                className="flex-1 bg-[#8B4513] hover:bg-[#7A3A0F] text-white"
-                data-testid="button-add-customized-package"
-              >
-                Add to Cart
-              </Button>
+            <div className="flex-shrink-0 border-t pt-4 px-4 sm:px-6 pb-4 sm:pb-6">
+              <div className="flex gap-3">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowCustomizationModal(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  onClick={handleCustomizedAddToCart}
+                  className="flex-1 bg-botanical hover:bg-botanical/90 text-white"
+                  data-testid="button-add-customized-package"
+                  disabled={includeEmbossing && (!selectedEmbossingOptionId || !embossingText.trim())}
+                >
+                  Add to Cart
+                </Button>
+              </div>
             </div>
           </div>
         </DialogContent>

@@ -222,217 +222,238 @@ export const RangeProductsModal = ({ isOpen, onClose, category, rangeName, range
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[95vh] w-[95vw] sm:w-full p-4 sm:p-6">
-        <DialogHeader>
-          <DialogTitle className="text-xl sm:text-2xl font-georgia-bold text-botanical">
-            {rangeName}
-          </DialogTitle>
-          <DialogDescription className="text-sm">
-            Select variants to add to your cart
-          </DialogDescription>
-        </DialogHeader>
+      <DialogContent 
+        className="max-w-7xl max-h-[90vh] w-[95vw] sm:w-[98vw] p-0 overflow-hidden"
+        style={{ maxHeight: '90vh', top: '50%', transform: 'translate(-50%, -50%)', overflow: 'hidden' }}
+      >
+        <div className="flex flex-col h-full" style={{ maxHeight: '90vh', overflow: 'hidden' }}>
+          <DialogHeader className="flex-shrink-0 px-4 sm:px-6 pt-4 sm:pt-6 pb-3 border-b">
+             <DialogTitle className="text-xl sm:text-2xl font-georgia-bold text-botanical">
+               {rangeName}
+             </DialogTitle>
+             <DialogDescription className="text-sm">
+               Select variants to add to your cart
+             </DialogDescription>
+           </DialogHeader>
 
-        <ScrollArea className="h-[55vh] sm:h-[60vh] pr-2 sm:pr-4">
-          {isLoading ? (
-            <div className="space-y-4">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="border rounded-lg p-4">
-                  <div className="flex gap-4">
-                    <div className="w-24 h-24 bg-gray-200 animate-pulse rounded" />
-                    <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-gray-200 animate-pulse rounded w-1/2" />
-                      <div className="h-3 bg-gray-200 animate-pulse rounded w-1/4" />
+           <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 min-h-0">
+            {isLoading ? (
+              <div className="space-y-4">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="border rounded-lg p-4">
+                    <div className="flex gap-4">
+                      <div className="w-24 h-24 bg-gray-200 animate-pulse rounded" />
+                      <div className="flex-1 space-y-2">
+                        <div className="h-4 bg-gray-200 animate-pulse rounded w-1/2" />
+                        <div className="h-3 bg-gray-200 animate-pulse rounded w-1/4" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          ) : variants.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              No products available in this range
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {variants.map((variant) => {
-                const quantity = selectedVariants[variant.id] || 0;
-                const mainImage = variant.images[0] || '';
-                
-                return (
-                  <div
-                    key={variant.id}
-                    className="border rounded-lg p-3 sm:p-4 hover:shadow-md transition-shadow"
-                  >
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                      {/* Product Image */}
-                      <div className="flex-shrink-0 mx-auto sm:mx-0">
-                        <img
-                          src={getImagePath(mainImage)}
-                          alt={variant.name}
-                          className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded"
-                        />
-                      </div>
+                ))}
+              </div>
+            ) : variants.length === 0 ? (
+              <div className="text-center py-8 text-gray-500">
+                No products available in this range
+              </div>
+            ) : (
+              <div className="space-y-4 md:space-y-5">
+                {variants.map((variant) => {
+                  const quantity = selectedVariants[variant.id] || 0;
+                  const mainImage = variant.images[0] || '';
+                  
+                  return (
+                    <div
+                      key={variant.id}
+                      className="border rounded-lg p-4 md:p-6 hover:shadow-lg transition-shadow bg-white"
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-[200px_1fr_auto] gap-4 md:gap-6">
+                        {/* Product Image */}
+                        <div className="flex-shrink-0 mx-auto md:mx-0">
+                          <img
+                            src={getImagePath(mainImage)}
+                            alt={variant.name}
+                            className="w-full md:w-full h-48 md:h-48 object-cover rounded"
+                          />
+                        </div>
 
-                      {/* Product Info */}
-                      <div className="flex-1 text-center sm:text-left">
-                        <h3 className="font-semibold text-lg text-botanical">
-                          {variant.productName}
-                        </h3>
-                        <p className="text-sm text-gray-600 mb-2">{variant.name}</p>
-                        
-                        <div className="mb-2">
-                          <div className="flex items-center gap-2">
-                            <span className="font-bold text-lg">
-                              R{(variant.price + (embossingEnabled[variant.id] ? embossingPrice : 0)).toLocaleString()}
-                            </span>
-                            {variant.originalPrice && variant.originalPrice !== variant.price && (
-                              <span className="text-sm text-gray-500 line-through">
-                                R{variant.originalPrice.toLocaleString()}
+                                                {/* Product Info */}
+                        <div className="flex-1 text-center md:text-left space-y-3">
+                          <div>
+                            <h3 className="font-semibold text-xl text-botanical mb-1">
+                              {variant.productName}
+                            </h3>
+                            <p className="text-sm text-gray-600">{variant.name}</p>
+                          </div>
+                          
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-bold text-xl text-botanical">
+                                R{(variant.price + (embossingEnabled[variant.id] ? embossingPrice : 0)).toLocaleString()}
                               </span>
+                              {variant.originalPrice && variant.originalPrice !== variant.price && (
+                                <span className="text-sm text-gray-500 line-through">
+                                  R{variant.originalPrice.toLocaleString()}
+                                </span>
+                              )}
+                            </div>
+                            {embossingEnabled[variant.id] && (
+                              <div className="text-xs text-gray-600">
+                                <span>Base: R{variant.price.toLocaleString()}</span>
+                                <span className="mx-1">+</span>
+                                <span>Embossing: R{embossingPrice}</span>
+                              </div>
                             )}
                           </div>
-                          {embossingEnabled[variant.id] && (
-                            <span className="text-xs text-gray-600">
-                              Base: R{variant.price.toLocaleString()} + Embossing: R{embossingPrice}
-                            </span>
-                          )}
-                        </div>
-                        
-                        <div className="flex items-center gap-2 mb-3">
-                          <span
-                            className={`text-xs px-2 py-1 rounded ${
-                              variant.inStock
-                                ? 'bg-green-100 text-green-800'
-                                : 'bg-red-100 text-red-800'
-                            }`}
-                          >
-                            {variant.inStock ? 'In Stock' : 'Out of Stock'}
-                          </span>
-                        </div>
-
-                        {/* Embossing Option */}
-                        <div className="space-y-2">
-                          <label className="flex items-center gap-2 text-sm cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={embossingEnabled[variant.id] || false}
-                              onChange={(e) => {
-                                setEmbossingEnabled(prev => ({
-                                  ...prev,
-                                  [variant.id]: e.target.checked
-                                }));
-                                if (!e.target.checked) {
-                                  setEmbossingText(prev => ({
-                                    ...prev,
-                                    [variant.id]: ''
-                                  }));
-                                }
-                              }}
-                              className="rounded border-gray-300"
-                            />
-                            <span className="font-medium text-gray-700">
-                              Add Embossing (+R{embossingPrice})
-                            </span>
-                          </label>
                           
-                          {embossingEnabled[variant.id] && (
-                            <div className="space-y-2">
-                              {/* Embossing Demo Image */}
-                              <div>
-                                <p className="text-xs text-gray-500 mb-1">Sample embossing placement:</p>
-                                <img 
-                                  src="/embose/Embossing-Sans-Serif-font.png" 
-                                  alt="Embossing example on bottom right corner of product"
-                                  className="w-full max-w-xs rounded-lg border border-gray-200"
-                                />
-                              </div>
-                              
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={`text-xs px-3 py-1.5 rounded-full font-medium ${
+                                variant.inStock
+                                  ? 'bg-green-100 text-green-800'
+                                  : 'bg-red-100 text-red-800'
+                              }`}
+                            >
+                              {variant.inStock ? 'In Stock' : 'Out of Stock'}
+                            </span>
+                          </div>
+
+                          {/* Embossing Option */}
+                          <div className="space-y-3 mt-4 pt-4 border-t">
+                            <label className="flex items-center gap-2 text-sm cursor-pointer">
                               <input
-                                type="text"
-                                value={embossingText[variant.id] || ''}
+                                type="checkbox"
+                                checked={embossingEnabled[variant.id] || false}
                                 onChange={(e) => {
-                                  const value = e.target.value.slice(0, 20);
-                                  setEmbossingText(prev => ({
+                                  setEmbossingEnabled(prev => ({
                                     ...prev,
-                                    [variant.id]: value
+                                    [variant.id]: e.target.checked
                                   }));
+                                  if (!e.target.checked) {
+                                    setEmbossingText(prev => ({
+                                      ...prev,
+                                      [variant.id]: ''
+                                    }));
+                                  }
                                 }}
-                                placeholder="Embossing text (max 20 chars)"
-                                className="w-full text-sm px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-botanical"
-                                maxLength={20}
+                                className="rounded border-gray-300"
                               />
-                              <p className="text-xs text-gray-500">
-                                {(embossingText[variant.id]?.length || 0)}/20 characters
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                      </div>
+                              <span className="font-medium text-gray-700">
+                                Add Embossing (+R{embossingPrice})
+                              </span>
+                            </label>
+                            
+                            {embossingEnabled[variant.id] && (
+                              <div className="space-y-2">
+                                {/* Embossing Demo Image */}
+                                <div>
+                                  <p className="text-xs text-gray-500 mb-1">Sample embossing placement:</p>
+                                  <img 
+                                    src="/embose/Embossing-Sans-Serif-font.png" 
+                                    alt="Embossing example on bottom right corner of product"
+                                    className="w-full max-w-xs rounded-lg border border-gray-200"
+                                  />
+                                </div>
+                                
+                                <input
+                                  type="text"
+                                  value={embossingText[variant.id] || ''}
+                                  onChange={(e) => {
+                                    const value = e.target.value.slice(0, 20);
+                                    setEmbossingText(prev => ({
+                                      ...prev,
+                                      [variant.id]: value
+                                    }));
+                                  }}
+                                  placeholder="Embossing text (max 20 chars)"
+                                  className="w-full text-sm px-3 py-1.5 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-botanical"
+                                  maxLength={20}
+                                />
+                                                                 <p className="text-xs text-gray-500">
+                                   {(embossingText[variant.id]?.length || 0)}/20 characters
+                                 </p>
+                                 
+                                 {/* Embossing Preview Image */}
+                                 {embossingText[variant.id]?.trim() && (
+                                   <div className="mt-2">
+                                     <p className="text-xs text-gray-500 mb-1">Embossing preview (Sans Serif Font):</p>
+                                     <img 
+                                       src="/embodding-sans-serif.png" 
+                                       alt={`Embossing preview showing "${embossingText[variant.id]?.trim()}" on product`}
+                                       className="w-full max-w-xs rounded-lg border border-gray-200 object-contain max-h-48"
+                                     />
+                                   </div>
+                                 )}
+                               </div>
+                             )}
+                           </div>
+                         </div>
 
-                      {/* Quantity Controls */}
-                      <div className="flex flex-col sm:items-end justify-between w-full sm:w-auto mt-3 sm:mt-0">
-                        <div className="flex items-center gap-2 justify-center sm:justify-end mb-3 sm:mb-0">
+                        {/* Quantity Controls */}
+                        <div className="flex flex-col items-center md:items-end justify-center md:justify-between gap-3">
+                          <div className="flex items-center gap-2">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              className="h-9 w-9"
+                              onClick={() => handleQuantityChange(variant.id, -1)}
+                              disabled={!variant.inStock || quantity === 0}
+                            >
+                              <Minus className="h-4 w-4" />
+                            </Button>
+                            
+                            <span className="w-12 text-center font-semibold text-lg">
+                              {quantity}
+                            </span>
+                            
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              className="h-9 w-9"
+                              onClick={() => handleQuantityChange(variant.id, 1)}
+                              disabled={!variant.inStock || quantity >= 10}
+                            >
+                              <Plus className="h-4 w-4" />
+                            </Button>
+                          </div>
+
                           <Button
-                            variant="outline"
-                            size="icon"
-                            className="h-8 w-8"
-                            onClick={() => handleQuantityChange(variant.id, -1)}
-                            disabled={!variant.inStock || quantity === 0}
+                            onClick={() => handleAddToCart(variant)}
+                            disabled={
+                              !variant.inStock || 
+                              quantity === 0 || 
+                              (embossingEnabled[variant.id] && !embossingText[variant.id]?.trim())
+                            }
+                            className="bg-botanical hover:bg-botanical/90 text-white w-full md:w-auto min-w-[140px]"
+                            size="default"
                           >
-                            <Minus className="h-4 w-4" />
-                          </Button>
-                          
-                          <span className="w-8 text-center font-semibold">
-                            {quantity}
-                          </span>
-                          
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            className="h-8 w-8"
-                            onClick={() => handleQuantityChange(variant.id, 1)}
-                            disabled={!variant.inStock || quantity >= 10}
-                          >
-                            <Plus className="h-4 w-4" />
+                            <ShoppingCart className="h-4 w-4 mr-2" />
+                            Add to Cart
                           </Button>
                         </div>
-
-                        <Button
-                          onClick={() => handleAddToCart(variant)}
-                          disabled={
-                            !variant.inStock || 
-                            quantity === 0 || 
-                            (embossingEnabled[variant.id] && !embossingText[variant.id]?.trim())
-                          }
-                          className="bg-botanical hover:bg-botanical/90 text-white w-full sm:w-auto"
-                          size="sm"
-                        >
-                          <ShoppingCart className="h-4 w-4 mr-2" />
-                          Add to Cart
-                        </Button>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+           {/* Footer with Add All button */}
+           {totalSelectedItems > 0 && (
+             <div className="flex-shrink-0 border-t pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 px-4 sm:px-6 py-3">
+              <div className="text-sm text-gray-600 text-center sm:text-left">
+                {totalSelectedItems} item{totalSelectedItems > 1 ? 's' : ''} selected
+              </div>
+              <Button
+                onClick={handleAddAllToCart}
+                className="bg-botanical hover:bg-botanical/90 text-white w-full sm:w-auto"
+              >
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                Add All to Cart ({totalSelectedItems})
+              </Button>
             </div>
           )}
-        </ScrollArea>
-
-        {/* Footer with Add All button */}
-        {totalSelectedItems > 0 && (
-          <div className="border-t pt-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="text-sm text-gray-600 text-center sm:text-left">
-              {totalSelectedItems} item{totalSelectedItems > 1 ? 's' : ''} selected
-            </div>
-            <Button
-              onClick={handleAddAllToCart}
-              className="bg-botanical hover:bg-botanical/90 text-white w-full sm:w-auto"
-            >
-              <ShoppingCart className="h-4 w-4 mr-2" />
-              Add All to Cart ({totalSelectedItems})
-            </Button>
-          </div>
-        )}
+        </div>
       </DialogContent>
     </Dialog>
   );

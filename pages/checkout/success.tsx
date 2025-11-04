@@ -17,17 +17,10 @@ export default function CheckoutSuccess() {
   const { toast } = useToast();
 
   useEffect(() => {
-    console.log('=== CHECKOUT SUCCESS PAGE LOADED ===');
-    console.log('Current cart:', cart);
-    console.log('Order created:', orderCreated);
-    console.log('Is creating order:', isCreatingOrder);
-    
     // Get payment details from URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const checkoutId = urlParams.get("checkoutId");
     const paymentId = urlParams.get("paymentId");
-    
-    console.log('URL params - checkoutId:', checkoutId, 'paymentId:', paymentId);
 
 
     if (checkoutId || paymentId) {
@@ -40,41 +33,24 @@ export default function CheckoutSuccess() {
       } else {
       }
     } else {
-      console.log('No URL parameters found, using fallback mechanism...');
-      
       // Fallback: If we have cart items but no payment ID, try to get checkout ID from localStorage
       if (cart.length > 0) {
         const storedCheckoutId = localStorage.getItem('lastCheckoutId');
-        console.log('Stored checkout ID from localStorage:', storedCheckoutId);
-        console.log('Has attempted order creation:', hasAttemptedOrderCreation);
         
         if (storedCheckoutId && !hasAttemptedOrderCreation) {
-          console.log('Calling verifyPaymentFromCheckoutId with checkout ID:', storedCheckoutId);
           setHasAttemptedOrderCreation(true);
           verifyPaymentFromCheckoutId(storedCheckoutId);
-        } else {
-          console.log('Skipping fallback - no checkout ID or already attempted');
         }
-      } else {
-        console.log('No cart items, skipping fallback');
       }
     }
   }, [cart, orderCreated, isCreatingOrder, hasAttemptedOrderCreation]);
 
   const verifyPaymentFromCheckoutId = async (checkoutId: string) => {
-    console.log('=== VERIFY PAYMENT FROM CHECKOUT ID ===');
-    console.log('Checkout ID:', checkoutId);
-    
     try {
-      console.log('Making API request to:', `/api/checkouts/${checkoutId}`);
-      
       // First, check the checkout status to see if it has a paymentId
       const checkoutResponse = await apiRequest("GET", `/api/checkouts/${checkoutId}`);
-      console.log('API response status:', checkoutResponse.status);
-      console.log('API response ok:', checkoutResponse.ok);
       
       const checkout = await checkoutResponse.json();
-      console.log('Checkout response:', checkout);
       
       
       if (checkout && checkout.paymentId) {

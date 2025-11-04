@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { prisma } from '@/lib/prisma';
 
 interface OrderEmailData {
   customerInfo: {
@@ -25,6 +26,7 @@ interface OrderEmailData {
       embossing?: boolean;
       embossingText?: string;
       embossingPrice?: number;
+      embossingOptionId?: number;
       color?: string;
       bagColor?: string;
       sleeveColor?: string;
@@ -60,8 +62,22 @@ export class EmailService {
 
   async sendOrderReceipt(orderData: OrderEmailData): Promise<boolean> {
     try {
-      const emailHtml = this.generateReceiptHTML(orderData);
-      const emailText = this.generateReceiptText(orderData);
+      // Fetch embossing options for lookup
+      let embossingOptionsMap: Record<number, string> = {};
+      try {
+        const embossingOptions = await prisma.embossingOption.findMany({
+          select: { id: true, name: true }
+        });
+        embossingOptions.forEach(option => {
+          embossingOptionsMap[option.id] = option.name;
+        });
+      } catch (error) {
+        console.error('Failed to fetch embossing options for email:', error);
+        // Continue without embossing option names
+      }
+
+      const emailHtml = this.generateReceiptHTML(orderData, embossingOptionsMap);
+      const emailText = this.generateReceiptText(orderData, embossingOptionsMap);
 
       const mailOptions = {
         from: `"Charna." <${process.env.GMAIL_USER}>`,
@@ -81,7 +97,7 @@ export class EmailService {
     }
   }
 
-  private generateReceiptHTML(orderData: OrderEmailData): string {
+  private generateReceiptHTML(orderData: OrderEmailData, embossingOptionsMap: Record<number, string> = {}): string {
     const { customerInfo, items, orderId, totalAmount, shippingCost, paymentId } = orderData;
     const subtotal = totalAmount - shippingCost;
     
@@ -171,7 +187,7 @@ export class EmailService {
                                 ${item.customizations?.sleeveColor ? `<br><small>Sleeve: ${item.customizations.sleeveColor}</small>` : ''}
                                 ${item.customizations?.embossing && item.customizations?.embossingText ? 
                                   `<div class="embossing-detail" style="background: #FEF3C7; padding: 6px 8px; border-radius: 4px; border-left: 3px solid #F59E0B; margin-top: 4px;">
-                                    <strong style="color: #92400E;">✨ Custom Embossing:</strong> "${item.customizations.embossingText}"
+                                    <strong style="color: #92400E;">✨ Custom Embossing${item.customizations.embossingOptionId && embossingOptionsMap[item.customizations.embossingOptionId] ? ` (${embossingOptionsMap[item.customizations.embossingOptionId]})` : ''}:</strong> "${item.customizations.embossingText}"
                                   </div>` : ''}
                             </td>
                             <td>${item.quantity}</td>
@@ -248,7 +264,7 @@ export class EmailService {
     `;
   }
 
-  private generateReceiptText(orderData: OrderEmailData): string {
+  private generateReceiptText(orderData: OrderEmailData, embossingOptionsMap: Record<number, string> = {}): string {
     const { customerInfo, items, orderId, totalAmount, shippingCost, paymentId } = orderData;
     const subtotal = totalAmount - shippingCost;
 
@@ -283,7 +299,10 @@ ${items.map(item => {
   if (item.customizations?.bagColor) itemText += `\n  Bag Color: ${item.customizations.bagColor}`;
   if (item.customizations?.sleeveColor) itemText += `\n  Sleeve Color: ${item.customizations.sleeveColor}`;
   if (item.customizations?.embossing && item.customizations?.embossingText) {
-    itemText += `\n  ✨ Custom Embossing: "${item.customizations.embossingText}"`;
+    const embossingOptionName = item.customizations.embossingOptionId && embossingOptionsMap[item.customizations.embossingOptionId] 
+      ? ` (${embossingOptionsMap[item.customizations.embossingOptionId]})` 
+      : '';
+    itemText += `\n  ✨ Custom Embossing${embossingOptionName}: "${item.customizations.embossingText}"`;
   }
   
   return itemText;

@@ -158,19 +158,14 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                   </div>
                   
                   {embossingText.trim() && (
-                    <div className="bg-amber-50 p-4 rounded-lg border">
-                      <p className="text-sm text-neutral-light mb-2">Preview (Sans Serif Font):</p>
-                      <div 
-                        className="text-2xl font-bold text-amber-900 tracking-wider"
-                        style={{ 
-                          fontFamily: 'sans-serif',
-                          textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                          letterSpacing: '2px'
-                        }}
+                    <div className="mb-4">
+                      <p className="text-xs text-neutral-light mb-2">Embossing preview (Sans Serif Font):</p>
+                      <img 
+                        src="/embodding-sans-serif.png" 
+                        alt={`Embossing preview showing "${embossingText.trim()}" on product`}
+                        className="w-full max-w-md rounded-lg border border-gray-200"
                         data-testid="preview-embossing"
-                      >
-                        {embossingText.trim()}
-                      </div>
+                      />
                     </div>
                   )}
                 </div>

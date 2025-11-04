@@ -186,6 +186,21 @@ model PromoCodeUsage {
 }
 
 // Orders
+// Embossing Options - Managed via Admin CMS
+model EmbossingOption {
+  id          Int      @id @default(autoincrement())
+  name        String   // e.g., "Sans Serif", "Serif", "Script"
+  slug        String   @unique // e.g., "sans-serif", "serif", "script"
+  price       Int      // Price in whole Rands (e.g., 80 = R80.00)
+  images      Json     // Array of image URLs/paths for this embossing option
+  active      Boolean  @default(true)
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("embossing_options")
+}
+
 model Order {
   id           Int  @id @default(autoincrement())
   customerInfo Json @map("customer_info")
