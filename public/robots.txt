@@ -1,0 +1,26 @@
+# robots.txt for charna.co.za
+# This file tells search engine crawlers which pages they can and cannot access
+
+# Allow all search engines to crawl public pages
+User-agent: *
+Allow: /
+
+# Disallow admin pages and sensitive routes
+Disallow: /admin/
+Disallow: /api/
+Disallow: /checkout/
+Disallow: /cart
+
+# Allow important public pages
+Allow: /
+Allow: /browse
+Allow: /products/
+Allow: /story
+Allow: /contact
+Allow: /faq
+Allow: /shipping-returns
+Allow: /privacy
+Allow: /terms
+
+# Sitemap location
+Sitemap: https://www.charna.co.za/sitemap.xml

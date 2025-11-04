@@ -13,8 +13,8 @@ datasource db {
 // Categories (Hierarchical - includes sports as subcategories)
 model Category {
   id          Int        @id @default(autoincrement())
-  name        String     @unique // e.g., "work", "sport", "tennis", "business"
-  slug        String     @unique // e.g., "work", "sport", "tennis", "business"
+  name        String     // e.g., "work", "sport", "tennis", "business" (can be duplicate under different parents)
+  slug        String     @unique // e.g., "work", "sport", "tennis", "business" (must be unique)
   displayName String     @map("display_name") // e.g., "Work", "Sport", "Tennis", "Business"
   description String?
   image       String? // Category banner/hero image

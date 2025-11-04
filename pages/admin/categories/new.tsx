@@ -47,6 +47,28 @@ export default function NewCategoryPage() {
     fetchCategories()
   }, [])
 
+  // Separate effect for handling parentId from query params
+  useEffect(() => {
+    // Check for parentId in query params (from "Create Subcategory" button)
+    const { parentId } = router.query
+    if (parentId && typeof parentId === 'string' && categories.length > 0) {
+      setFormData(prev => {
+        const parentCategory = categories.find(c => c.id.toString() === parentId)
+        if (parentCategory && prev.parentId !== parentId) {
+          return {
+            ...prev,
+            parentId: parentId,
+            // Update slug if displayName is already set
+            slug: prev.displayName 
+              ? `${parentCategory.slug}-${prev.displayName.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim()}`
+              : prev.slug
+          }
+        }
+        return prev
+      })
+    }
+  }, [router.query, categories])
+
   const fetchCategories = async () => {
     try {
       const response = await fetch('/api/admin/categories')
@@ -67,17 +89,52 @@ export default function NewCategoryPage() {
     
     // Auto-generate slug and name from displayName
     if (field === "displayName" && typeof value === "string") {
-      const slug = value
+      let slug = value
         .toLowerCase()
         .replace(/[^a-z0-9\s-]/g, '')
         .replace(/\s+/g, '-')
         .replace(/-+/g, '-')
         .trim()
+      
+      // If parentId is set, prepend parent slug to make it unique
+      const currentParentId = field === "displayName" 
+        ? formData.parentId 
+        : (typeof value === "string" && field === "parentId" ? value : formData.parentId)
+      
+      if (currentParentId) {
+        const parentCategory = categories.find(cat => cat.id.toString() === currentParentId.toString())
+        if (parentCategory) {
+          slug = `${parentCategory.slug}-${slug}`
+        }
+      }
+      
       const name = value.toLowerCase()
       setFormData(prev => ({
         ...prev,
         slug,
         name
+      }))
+    }
+    
+    // If parentId changes, update slug if displayName is already set
+    if (field === "parentId" && formData.displayName) {
+      let slug = formData.displayName
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim()
+      
+      if (value && typeof value === "string" && value !== "none") {
+        const parentCategory = categories.find(cat => cat.id.toString() === value)
+        if (parentCategory) {
+          slug = `${parentCategory.slug}-${slug}`
+        }
+      }
+      
+      setFormData(prev => ({
+        ...prev,
+        slug
       }))
     }
   }
@@ -232,9 +289,18 @@ export default function NewCategoryPage() {
                   <CardContent className="space-y-4">
                     <div>
                       <Label htmlFor="parentId" className="text-sm font-medium text-forest">Parent Category</Label>
+                      {router.query.parentId && (
+                        <div className="mb-2 p-2 bg-botanical/5 border border-botanical/20 rounded-md">
+                          <p className="text-xs text-botanical/80">
+                            <span className="font-semibold">Creating subcategory for:</span>{' '}
+                            {categories.find(c => c.id.toString() === router.query.parentId)?.displayName || 'Selected parent'}
+                          </p>
+                        </div>
+                      )}
                       <Select
                         value={formData.parentId || "none"}
                         onValueChange={(value) => handleInputChange("parentId", value === "none" ? "" : value)}
+                        disabled={!!router.query.parentId} // Disable if pre-filled from query
                       >
                         <SelectTrigger className="mt-1 border-sage/30 focus:border-botanical/50">
                           <SelectValue placeholder="None (Top-level category)" />
@@ -251,7 +317,10 @@ export default function NewCategoryPage() {
                         </SelectContent>
                       </Select>
                       <p className="text-xs text-botanical/70 mt-1">
-                        Leave empty for top-level category (e.g., "Work", "Sport")
+                        {router.query.parentId 
+                          ? "Parent category is pre-selected. The slug will automatically include the parent category name."
+                          : "Leave empty for top-level category (e.g., \"Work\", \"Sport\")"
+                        }
                       </p>
                     </div>
 

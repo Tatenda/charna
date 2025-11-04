@@ -12,7 +12,8 @@ import {
   Package,
   Eye,
   EyeOff,
-  ChevronRight
+  ChevronRight,
+  FolderPlus
 } from "lucide-react"
 import Link from "next/link"
 import { useToast } from "@/hooks/use-toast"
@@ -287,6 +288,20 @@ export default function CategoriesPage() {
                     <span className="text-sm font-medium">Edit</span>
                   </Button>
                 </Link>
+
+                {/* Create Subcategory button - only for parent categories, compact design */}
+                {isTopLevel && (
+                  <Link href={`/admin/categories/new?parentId=${category.id}`}>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="rounded-lg hover:bg-sage/10 hover:text-botanical text-botanical/60 transition-all px-2.5 h-8 text-xs"
+                    >
+                      <FolderPlus className="h-3.5 w-3.5 mr-1.5" />
+                      <span>Add Subcategory</span>
+                    </Button>
+                  </Link>
+                )}
 
                 {/* Secondary actions - show on hover */}
                 <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">

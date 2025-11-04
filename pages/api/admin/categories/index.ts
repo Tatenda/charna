@@ -65,19 +65,50 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ error: 'Name, slug, and display name are required' })
       }
 
+      // Generate slug with parent context if not provided or if it would conflict
+      let finalSlug = slug;
+      
       // Check if slug already exists
       const existingCategory = await prisma.category.findUnique({
-        where: { slug }
+        where: { slug: finalSlug }
       })
 
       if (existingCategory) {
-        return res.status(400).json({ error: 'Category with this slug already exists' })
+        // If slug exists and parentId is provided, append parent slug to make it unique
+        if (parentId) {
+          const parent = await prisma.category.findUnique({
+            where: { id: parentId },
+            select: { slug: true }
+          })
+          
+          if (parent) {
+            finalSlug = `${parent.slug}-${slug}`
+            
+            // Check if this combined slug also exists
+            const combinedExists = await prisma.category.findUnique({
+              where: { slug: finalSlug }
+            })
+            
+            if (combinedExists) {
+              // If still exists, append a number
+              let counter = 1
+              let uniqueSlug = `${finalSlug}-${counter}`
+              while (await prisma.category.findUnique({ where: { slug: uniqueSlug } })) {
+                counter++
+                uniqueSlug = `${finalSlug}-${counter}`
+              }
+              finalSlug = uniqueSlug
+            }
+          }
+        } else {
+          return res.status(400).json({ error: 'Category with this slug already exists. Please modify the slug or select a parent category.' })
+        }
       }
 
       const category = await prisma.category.create({
         data: {
           name,
-          slug,
+          slug: finalSlug,
           displayName,
           description,
           image,
