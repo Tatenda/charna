@@ -145,14 +145,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // Send email
         try {
+          // Calculate VAT for fallback order creation
+          const fallbackShippingCost = 0;
+          const fallbackVatRate = 0.15;
+          const fallbackVatAmount = (order.subtotal - (order.discountAmount || 0) + fallbackShippingCost) * fallbackVatRate;
+          
           const emailData = {
             customerInfo: customerInfo as any,
             items: items as any,
             orderId: order.id.toString(),
             subtotal: order.subtotal,
             discountAmount: order.discountAmount || 0,
+            vatAmount: fallbackVatAmount,
             totalAmount: order.totalAmount,
-            shippingCost: 0,
+            shippingCost: fallbackShippingCost,
             promoCodeUsed: order.promoCodeUsed || undefined,
             paymentId: paymentId || ''
           };
@@ -177,6 +183,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         promoCodeId, 
         promoCodeUsed 
       } = pendingCheckout;
+      
+      // Calculate shipping cost and VAT
+      // Shipping cost is typically 150 or 0 (free shipping over R1000)
+      // We'll estimate or extract from metadata if available
+      const shippingCost = (pendingCheckout as any).shippingCost || 0;
+      const vatRate = 0.15;
+      // Calculate VAT: (subtotal - discount + shipping) * 0.15
+      const vatAmount = ((subtotal || totalAmount) - (discountAmount || 0) + shippingCost) * vatRate;
 
       // Handle promo code tracking
       if (promoCodeUsed) {
@@ -240,8 +254,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           orderId: order.id.toString(),
           subtotal: order.subtotal,
           discountAmount: order.discountAmount || 0,
+          vatAmount: vatAmount,
           totalAmount: order.totalAmount,
-          shippingCost: 0,
+          shippingCost: shippingCost,
           promoCodeUsed: order.promoCodeUsed || undefined,
           paymentId: order.paymentId || ''
         };

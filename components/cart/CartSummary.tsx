@@ -27,7 +27,10 @@ const CartSummary = ({ showCheckoutButton = true, onCheckout, customerEmail, onP
   // No shipping cost for test products, otherwise apply normal logic
   const shippingCost = hasTestProduct ? 0 : (cartTotal >= 1000 ? 0 : 150);
   const discountedSubtotal = cartTotal - appliedDiscount;
-  const total = discountedSubtotal + shippingCost;
+  // VAT is 15% in South Africa, calculated on subtotal + shipping
+  const vatRate = 0.15;
+  const vatAmount = (discountedSubtotal + shippingCost) * vatRate;
+  const total = discountedSubtotal + shippingCost + vatAmount;
 
   const handlePromoApplied = (code: string, discount: number, id?: number) => {
     setAppliedPromoCode(code);
@@ -164,6 +167,11 @@ const CartSummary = ({ showCheckoutButton = true, onCheckout, customerEmail, onP
             Free shipping on orders over R1000
           </div>
         )}
+        
+        <div className="flex justify-between">
+          <span className="text-neutral">VAT (15%)</span>
+          <span className="font-medium">R{vatAmount.toFixed(2)}</span>
+        </div>
       </div>
 
       {/* Promo Code Input */}

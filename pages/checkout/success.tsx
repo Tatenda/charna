@@ -127,7 +127,10 @@ export default function CheckoutSuccess() {
       const shippingCost = hasTestProduct ? 0 : (cartTotal >= 1000 ? 0 : 150);
       const discountAmount = promoData?.discount || 0;
       const subtotal = cartTotal;
-      const totalAmount = subtotal - discountAmount + shippingCost;
+      // VAT is 15% in South Africa, calculated on subtotal + shipping
+      const vatRate = 0.15;
+      const vatAmount = (subtotal - discountAmount + shippingCost) * vatRate;
+      const totalAmount = subtotal - discountAmount + shippingCost + vatAmount;
 
 
       const orderData = {
@@ -141,6 +144,7 @@ export default function CheckoutSuccess() {
         })),
         subtotal: subtotal,
         discountAmount: discountAmount,
+        shippingCost: shippingCost,
         totalAmount: totalAmount,
         promoCodeId: promoData?.promoCodeId,
         promoCodeUsed: promoData?.code,

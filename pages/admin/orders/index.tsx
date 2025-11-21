@@ -439,6 +439,28 @@ export default function OrdersPage() {
                                       <span className="font-semibold">-R{order.discountAmount.toLocaleString()}</span>
                                     </div>
                                   )}
+                                  {/* Calculate VAT: Since totalAmount includes VAT, we calculate it from the total */}
+                                  {(() => {
+                                    const vatRate = 0.15;
+                                    // totalAmount = (subtotal - discount + shipping) * (1 + VAT rate)
+                                    // So: (subtotal - discount + shipping) = totalAmount / (1 + VAT rate)
+                                    // VAT = totalAmount - (subtotal - discount + shipping)
+                                    // VAT = totalAmount - (totalAmount / 1.15)
+                                    // VAT = totalAmount * (1 - 1/1.15) = totalAmount * 0.130434...
+                                    // But we need to account for shipping separately
+                                    // Better: Calculate from known values
+                                    const discountedSubtotal = (order.subtotal || order.totalAmount) - (order.discountAmount || 0);
+                                    // Estimate shipping: free if subtotal >= 1000, otherwise 150
+                                    const estimatedShipping = (order.subtotal || 0) >= 1000 ? 0 : 150;
+                                    // Calculate VAT: (subtotal - discount + shipping) * 0.15
+                                    const vatAmount = (discountedSubtotal + estimatedShipping) * vatRate;
+                                    return (
+                                      <div className="flex justify-between">
+                                        <span className="text-botanical/70">VAT (15%):</span>
+                                        <span className="font-medium text-forest">R{vatAmount.toFixed(2)}</span>
+                                      </div>
+                                    );
+                                  })()}
                                   <div className="flex justify-between pt-1.5 border-t border-sage/20">
                                     <span className="font-semibold text-forest">Total:</span>
                                     <span className="font-bold text-forest text-sm">R{order.totalAmount.toLocaleString()}</span>

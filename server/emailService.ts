@@ -35,6 +35,7 @@ interface OrderEmailData {
   orderId: string;
   subtotal?: number;
   discountAmount?: number;
+  vatAmount?: number;
   totalAmount: number;
   shippingCost: number;
   promoCodeUsed?: string;
@@ -98,8 +99,10 @@ export class EmailService {
   }
 
   private generateReceiptHTML(orderData: OrderEmailData, embossingOptionsMap: Record<number, string> = {}): string {
-    const { customerInfo, items, orderId, totalAmount, shippingCost, paymentId } = orderData;
-    const subtotal = totalAmount - shippingCost;
+    const { customerInfo, items, orderId, totalAmount, shippingCost, paymentId, vatAmount } = orderData;
+    const subtotal = orderData.subtotal || (totalAmount - shippingCost - (vatAmount || 0));
+    const vatRate = 0.15;
+    const calculatedVat = vatAmount || ((subtotal - (orderData.discountAmount || 0) + shippingCost) * vatRate);
     
     // Use production URL for links
     const baseUrl = process.env.NEXT_PUBLIC_URL || 
@@ -115,7 +118,7 @@ export class EmailService {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Receipt - Charna</title>
+    <title>Tax Invoice - Charna</title>
     <style>
         body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f5f5f5; }
         .container { max-width: 600px; margin: 0 auto; background: white; padding: 0; }
@@ -148,14 +151,18 @@ export class EmailService {
         </div>
         
         <div class="content">
-            <h2 style="color: #B67E5A; margin-bottom: 10px;">Thank You for Your Order!</h2>
+            <h2 style="color: #B67E5A; margin-bottom: 10px; text-align: center;">TAX INVOICE</h2>
+            <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                <p style="margin: 5px 0; font-weight: bold; font-size: 16px;">Living Green Movement T/A Charna</p>
+                <p style="margin: 5px 0; color: #666;">VAT Number: 4900313612</p>
+            </div>
             <p>Hi ${customerInfo.firstName},</p>
             <p>Your order has been confirmed and payment has been successfully processed. We're excited to craft your premium leather goods.</p>
             
             <div class="order-info">
                 <h3 style="margin-top: 0; color: #000;">Order Details</h3>
-                <p><strong>Order Number:</strong> #${orderId}</p>
-                <p><strong>Order Date:</strong> ${new Date().toLocaleDateString('en-ZA', { 
+                <p><strong>Invoice Number:</strong> #${orderId}</p>
+                <p><strong>Invoice Date:</strong> ${new Date().toLocaleDateString('en-ZA', { 
                   day: 'numeric', 
                   month: 'long', 
                   year: 'numeric' 
@@ -219,6 +226,10 @@ export class EmailService {
                     <span>Shipping:</span>
                     <span>${shippingCost === 0 ? 'Free' : `R${shippingCost.toLocaleString()}`}</span>
                 </div>
+                <div class="total-row">
+                    <span>VAT (15%):</span>
+                    <span>R${calculatedVat.toFixed(2)}</span>
+                </div>
                 <div class="total-row total-final">
                     <span>Total Paid:</span>
                     <span>R${totalAmount.toLocaleString()}</span>
@@ -250,12 +261,13 @@ export class EmailService {
 
         <div class="footer">
             <div class="contact-info">
-                <p><strong><a href="${baseUrl}" style="color: #333; text-decoration: none;">Charna.</a></strong></p>
+                <p><strong>Living Green Movement T/A Charna</strong></p>
+                <p><strong>VAT Number:</strong> 4900313612</p>
                 <p>Email: <a href="mailto:info@charna.co.za" style="color: #666; text-decoration: none;">info@charna.co.za</a> | WhatsApp: <a href="https://wa.me/27723560321" style="color: #666; text-decoration: none;">+27 723560321</a></p>
                 <p><a href="${baseUrl}" style="color: #666; text-decoration: none;">www.charna.co.za</a></p>
             </div>
             <p style="font-size: 12px; color: #999; margin-top: 20px;">
-                This is an automated receipt. Please save this email for your records.
+                This is an automated tax invoice. Please save this email for your records.
             </p>
         </div>
     </div>
@@ -265,20 +277,26 @@ export class EmailService {
   }
 
   private generateReceiptText(orderData: OrderEmailData, embossingOptionsMap: Record<number, string> = {}): string {
-    const { customerInfo, items, orderId, totalAmount, shippingCost, paymentId } = orderData;
-    const subtotal = totalAmount - shippingCost;
+    const { customerInfo, items, orderId, totalAmount, shippingCost, paymentId, vatAmount } = orderData;
+    const subtotal = orderData.subtotal || (totalAmount - shippingCost - (vatAmount || 0));
+    const vatRate = 0.15;
+    const calculatedVat = vatAmount || ((subtotal - (orderData.discountAmount || 0) + shippingCost) * vatRate);
 
     return `
-CHARNA.
-Order Confirmation #${orderId}
+TAX INVOICE
+
+Living Green Movement T/A Charna
+VAT Number: 4900313612
+
+Invoice #${orderId}
 
 Hi ${customerInfo.firstName},
 
 Thank you for your order! Your payment has been successfully processed.
 
-ORDER DETAILS:
-- Order Number: #${orderId}
-- Order Date: ${new Date().toLocaleDateString('en-ZA')}
+INVOICE DETAILS:
+- Invoice Number: #${orderId}
+- Invoice Date: ${new Date().toLocaleDateString('en-ZA')}
 
 ITEMS ORDERED:
 ${items.map(item => {
@@ -313,6 +331,7 @@ Subtotal: R${(orderData.subtotal || subtotal).toLocaleString()}
 ${orderData.discountAmount && orderData.discountAmount > 0 ? 
   `${orderData.promoCodeUsed ? `Discount (${orderData.promoCodeUsed})` : 'Discount'}: -R${orderData.discountAmount.toLocaleString()}\n` : 
   ''}Shipping: ${shippingCost === 0 ? 'Free' : `R${shippingCost.toLocaleString()}`}
+VAT (15%): R${calculatedVat.toFixed(2)}
 Total Paid: R${totalAmount.toLocaleString()}
 
 SHIPPING ADDRESS:
@@ -331,8 +350,13 @@ ${customerInfo.billingCity}, ${customerInfo.billingProvince} ${customerInfo.bill
 WHAT'S NEXT?
 Your order will be handcrafted within 3-5 business days. We'll send tracking information once it ships.
 
-Charna.
+---
+Living Green Movement T/A Charna
+VAT Number: 4900313612
 info@charna.co.za | +27 723560321
+www.charna.co.za
+
+This is an automated tax invoice. Please save this email for your records.
     `;
   }
 }
