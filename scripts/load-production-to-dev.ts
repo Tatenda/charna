@@ -277,6 +277,9 @@ async function loadProductionToDev() {
       await prisma.order.createMany({
         data: backupData.orders.map((order: any) => ({
           ...order,
+          // Handle new fields that may not exist in old backups
+          shippingCost: order.shippingCost ?? order.shipping_cost ?? 0,
+          vatAmount: order.vatAmount ?? order.vat_amount ?? 0,
           createdAt: new Date(order.createdAt),
           updatedAt: new Date(order.updatedAt)
         }))
