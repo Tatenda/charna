@@ -27,6 +27,8 @@ interface Order {
   items: any[];
   subtotal?: number;
   discountAmount?: number;
+  shippingCost?: number | null;
+  vatAmount?: number | null;
   totalAmount: number;
   promoCodeUsed?: string;
   paymentId?: string;
