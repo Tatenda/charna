@@ -50,10 +50,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Calculate subtotal and discount
     const subtotal = orderData.subtotal || orderData.totalAmount;
     const discountAmount = orderData.discountAmount || 0;
-    // Calculate VAT (15% in South Africa)
-    const vatRate = 0.15;
     const shippingCost = orderData.shippingCost || 0;
-    const vatAmount = (subtotal - discountAmount + shippingCost) * vatRate;
+    // Product prices already include VAT. Extract VAT from the total amount
+    // If vatAmount is provided in orderData, use it; otherwise calculate
+    const totalIncludingVat = orderData.totalAmount || (subtotal - discountAmount + shippingCost);
+    const vatRate = 0.15;
+    const vatAmount = orderData.vatAmount || (totalIncludingVat * (vatRate / (1 + vatRate)));
 
     // If promo code was used, increment usage count and create usage log
     let promoCodeId = orderData.promoCodeId;
@@ -104,6 +106,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         items: orderData.items,
         subtotal,
         discountAmount,
+        shippingCost: shippingCost,
+        vatAmount: vatAmount,
         totalAmount: orderData.totalAmount,
         promoCodeId,
         promoCodeUsed: orderData.promoCodeUsed,

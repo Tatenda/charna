@@ -101,8 +101,9 @@ export class EmailService {
   private generateReceiptHTML(orderData: OrderEmailData, embossingOptionsMap: Record<number, string> = {}): string {
     const { customerInfo, items, orderId, totalAmount, shippingCost, paymentId, vatAmount } = orderData;
     const subtotal = orderData.subtotal || (totalAmount - shippingCost - (vatAmount || 0));
+    // Product prices already include VAT. Extract VAT from the total amount
     const vatRate = 0.15;
-    const calculatedVat = vatAmount || ((subtotal - (orderData.discountAmount || 0) + shippingCost) * vatRate);
+    const calculatedVat = vatAmount || (totalAmount * (vatRate / (1 + vatRate)));
     
     // Use production URL for links
     const baseUrl = process.env.NEXT_PUBLIC_URL || 
@@ -279,8 +280,9 @@ export class EmailService {
   private generateReceiptText(orderData: OrderEmailData, embossingOptionsMap: Record<number, string> = {}): string {
     const { customerInfo, items, orderId, totalAmount, shippingCost, paymentId, vatAmount } = orderData;
     const subtotal = orderData.subtotal || (totalAmount - shippingCost - (vatAmount || 0));
+    // Product prices already include VAT. Extract VAT from the total amount
     const vatRate = 0.15;
-    const calculatedVat = vatAmount || ((subtotal - (orderData.discountAmount || 0) + shippingCost) * vatRate);
+    const calculatedVat = vatAmount || (totalAmount * (vatRate / (1 + vatRate)));
 
     return `
 TAX INVOICE

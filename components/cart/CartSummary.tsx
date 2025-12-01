@@ -27,10 +27,13 @@ const CartSummary = ({ showCheckoutButton = true, onCheckout, customerEmail, onP
   // No shipping cost for test products, otherwise apply normal logic
   const shippingCost = hasTestProduct ? 0 : (cartTotal >= 1000 ? 0 : 150);
   const discountedSubtotal = cartTotal - appliedDiscount;
-  // VAT is 15% in South Africa, calculated on subtotal + shipping
+  // Product prices already include VAT. Calculate final total
+  const finalTotal = discountedSubtotal + shippingCost;
+  // Extract VAT from the final total for display purposes
+  // VAT = Total × (0.15 / 1.15) = Total × 0.130434...
   const vatRate = 0.15;
-  const vatAmount = (discountedSubtotal + shippingCost) * vatRate;
-  const total = discountedSubtotal + shippingCost + vatAmount;
+  const vatAmount = finalTotal * (vatRate / (1 + vatRate));
+  const total = finalTotal; // Total already includes VAT
 
   const handlePromoApplied = (code: string, discount: number, id?: number) => {
     setAppliedPromoCode(code);
@@ -137,7 +140,7 @@ const CartSummary = ({ showCheckoutButton = true, onCheckout, customerEmail, onP
       
       <div className="space-y-3 mb-4">
         <div className="flex justify-between">
-          <span className="text-neutral">Subtotal</span>
+          <span className="text-neutral">Subtotal (incl. VAT)</span>
           <span className="font-medium">R{cartTotal.toLocaleString()}</span>
         </div>
         
@@ -168,9 +171,10 @@ const CartSummary = ({ showCheckoutButton = true, onCheckout, customerEmail, onP
           </div>
         )}
         
-        <div className="flex justify-between">
-          <span className="text-neutral">VAT (15%)</span>
-          <span className="font-medium">R{vatAmount.toFixed(2)}</span>
+        <div className="pt-2 border-t border-gray-200">
+          <div className="flex justify-between text-xs text-neutral-light">
+            <span className="italic">VAT (15%): R{vatAmount.toFixed(2)} (included above)</span>
+          </div>
         </div>
       </div>
 

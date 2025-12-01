@@ -146,9 +146,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Send email
         try {
           // Calculate VAT for fallback order creation
+          // Product prices already include VAT. Extract VAT from the total amount
           const fallbackShippingCost = 0;
+          const fallbackTotalIncludingVat = order.totalAmount || (order.subtotal - (order.discountAmount || 0) + fallbackShippingCost);
           const fallbackVatRate = 0.15;
-          const fallbackVatAmount = (order.subtotal - (order.discountAmount || 0) + fallbackShippingCost) * fallbackVatRate;
+          const fallbackVatAmount = fallbackTotalIncludingVat * (fallbackVatRate / (1 + fallbackVatRate));
           
           const emailData = {
             customerInfo: customerInfo as any,
@@ -188,9 +190,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Shipping cost is typically 150 or 0 (free shipping over R1000)
       // We'll estimate or extract from metadata if available
       const shippingCost = (pendingCheckout as any).shippingCost || 0;
+      // Product prices already include VAT. Extract VAT from the total amount
+      const totalIncludingVat = totalAmount || ((subtotal || 0) - (discountAmount || 0) + shippingCost);
       const vatRate = 0.15;
-      // Calculate VAT: (subtotal - discount + shipping) * 0.15
-      const vatAmount = ((subtotal || totalAmount) - (discountAmount || 0) + shippingCost) * vatRate;
+      const vatAmount = (pendingCheckout as any).vatAmount || (totalIncludingVat * (vatRate / (1 + vatRate)));
 
       // Handle promo code tracking
       if (promoCodeUsed) {

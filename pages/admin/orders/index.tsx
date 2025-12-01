@@ -439,21 +439,30 @@ export default function OrdersPage() {
                                       <span className="font-semibold">-R{order.discountAmount.toLocaleString()}</span>
                                     </div>
                                   )}
-                                  {/* Calculate VAT: Since totalAmount includes VAT, we calculate it from the total */}
+                                  {(order.shippingCost !== null && order.shippingCost !== undefined) && (
+                                    <div className="flex justify-between">
+                                      <span className="text-botanical/70">Shipping:</span>
+                                      <span className="font-medium text-forest">
+                                        {order.shippingCost === 0 ? 'Free' : `R${(order.shippingCost / 100).toLocaleString()}`}
+                                      </span>
+                                    </div>
+                                  )}
+                                  {/* Calculate VAT: Product prices already include VAT. Extract VAT from the total */}
                                   {(() => {
+                                    // Use stored vatAmount if available, otherwise calculate from totalAmount
+                                    if (order.vatAmount !== null && order.vatAmount !== undefined) {
+                                      return (
+                                        <div className="flex justify-between">
+                                          <span className="text-botanical/70">VAT (15%):</span>
+                                          <span className="font-medium text-forest">R{(order.vatAmount / 100).toFixed(2)}</span>
+                                        </div>
+                                      );
+                                    }
+                                    // Fallback: Extract VAT from total amount
+                                    // VAT = Total × (0.15 / 1.15) = Total × 0.130434...
                                     const vatRate = 0.15;
-                                    // totalAmount = (subtotal - discount + shipping) * (1 + VAT rate)
-                                    // So: (subtotal - discount + shipping) = totalAmount / (1 + VAT rate)
-                                    // VAT = totalAmount - (subtotal - discount + shipping)
-                                    // VAT = totalAmount - (totalAmount / 1.15)
-                                    // VAT = totalAmount * (1 - 1/1.15) = totalAmount * 0.130434...
-                                    // But we need to account for shipping separately
-                                    // Better: Calculate from known values
-                                    const discountedSubtotal = (order.subtotal || order.totalAmount) - (order.discountAmount || 0);
-                                    // Estimate shipping: free if subtotal >= 1000, otherwise 150
-                                    const estimatedShipping = (order.subtotal || 0) >= 1000 ? 0 : 150;
-                                    // Calculate VAT: (subtotal - discount + shipping) * 0.15
-                                    const vatAmount = (discountedSubtotal + estimatedShipping) * vatRate;
+                                    const totalIncludingVat = (order.totalAmount || 0) / 100; // Convert from cents
+                                    const vatAmount = totalIncludingVat * (vatRate / (1 + vatRate));
                                     return (
                                       <div className="flex justify-between">
                                         <span className="text-botanical/70">VAT (15%):</span>

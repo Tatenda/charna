@@ -207,9 +207,11 @@ model Order {
   items        Json // Array of OrderItem objects
 
   // Pricing Breakdown
-  subtotal       Int // Original price before discount
+  subtotal       Int // Original price before discount (includes VAT)
   discountAmount Int @default(0) @map("discount_amount") // Discount in Rands
-  totalAmount    Int @map("total_amount") // Final amount after discount
+  shippingCost   Int @default(0) @map("shipping_cost") // Shipping cost in Rands
+  vatAmount      Int @default(0) @map("vat_amount") // VAT amount extracted from total (in Rands)
+  totalAmount    Int @map("total_amount") // Final amount after discount + shipping (includes VAT)
 
   // Promo Code
   promoCodeId   Int?       @map("promo_code_id")
