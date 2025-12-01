@@ -122,7 +122,7 @@ const Checkout = () => {
   // VAT = Total × (0.15 / 1.15) = Total × 0.130434...
   const totalIncludingVat = subtotal - discountAmount + shippingCost;
   const vatRate = 0.15;
-  const vatAmount = totalIncludingVat * (vatRate / (1 + vatRate));
+  const vatAmount = Math.round(totalIncludingVat * (vatRate / (1 + vatRate)));
   const totalAmount = totalIncludingVat; // Total already includes VAT
 
   const handlePromoChange = (data: { code: string; discount: number; promoCodeId?: number } | null) => {

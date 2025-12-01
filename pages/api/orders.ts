@@ -55,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // If vatAmount is provided in orderData, use it; otherwise calculate
     const totalIncludingVat = orderData.totalAmount || (subtotal - discountAmount + shippingCost);
     const vatRate = 0.15;
-    const vatAmount = orderData.vatAmount || (totalIncludingVat * (vatRate / (1 + vatRate)));
+    const vatAmount = Math.round(orderData.vatAmount || (totalIncludingVat * (vatRate / (1 + vatRate))));
 
     // If promo code was used, increment usage count and create usage log
     let promoCodeId = orderData.promoCodeId;

@@ -128,6 +128,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           postalCode: metadata.postalCode || ''
         };
         
+        // Calculate VAT for fallback order creation
+        // Product prices already include VAT. Extract VAT from the total amount
+        const fallbackShippingCost = 0;
+        const fallbackTotalIncludingVat = paymentData.amount / 100;
+        const fallbackVatRate = 0.15;
+        const fallbackVatAmount = Math.round(fallbackTotalIncludingVat * (fallbackVatRate / (1 + fallbackVatRate)));
+
         // Create order from webhook data
         const order = await prisma.order.create({
           data: {
@@ -135,6 +142,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             items,
             subtotal: paymentData.amount / 100, // Convert from cents
             discountAmount: 0, // Will be in metadata if promo was used
+            shippingCost: fallbackShippingCost,
+            vatAmount: fallbackVatAmount,
             totalAmount: paymentData.amount / 100,
             paymentId,
             status: 'completed',
@@ -145,12 +154,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // Send email
         try {
-          // Calculate VAT for fallback order creation
-          // Product prices already include VAT. Extract VAT from the total amount
-          const fallbackShippingCost = 0;
-          const fallbackTotalIncludingVat = order.totalAmount || (order.subtotal - (order.discountAmount || 0) + fallbackShippingCost);
-          const fallbackVatRate = 0.15;
-          const fallbackVatAmount = fallbackTotalIncludingVat * (fallbackVatRate / (1 + fallbackVatRate));
           
           const emailData = {
             customerInfo: customerInfo as any,
@@ -193,7 +196,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Product prices already include VAT. Extract VAT from the total amount
       const totalIncludingVat = totalAmount || ((subtotal || 0) - (discountAmount || 0) + shippingCost);
       const vatRate = 0.15;
-      const vatAmount = (pendingCheckout as any).vatAmount || (totalIncludingVat * (vatRate / (1 + vatRate)));
+      const vatAmount = Math.round((pendingCheckout as any).vatAmount || (totalIncludingVat * (vatRate / (1 + vatRate))));
 
       // Handle promo code tracking
       if (promoCodeUsed) {
@@ -235,6 +238,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           items,
           subtotal: subtotal || totalAmount,
           discountAmount: discountAmount || 0,
+          shippingCost: shippingCost,
+          vatAmount: vatAmount,
           totalAmount,
           promoCodeId,
           promoCodeUsed,
